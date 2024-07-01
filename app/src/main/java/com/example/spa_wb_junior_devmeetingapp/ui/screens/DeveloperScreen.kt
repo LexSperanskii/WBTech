@@ -112,10 +112,10 @@ fun DeveloperScreen() {
         "Junior",
         "Moscow"
     )
-    val mockList1 = MutableList(50) { R.drawable.pepa }
+    val mockList1 = MutableList(50) { R.drawable.avatar_pepa }
     mockList1.add(2, R.drawable.avatar_meeting)
     mockList1.add(4, R.drawable.avatar_community)
-    val mockList2 = MutableList(4) { R.drawable.pepa }
+    val mockList2 = MutableList(4) { R.drawable.avatar_pepa }
     Scaffold(
     ) { innerPadding ->
         LazyColumn(

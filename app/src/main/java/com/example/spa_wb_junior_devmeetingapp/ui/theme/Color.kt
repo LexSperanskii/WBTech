@@ -28,4 +28,6 @@ val GrayForTabs = Color(0xFF666666)
 val ExtraDarkPurpleForBottomBar = Color(0xFF29183B)
 val DeepBlueForBottomBar = Color(0xFF2E3A59)
 
+val DividerColor = Color(0xFFEDEDED)
+
 

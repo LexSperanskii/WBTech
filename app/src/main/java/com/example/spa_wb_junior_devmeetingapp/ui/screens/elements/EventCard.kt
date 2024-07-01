@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DividerColor
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForEventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
@@ -50,7 +51,7 @@ fun EventCard(
     place:String,
     listOfCategory: List<String>,
     painter: Painter = painterResource(id = R.drawable.avatar_meeting),
-    dividerColor: Color = DividerDefaults.color,
+    dividerColor: Color = DividerColor,
     dividerThickness: Dp = DividerDefaults.Thickness,
     modifier: Modifier = Modifier
 ) {

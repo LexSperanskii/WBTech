@@ -5,14 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,15 +50,15 @@ fun PersonAvatar(
     size: Dp,
     isEdit: Boolean,
     backgroundColor: Color = ExtraLightGray,
-    painter: Painter = painterResource(id = R.drawable.avatar_person),
+    painter: Painter = painterResource(id = R.drawable.icon_avatar_person),
     modifier: Modifier = Modifier
 ) {
 
     val iconScale = size.value / 100 // Коэффициент масштабирования
 
-    Box(modifier = modifier) {
+    Box(modifier = Modifier) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .size(size)
                 .clip(CircleShape)
                 .background(backgroundColor)
@@ -75,7 +73,7 @@ fun PersonAvatar(
         }
         if (isEdit) {
             Icon(
-                painter = painterResource(id = R.drawable.avatar_plus_sign),
+                painter = painterResource(id = R.drawable.icon_avatar_plus_sign),
                 contentDescription = "plus sign",
                 modifier = Modifier
                     .size(20.dp)

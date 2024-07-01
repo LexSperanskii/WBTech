@@ -7,9 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.ListOfMeetingsAllScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.MeetingsAllScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ListOfMeetingsUserScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
@@ -35,7 +33,7 @@ fun NavHost(
             modifier = modifier.padding(innerPadding)
         ) {
             composable(route = BottomNavItem.Meetings.route) {
-                ListOfMeetingsAllScreen()
+                MeetingsAllScreen()
             }
             composable(route = BottomNavItem.Communities.route) {
                 ListOfMeetingsUserScreen()

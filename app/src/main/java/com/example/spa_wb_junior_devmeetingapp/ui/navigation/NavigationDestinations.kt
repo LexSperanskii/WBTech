@@ -11,3 +11,13 @@ enum class BottomNavItem(
     Communities(route = "Сообщества", title = "Сообщества", icon = R.drawable.bottom_bar_icon_communities),
     Additional(route = "Еще",title = "Еще", icon = R.drawable.bottom_bar_icon_more)
 }
+
+enum class MeetingsAllTabs(val text: String){
+    AllMeetings(text = "ВСЕ ВСТРЕЧИ"),
+    Active(text = "АКТИВНЫЕ")
+}
+
+enum class MeetingsUserTabs(val text: String){
+    Planned(text = "ЗАПЛАНИРОВАНО"),
+    HasPassed(text = "УЖЕ ПРОШЛИ")
+}

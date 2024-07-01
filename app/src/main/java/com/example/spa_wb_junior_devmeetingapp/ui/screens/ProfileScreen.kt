@@ -5,15 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
@@ -27,65 +24,51 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
 
 enum class SocialMedia(val icon: Int) {
-    Twitter(R.drawable.twitter_lable),
-    Instagram(R.drawable.insta_lable),
-    LinkedIn(R.drawable.linkedin_lable),
-    Facebook(R.drawable.facebook_lable)
+    Twitter(R.drawable.label_twitter),
+    Instagram(R.drawable.label_instagram),
+    LinkedIn(R.drawable.label_linkedin),
+    Facebook(R.drawable.label_facebook)
 }
 
 @Composable
-fun ProfileScreen(
-    onClick: () -> Unit = {}
-) {
-    Scaffold(
-        bottomBar = {}
-    ) { innerPadding ->
-        LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(innerPadding).fillMaxWidth(),
+fun ProfileScreen() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        PersonAvatar(
+            size = 200.dp,
+            isEdit = false,
+            backgroundColor = ExtraLightGray,
+            painter = painterResource(id = R.drawable.icon_avatar_person),
+            modifier = Modifier. padding(top = 136.dp)
+        )
+        Text(
+            text = "Иван Иванов",
+            fontSize = MaterialTheme.typography.Heading2.fontSize,
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = SFProDisplay,
+            modifier = Modifier.padding(top = 20.dp)
+        )
+        Text(
+            text = "+7 999 999-99-99",
+            fontSize = MaterialTheme.typography.Subheading2.fontSize,
+            fontWeight = FontWeight.Normal,
+            fontFamily = SFProDisplay,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.padding(top = 40.dp)
         ) {
-            item {
-                PersonAvatar(
-                    size = 200.dp,
-                    isEdit = false,
-                    backgroundColor = ExtraLightGray,
-                    painter = painterResource(id = R.drawable.avatar_person),
-                    modifier = Modifier. padding(top = 136.dp)
+            for (socialMedia in SocialMedia.entries) {
+                CustomSocialMedeaButtonOutlined(
+                    onClick = {},
+                    modifier = Modifier,
+                    pressedColor = DarkPurple,
+                    contentColor = Purple,
+                    painter = painterResource(id = socialMedia.icon)
                 )
-            }
-            item {
-                Text(
-                    text = "Иван Иванов",
-                    fontSize = MaterialTheme.typography.Heading2.fontSize,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = SFProDisplay,
-                    modifier = Modifier.padding(top = 20.dp)
-                )
-            }
-            item {
-                Text(
-                    text = "+7 999 999-99-99",
-                    fontSize = MaterialTheme.typography.Subheading2.fontSize,
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = SFProDisplay,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
-            }
-            item {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier.padding(top = 40.dp)
-                ) {
-                    for (socialMedia in SocialMedia.entries) {
-                        CustomSocialMedeaButtonOutlined(
-                            onClick = onClick,
-                            modifier = Modifier,
-                            pressedColor = DarkPurple,
-                            contentColor = Purple,
-                            painter = painterResource(id = socialMedia.icon)
-                        )
-                    }
-                }
             }
         }
     }
