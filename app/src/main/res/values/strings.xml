@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SpA_WB_Junior_DevMeetingApp</string>
+    <string name="event_date_place">%1$s — %2$s</string>
+    <string name="number_of_people">+%s</string>
+    <plurals name="community_people_count">
+        <item quantity="zero">%s people</item>
+        <item quantity="one">%s man</item>
+        <item quantity="two">%s people</item>
+        <item quantity="few">%s people</item>
+        <item quantity="many">%s people</item>
+        <item quantity="other">%s people</item>
+    </plurals>
+</resources>
