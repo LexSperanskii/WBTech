@@ -31,6 +31,7 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DeepBlueForBottomBar
@@ -44,7 +45,7 @@ enum class BottomNavItem(
 ) {
     EVENTS(EventsAllDestination, R.string.events_all, R.drawable.bottom_bar_icon_meetings),
     COMMUNITY(CommunityDestination, R.string.community, R.drawable.bottom_bar_icon_communities),
-    MORE(ProfileDestination, R.string.more, R.drawable.bottom_bar_icon_more)
+    MORE(EventsUserDestination, R.string.more, R.drawable.bottom_bar_icon_more)
 }
 
 @Composable

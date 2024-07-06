@@ -123,9 +123,11 @@ fun EventsUserBody(
         ) { page ->
             when (page) {
                 0 -> Events(
-                    listOfMeetings = mockListOfEvents
+                    listOfMeetings = mockEventsListUserPlanned
                 )
-                1 -> Stab()
+                1 -> Events(
+                    listOfMeetings = mockEventsListUserPassed
+                )
             }
         }
     }

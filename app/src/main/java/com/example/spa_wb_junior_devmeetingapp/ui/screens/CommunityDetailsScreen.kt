@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,8 +36,9 @@ fun CommunityDetailsScreen(
 ) {
     //Если бы передавали простые значения через навигацию
 //    val itemId = navController.currentBackStackEntry?.arguments?.getInt(CommunityDetailsDestination.itemIdArg)
-
-    //Получааем пока не нужный аргумент из навигации
+    /**
+     * Получааем пока не нужный аргумент из навигации
+     */
     val ourCommunity = community
 
     Scaffold(
@@ -75,7 +74,6 @@ fun CommunityDetailsBody(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .heightIn(min = 0.dp, max = 270.dp)
-                .verticalScroll(rememberScrollState())
         )
         Text(
             text = stringResource(id = R.string.community_events),
@@ -86,7 +84,7 @@ fun CommunityDetailsBody(
             modifier = Modifier.padding(top = 30.dp, bottom = 16.dp)
         )
         Events(
-            listOfMeetings = mockListOfEvents
+            listOfMeetings = mockEventsListAll
         )
     }
 }

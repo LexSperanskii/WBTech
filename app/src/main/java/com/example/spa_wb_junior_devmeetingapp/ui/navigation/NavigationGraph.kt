@@ -1,6 +1,5 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -14,11 +13,12 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDetailsScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MockCommunityItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileScreen
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.net.URLDecoder
 import java.net.URLEncoder
 
@@ -72,8 +72,8 @@ fun NavHost(
              */
             CommunityDetailsScreen(navController, community)
         }
-        composable(route = ProfileDestination.route) {
-            ProfileScreen(navController)
+        composable(route = EventsUserDestination.route) {
+            EventsUserScreen(navController)
         }
     }
 }

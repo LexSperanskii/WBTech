@@ -133,9 +133,11 @@ fun EventsBody(
         ) { page ->
             when (page) {
                 0 -> Events(
-                    listOfMeetings = mockListOfEvents
+                    listOfMeetings = mockEventsListAll
                 )
-                1 -> Stab()
+                1 -> Events(
+                    listOfMeetings = mockEventsListActive
+                )
             }
         }
     }

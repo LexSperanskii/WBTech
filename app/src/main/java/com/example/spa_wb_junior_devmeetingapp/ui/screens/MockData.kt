@@ -20,9 +20,9 @@ data class MockCommunityItem(
 )
 
 const val eventIconURL = "https://i.pinimg.com/564x/9c/b1/64/9cb164c7777bcc08bda333504b6210bf.jpg"
-val mockListOfEvents = listOf(
+val mockEventsListAll = listOf(
     MockEventItem(
-        eventName = "Имя события",
+        eventName = "Все встречи",
         eventStatus = EventStatus.NONE,
         eventDate = "13.09.2024",
         eventPlace = "Петрозаводск",
@@ -30,7 +30,7 @@ val mockListOfEvents = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Имя события",
+        eventName = "Все встречи",
         eventStatus = EventStatus.FINISHED,
         eventDate = "14.09.2024",
         eventPlace = "Майкоп",
@@ -38,7 +38,7 @@ val mockListOfEvents = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Имя события",
+        eventName = "Все встречи",
         eventStatus = EventStatus.NONE,
         eventDate = "15.09.2024",
         eventPlace = "Владивосток",
@@ -46,7 +46,7 @@ val mockListOfEvents = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Имя события",
+        eventName = "Все встречи",
         eventStatus = EventStatus.FINISHED,
         eventDate = "16.09.2024",
         eventPlace = "Краснодар",
@@ -54,7 +54,7 @@ val mockListOfEvents = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Имя события",
+        eventName = "Все встречи",
         eventStatus = EventStatus.FINISHED,
         eventDate = "17.09.2024",
         eventPlace = "Рязань",
@@ -62,7 +62,7 @@ val mockListOfEvents = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Имя события",
+        eventName = "Все встречи",
         eventStatus = EventStatus.NONE,
         eventDate = "18.09.2024",
         eventPlace = "Сочи",
@@ -70,7 +70,7 @@ val mockListOfEvents = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Имя события",
+        eventName = "Все встречи",
         eventStatus = EventStatus.FINISHED,
         eventDate = "19.09.2024",
         eventPlace = "Санкт-Петербург",
@@ -78,7 +78,7 @@ val mockListOfEvents = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Имя события",
+        eventName = "Все встречи",
         eventStatus = EventStatus.NONE,
         eventDate = "20.09.2024",
         eventPlace = "Москва",
@@ -86,10 +86,160 @@ val mockListOfEvents = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Имя события",
+        eventName = "Все встречи",
         eventStatus = EventStatus.FINISHED,
         eventDate = "21.09.2024",
         eventPlace = "Казань",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    )
+)
+val mockEventsListActive = listOf(
+    MockEventItem(
+        eventName = "Все встречи Активные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "13.09.2024",
+        eventPlace = "Петрозаводск",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Активные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "14.09.2024",
+        eventPlace = "Майкоп",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Активные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "15.09.2024",
+        eventPlace = "Владивосток",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Активные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "16.09.2024",
+        eventPlace = "Краснодар",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    )
+)
+val mockEventsListUserPlanned = listOf(
+    MockEventItem(
+        eventName = "Все встречи Запланированные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "13.09.2024",
+        eventPlace = "Петрозаводск",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "14.09.2024",
+        eventPlace = "Майкоп",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "15.09.2024",
+        eventPlace = "Владивосток",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "16.09.2024",
+        eventPlace = "Краснодар",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "17.09.2024",
+        eventPlace = "Рязань",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "18.09.2024",
+        eventPlace = "Сочи",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "19.09.2024",
+        eventPlace = "Санкт-Петербург",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "20.09.2024",
+        eventPlace = "Москва",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные",
+        eventStatus = EventStatus.NONE,
+        eventDate = "21.09.2024",
+        eventPlace = "Казань",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    )
+)
+val mockEventsListUserPassed = listOf(
+    MockEventItem(
+        eventName = "Все встречи Запланированные Прошедшие",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = "13.09.2024",
+        eventPlace = "Петрозаводск",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные Прошедшие",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = "14.09.2024",
+        eventPlace = "Майкоп",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные Прошедшие",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = "15.09.2024",
+        eventPlace = "Владивосток",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные Прошедшие",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = "16.09.2024",
+        eventPlace = "Краснодар",
+        eventCategory = listOf("Python", "Junior", "Moscow"),
+        eventIconURL = eventIconURL
+    ),
+    MockEventItem(
+        eventName = "Все встречи Запланированные Прошедшие",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = "17.09.2024",
+        eventPlace = "Рязань",
         eventCategory = listOf("Python", "Junior", "Moscow"),
         eventIconURL = eventIconURL
     )

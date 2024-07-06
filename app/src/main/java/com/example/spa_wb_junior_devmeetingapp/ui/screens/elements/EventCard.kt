@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -82,24 +83,29 @@ fun EventCard(
                             .size(48.dp),
                     )
                 }
-                Column {
+                Column(modifier = Modifier.weight(1f)) {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 2.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 2.dp)
                     ) {
                         Text(
                             text = eventName,
                             fontSize = MaterialTheme.typography.BodyText1.fontSize,
                             fontWeight = FontWeight.SemiBold,
                             fontFamily = SFProDisplay,
-                            modifier = Modifier.align(Alignment.CenterVertically)
+                            modifier = Modifier
+                                .align(Alignment.CenterVertically)
+                                .weight(1f)
                         )
                         Text(
                             text = eventStatus,
                             fontSize = MaterialTheme.typography.Metadata2.fontSize,
                             fontWeight = FontWeight.Normal,
                             fontFamily = SFProDisplay,
-                            color = LightDarkGray
+                            color = LightDarkGray,
+                            modifier = Modifier.padding(start = 8.dp)
                             )
                     }
                     Text(
