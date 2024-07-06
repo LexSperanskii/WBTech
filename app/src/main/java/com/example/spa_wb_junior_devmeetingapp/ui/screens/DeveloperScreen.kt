@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.AvatarColumn
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
@@ -47,6 +48,11 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SpA_WB_Junior_DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+
+object DeveloperDestination : NavigationDestination {
+    override val route = "developer"
+    override val title = R.string.developer
+}
 
 @Composable
 fun DeveloperScreen() {
@@ -308,6 +314,7 @@ fun DeveloperScreen() {
                     communityName = "Designa",
                     communitySize = 1000000,
                     communityIconURL = "",
+                    onCommunityItemClick = {},
                     modifier = Modifier
                 )
             }
@@ -316,6 +323,7 @@ fun DeveloperScreen() {
                     communityName = "Designa",
                     communitySize = 1,
                     communityIconURL = "",
+                    onCommunityItemClick = {},
                     modifier = Modifier
                 )
             }

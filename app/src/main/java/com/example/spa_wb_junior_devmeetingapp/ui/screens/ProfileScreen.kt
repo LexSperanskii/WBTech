@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomSocialMedeaButtonOutlined
@@ -25,6 +26,11 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+
+object ProfileDestination : NavigationDestination {
+    override val route = "profile"
+    override val title = R.string.profile
+}
 
 enum class SocialMedia(val icon: Int) {
     Twitter(R.drawable.label_twitter),
@@ -44,44 +50,55 @@ fun ProfileScreen(
             )
         }
     ) { innerPadding ->
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(innerPadding).fillMaxWidth(),
+        ProfileBody(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+fun ProfileBody(
+    modifier: Modifier = Modifier
+){
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+    ) {
+        PersonAvatar(
+            size = 200.dp,
+            isEdit = false,
+            backgroundColor = ExtraLightGray,
+            painter = painterResource(id = R.drawable.icon_avatar_person),
+            modifier = Modifier. padding(top = 136.dp)
+        )
+        Text(
+            text = "Иван Иванов",
+            fontSize = MaterialTheme.typography.Heading2.fontSize,
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = SFProDisplay,
+            modifier = Modifier.padding(top = 20.dp)
+        )
+        Text(
+            text = "+7 999 999-99-99",
+            fontSize = MaterialTheme.typography.Subheading2.fontSize,
+            fontWeight = FontWeight.Normal,
+            fontFamily = SFProDisplay,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.padding(top = 40.dp)
         ) {
-            PersonAvatar(
-                size = 200.dp,
-                isEdit = false,
-                backgroundColor = ExtraLightGray,
-                painter = painterResource(id = R.drawable.icon_avatar_person),
-                modifier = Modifier. padding(top = 136.dp)
-            )
-            Text(
-                text = "Иван Иванов",
-                fontSize = MaterialTheme.typography.Heading2.fontSize,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = SFProDisplay,
-                modifier = Modifier.padding(top = 20.dp)
-            )
-            Text(
-                text = "+7 999 999-99-99",
-                fontSize = MaterialTheme.typography.Subheading2.fontSize,
-                fontWeight = FontWeight.Normal,
-                fontFamily = SFProDisplay,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.padding(top = 40.dp)
-            ) {
-                for (socialMedia in SocialMedia.entries) {
-                    CustomSocialMedeaButtonOutlined(
-                        onClick = {},
-                        modifier = Modifier,
-                        pressedColor = DarkPurple,
-                        contentColor = Purple,
-                        painter = painterResource(id = socialMedia.icon)
-                    )
-                }
+            for (socialMedia in SocialMedia.entries) {
+                CustomSocialMedeaButtonOutlined(
+                    onClick = {},
+                    modifier = Modifier,
+                    pressedColor = DarkPurple,
+                    contentColor = Purple,
+                    painter = painterResource(id = socialMedia.icon)
+                )
             }
         }
     }

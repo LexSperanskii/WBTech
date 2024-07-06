@@ -4,6 +4,14 @@
     <string name="number_of_people">+%s</string>
     <string name="event_icon">Event Icon</string>
     <string name="community_icon">Community Icon</string>
+    <string name="community_events">Community events</string>
+    <string name="profile">Profile</string>
+    <string name="events_user">My events</string>
+    <string name="events_all">Events</string>
+    <string name="developer">Developer Screen</string>
+    <string name="community">Community</string>
+    <string name="community_details">Community details</string>
+    <string name="more">More</string>
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>
         <item quantity="one">%s man</item>

@@ -1,5 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -42,6 +42,7 @@ fun CommunityCard(
     communityName: String,
     communitySize: Int,
     communityIconURL: String,
+    onCommunityItemClick : () -> Unit,
     dividerColor: Color = DividerColor,
     dividerThickness: Dp = DividerDefaults.Thickness,
     modifier: Modifier = Modifier
@@ -56,6 +57,7 @@ fun CommunityCard(
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
+            .clickable{onCommunityItemClick}
     ) {
         Column {
             Row (

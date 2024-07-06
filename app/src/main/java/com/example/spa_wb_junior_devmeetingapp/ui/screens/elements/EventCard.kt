@@ -1,6 +1,5 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -40,7 +38,7 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DividerColor
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForEventCard
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightDarkGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata2
@@ -101,7 +99,7 @@ fun EventCard(
                             fontSize = MaterialTheme.typography.Metadata2.fontSize,
                             fontWeight = FontWeight.Normal,
                             fontFamily = SFProDisplay,
-                            color = GrayForEventCard
+                            color = LightDarkGray
                             )
                     }
                     Text(
@@ -109,7 +107,7 @@ fun EventCard(
                         fontSize = MaterialTheme.typography.Metadata1.fontSize,
                         fontWeight = FontWeight.Normal,
                         fontFamily = SFProDisplay,
-                        color = GrayForEventCard,
+                        color = LightDarkGray,
                         modifier = Modifier.padding(bottom = 2.dp)
                     )
                     LazyRow(

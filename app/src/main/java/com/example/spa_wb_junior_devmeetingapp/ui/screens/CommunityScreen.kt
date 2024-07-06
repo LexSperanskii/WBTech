@@ -11,14 +11,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
+
+object CommunityDestination : NavigationDestination {
+    override val route = "community"
+    override val title = R.string.community
+}
 
 @Composable
 fun CommunityScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    navigateToCommunityDetailItem: (MockCommunityItem) -> Unit
 ){
     Scaffold(
         bottomBar = {
@@ -27,7 +34,9 @@ fun CommunityScreen(
             )
         }
     ) { innerPadding ->
-        Column(
+        CommunityBody(
+            listOfCommunities = mockListOfCommunities,
+            onCommunityItemClick = {navigateToCommunityDetailItem(it)},
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -36,31 +45,34 @@ fun CommunityScreen(
                     end = 24.dp,
                     top = 16.dp
                 )
-        ) {
-            MySearchBar(
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-            CommunityBody(
-                listOfCommunities = mockListOfCommunities
-            )
-        }
+        )
     }
 }
 
 @Composable
 fun CommunityBody(
-    listOfCommunities: List<MockCommunity>
+    listOfCommunities: List<MockCommunityItem>,
+    onCommunityItemClick: (MockCommunityItem) -> Unit,
+    modifier: Modifier = Modifier
 ){
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier
+    Column(
+        modifier = modifier
     ) {
-        items (listOfCommunities){ community ->
-            CommunityCard(
-                communityName = community.communityName ,
-                communitySize = community.communitySize,
-                communityIconURL = community.communityIconURL,
-            )
+        MySearchBar(
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+        ) {
+            items (listOfCommunities){ communityItem ->
+                CommunityCard(
+                    communityName = communityItem.communityName,
+                    communitySize = communityItem.communitySize,
+                    communityIconURL = communityItem.communityIconURL,
+                    onCommunityItemClick = {onCommunityItemClick(communityItem)}
+                )
+            }
         }
     }
 }

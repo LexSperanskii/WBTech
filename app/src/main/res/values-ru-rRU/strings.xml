@@ -5,6 +5,14 @@
     <string name="number_of_people">+%s</string>
     <string name="event_icon">Иконка мероприятния</string>
     <string name="community_icon">Иконка сообщества</string>
+    <string name="community_events">Встречи сообщества</string>
+    <string name="profile">Профиль</string>
+    <string name="events_user">Мои встречи</string>
+    <string name="events_all">Встречи</string>
+    <string name="developer">Экран разработчика</string>
+    <string name="community">Сообщества</string>
+    <string name="community_details">Детали сообщества</string>
+    <string name="more">Еще</string>
     <plurals name="community_people_count">
         <item quantity="one">%s человек</item>
         <item quantity="few">%s человека</item>

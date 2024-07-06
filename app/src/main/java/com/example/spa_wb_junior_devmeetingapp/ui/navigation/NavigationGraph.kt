@@ -5,8 +5,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDetailsDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileScreen
 
 /**
@@ -18,16 +22,21 @@ fun NavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = BottomNavItem.Meetings.route,
+        startDestination = EventsAllDestination.route,
         modifier = Modifier
     ) {
-        composable(route = BottomNavItem.Meetings.route) {
+        composable(route = EventsAllDestination.route) {
             EventsAllScreen(navController)
         }
-        composable(route = BottomNavItem.Communities.route) {
-            CommunityScreen(navController)
+        composable(route = CommunityDestination.route) {
+            CommunityScreen(
+                navController = navController,
+                navigateToCommunityDetailItem = {
+                    navController.navigate("${CommunityDetailsDestination.route}/${it}")
+                }
+            )
         }
-        composable(route = BottomNavItem.Additional.route) {
+        composable(route = ProfileDestination.route) {
             ProfileScreen(navController)
         }
     }
