@@ -1,6 +1,5 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -284,35 +283,39 @@ fun DeveloperScreen() {
             }
             item {
                 EventCard(
-                    nameOfMeeting = "Developer Meeting",
-                    statusOfMeeting = "Закончилась",
-                    date = "13.09.2024",
-                    place = "Москва",
-                    listOfCategory = listOf("Python", "Junior", "Moscow"),
+                    eventName = "Developer Meeting",
+                    eventStatus = "Закончилась",
+                    eventDate = "13.09.2024",
+                    eventPlace = "Москва",
+                    eventCategories = listOf("Python", "Junior", "Moscow"),
+                    eventIconURL = "",
                     modifier = Modifier
                 )
             }
             item {
                 EventCard(
-                    nameOfMeeting = "Developer Meeting",
-                    statusOfMeeting = "",
-                    date = "14.09.2024",
-                    place = "Москва",
-                    listOfCategory = listOf("Python", "Junior", "Moscow"),
+                    eventName = "Developer Meeting",
+                    eventStatus = "",
+                    eventDate = "14.09.2024",
+                    eventPlace = "Москва",
+                    eventCategories = listOf("Python", "Junior", "Moscow"),
+                    eventIconURL = "",
                     modifier = Modifier
                 )
             }
             item {
                 CommunityCard(
-                    nameOfCommunity = "Designa",
-                    sizeOfCommunity = 1000000,
+                    communityName = "Designa",
+                    communitySize = 1000000,
+                    communityIconURL = "",
                     modifier = Modifier
                 )
             }
             item {
                 CommunityCard(
-                    nameOfCommunity = "Designa",
-                    sizeOfCommunity = 1,
+                    communityName = "Designa",
+                    communitySize = 1,
+                    communityIconURL = "",
                     modifier = Modifier
                 )
             }

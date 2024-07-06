@@ -2,6 +2,8 @@
     <string name="app_name">SpA_WB_Junior_DevMeetingApp</string>
     <string name="event_date_place">%1$s — %2$s</string>
     <string name="number_of_people">+%s</string>
+    <string name="event_icon">Event Icon</string>
+    <string name="community_icon">Community Icon</string>
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>
         <item quantity="one">%s man</item>

@@ -12,12 +12,12 @@ enum class BottomNavItem(
     Additional(route = "Еще",title = "Еще", icon = R.drawable.bottom_bar_icon_more)
 }
 
-enum class MeetingsAllTabs(val text: String){
+enum class EventsAllTabs(val text: String){
     AllMeetings(text = "ВСЕ ВСТРЕЧИ"),
     Active(text = "АКТИВНЫЕ")
 }
 
-enum class MeetingsUserTabs(val text: String){
+enum class EventsUserTabs(val text: String){
     Planned(text = "ЗАПЛАНИРОВАНО"),
     HasPassed(text = "УЖЕ ПРОШЛИ")
 }
