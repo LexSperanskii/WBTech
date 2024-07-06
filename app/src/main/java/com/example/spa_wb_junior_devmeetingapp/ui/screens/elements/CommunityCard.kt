@@ -57,7 +57,7 @@ fun CommunityCard(
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
-            .clickable{onCommunityItemClick}
+            .clickable { onCommunityItemClick() }
     ) {
         Column {
             Row (

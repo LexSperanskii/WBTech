@@ -33,8 +33,15 @@ object CommunityDetailsDestination : NavigationDestination {
 
 @Composable
 fun CommunityDetailsScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    community: MockCommunityItem
 ) {
+    //Если бы передавали простые значения через навигацию
+//    val itemId = navController.currentBackStackEntry?.arguments?.getInt(CommunityDetailsDestination.itemIdArg)
+
+    //Получааем пока не нужный аргумент из навигации
+    val ourCommunity = community
+
     Scaffold(
         bottomBar = {
             BottomNavigationBar(navController = navController)

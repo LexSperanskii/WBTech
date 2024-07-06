@@ -72,4 +72,8 @@ dependencies {
     //  Coil for image loading
     implementation("io.coil-kt:coil-compose:2.6.0")
 
+    //для сериализации чтобы передать объект из одного экрана в другой
+    implementation ("com.google.code.gson:gson:2.10.1")
+
+
 }

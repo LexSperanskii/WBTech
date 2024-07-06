@@ -36,7 +36,7 @@ fun CommunityScreen(
     ) { innerPadding ->
         CommunityBody(
             listOfCommunities = mockListOfCommunities,
-            onCommunityItemClick = {navigateToCommunityDetailItem(it)},
+            onCommunityItemClick = { navigateToCommunityDetailItem(it) },
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -70,7 +70,7 @@ fun CommunityBody(
                     communityName = communityItem.communityName,
                     communitySize = communityItem.communitySize,
                     communityIconURL = communityItem.communityIconURL,
-                    onCommunityItemClick = {onCommunityItemClick(communityItem)}
+                    onCommunityItemClick = { onCommunityItemClick(communityItem) }
                 )
             }
         }
