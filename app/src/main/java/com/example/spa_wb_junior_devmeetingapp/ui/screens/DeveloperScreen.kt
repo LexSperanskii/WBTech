@@ -1,12 +1,13 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens
 
-
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -17,11 +18,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.AvatarColumn
+import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
@@ -48,6 +51,11 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SpA_WB_Junior_DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+
+object DeveloperDestination : NavigationDestination {
+    override val route = "developer"
+    override val title = R.string.developer
+}
 
 @Composable
 fun DeveloperScreen() {
@@ -112,10 +120,7 @@ fun DeveloperScreen() {
         "Junior",
         "Moscow"
     )
-    val mockList1 = MutableList(50) { R.drawable.avatar_pepa }
-    mockList1.add(2, R.drawable.avatar_meeting)
-    mockList1.add(4, R.drawable.avatar_community)
-    val mockList2 = MutableList(4) { R.drawable.avatar_pepa }
+
     Scaffold(
     ) { innerPadding ->
         LazyColumn(
@@ -267,7 +272,23 @@ fun DeveloperScreen() {
                 }
             }
             item {
-                AvatarColumn(modifier = Modifier)
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    PersonAvatar(
+                        size = 200.dp,
+                        isEdit = false
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.avatar_meeting),
+                        contentDescription = "avatar meeting",
+                        modifier = Modifier.size(48.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
             item {
                 MySearchBar(modifier = Modifier)
@@ -284,47 +305,55 @@ fun DeveloperScreen() {
             }
             item {
                 EventCard(
-                    nameOfMeeting = "Developer Meeting",
-                    statusOfMeeting = "Закончилась",
-                    date = "13.09.2024",
-                    place = "Москва",
-                    listOfCategory = listOf("Python", "Junior", "Moscow"),
+                    eventName = "Developer Meeting",
+                    eventStatus = "Закончилась",
+                    eventDate = "13.09.2024",
+                    eventPlace = "Москва",
+                    eventCategories = listOf("Python", "Junior", "Moscow"),
+                    eventIconURL = "",
+                    onEventItemClick = {},
                     modifier = Modifier
                 )
             }
             item {
                 EventCard(
-                    nameOfMeeting = "Developer Meeting",
-                    statusOfMeeting = "",
-                    date = "14.09.2024",
-                    place = "Москва",
-                    listOfCategory = listOf("Python", "Junior", "Moscow"),
+                    eventName = "Developer Meeting",
+                    eventStatus = "",
+                    eventDate = "14.09.2024",
+                    eventPlace = "Москва",
+                    eventCategories = listOf("Python", "Junior", "Moscow"),
+                    eventIconURL = "",
+                    onEventItemClick = {},
                     modifier = Modifier
                 )
             }
             item {
                 CommunityCard(
-                    nameOfCommunity = "Designa",
-                    sizeOfCommunity = 1000000,
+                    communityName = "Designa",
+                    communitySize = 1000000,
+                    communityIconURL = "",
+                    onCommunityItemClick = {},
                     modifier = Modifier
                 )
             }
             item {
                 CommunityCard(
-                    nameOfCommunity = "Designa",
-                    sizeOfCommunity = 1,
+                    communityName = "Designa",
+                    communitySize = 1,
+                    communityIconURL = "",
+                    onCommunityItemClick = {},
                     modifier = Modifier
                 )
             }
             item {
                 OverlappingPeopleRow(
-                    accountsList = mockList1,
+                    accountsIconsURLList = mockAccountsIconsURLList1,
                     modifier = Modifier
                 )
             }
             item {
                 OverlappingPeopleRow(
-                    accountsList = mockList2,
+                    accountsIconsURLList = mockAccountsIconsURLList2,
                     modifier = Modifier
                 )
             }

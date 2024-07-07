@@ -6,6 +6,7 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -15,7 +16,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
 
 @Composable
 fun CustomButton(
@@ -26,7 +34,10 @@ fun CustomButton(
     contentColor: Color = Color.White,
     text: String = "Button",
     enabled: Boolean = true,
-    shape: Shape = RoundedCornerShape(30.dp)
+    shape: Shape = RoundedCornerShape(30.dp),
+    fontSize: TextUnit = MaterialTheme.typography.Subheading2.fontSize,
+    fontWeight: FontWeight = FontWeight.SemiBold,
+    fontFamily: FontFamily = SFProDisplay
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -44,7 +55,12 @@ fun CustomButton(
         ),
         interactionSource = interactionSource
     ) {
-        Text(text = text)
+        Text(
+            text = text,
+            fontSize = fontSize,
+            fontWeight = fontWeight,
+            fontFamily = fontFamily
+        )
     }
 }
 

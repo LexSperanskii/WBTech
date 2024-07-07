@@ -21,7 +21,7 @@ val LightPurple = Color(0xFFF5ECFF)
 val ExtraLightGray = Color(0xFFF7F7FC)
 
 val Gray = Color(0xFFADB5BD)
-val GrayForEventCard = Color(0xFFA4A4A4)
+val LightDarkGray = Color(0xFFA4A4A4)
 val GrayForCommunityCard = Color(0xFFADB5BD)
 val PurpleForGroupedPeople = Color(0xFFD2D5F9)
 val GrayForTabs = Color(0xFF666666)
