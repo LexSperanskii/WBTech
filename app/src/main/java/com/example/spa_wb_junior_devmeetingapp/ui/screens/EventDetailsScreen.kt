@@ -2,6 +2,8 @@ package com.example.spa_wb_junior_devmeetingapp.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +16,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -53,6 +57,7 @@ object EventDetailsDestination : NavigationDestination {
 @Composable
 fun EventDetailsScreen(
     navController: NavHostController,
+    navigateToFullScreenMap : () -> Unit,
     event: MockEventItem
 ) {
     Scaffold(
@@ -65,11 +70,12 @@ fun EventDetailsScreen(
             event = event,
             accountsIconsURLList = mockAccountsIconsURLList1,
             onButtonClick = {},
+            onMapClick = navigateToFullScreenMap,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
                 .padding(
-                    start = 24.dp, end = 24.dp, top = 16.dp, bottom = 0.dp
+                    start = 24.dp, end = 24.dp, top = 16.dp, bottom = 20.dp
                 )
         )
     }
@@ -80,10 +86,11 @@ fun EventDetailsBody(
     event : MockEventItem,
     accountsIconsURLList: List<String>,
     onButtonClick : ()-> Unit,
+    onMapClick : ()-> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         Text(
             text = stringResource(id = R.string.event_date_place,event.eventDate,event.eventPlace),
@@ -121,7 +128,8 @@ fun EventDetailsBody(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(2f)// Соотношение сторон 2:1 (ширина в два раза больше высоты)
-                .clip(RoundedCornerShape(24.dp)),
+                .clip(RoundedCornerShape(24.dp))
+                .clickable { onMapClick() },
             contentScale = ContentScale.Crop
         )
         Text(

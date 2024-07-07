@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDestination
@@ -47,6 +48,7 @@ enum class BottomNavItem(
     COMMUNITY(CommunityDestination, R.string.community, R.drawable.bottom_bar_icon_communities),
     MORE(EventsUserDestination, R.string.more, R.drawable.bottom_bar_icon_more)
 }
+val list = listOf(EventsAllDestination.route, CommunityDestination.route, EventsUserDestination.route)
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -59,8 +61,15 @@ fun BottomNavigationBar(navController: NavController) {
 
             val isSelected = navController.currentDestination?.route == tabBarItem.destination.route
 
+//            lateinit var lastDestination : BottomNavItem
+//            var isSelected2 = false
+//            if (isSelected) lastDestination = tabBarItem
+//            if (navController.currentDestination?.route !in list){
+//                isSelected2 = lastDestination == tabBarItem
+//            }
+
             NavigationBarItem(
-                selected = isSelected,
+                selected = isSelected, // || isSelected2,
                 onClick = {
                     navController.navigate(tabBarItem.destination.route) {
                         // Pop up to the start destination of the graph to
@@ -76,7 +85,7 @@ fun BottomNavigationBar(navController: NavController) {
                     }
                 },
                 icon = {
-                    if (isSelected){
+                    if (isSelected){ //|| isSelected2
                         Column(
                             verticalArrangement = Arrangement.spacedBy(4.dp),
                             horizontalAlignment = Alignment.CenterHorizontally

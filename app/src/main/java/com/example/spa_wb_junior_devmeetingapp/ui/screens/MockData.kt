@@ -130,7 +130,7 @@ val mockEventsListActive = listOf(
 )
 val mockEventsListUserPlanned = listOf(
     MockEventItem(
-        eventName = "Все встречи Запланированные",
+        eventName = "Мои встречи Запланированные",
         eventStatus = EventStatus.NONE,
         eventDate = "13.09.2024",
         eventPlace = "Петрозаводск",
@@ -138,7 +138,7 @@ val mockEventsListUserPlanned = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные",
+        eventName = "Мои встречи Запланированные",
         eventStatus = EventStatus.NONE,
         eventDate = "14.09.2024",
         eventPlace = "Майкоп",
@@ -146,7 +146,7 @@ val mockEventsListUserPlanned = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные",
+        eventName = "Мои встречи Запланированные",
         eventStatus = EventStatus.NONE,
         eventDate = "15.09.2024",
         eventPlace = "Владивосток",
@@ -154,7 +154,7 @@ val mockEventsListUserPlanned = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные",
+        eventName = "Мои встречи Запланированные",
         eventStatus = EventStatus.NONE,
         eventDate = "16.09.2024",
         eventPlace = "Краснодар",
@@ -162,7 +162,7 @@ val mockEventsListUserPlanned = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные",
+        eventName = "Мои встречи Запланированные",
         eventStatus = EventStatus.NONE,
         eventDate = "17.09.2024",
         eventPlace = "Рязань",
@@ -170,7 +170,7 @@ val mockEventsListUserPlanned = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные",
+        eventName = "Мои встречи Запланированные",
         eventStatus = EventStatus.NONE,
         eventDate = "18.09.2024",
         eventPlace = "Сочи",
@@ -178,7 +178,7 @@ val mockEventsListUserPlanned = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные",
+        eventName = "Мои встречи Запланированные",
         eventStatus = EventStatus.NONE,
         eventDate = "19.09.2024",
         eventPlace = "Санкт-Петербург",
@@ -186,7 +186,7 @@ val mockEventsListUserPlanned = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные",
+        eventName = "Мои встречи Запланированные",
         eventStatus = EventStatus.NONE,
         eventDate = "20.09.2024",
         eventPlace = "Москва",
@@ -194,7 +194,7 @@ val mockEventsListUserPlanned = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные",
+        eventName = "Мои встречи Запланированные",
         eventStatus = EventStatus.NONE,
         eventDate = "21.09.2024",
         eventPlace = "Казань",
@@ -204,7 +204,7 @@ val mockEventsListUserPlanned = listOf(
 )
 val mockEventsListUserPassed = listOf(
     MockEventItem(
-        eventName = "Все встречи Запланированные Прошедшие",
+        eventName = "Мои встречи Запланированные Прошедшие",
         eventStatus = EventStatus.FINISHED,
         eventDate = "13.09.2024",
         eventPlace = "Петрозаводск",
@@ -212,7 +212,7 @@ val mockEventsListUserPassed = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные Прошедшие",
+        eventName = "Мои встречи Запланированные Прошедшие",
         eventStatus = EventStatus.FINISHED,
         eventDate = "14.09.2024",
         eventPlace = "Майкоп",
@@ -220,7 +220,7 @@ val mockEventsListUserPassed = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные Прошедшие",
+        eventName = "Мои встречи Запланированные Прошедшие",
         eventStatus = EventStatus.FINISHED,
         eventDate = "15.09.2024",
         eventPlace = "Владивосток",
@@ -228,7 +228,7 @@ val mockEventsListUserPassed = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные Прошедшие",
+        eventName = "Мои встречи Запланированные Прошедшие",
         eventStatus = EventStatus.FINISHED,
         eventDate = "16.09.2024",
         eventPlace = "Краснодар",
@@ -236,7 +236,7 @@ val mockEventsListUserPassed = listOf(
         eventIconURL = eventIconURL
     ),
     MockEventItem(
-        eventName = "Все встречи Запланированные Прошедшие",
+        eventName = "Мои встречи Запланированные Прошедшие",
         eventStatus = EventStatus.FINISHED,
         eventDate = "17.09.2024",
         eventPlace = "Рязань",
