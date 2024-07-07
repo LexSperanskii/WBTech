@@ -61,13 +61,6 @@ fun BottomNavigationBar(navController: NavController) {
 
             val isSelected = navController.currentDestination?.route == tabBarItem.destination.route
 
-//            lateinit var lastDestination : BottomNavItem
-//            var isSelected2 = false
-//            if (isSelected) lastDestination = tabBarItem
-//            if (navController.currentDestination?.route !in list){
-//                isSelected2 = lastDestination == tabBarItem
-//            }
-
             NavigationBarItem(
                 selected = isSelected, // || isSelected2,
                 onClick = {

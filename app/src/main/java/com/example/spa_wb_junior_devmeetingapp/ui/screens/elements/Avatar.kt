@@ -1,16 +1,10 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,14 +23,13 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.PurpleForGroupedPeople
 
 @Composable
 fun PersonAvatar(
     size: Dp,
     isEdit: Boolean,
     imageURL : String = "",
-    painter: Painter = painterResource(id = R.drawable.icon_avatar_person),
+    defaultIcon: Painter = painterResource(id = R.drawable.icon_avatar_person),
     backgroundColor: Color = ExtraLightGray,
     modifier: Modifier = Modifier
 ) {
@@ -50,7 +43,7 @@ fun PersonAvatar(
                 .clip(CircleShape)
                 .background(backgroundColor)
         ) {
-            if (imageURL == ""){
+            if (imageURL != ""){
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
                         .data(imageURL)
@@ -67,7 +60,7 @@ fun PersonAvatar(
                 )
             } else {
                 Icon(
-                    painter = painter,
+                    painter = defaultIcon,
                     contentDescription = "avatar person",
                     modifier = Modifier
                         .align(Alignment.Center)

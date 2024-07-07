@@ -69,8 +69,6 @@ fun ProfileBody(
         PersonAvatar(
             size = 200.dp,
             isEdit = false,
-            backgroundColor = ExtraLightGray,
-            painter = painterResource(id = R.drawable.icon_avatar_person),
             modifier = Modifier. padding(top = 136.dp)
         )
         Text(
