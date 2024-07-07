@@ -48,8 +48,6 @@ enum class BottomNavItem(
     COMMUNITY(CommunityDestination, R.string.community, R.drawable.bottom_bar_icon_communities),
     MORE(EventsUserDestination, R.string.more, R.drawable.bottom_bar_icon_more)
 }
-val list = listOf(EventsAllDestination.route, CommunityDestination.route, EventsUserDestination.route)
-
 @Composable
 fun BottomNavigationBar(navController: NavController) {
 
@@ -57,14 +55,14 @@ fun BottomNavigationBar(navController: NavController) {
         containerColor = Color.White
     ) {
         // looping over each tab to generate the views and navigation for each item
-        BottomNavItem.entries.forEach { tabBarItem ->
+        BottomNavItem.entries.forEach { bottomBarItem ->
 
-            val isSelected = navController.currentDestination?.route == tabBarItem.destination.route
+            val isSelected = navController.currentDestination?.route == bottomBarItem.destination.route
 
             NavigationBarItem(
                 selected = isSelected, // || isSelected2,
                 onClick = {
-                    navController.navigate(tabBarItem.destination.route) {
+                    navController.navigate(bottomBarItem.destination.route) {
                         // Pop up to the start destination of the graph to
                         // avoid building up a large stack of destinations
                         popUpTo(navController.graph.startDestinationId) {
@@ -84,7 +82,7 @@ fun BottomNavigationBar(navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(
-                                text = stringResource(id = tabBarItem.title ),
+                                text = stringResource(id = bottomBarItem.title ),
                                 fontSize = MaterialTheme.typography.BodyText1.fontSize,
                                 fontWeight = FontWeight.SemiBold,
                                 fontFamily = SFProDisplay,
@@ -98,8 +96,8 @@ fun BottomNavigationBar(navController: NavController) {
                         }
                     } else {
                         Icon(
-                            painter = painterResource(id = tabBarItem.icon),
-                            contentDescription = stringResource(id = tabBarItem.title ),
+                            painter = painterResource(id = bottomBarItem.icon),
+                            contentDescription = stringResource(id = bottomBarItem.title ),
                             tint = DeepBlueForBottomBar,
                             modifier = Modifier
                         )
