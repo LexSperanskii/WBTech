@@ -52,7 +52,8 @@ enum class EventsAllTabs(val text: String){
 
 @Composable
 fun EventsAllScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    navigateToEventDetailItem : (MockEventItem) -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -62,6 +63,7 @@ fun EventsAllScreen(
         }
     ) { innerPadding ->
         EventsBody(
+            navigateToEventDetailItem = navigateToEventDetailItem,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -77,6 +79,7 @@ fun EventsAllScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventsBody(
+    navigateToEventDetailItem : (MockEventItem) -> Unit,
     modifier: Modifier = Modifier
 ){
     val scope = rememberCoroutineScope()
@@ -133,10 +136,12 @@ fun EventsBody(
         ) { page ->
             when (page) {
                 0 -> Events(
-                    listOfMeetings = mockEventsListAll
+                    listOfMeetings = mockEventsListAll,
+                    onEventItemClick = { navigateToEventDetailItem(it) }
                 )
                 1 -> Events(
-                    listOfMeetings = mockEventsListActive
+                    listOfMeetings = mockEventsListActive,
+                    onEventItemClick = { navigateToEventDetailItem(it) }
                 )
             }
         }
@@ -145,7 +150,8 @@ fun EventsBody(
 
 @Composable
 fun Events(
-    listOfMeetings: List<MockEventItem>
+    listOfMeetings : List<MockEventItem>,
+    onEventItemClick : (MockEventItem) -> Unit
 ){
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -159,6 +165,7 @@ fun Events(
                 eventPlace = event.eventPlace,
                 eventCategories = event.eventCategory,
                 eventIconURL = event.eventIconURL,
+                onEventItemClick  = { onEventItemClick(event) },
                 modifier = Modifier
             )
         }

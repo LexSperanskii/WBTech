@@ -11,11 +11,14 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDetailsDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDetailsScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventDetailsDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventDetailsScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MockCommunityItem
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.MockEventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileScreen
 import com.google.gson.Gson
@@ -35,7 +38,14 @@ fun NavHost(
         modifier = Modifier
     ) {
         composable(route = EventsAllDestination.route) {
-            EventsAllScreen(navController)
+            EventsAllScreen(
+                navController = navController,
+                navigateToEventDetailItem = {
+                    val eventJson  = Gson().toJson(it)
+                    val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
+                    navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
+                }
+            )
         }
         composable(route = CommunityDestination.route) {
             CommunityScreen(
@@ -73,7 +83,28 @@ fun NavHost(
             CommunityDetailsScreen(navController, community)
         }
         composable(route = EventsUserDestination.route) {
-            EventsUserScreen(navController)
+            EventsUserScreen(
+                navController = navController,
+                navigateToEventDetailItem = {
+                    val eventJson  = Gson().toJson(it)
+                    val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
+                    navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
+                }
+            )
+        }
+        composable(
+            route = EventDetailsDestination.routeWithArgs,
+            arguments = listOf(navArgument(EventDetailsDestination.itemIdArg) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            val encodedJson = backStackEntry.arguments?.getString(EventDetailsDestination.itemIdArg)
+            val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
+            val event = Gson().fromJson(communityJson, MockEventItem::class.java)
+            EventDetailsScreen(
+                navController = navController,
+                event = event
+            )
         }
     }
 }

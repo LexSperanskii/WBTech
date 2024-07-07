@@ -84,7 +84,8 @@ fun CommunityDetailsBody(
             modifier = Modifier.padding(top = 30.dp, bottom = 16.dp)
         )
         Events(
-            listOfMeetings = mockEventsListAll
+            listOfMeetings = mockEventsListAll,
+            onEventItemClick = {}
         )
     }
 }

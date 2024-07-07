@@ -53,13 +53,14 @@ fun EventCard(
     eventPlace:String,
     eventCategories: List<String>,
     eventIconURL: String,
+    onEventItemClick : ()-> Unit,
     dividerColor: Color = DividerColor,
     dividerThickness: Dp = DividerDefaults.Thickness,
     modifier: Modifier = Modifier
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        modifier = modifier.clickable {  }
+        modifier = modifier.clickable { onEventItemClick() }
     ) {
         Column {
             Row (

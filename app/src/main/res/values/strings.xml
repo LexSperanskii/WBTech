@@ -12,6 +12,11 @@
     <string name="community">Community</string>
     <string name="community_details">Community details</string>
     <string name="more">More</string>
+    <string name="events_details">Event details</string>
+    <string name="map">Map</string>
+    <string name="profile_icon_in_row">Image $d.</string>
+    <string name="profile_icon">Profile icon</string>
+    <string name="i_will_go_to_the_event">I will go to the event!</string>
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>
         <item quantity="one">%s man</item>

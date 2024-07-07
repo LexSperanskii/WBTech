@@ -45,7 +45,8 @@ enum class EventsUserTabs(val text: String){
 
 @Composable
 fun EventsUserScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    navigateToEventDetailItem : (MockEventItem) -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -55,6 +56,7 @@ fun EventsUserScreen(
         }
     ) { innerPadding ->
         EventsUserBody(
+            navigateToEventDetailItem = navigateToEventDetailItem,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -70,6 +72,7 @@ fun EventsUserScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventsUserBody(
+    navigateToEventDetailItem : (MockEventItem) -> Unit,
     modifier: Modifier = Modifier
 ){
     val scope = rememberCoroutineScope()
@@ -123,10 +126,12 @@ fun EventsUserBody(
         ) { page ->
             when (page) {
                 0 -> Events(
-                    listOfMeetings = mockEventsListUserPlanned
+                    listOfMeetings = mockEventsListUserPlanned,
+                    onEventItemClick = { navigateToEventDetailItem(it) }
                 )
                 1 -> Events(
-                    listOfMeetings = mockEventsListUserPassed
+                    listOfMeetings = mockEventsListUserPassed,
+                    onEventItemClick = { navigateToEventDetailItem(it) }
                 )
             }
         }
