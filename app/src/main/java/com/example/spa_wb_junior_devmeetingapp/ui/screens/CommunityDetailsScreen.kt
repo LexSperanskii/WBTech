@@ -32,7 +32,8 @@ object CommunityDetailsDestination : NavigationDestination {
 @Composable
 fun CommunityDetailsScreen(
     navController: NavHostController,
-    community: MockCommunityItem
+    community: MockCommunityItem,
+    navigateToEventDetailItem : (MockEventItem) -> Unit
 ) {
     //Если бы передавали простые значения через навигацию
 //    val itemId = navController.currentBackStackEntry?.arguments?.getInt(CommunityDetailsDestination.itemIdArg)
@@ -48,6 +49,7 @@ fun CommunityDetailsScreen(
     )
     { innerPadding ->
         CommunityDetailsBody(
+            navigateToEventDetailItem = navigateToEventDetailItem,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -60,6 +62,7 @@ fun CommunityDetailsScreen(
 
 @Composable
 fun CommunityDetailsBody(
+    navigateToEventDetailItem : (MockEventItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -85,7 +88,7 @@ fun CommunityDetailsBody(
         )
         Events(
             listOfMeetings = mockEventsListAll,
-            onEventItemClick = {}
+            onEventItemClick = { navigateToEventDetailItem(it) }
         )
     }
 }

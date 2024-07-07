@@ -82,7 +82,15 @@ fun NavHost(
             /**
              * Конец блока десериализации
              */
-            CommunityDetailsScreen(navController, community)
+            CommunityDetailsScreen(
+                navController = navController,
+                community = community,
+                navigateToEventDetailItem = {
+                    val eventJson  = Gson().toJson(it)
+                    val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
+                    navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
+                }
+            )
         }
         composable(route = EventsUserDestination.route) {
             EventsUserScreen(
