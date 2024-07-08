@@ -19,10 +19,10 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.FullScreenMapScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MapDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.MockCommunityItem
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.MockEventItem
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockCommunityItem
+import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreenDestination
 import com.google.gson.Gson
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -36,9 +36,12 @@ fun NavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = EventsAllDestination.route,
+        startDestination = SplashScreenDestination.route,
         modifier = Modifier
     ) {
+        composable(route = SplashScreenDestination.route) {
+            SplashScreen(navigateToStartScreen = {navController.navigate(EventsAllDestination.route)})
+        }
         composable(route = EventsAllDestination.route) {
             EventsAllScreen(
                 navController = navController,
@@ -53,16 +56,14 @@ fun NavHost(
             CommunityScreen(
                 navController = navController,
                 navigateToCommunityDetailItem = {
-                    /**
+                    /*
                      * Сериализуем и кодируем в JSON наш объект, который мы хоти передать.
                      * Кодируем, тк JSON не поддерживает некоторые знаки в URL
                      * it - это наш объект MockCommunityItem
                      */
                     val communityJson  = Gson().toJson(it)
                     val encodedJson = URLEncoder.encode(communityJson , "UTF-8")
-                    /**
-                     * Конец блока сериализации
-                     */
+
                     navController.navigate("${CommunityDetailsDestination.route}/${encodedJson}")
                 }
             )
@@ -73,15 +74,13 @@ fun NavHost(
                 type = NavType.StringType
             })
         ) { backStackEntry ->
-            /**
+            /*
              * Блок для десериализации и декодирования объекта который хотим получить
              */
             val encodedJson = backStackEntry.arguments?.getString(CommunityDetailsDestination.itemIdArg)
             val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
             val community = Gson().fromJson(communityJson, MockCommunityItem::class.java)
-            /**
-             * Конец блока десериализации
-             */
+
             CommunityDetailsScreen(
                 navController = navController,
                 community = community,

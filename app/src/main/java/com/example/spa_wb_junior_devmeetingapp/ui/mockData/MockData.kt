@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.mockData
 
 enum class EventStatus(val status: String) {
     NONE(""),

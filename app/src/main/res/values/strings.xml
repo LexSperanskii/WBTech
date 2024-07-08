@@ -17,6 +17,7 @@
     <string name="profile_icon_in_row">Image $d.</string>
     <string name="profile_icon">Profile icon</string>
     <string name="i_will_go_to_the_event">I will go to the event!</string>
+    <string name="splash_screen">Splash Screen</string>
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>
         <item quantity="one">%s man</item>

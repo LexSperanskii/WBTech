@@ -60,7 +60,7 @@ fun BottomNavigationBar(navController: NavController) {
             val isSelected = navController.currentDestination?.route == bottomBarItem.destination.route
 
             NavigationBarItem(
-                selected = isSelected, // || isSelected2,
+                selected = isSelected,
                 onClick = {
                     navController.navigate(bottomBarItem.destination.route) {
                         // Pop up to the start destination of the graph to
@@ -76,7 +76,7 @@ fun BottomNavigationBar(navController: NavController) {
                     }
                 },
                 icon = {
-                    if (isSelected){ //|| isSelected2
+                    if (isSelected){
                         Column(
                             verticalArrangement = Arrangement.spacedBy(4.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
