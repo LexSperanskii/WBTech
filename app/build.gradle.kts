@@ -74,7 +74,6 @@ dependencies {
     //для сериализации чтобы передать объект из одного экрана в другой
     implementation ("com.google.code.gson:gson:2.10.1")
 
-    //For Lottie Splash Screen
-    implementation(libs.lottie.compose)
-
+    //For Lottie Splash Screen + maven in settings.gradle.ktx
+    implementation(libs.dotlottie.android)
 }

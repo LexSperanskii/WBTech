@@ -16,9 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://jitpack.io") //for dotlottie
     }
 }
 
 rootProject.name = "SpA_WB_Junior_DevMeetingApp"
 include(":app")
- 
