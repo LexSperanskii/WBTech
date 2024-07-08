@@ -27,7 +27,7 @@ fun SplashScreen(
     val dotLottieController = remember { DotLottieController() }
 
     LaunchedEffect(dotLottieController) {
-        delay(2000)
+        delay(3000)
         dotLottieController.pause() // паузим чтобы не было фризов
         navigateToStartScreen()
     }
