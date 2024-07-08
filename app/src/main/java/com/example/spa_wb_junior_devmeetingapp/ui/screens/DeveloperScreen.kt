@@ -15,6 +15,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,6 +42,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyRow
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
@@ -122,6 +127,7 @@ fun DeveloperScreen() {
         "Junior",
         "Moscow"
     )
+    var text by remember { mutableStateOf("") }
 
     Scaffold(
     ) { innerPadding ->
@@ -374,6 +380,21 @@ fun DeveloperScreen() {
                         isEdit = true,
                     )
                 }
+            }
+            item {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    PinCodeInput(
+                        value = text,
+                        onValueChange = { text = it}
+                    )
+                }
+            }
+            item {
+
             }
         }
     }
