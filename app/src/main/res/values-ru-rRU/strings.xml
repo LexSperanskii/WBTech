@@ -19,6 +19,7 @@
     <string name="profile_icon">Иконка профиля</string>
     <string name="i_will_go_to_the_event">Пойду на встречу!</string>
     <string name="splash_screen">"Экран загрузки"</string>
+    <string name="country_code">Код страны</string>
     <plurals name="community_people_count">
         <item quantity="one">%s человек</item>
         <item quantity="few">%s человека</item>

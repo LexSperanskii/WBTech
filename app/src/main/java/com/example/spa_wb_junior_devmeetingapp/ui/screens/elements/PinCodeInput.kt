@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightGray
@@ -33,7 +34,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 @Composable
 fun PinCodeInput(
     value: String,
-    onValueChange :  (String) -> Unit = {},
+    onValueChange :  (String) -> Unit,
     valueLength : Int = 4,
     modifier : Modifier = Modifier
 ){
@@ -42,7 +43,8 @@ fun PinCodeInput(
     BasicTextField(
         value = value,
         onValueChange = {
-            onValueChange(it.take(valueLength))
+            if (it.isDigitsOnly())
+                onValueChange(it.take(valueLength))
         },
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,

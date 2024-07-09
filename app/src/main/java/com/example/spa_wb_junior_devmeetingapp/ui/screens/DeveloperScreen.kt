@@ -42,6 +42,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyRow
@@ -127,15 +128,34 @@ fun DeveloperScreen() {
         "Junior",
         "Moscow"
     )
-    var text by remember { mutableStateOf("") }
+    var pinCode by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
 
     Scaffold(
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(16.dp)
+            contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    PinCodeInput(
+                        value = pinCode,
+                        onValueChange = { pinCode = it}
+                    )
+                }
+            }
+            item {
+                PhoneNumber(
+                    value = phoneNumber,
+                    onValueChange = {phoneNumber = it}
+                )
+            }
             item {
                 Text(text = "Ripple Effect Buttons")
             }
@@ -380,21 +400,6 @@ fun DeveloperScreen() {
                         isEdit = true,
                     )
                 }
-            }
-            item {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    PinCodeInput(
-                        value = text,
-                        onValueChange = { text = it}
-                    )
-                }
-            }
-            item {
-
             }
         }
     }
