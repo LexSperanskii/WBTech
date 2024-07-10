@@ -39,7 +39,9 @@ import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockAccountsIconsURLL
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarForEventDetails
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightDarkGray
@@ -63,6 +65,14 @@ fun EventDetailsScreen(
     event: MockEventItem
 ) {
     Scaffold(
+        topBar = {
+            TopAppBarForEventDetails(
+                title = stringResource(id = EventDetailsDestination.title),
+                onClickNavigateBack = {navController.popBackStack()},
+                isStatusPlanned = event.eventIsPlaned ,
+                onStatusCLick = {}
+            )
+        },
         bottomBar = {
             BottomNavigationBar(navController = navController)
         }
@@ -73,6 +83,7 @@ fun EventDetailsScreen(
             accountsIconsURLList = mockAccountsIconsURLList1,
             onButtonClick = {},
             onMapClick = navigateToFullScreenMap,
+            isStatusActive = event.eventIsPlaned,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -89,6 +100,7 @@ fun EventDetailsBody(
     accountsIconsURLList: List<String>,
     onButtonClick : ()-> Unit,
     onMapClick : ()-> Unit,
+    isStatusActive: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -149,14 +161,27 @@ fun EventDetailsBody(
             accountsIconsURLList = accountsIconsURLList
         )
         Spacer(modifier = Modifier.weight(1f))
-        CustomButton(
-            text = stringResource(id = R.string.i_will_go_to_the_event),
-            onClick = onButtonClick,
-            pressedColor = DarkPurple,
-            containerColor = Purple,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(52.dp)
-        )
+        when (isStatusActive) {
+            true -> CustomButtonOutlined(
+                text = stringResource(id = R.string.i_will_go_next_time),
+                onClick = onButtonClick,
+                pressedColor = DarkPurple,
+                contentColor = Purple,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp)
+            )
+
+            false -> CustomButton(
+                text = stringResource(id = R.string.i_will_go_to_the_event),
+                onClick = onButtonClick,
+                pressedColor = DarkPurple,
+                containerColor = Purple,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp)
+            )
+        }
+
     }
 }

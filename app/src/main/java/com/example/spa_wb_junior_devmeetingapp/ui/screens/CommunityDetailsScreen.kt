@@ -21,6 +21,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.mockData.longText
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListAll
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightDarkGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
@@ -47,6 +48,13 @@ fun CommunityDetailsScreen(
     val ourCommunity = community
 
     Scaffold(
+        topBar = {
+            TopAppBarBackNameAction(
+                title = stringResource(id = CommunityDetailsDestination.title),
+                isAdd = false,
+                onClickNavigateBack = {navController.popBackStack()}
+            )
+        },
         bottomBar = {
             BottomNavigationBar(navController = navController)
         }

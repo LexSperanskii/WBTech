@@ -26,6 +26,7 @@ data class MockEventItem(
     val eventPlace : String = "",
     val eventCategory : List<String> = listOf(),
     val eventIconURL : String = "",
+    val eventIsPlaned : Boolean = false,
 )
 data class MockCommunityItem(
     val communityName : String = "",
@@ -41,7 +42,8 @@ val mockEventsListAll = listOf(
         eventDate = "13.09.2024",
         eventPlace = "Петрозаводск",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Все встречи",
@@ -57,7 +59,8 @@ val mockEventsListAll = listOf(
         eventDate = "15.09.2024",
         eventPlace = "Владивосток",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Все встречи",
@@ -73,7 +76,8 @@ val mockEventsListAll = listOf(
         eventDate = "17.09.2024",
         eventPlace = "Рязань",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Все встречи",
@@ -89,7 +93,8 @@ val mockEventsListAll = listOf(
         eventDate = "19.09.2024",
         eventPlace = "Санкт-Петербург",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Все встречи",
@@ -105,7 +110,8 @@ val mockEventsListAll = listOf(
         eventDate = "21.09.2024",
         eventPlace = "Казань",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     )
 )
 val mockEventsListActive = listOf(
@@ -115,7 +121,8 @@ val mockEventsListActive = listOf(
         eventDate = "13.09.2024",
         eventPlace = "Петрозаводск",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Все встречи Активные",
@@ -123,7 +130,8 @@ val mockEventsListActive = listOf(
         eventDate = "14.09.2024",
         eventPlace = "Майкоп",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Все встречи Активные",
@@ -149,7 +157,8 @@ val mockEventsListUserPlanned = listOf(
         eventDate = "13.09.2024",
         eventPlace = "Петрозаводск",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Мои встречи Запланированные",
@@ -157,7 +166,8 @@ val mockEventsListUserPlanned = listOf(
         eventDate = "14.09.2024",
         eventPlace = "Майкоп",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Мои встречи Запланированные",
@@ -165,7 +175,8 @@ val mockEventsListUserPlanned = listOf(
         eventDate = "15.09.2024",
         eventPlace = "Владивосток",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Мои встречи Запланированные",
@@ -173,7 +184,8 @@ val mockEventsListUserPlanned = listOf(
         eventDate = "16.09.2024",
         eventPlace = "Краснодар",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Мои встречи Запланированные",
@@ -181,7 +193,8 @@ val mockEventsListUserPlanned = listOf(
         eventDate = "17.09.2024",
         eventPlace = "Рязань",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Мои встречи Запланированные",
@@ -189,7 +202,8 @@ val mockEventsListUserPlanned = listOf(
         eventDate = "18.09.2024",
         eventPlace = "Сочи",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Мои встречи Запланированные",
@@ -197,7 +211,8 @@ val mockEventsListUserPlanned = listOf(
         eventDate = "19.09.2024",
         eventPlace = "Санкт-Петербург",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Мои встречи Запланированные",
@@ -205,7 +220,8 @@ val mockEventsListUserPlanned = listOf(
         eventDate = "20.09.2024",
         eventPlace = "Москва",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     ),
     MockEventItem(
         eventName = "Мои встречи Запланированные",
@@ -213,7 +229,8 @@ val mockEventsListUserPlanned = listOf(
         eventDate = "21.09.2024",
         eventPlace = "Казань",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = eventIconURL,
+        eventIsPlaned = true
     )
 )
 val mockEventsListUserPassed = listOf(

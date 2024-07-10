@@ -18,8 +18,11 @@
     <string name="profile_icon_in_row">Иконка $d.</string>
     <string name="profile_icon">Иконка профиля</string>
     <string name="i_will_go_to_the_event">Пойду на встречу!</string>
+    <string name="i_will_go_next_time">Схожу в другой раз</string>
     <string name="splash_screen">"Экран загрузки"</string>
     <string name="country_code">Код страны</string>
+    <string name="back_button">Назад</string>
+    <string name="topbarAction">Знак верхнего бара</string>
     <plurals name="community_people_count">
         <item quantity="one">%s человек</item>
         <item quantity="few">%s человека</item>

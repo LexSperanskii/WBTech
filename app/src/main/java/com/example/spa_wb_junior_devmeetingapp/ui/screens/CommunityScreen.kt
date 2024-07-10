@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
@@ -18,6 +19,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestinati
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 
 object CommunityDestination : NavigationDestination {
     override val route = "community"
@@ -30,6 +32,13 @@ fun CommunityScreen(
     navigateToCommunityDetailItem: (MockCommunityItem) -> Unit
 ){
     Scaffold(
+        topBar = {
+            TopAppBarBackNameAction(
+                title = stringResource(id = CommunityDestination.title),
+                isNavigateBack = false,
+                isAdd = false
+            )
+        },
         bottomBar = {
             BottomNavigationBar(
                 navController = navController
