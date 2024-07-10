@@ -1,5 +1,19 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.mockData
 
+import com.example.spa_wb_junior_devmeetingapp.R
+
+class Country(
+    val country : String,
+    val countryCode : String,
+    val flag : Int
+)
+val countryList = listOf(
+    Country("Russia", "+7", R.drawable.flag_rus),
+    Country("Kazakhstan", "+7", R.drawable.flag_kz),
+    Country("UK", "+44", R.drawable.flag_gb)
+)
+
+
 enum class EventStatus(val status: String) {
     NONE(""),
     FINISHED("Завершилась")
