@@ -21,6 +21,8 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.FullScreenMapScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MapDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockCommunityItem
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MenuDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MenuScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
@@ -53,7 +55,8 @@ fun NavHost(
                     val eventJson  = Gson().toJson(it)
                     val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
                     navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
-                }
+                },
+                navigateToDeveloperScreen = {navController.navigate(DeveloperDestination.route)}
             )
         }
         composable(route = CommunityDestination.route) {
@@ -134,6 +137,9 @@ fun NavHost(
         }
         composable(route = MapDestination.route) {
             FullScreenMapScreen(navController = navController)
+        }
+        composable(route = DeveloperDestination.route) {
+            DeveloperScreen()
         }
     }
 }

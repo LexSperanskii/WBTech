@@ -58,14 +58,15 @@ enum class EventsAllTabs(val text: String){
 @Composable
 fun EventsAllScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (MockEventItem) -> Unit
+    navigateToEventDetailItem : (MockEventItem) -> Unit,
+    navigateToDeveloperScreen : () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
                 title = stringResource(id = EventsAllDestination.title),
                 isNavigateBack = false,
-                onAddCLick = {}
+                onAddCLick = navigateToDeveloperScreen
             )
         },
         bottomBar = {
