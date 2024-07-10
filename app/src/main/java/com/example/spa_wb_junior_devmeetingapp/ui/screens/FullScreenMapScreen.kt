@@ -1,6 +1,7 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -45,17 +46,15 @@ fun FullScreenMapScreen(
 fun FullScreenMapBody(
     modifier: Modifier = Modifier
 ){
-    LazyColumn(
+    Column(
         modifier = modifier
     ) {
-        item {
-            Image(
-                painter = painterResource(id = R.drawable.map),
-                contentDescription = stringResource(id = R.string.map),
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-        }
+        Image(
+            painter = painterResource(id = R.drawable.map),
+            contentDescription = stringResource(id = R.string.map),
+            modifier = Modifier
+                .fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
     }
 }
