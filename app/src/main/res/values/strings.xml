@@ -21,7 +21,18 @@
     <string name="splash_screen">Splash Screen</string>
     <string name="country_code">contry code</string>
     <string name="back_button">Back button</string>
-    <string name="topbarAction">TopBar sign</string>
+    <string name="top_bar_action">TopBar sign</string>
+    <string name="forward">Forward</string>
+    <string name="phone_number_with_country_code">%1$s %2$s</string>
+    <string name="menu_icon">Menu icon</string>
+    <string name="my_events">My events</string>
+    <string name="my_theme">Theme</string>
+    <string name="my_notifications">Notifications</string>
+    <string name="my_security">Security</string>
+    <string name="my_storage">Storage and assets</string>
+    <string name="my_help">Help</string>
+    <string name="my_invite">Invite Friend</string>
+
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>
         <item quantity="one">%s man</item>

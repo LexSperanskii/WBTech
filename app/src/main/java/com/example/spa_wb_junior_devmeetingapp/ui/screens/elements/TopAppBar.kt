@@ -31,7 +31,7 @@ fun TopAppBarBackNameAction(
     title: String,
     isNavigateBack : Boolean= true,
     onClickNavigateBack: () -> Unit = {},
-    isAdd: Boolean = true,
+    isAddCapable: Boolean = true,
     onAddCLick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -58,12 +58,15 @@ fun TopAppBarBackNameAction(
             }
         },
         actions = {
-            if (isAdd) {
-                IconButton(onClick = onAddCLick) {
+            if (isAddCapable) {
+                IconButton(
+                    modifier = Modifier.padding(end = 16.dp),
+                    onClick = onAddCLick
+                ) {
                     Icon(
                         imageVector = Icons.Filled.Add,
-                        contentDescription = stringResource(id = R.string.topbarAction),
-                        modifier = Modifier.padding(end = 16.dp).size(24.dp)
+                        contentDescription = stringResource(id = R.string.top_bar_action),
+                        modifier = Modifier.size(24.dp)
                     )
                 }
             }
@@ -100,11 +103,14 @@ fun TopAppBarForProfile(
             }
         },
         actions = {
-            IconButton(onClick = onEditClick) {
+            IconButton(
+                modifier = Modifier.padding(end = 16.dp),
+                onClick = onEditClick
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Edit,
-                    contentDescription = stringResource(id = R.string.topbarAction),
-                    modifier = Modifier.padding(end = 16.dp).size(24.dp)
+                    contentDescription = stringResource(id = R.string.top_bar_action),
+                    modifier = Modifier.size(24.dp)
                 )
             }
         },
@@ -142,12 +148,15 @@ fun TopAppBarForEventDetails(
         },
         actions = {
             if (isStatusPlanned){
-                IconButton(onClick = onStatusCLick) {
+                IconButton(
+                    modifier = Modifier.padding(end = 16.dp),
+                    onClick = onStatusCLick
+                ) {
                     Icon(
                         imageVector = Icons.Filled.Done,
-                        contentDescription = stringResource(id = R.string.topbarAction),
+                        contentDescription = stringResource(id = R.string.top_bar_action),
                         tint = Purple,
-                        modifier = Modifier.padding(end = 16.dp).size(24.dp)
+                        modifier = Modifier.size(24.dp)
                     )
                 }
             }

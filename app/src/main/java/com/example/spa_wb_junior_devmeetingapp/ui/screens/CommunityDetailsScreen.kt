@@ -40,18 +40,11 @@ fun CommunityDetailsScreen(
     community: MockCommunityItem,
     navigateToEventDetailItem : (MockEventItem) -> Unit
 ) {
-    //Если бы передавали простые значения через навигацию
-//    val itemId = navController.currentBackStackEntry?.arguments?.getInt(CommunityDetailsDestination.itemIdArg)
-    /**
-     * Получааем пока не нужный аргумент из навигации
-     */
-    val ourCommunity = community
-
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
                 title = stringResource(id = CommunityDetailsDestination.title),
-                isAdd = false,
+                isAddCapable = false,
                 onClickNavigateBack = {navController.popBackStack()}
             )
         },

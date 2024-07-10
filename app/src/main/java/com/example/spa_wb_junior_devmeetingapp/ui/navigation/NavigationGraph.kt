@@ -21,6 +21,10 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.FullScreenMapScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MapDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockCommunityItem
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.MenuDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.MenuScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreenDestination
 import com.google.gson.Gson
@@ -66,6 +70,13 @@ fun NavHost(
 
                     navController.navigate("${CommunityDetailsDestination.route}/${encodedJson}")
                 }
+            )
+        }
+        composable(route = MenuDestination.route) {
+            MenuScreen(
+                navController = navController,
+                navigateToProfile = {navController.navigate(ProfileDestination.route)},
+                navigateToUserEvents = {navController.navigate(EventsUserDestination.route)}
             )
         }
         composable(
@@ -117,6 +128,9 @@ fun NavHost(
                     navController.navigate(MapDestination.route)
                 }
             )
+        }
+        composable(route = ProfileDestination.route) {
+            ProfileScreen(navController = navController)
         }
         composable(route = MapDestination.route) {
             FullScreenMapScreen(navController = navController)

@@ -36,7 +36,7 @@ fun CommunityScreen(
             TopAppBarBackNameAction(
                 title = stringResource(id = CommunityDestination.title),
                 isNavigateBack = false,
-                isAdd = false
+                isAddCapable = false
             )
         },
         bottomBar = {

@@ -3,7 +3,6 @@ package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -21,9 +20,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
 
 @Composable
@@ -39,7 +36,6 @@ fun CustomButton(
     fontSize: TextUnit = MaterialTheme.typography.Subheading2.fontSize,
     fontWeight: FontWeight = FontWeight.SemiBold,
     fontFamily: FontFamily = SFProDisplay,
-//    content: @Composable() (RowScope.() -> Unit)
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -56,7 +52,6 @@ fun CustomButton(
             disabledContentColor = contentColor
         ),
         interactionSource = interactionSource,
-//        content = content
     ) {
         Text(
             text = text,

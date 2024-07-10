@@ -57,7 +57,7 @@ fun EventsUserScreen(
         topBar = {
             TopAppBarBackNameAction(
                 title = stringResource(id = EventsUserDestination.title),
-                isAdd = false,
+                isAddCapable = false,
                 onClickNavigateBack = {navController.popBackStack()}
             )
         },

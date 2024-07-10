@@ -13,6 +13,13 @@ val countryList = listOf(
     Country("UK", "+44", R.drawable.flag_gb)
 )
 
+class PhoneNumber(
+    val countryCode: String,
+    val number: String
+)
+val mockAccountNumber = PhoneNumber("+7","9995554422")
+val mockAccountName = "Иван Иванов"
+
 
 enum class EventStatus(val status: String) {
     NONE(""),
