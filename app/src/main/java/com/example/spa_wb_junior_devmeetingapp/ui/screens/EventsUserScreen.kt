@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,6 +32,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListUserPas
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListUserPlanned
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForTabs
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
@@ -52,6 +54,13 @@ fun EventsUserScreen(
     navigateToEventDetailItem : (MockEventItem) -> Unit
 ) {
     Scaffold(
+        topBar = {
+            TopAppBarBackNameAction(
+                title = stringResource(id = EventsUserDestination.title),
+                isAddCapable = false,
+                onClickNavigateBack = {navController.popBackStack()}
+            )
+        },
         bottomBar = {
             BottomNavigationBar(
                 navController = navController

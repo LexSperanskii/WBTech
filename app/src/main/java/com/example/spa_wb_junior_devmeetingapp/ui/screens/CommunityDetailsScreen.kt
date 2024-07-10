@@ -1,9 +1,10 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -21,6 +22,8 @@ import com.example.spa_wb_junior_devmeetingapp.ui.mockData.longText
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListAll
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightDarkGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
@@ -39,14 +42,14 @@ fun CommunityDetailsScreen(
     community: MockCommunityItem,
     navigateToEventDetailItem : (MockEventItem) -> Unit
 ) {
-    //Если бы передавали простые значения через навигацию
-//    val itemId = navController.currentBackStackEntry?.arguments?.getInt(CommunityDetailsDestination.itemIdArg)
-    /**
-     * Получааем пока не нужный аргумент из навигации
-     */
-    val ourCommunity = community
-
     Scaffold(
+        topBar = {
+            TopAppBarBackNameAction(
+                title = stringResource(id = CommunityDetailsDestination.title),
+                isAddCapable = false,
+                onClickNavigateBack = {navController.popBackStack()}
+            )
+        },
         bottomBar = {
             BottomNavigationBar(navController = navController)
         }
@@ -54,6 +57,7 @@ fun CommunityDetailsScreen(
     { innerPadding ->
         CommunityDetailsBody(
             navigateToEventDetailItem = navigateToEventDetailItem,
+            eventsListAll = mockEventsListAll ,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -67,32 +71,45 @@ fun CommunityDetailsScreen(
 @Composable
 fun CommunityDetailsBody(
     navigateToEventDetailItem : (MockEventItem) -> Unit,
+    eventsListAll : List<MockEventItem>,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    LazyColumn(
         modifier = modifier
     ) {
-        Text(
-            text = longText,
-            fontSize = MaterialTheme.typography.Metadata1.fontSize,
-            fontWeight = FontWeight.Normal,
-            fontFamily = SFProDisplay,
-            color = LightDarkGray,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .heightIn(min = 0.dp, max = 270.dp)
-        )
-        Text(
-            text = stringResource(id = R.string.community_events),
-            fontSize = MaterialTheme.typography.BodyText1.fontSize,
-            fontWeight = FontWeight.SemiBold,
-            fontFamily = SFProDisplay,
-            color = LightDarkGray,
-            modifier = Modifier.padding(top = 30.dp, bottom = 16.dp)
-        )
-        Events(
-            listOfMeetings = mockEventsListAll,
-            onEventItemClick = { navigateToEventDetailItem(it) }
-        )
+        item {
+            Text(
+                text = longText,
+                fontSize = MaterialTheme.typography.Metadata1.fontSize,
+                fontWeight = FontWeight.Normal,
+                fontFamily = SFProDisplay,
+                color = LightDarkGray,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .heightIn(min = 0.dp, max = 270.dp)
+            )
+        }
+        item {
+            Text(
+                text = stringResource(id = R.string.community_events),
+                fontSize = MaterialTheme.typography.BodyText1.fontSize,
+                fontWeight = FontWeight.SemiBold,
+                fontFamily = SFProDisplay,
+                color = LightDarkGray,
+                modifier = Modifier.padding(top = 30.dp, bottom = 16.dp)
+            )
+        }
+        items (eventsListAll){ event ->
+            EventCard(
+                eventName = event.eventName,
+                eventStatus = event.eventStatus.status,
+                eventDate = event.eventDate,
+                eventPlace = event.eventPlace,
+                eventCategories = event.eventCategory,
+                eventIconURL = event.eventIconURL,
+                onEventItemClick  = { navigateToEventDetailItem(event) },
+                modifier = Modifier
+            )
+        }
     }
 }

@@ -15,10 +15,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,13 +23,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.MenuDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DeepBlueForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
@@ -46,7 +41,7 @@ enum class BottomNavItem(
 ) {
     EVENTS(EventsAllDestination, R.string.events_all, R.drawable.bottom_bar_icon_meetings),
     COMMUNITY(CommunityDestination, R.string.community, R.drawable.bottom_bar_icon_communities),
-    MORE(EventsUserDestination, R.string.more, R.drawable.bottom_bar_icon_more)
+    MENU(MenuDestination, R.string.more, R.drawable.bottom_bar_icon_more)
 }
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -54,7 +49,6 @@ fun BottomNavigationBar(navController: NavController) {
     NavigationBar(
         containerColor = Color.White
     ) {
-        // looping over each tab to generate the views and navigation for each item
         BottomNavItem.entries.forEach { bottomBarItem ->
 
             val isSelected = navController.currentDestination?.route == bottomBarItem.destination.route
@@ -63,15 +57,11 @@ fun BottomNavigationBar(navController: NavController) {
                 selected = isSelected,
                 onClick = {
                     navController.navigate(bottomBarItem.destination.route) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
+                        // Pop up to the start destination of the graph
                         popUpTo(navController.graph.startDestinationId) {
                             saveState = true
                         }
-                        // Avoid multiple copies of the same destination when
-                        // reselecting the same item
                         launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
                         restoreState = true
                     }
                 },
