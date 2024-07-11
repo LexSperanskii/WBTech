@@ -1,6 +1,7 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -70,49 +71,41 @@ fun ProfileScreen(
 fun ProfileBody(
     modifier: Modifier = Modifier
 ){
-    LazyColumn(
+    Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
-        item {
-            PersonAvatar(
-                size = 200.dp,
-                isEdit = false,
-                modifier = Modifier. padding(top = 136.dp)
-            )
-        }
-        item {
-            Text(
-                text = "Иван Иванов",
-                fontSize = MaterialTheme.typography.Heading2.fontSize,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = SFProDisplay,
-                modifier = Modifier.padding(top = 20.dp)
-            )
-        }
-        item{
-            Text(
-                text = "+7 999 999-99-99",
-                fontSize = MaterialTheme.typography.Subheading2.fontSize,
-                fontWeight = FontWeight.Normal,
-                fontFamily = SFProDisplay,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-        }
-        item {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.padding(top = 40.dp)
-            ) {
-                for (socialMedia in SocialMedia.entries) {
-                    CustomSocialMedeaButtonOutlined(
-                        onClick = {},
-                        modifier = Modifier,
-                        pressedColor = DarkPurple,
-                        contentColor = Purple,
-                        painter = painterResource(id = socialMedia.icon)
-                    )
-                }
+        PersonAvatar(
+            size = 200.dp,
+            isEdit = false,
+            modifier = Modifier. padding(top = 136.dp)
+        )
+        Text(
+            text = "Иван Иванов",
+            fontSize = MaterialTheme.typography.Heading2.fontSize,
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = SFProDisplay,
+            modifier = Modifier.padding(top = 20.dp)
+        )
+        Text(
+            text = "+7 999 999-99-99",
+            fontSize = MaterialTheme.typography.Subheading2.fontSize,
+            fontWeight = FontWeight.Normal,
+            fontFamily = SFProDisplay,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.padding(top = 40.dp)
+        ) {
+            for (socialMedia in SocialMedia.entries) {
+                CustomSocialMedeaButtonOutlined(
+                    onClick = {},
+                    modifier = Modifier,
+                    pressedColor = DarkPurple,
+                    contentColor = Purple,
+                    painter = painterResource(id = socialMedia.icon)
+                )
             }
         }
     }
