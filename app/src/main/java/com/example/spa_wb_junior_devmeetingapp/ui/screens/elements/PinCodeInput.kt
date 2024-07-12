@@ -35,6 +35,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 fun PinCodeInput(
     value: String,
     onValueChange :  (String) -> Unit,
+    onDoneKeyboardPressed :  () -> Unit,
     valueLength : Int = 4,
     modifier : Modifier = Modifier
 ){
@@ -50,7 +51,10 @@ fun PinCodeInput(
             imeAction = ImeAction.Done,
             keyboardType = KeyboardType.Number
         ),
-        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+        keyboardActions = KeyboardActions(onDone = {
+            onDoneKeyboardPressed()
+            focusManager.clearFocus()
+        }),
         maxLines = 1,
         decorationBox = {
             Row(

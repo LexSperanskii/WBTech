@@ -21,8 +21,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -75,8 +77,12 @@ fun EventsAllScreen(
             )
         }
     ) { innerPadding ->
+        var searchField by remember { mutableStateOf("") }
         EventsBody(
             navigateToEventDetailItem = navigateToEventDetailItem,
+            searchField = searchField,
+            onSearchFieldChange = {searchField = it},
+            onDoneKeyboardPressed = {},
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -93,6 +99,9 @@ fun EventsAllScreen(
 @Composable
 fun EventsBody(
     navigateToEventDetailItem : (MockEventItem) -> Unit,
+    searchField : String,
+    onSearchFieldChange: (String) -> Unit,
+    onDoneKeyboardPressed: () -> Unit,
     modifier: Modifier = Modifier
 ){
     val scope = rememberCoroutineScope()
@@ -103,6 +112,9 @@ fun EventsBody(
         modifier = modifier
     ) {
         MySearchBar(
+            value = searchField ,
+            onValueChange = onSearchFieldChange,
+            onDoneKeyboardPressed = onDoneKeyboardPressed,
             modifier = Modifier.padding(bottom = 16.dp)
         )
         TabRow(
