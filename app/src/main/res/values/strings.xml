@@ -32,6 +32,18 @@
     <string name="my_storage">Storage and assets</string>
     <string name="my_help">Help</string>
     <string name="my_invite">Invite Friend</string>
+    <string name="enter_your_number">Enter your mobile number</string>
+    <string name="we_will_send_you_verification_code">We will send you verification code\nto your phone number</string>
+    <string name="forward_button">Forward</string>
+    <string name="enter_your_code">Enter your code</string>
+    <string name="sent_you_verification_code">Sent you a code to your number\n%s</string>
+    <string name="request_code_again">Request code again</string>
+    <string name="name_required">Name (required)</string>
+    <string name="surname_optional">Surname (optional)</string>
+    <string name="safe">Safe</string>
+    <string name="authentication">Authentication</string>
+    <string name="verification">Verification</string>
+    <string name="search">Search</string>
 
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>

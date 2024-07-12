@@ -33,6 +33,18 @@
     <string name="my_storage">Память и ресурсы</string>
     <string name="my_help">Помощь</string>
     <string name="my_invite">Пригласи друга</string>
+    <string name="enter_your_number">Введите номер телефона</string>
+    <string name="we_will_send_you_verification_code">Мы вышлем код подтверждения\nна указанный номер</string>
+    <string name="forward_button">Продолжить</string>
+    <string name="enter_your_code">Введите код</string>
+    <string name="sent_you_verification_code">Отправили код на номер\n%s</string>
+    <string name="request_code_again">Запросить код повторно</string>
+    <string name="name_required">Имя (обязательно)</string>
+    <string name="surname_optional">Фамилия (опционально)</string>
+    <string name="safe">Сохранить</string>
+    <string name="authentication">Authentication</string>
+    <string name="verification">Verification</string>
+    <string name="search">Search</string>
 
     <plurals name="community_people_count">
         <item quantity="one">%s человек</item>

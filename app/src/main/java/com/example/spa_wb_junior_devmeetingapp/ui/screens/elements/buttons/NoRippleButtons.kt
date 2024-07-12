@@ -106,10 +106,12 @@ fun CustomButtonText(
     modifier: Modifier = Modifier,
     pressedColor: Color,
     contentColor: Color,
-    containerColor: Color = Color.Transparent,
     text: String = "Button",
     shape: Shape = RoundedCornerShape(30.dp),
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    fontSize: TextUnit = MaterialTheme.typography.Subheading2.fontSize,
+    fontWeight: FontWeight = FontWeight.SemiBold,
+    fontFamily: FontFamily = SFProDisplay,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -121,12 +123,17 @@ fun CustomButtonText(
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             contentColor = if (isPressed) pressedColor else contentColor,
-            containerColor = containerColor,
-            disabledContainerColor = containerColor,
+            containerColor = Color.Transparent,
+            disabledContainerColor = Color.Transparent,
             disabledContentColor = contentColor.copy(alpha = 0.5f)
         ),
         interactionSource = interactionSource
     ) {
-        Text(text = text)
+        Text(
+            text = text,
+            fontSize = fontSize,
+            fontWeight = fontWeight,
+            fontFamily = fontFamily
+        )
     }
 }

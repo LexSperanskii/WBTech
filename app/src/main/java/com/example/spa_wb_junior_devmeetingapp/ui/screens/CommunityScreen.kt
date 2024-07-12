@@ -8,6 +8,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -45,9 +49,15 @@ fun CommunityScreen(
             )
         }
     ) { innerPadding ->
+
+        var searchField by remember { mutableStateOf("") }
+
         CommunityBody(
             listOfCommunities = mockListOfCommunities,
             onCommunityItemClick = { navigateToCommunityDetailItem(it) },
+            searchField = searchField,
+            onSearchFieldChange = {searchField = it},
+            onDoneKeyboardPressed = {},
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -64,12 +74,18 @@ fun CommunityScreen(
 fun CommunityBody(
     listOfCommunities: List<MockCommunityItem>,
     onCommunityItemClick: (MockCommunityItem) -> Unit,
+    searchField : String,
+    onSearchFieldChange: (String) -> Unit,
+    onDoneKeyboardPressed: () -> Unit,
     modifier: Modifier = Modifier
 ){
     Column(
         modifier = modifier
     ) {
         MySearchBar(
+            value = searchField ,
+            onValueChange = onSearchFieldChange,
+            onDoneKeyboardPressed = onDoneKeyboardPressed,
             modifier = Modifier.padding(bottom = 16.dp)
         )
         LazyColumn(

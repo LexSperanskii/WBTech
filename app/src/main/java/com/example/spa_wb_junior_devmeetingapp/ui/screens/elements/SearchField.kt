@@ -1,55 +1,121 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Gray
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 @Composable
-fun MySearchBar(modifier: Modifier = Modifier) {
+fun MySearchBar(
+    modifier: Modifier = Modifier,
+    value : String,
+    onValueChange: (String) -> Unit,
+    onDoneKeyboardPressed: () -> Unit,
+    placeholder : String = stringResource(id = R.string.search),
+) {
+    val focusManager = LocalFocusManager.current
+    var focusState by remember { mutableStateOf(false) }
 
-    var text by rememberSaveable { mutableStateOf("") }
-
-    TextField(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(4.dp),
-        value = text,
-        onValueChange = { text = it },
-        placeholder = {
-            Text(
-                text = "Поиск",
-                color = Gray,
-                fontWeight = FontWeight.SemiBold
-            )
-        },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Outlined.Search,
-                contentDescription = "Search",
-                tint = Gray
-            )
-        },
-        colors = TextFieldDefaults.colors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-            focusedContainerColor = ExtraLightGray,
-            unfocusedContainerColor = ExtraLightGray
+    BasicTextField(
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(36.dp)
+            .clip(RoundedCornerShape(4.dp))
+            .background(color = ExtraLightGray)
+            .onFocusChanged { focusState = it.isFocused }
+            .padding(horizontal = 8.dp, vertical = 6.dp),
+        value = value,
+        onValueChange = onValueChange,
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Done,
         ),
+        keyboardActions = KeyboardActions(onDone = {
+            onDoneKeyboardPressed()
+            focusManager.clearFocus()
+        }),
+        textStyle= TextStyle(
+            color = ExtraDarkPurpleForBottomBar,
+            fontSize = MaterialTheme.typography.BodyText1.fontSize,
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = SFProDisplay,
+            lineHeight = 24.sp
+        ),
+        decorationBox = { innerTextField ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = stringResource(id = R.string.search),
+                    tint = GrayForCommunityCard,
+                    modifier = Modifier.padding(horizontal = 8.dp).size(24.dp)
+                )
+                if (!focusState && value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        color = GrayForCommunityCard,
+                        fontSize = MaterialTheme.typography.BodyText1.fontSize,
+                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = SFProDisplay,
+                        lineHeight = 24.sp
+                    )
+                }
+                innerTextField()
+            }
+        },
+        visualTransformation = SearchFieldVisualTransformation(),
     )
+}
+class SearchFieldVisualTransformation : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        // Change the first character to uppercase if it exists
+        val transformedText = if (text.text.isNotEmpty()) {
+            text.text.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+        } else {
+            text.text
+        }
+
+        return TransformedText(
+            AnnotatedString(transformedText),
+            OffsetMapping.Identity
+        )
+    }
 }

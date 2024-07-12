@@ -21,14 +21,20 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.FullScreenMapScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MapDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockCommunityItem
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.AuthenticationDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.AuthenticationScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MenuDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MenuScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.RegistrationProfileDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.RegistrationProfileScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreenDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.VerificationDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.VerificationScreen
 import com.google.gson.Gson
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -46,7 +52,7 @@ fun NavHost(
         modifier = Modifier
     ) {
         composable(route = SplashScreenDestination.route) {
-            SplashScreen(navigateToStartScreen = {navController.navigate(EventsAllDestination.route)})
+            SplashScreen(navigateToStartScreen = {navController.navigate(AuthenticationDestination.route)})
         }
         composable(route = EventsAllDestination.route) {
             EventsAllScreen(
@@ -140,6 +146,24 @@ fun NavHost(
         }
         composable(route = DeveloperDestination.route) {
             DeveloperScreen()
+        }
+        composable(route = AuthenticationDestination.route) {
+            AuthenticationScreen(
+                onClickNavigateBack = {navController.popBackStack()},
+                navigateToVerificationScreen = {navController.navigate(VerificationDestination.route)}
+            )
+        }
+        composable(route = VerificationDestination.route) {
+            VerificationScreen(
+                onClickNavigateBack = {navController.popBackStack()} ,
+                navigateToRegistrationProfile = {navController.navigate(RegistrationProfileDestination.route)}
+            )
+        }
+        composable(route = RegistrationProfileDestination.route) {
+            RegistrationProfileScreen(
+                onClickNavigateBack = {navController.popBackStack()},
+                navigateToEventsAllScreen = {navController.navigate(EventsAllDestination.route)}
+            )
         }
     }
 }

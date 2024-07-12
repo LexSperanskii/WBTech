@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,47 +39,52 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.Country
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.countryList
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 @Composable
-fun PhoneNumber(
-    value: String,
-    onValueChange :  (String) -> Unit,
+fun PhoneNumberRow(
+    phoneNumber: String,
+    onPhoneNumberChange :  (String) -> Unit,
+    countryCode: Country,
+    listOfCountriesCodes :List<Country> = countryList,
+    onCountryCodeChange :  (Country) -> Unit,
+    placeholder : String = "000 000-00-00",
     modifier: Modifier = Modifier
 ) {
-    val focusManager = LocalFocusManager.current
-    val placeholder = "000 000-00-00"
     val phoneLength = 10
-
-    var userData by remember { mutableStateOf(countryList[0]) }
+    val focusManager = LocalFocusManager.current
+    var focusState by remember { mutableStateOf(false) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
         CountryCode(
-            country = userData,
-            listOfCountries = countryList,
-            onDropdownMenuItemClick = {userData = it}
+            country = countryCode,
+            listOfCountries = listOfCountriesCodes,
+            onDropdownMenuItemClick = {onCountryCodeChange(it)}
         )
         BasicTextField(
             modifier = Modifier
                 .weight(1f)
-                .heightIn(36.dp)
+                .height(36.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .background(color = ExtraLightGray)
+                .onFocusChanged { focusState = it.isFocused }
                 .padding(horizontal = 8.dp, vertical = 6.dp),
-            value = value,
+            value = phoneNumber,
             onValueChange = {
                 if (it.isDigitsOnly())
-                    onValueChange(it.take(phoneLength))
+                    onPhoneNumberChange(it.take(phoneLength))
             },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done,
@@ -86,17 +93,18 @@ fun PhoneNumber(
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             maxLines = 1,
             textStyle= TextStyle(
-                color = GrayForCommunityCard,
+                color = ExtraDarkPurpleForBottomBar,
                 fontSize = MaterialTheme.typography.BodyText1.fontSize,
                 fontWeight = FontWeight.SemiBold,
-                fontFamily = SFProDisplay
+                fontFamily = SFProDisplay,
+                lineHeight = 24.sp
             ),
             decorationBox = { innerTextField ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                 ) {
-                    if (value.isEmpty()) Text(
+                    if (!focusState && phoneNumber.isEmpty()) Text(
                         text = placeholder,
                         color = GrayForCommunityCard,
                         fontSize = MaterialTheme.typography.BodyText1.fontSize,
