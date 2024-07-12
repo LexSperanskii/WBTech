@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
@@ -25,33 +26,85 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.spa_wb_junior_devmeetingapp.ui.navigation.MeetingsUserTabs
+import androidx.navigation.NavHostController
+import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
+import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListActive
+import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListAll
+import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForTabs
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import kotlinx.coroutines.launch
 
+object EventsAllDestination : NavigationDestination {
+    override val route = "events_all"
+    override val title = R.string.events_all
+}
+
+enum class EventsAllTabs(val text: String){
+    AllMeetings(text = "ВСЕ ВСТРЕЧИ"),
+    Active(text = "АКТИВНЫЕ")
+}
+
+@Composable
+fun EventsAllScreen(
+    navController: NavHostController,
+    navigateToEventDetailItem : (MockEventItem) -> Unit,
+    navigateToDeveloperScreen : () -> Unit
+) {
+    Scaffold(
+        topBar = {
+            TopAppBarBackNameAction(
+                title = stringResource(id = EventsAllDestination.title),
+                isNavigateBack = false,
+                onAddCLick = navigateToDeveloperScreen
+            )
+        },
+        bottomBar = {
+            BottomNavigationBar(
+                navController = navController
+            )
+        }
+    ) { innerPadding ->
+        EventsBody(
+            navigateToEventDetailItem = navigateToEventDetailItem,
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .padding(
+                    start = 24.dp,
+                    end = 24.dp,
+                    top = 16.dp
+                )
+        )
+    }
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListOfMeetingsUserScreen(
-) {
+fun EventsBody(
+    navigateToEventDetailItem : (MockEventItem) -> Unit,
+    modifier: Modifier = Modifier
+){
     val scope = rememberCoroutineScope()
-    val pagerState = rememberPagerState(pageCount = { MeetingsUserTabs.entries.size})
+    val pagerState = rememberPagerState(pageCount = { EventsAllTabs.entries.size})
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                start = 24.dp,
-                end = 24.dp,
-                top = 16.dp
-            )
+        modifier = modifier
     ) {
+        MySearchBar(
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
         TabRow(
             selectedTabIndex = selectedTabIndex,
             divider = {},
@@ -65,7 +118,7 @@ fun ListOfMeetingsUserScreen(
             containerColor = Color.White,
             modifier = Modifier
         ) {
-            MeetingsUserTabs.entries.forEachIndexed { index, currentTab ->
+            EventsAllTabs.entries.forEachIndexed { index, currentTab ->
                 Tab(
                     selected = selectedTabIndex == index,
                     selectedContentColor = Purple,
@@ -95,30 +148,37 @@ fun ListOfMeetingsUserScreen(
                 .fillMaxSize()
         ) { page ->
             when (page) {
-                0 -> ListOfMeetingsUserBody(
-                    listOfMeetings = List(15){it}
+                0 -> Events(
+                    listOfMeetings = mockEventsListAll,
+                    onEventItemClick = { navigateToEventDetailItem(it) }
                 )
-                1 -> Stab()
+                1 -> Events(
+                    listOfMeetings = mockEventsListActive,
+                    onEventItemClick = { navigateToEventDetailItem(it) }
+                )
             }
         }
     }
 }
 
 @Composable
-fun ListOfMeetingsUserBody(
-    listOfMeetings: List<Int>
+fun Events(
+    listOfMeetings : List<MockEventItem>,
+    onEventItemClick : (MockEventItem) -> Unit
 ){
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
     ) {
-        items (listOfMeetings){ meeting ->
+        items (listOfMeetings){ event ->
             EventCard(
-                nameOfMeeting = "Developer Meeting",
-                statusOfMeeting = "Закончилась",
-                date = "13.09.2024",
-                place = "Москва",
-                listOfCategory = listOf("Python", "Junior", "Moscow"),
+                eventName = event.eventName,
+                eventStatus = event.eventStatus.status,
+                eventDate = event.eventDate,
+                eventPlace = event.eventPlace,
+                eventCategories = event.eventCategory,
+                eventIconURL = event.eventIconURL,
+                onEventItemClick  = { onEventItemClick(event) },
                 modifier = Modifier
             )
         }

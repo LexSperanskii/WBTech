@@ -20,10 +20,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.PurpleForGroupedPeople
@@ -31,7 +34,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 @Composable
 fun OverlappingPeopleRow(
-    accountsList: List<Int>,
+    accountsIconsURLList: List<String>,
     reverse: Boolean = false,
     modifier: Modifier = Modifier
 ){
@@ -39,21 +42,26 @@ fun OverlappingPeopleRow(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
     ) {
-        if (accountsList.size<=5){
-            LazyRow(
+        if (accountsIconsURLList.size<=5){
+            Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(2.dp),
                 modifier = Modifier.padding(4.dp)
             ) {
-                itemsIndexed(accountsList) { index, imageId ->
-                    Image(
-                        painter = painterResource(id = imageId),
-                        contentDescription = "image_${index+1}.",
+                for ((index, imageURL) in accountsIconsURLList.withIndex()) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(context = LocalContext.current)
+                            .data(imageURL)
+                            .crossfade(true)//плавное затухание
+                            .build(),
                         contentScale = ContentScale.Crop,
+                        error = painterResource(R.drawable.ic_broken_image),
+                        placeholder = painterResource(R.drawable.loading_img),
+                        contentDescription = stringResource(R.string.profile_icon_in_row,index+1),
                         modifier = Modifier
                             .size(48.dp)
                             .clip(RoundedCornerShape(16.dp))
-                            .border(2.dp, PurpleForGroupedPeople, RoundedCornerShape(16.dp))
+                            .border(2.dp, PurpleForGroupedPeople, RoundedCornerShape(16.dp)),
                     )
                 }
             }
@@ -67,20 +75,25 @@ fun OverlappingPeopleRow(
                     reverse = reverse,
                     overlappingPercentage = 0.20f
                 ) {
-                    for ((index, i) in accountsList.take(5).withIndex()) {
-                        Image(
-                            painter = painterResource(id = i),
-                            contentDescription = "image_${index+1}.",
+                    for ((index, imageURL) in accountsIconsURLList.take(5).withIndex()) {
+                        AsyncImage(
+                            model = ImageRequest.Builder(context = LocalContext.current)
+                                .data(imageURL)
+                                .crossfade(true)//плавное затухание
+                                .build(),
                             contentScale = ContentScale.Crop,
+                            error = painterResource(R.drawable.ic_broken_image),
+                            placeholder = painterResource(R.drawable.loading_img),
+                            contentDescription = stringResource(R.string.profile_icon_in_row,index+1),
                             modifier = Modifier
                                 .size(48.dp)
                                 .clip(RoundedCornerShape(16.dp))
-                                .border(2.dp, PurpleForGroupedPeople, RoundedCornerShape(16.dp))
+                                .border(2.dp, PurpleForGroupedPeople, RoundedCornerShape(16.dp)),
                         )
                     }
                 }
                 Text(
-                    text = stringResource(id = R.string.number_of_people, accountsList.size-5 ),
+                    text = stringResource(id = R.string.number_of_people, accountsIconsURLList.size-5 ),
                     fontSize = MaterialTheme.typography.BodyText1.fontSize,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = SFProDisplay,

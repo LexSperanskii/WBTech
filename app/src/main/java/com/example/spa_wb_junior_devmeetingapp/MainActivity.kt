@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.spa_wb_junior_devmeetingapp.ui.DevMeetingAppScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SpA_WB_Junior_DevMeetingAppTheme
 
 class MainActivity : ComponentActivity() {
