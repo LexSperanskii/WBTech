@@ -1,10 +1,11 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens
 
+import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,19 +43,24 @@ object AuthenticationDestination : NavigationDestination {
 
 @Composable
 fun AuthenticationScreen(
-    onClickNavigateBack: () -> Unit,
     navigateToVerificationScreen: () -> Unit
 ) {
 
     var countryCode by remember { mutableStateOf(countryList[0]) }
     var phoneNumber by remember { mutableStateOf("") }
 
+    // Обрабатываем кнопку назад на выход из приложения
+    val activity = LocalContext.current as Activity
+    BackHandler(enabled = true) {
+        activity.finish()
+    }
+
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
                 title = "",
                 isNavigateBack = true,
-                onClickNavigateBack = onClickNavigateBack,
+                onClickNavigateBack = { activity.finish() },
                 isAddCapable = false
             )
         }
@@ -64,8 +71,8 @@ fun AuthenticationScreen(
             onPhoneNumberChange = { phoneNumber = it },
             countryCode = countryCode,
             onCountryCodeChange = { countryCode = it },
-            onButtonClick = navigateToVerificationScreen,
-            isButtonEnabled = phoneNumber.length == 10
+            onForwardButtonClick = navigateToVerificationScreen,
+            isForwardButtonEnabled = phoneNumber.length == 10
         )
     }
 }
@@ -77,8 +84,8 @@ fun AuthenticationBody(
     onPhoneNumberChange: (String) -> Unit,
     countryCode: Country,
     onCountryCodeChange: (Country) -> Unit,
-    onButtonClick: () -> Unit,
-    isButtonEnabled:Boolean
+    onForwardButtonClick: () -> Unit,
+    isForwardButtonEnabled:Boolean
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -107,10 +114,10 @@ fun AuthenticationBody(
             modifier = Modifier.padding(bottom = 70.dp)
         )
         CustomButton(
-            onClick = onButtonClick,
+            onClick = onForwardButtonClick,
             pressedColor = DarkPurple,
             containerColor = Purple,
-            enabled = isButtonEnabled,
+            enabled = isForwardButtonEnabled,
             text = stringResource(id = R.string.forward_button),
             fontSize = MaterialTheme.typography.Subheading2.fontSize,
             fontWeight = FontWeight.SemiBold,

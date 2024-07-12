@@ -39,9 +39,10 @@ import com.google.gson.Gson
 import java.net.URLDecoder
 import java.net.URLEncoder
 
-/**
- * Provides Navigation graph for the application.
- */
+object GsonInstance {
+    val gson = Gson()
+}
+
 @Composable
 fun NavHost(
     navController: NavHostController
@@ -58,7 +59,7 @@ fun NavHost(
             EventsAllScreen(
                 navController = navController,
                 navigateToEventDetailItem = {
-                    val eventJson  = Gson().toJson(it)
+                    val eventJson  = GsonInstance.gson.toJson(it)
                     val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
                     navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
                 },
@@ -74,7 +75,7 @@ fun NavHost(
                      * Кодируем, тк JSON не поддерживает некоторые знаки в URL
                      * it - это наш объект MockCommunityItem
                      */
-                    val communityJson  = Gson().toJson(it)
+                    val communityJson  = GsonInstance.gson.toJson(it)
                     val encodedJson = URLEncoder.encode(communityJson , "UTF-8")
 
                     navController.navigate("${CommunityDetailsDestination.route}/${encodedJson}")
@@ -99,13 +100,13 @@ fun NavHost(
              */
             val encodedJson = backStackEntry.arguments?.getString(CommunityDetailsDestination.itemIdArg)
             val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
-            val community = Gson().fromJson(communityJson, MockCommunityItem::class.java)
+            val community = GsonInstance.gson.fromJson(communityJson, MockCommunityItem::class.java)
 
             CommunityDetailsScreen(
                 navController = navController,
                 community = community,
                 navigateToEventDetailItem = {
-                    val eventJson  = Gson().toJson(it)
+                    val eventJson  = GsonInstance.gson.toJson(it)
                     val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
                     navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
                 }
@@ -115,7 +116,7 @@ fun NavHost(
             EventsUserScreen(
                 navController = navController,
                 navigateToEventDetailItem = {
-                    val eventJson  = Gson().toJson(it)
+                    val eventJson  = GsonInstance.gson.toJson(it)
                     val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
                     navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
                 }
@@ -129,7 +130,7 @@ fun NavHost(
         ) { backStackEntry ->
             val encodedJson = backStackEntry.arguments?.getString(EventDetailsDestination.itemIdArg)
             val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
-            val event = Gson().fromJson(communityJson, MockEventItem::class.java)
+            val event = GsonInstance.gson.fromJson(communityJson, MockEventItem::class.java)
             EventDetailsScreen(
                 navController = navController,
                 event = event,
@@ -149,7 +150,6 @@ fun NavHost(
         }
         composable(route = AuthenticationDestination.route) {
             AuthenticationScreen(
-                onClickNavigateBack = {navController.popBackStack()},
                 navigateToVerificationScreen = {navController.navigate(VerificationDestination.route)}
             )
         }

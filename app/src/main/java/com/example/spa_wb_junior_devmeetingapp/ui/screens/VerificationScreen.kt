@@ -1,6 +1,5 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,7 +23,6 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
@@ -43,9 +41,7 @@ fun VerificationScreen(
     onClickNavigateBack: () -> Unit,
     navigateToRegistrationProfile: () -> Unit
 ) {
-
     var pinCode by remember { mutableStateOf("") }
-
 
     Scaffold(
         topBar = {
@@ -60,14 +56,14 @@ fun VerificationScreen(
         VerificationBody(
             modifier = Modifier.padding(innerPadding),
             phoneNumber = "+7 999 999-99-99",
-            value = pinCode,
-            onValueChange = { pinCode = it },
+            picCode = pinCode,
+            onPinCodeChange = { pinCode = it },
             onDoneKeyboardPressed = {
                 if (pinCode.length == 4)
                     navigateToRegistrationProfile()
             },
             onRequestButtonClick = {},
-            isButtonEnabled = true
+            isRequestButtonEnabled = true
         )
     }
 }
@@ -76,11 +72,11 @@ fun VerificationScreen(
 fun VerificationBody(
     modifier: Modifier = Modifier,
     phoneNumber: String,
-    value: String,
-    onValueChange: (String) -> Unit,
+    picCode: String,
+    onPinCodeChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
     onRequestButtonClick: () -> Unit,
-    isButtonEnabled:Boolean
+    isRequestButtonEnabled: Boolean
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -103,8 +99,8 @@ fun VerificationBody(
             modifier = Modifier.padding(bottom = 50.dp)
         )
         PinCodeInput(
-            value = value,
-            onValueChange = onValueChange,
+            value = picCode,
+            onValueChange = onPinCodeChange,
             onDoneKeyboardPressed = onDoneKeyboardPressed,
             modifier = Modifier.padding(bottom = 70.dp)
         )
@@ -112,7 +108,7 @@ fun VerificationBody(
             onClick = onRequestButtonClick,
             pressedColor = DarkPurple,
             contentColor = Purple,
-            enabled = isButtonEnabled,
+            enabled = isRequestButtonEnabled,
             text = stringResource(id = R.string.request_code_again),
             fontSize = MaterialTheme.typography.Subheading2.fontSize,
             fontWeight = FontWeight.SemiBold,
