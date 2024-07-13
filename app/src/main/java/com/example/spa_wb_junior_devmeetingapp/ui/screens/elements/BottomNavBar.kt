@@ -59,6 +59,7 @@ fun BottomNavigationBar(navController: NavController) {
                         // Pop up to the start destination of the graph
                         popUpTo(navController.graph.startDestinationId) {
                             saveState = true
+                            inclusive = false
                         }
                         launchSingleTop = true
                         restoreState = true
