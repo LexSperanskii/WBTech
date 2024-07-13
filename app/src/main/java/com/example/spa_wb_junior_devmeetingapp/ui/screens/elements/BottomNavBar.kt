@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDestination
@@ -50,17 +51,14 @@ fun BottomNavigationBar(navController: NavController) {
     ) {
         BottomNavItem.entries.forEach { bottomBarItem ->
 
-            val isSelected = navController.currentDestination?.route == bottomBarItem.destination.route
+//            val isSelected = navController.currentDestination?.route == bottomBarItem.destination.route
+            val isSelected = navController.currentDestination?.hierarchy?.any { it.route == bottomBarItem.destination.route } ?: false
 
             NavigationBarItem(
                 selected = isSelected,
                 onClick = {
                     navController.navigate(bottomBarItem.destination.route) {
-                        // Pop up to the start destination of the graph
-                        popUpTo(navController.graph.startDestinationId) {
-                            saveState = true
-                            inclusive = false
-                        }
+                        popUpTo(navController.graph.startDestinationId)
                         launchSingleTop = true
                         restoreState = true
                     }
