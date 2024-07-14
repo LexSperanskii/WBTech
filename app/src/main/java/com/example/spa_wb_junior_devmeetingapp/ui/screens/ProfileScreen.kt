@@ -103,7 +103,7 @@ fun ProfileBody(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.padding(top = 40.dp)
         ) {
-            for (socialMedia in SocialMedia.entries) {
+            SocialMedia.entries.forEach { socialMedia ->
                 CustomSocialMedeaButtonOutlined(
                     onClick = {onSocialMedeaButtonClick(socialMedia)},
                     modifier = Modifier,
