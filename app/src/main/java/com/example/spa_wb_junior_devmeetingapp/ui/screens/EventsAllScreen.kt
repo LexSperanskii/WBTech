@@ -196,15 +196,3 @@ fun Events(
         }
     }
 }
-
-@Composable
-fun Stab(
-    text: String = "Заглушка"
-){
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(text = text)
-    }
-}

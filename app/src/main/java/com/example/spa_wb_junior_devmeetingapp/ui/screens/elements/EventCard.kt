@@ -71,7 +71,7 @@ fun EventCard(
                     AsyncImage(
                         model = ImageRequest.Builder(context = LocalContext.current)
                             .data(eventIconURL)
-                            .crossfade(true)//плавное затухание
+                            .crossfade(true)
                             .build(),
                         contentScale = ContentScale.Crop,
                         error = painterResource(R.drawable.ic_broken_image),

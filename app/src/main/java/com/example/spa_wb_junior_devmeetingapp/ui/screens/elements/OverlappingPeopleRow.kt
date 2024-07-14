@@ -33,55 +33,31 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 fun OverlappingPeopleRow(
     accountsIconsURLList: List<String>,
     reverse: Boolean = false,
+    overlappingPercentage: Float = 0.20f,
+    accountsInOverlappingRow: Int = 5,
     modifier: Modifier = Modifier
 ){
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
     ) {
-        if (accountsIconsURLList.size<=5){
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(2.dp),
-                modifier = Modifier.padding(4.dp)
-            ) {
-                for ((index, imageURL) in accountsIconsURLList.withIndex()) {
-                    AsyncImage(
-                        model = ImageRequest.Builder(context = LocalContext.current)
-                            .data(imageURL)
-                            .crossfade(true)//плавное затухание
-                            .build(),
-                        contentScale = ContentScale.Crop,
-                        error = painterResource(R.drawable.ic_broken_image),
-                        placeholder = painterResource(R.drawable.loading_img),
-                        contentDescription = stringResource(R.string.profile_icon_in_row,index+1),
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                            .border(2.dp, PurpleForGroupedPeople, RoundedCornerShape(16.dp)),
-                    )
-                }
-            }
-        }
-        else{
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(4.dp)
-            ) {
-                OverlappingRow(
-                    reverse = reverse,
-                    overlappingPercentage = 0.20f
+        when {
+            accountsIconsURLList.size < accountsInOverlappingRow -> {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                    modifier = Modifier.padding(4.dp)
                 ) {
-                    for ((index, imageURL) in accountsIconsURLList.take(5).withIndex()) {
+                    accountsIconsURLList.forEach { imageURL ->
                         AsyncImage(
                             model = ImageRequest.Builder(context = LocalContext.current)
                                 .data(imageURL)
-                                .crossfade(true)//плавное затухание
+                                .crossfade(true)
                                 .build(),
                             contentScale = ContentScale.Crop,
                             error = painterResource(R.drawable.ic_broken_image),
                             placeholder = painterResource(R.drawable.loading_img),
-                            contentDescription = stringResource(R.string.profile_icon_in_row,index+1),
+                            contentDescription = stringResource(R.string.profile_icon_in_row),
                             modifier = Modifier
                                 .size(48.dp)
                                 .clip(RoundedCornerShape(16.dp))
@@ -89,13 +65,41 @@ fun OverlappingPeopleRow(
                         )
                     }
                 }
-                Text(
-                    text = stringResource(id = R.string.number_of_people, accountsIconsURLList.size-5 ),
-                    fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = SFProDisplay,
-                    modifier = Modifier.padding(start = 10.dp)
-                )
+            }
+            else -> {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(4.dp)
+                ) {
+                    OverlappingRow(
+                        reverse = reverse,
+                        overlappingPercentage = overlappingPercentage
+                    ) {
+                        accountsIconsURLList.take(accountsInOverlappingRow).forEach { imageURL ->
+                            AsyncImage(
+                                model = ImageRequest.Builder(context = LocalContext.current)
+                                    .data(imageURL)
+                                    .crossfade(true)
+                                    .build(),
+                                contentScale = ContentScale.Crop,
+                                error = painterResource(R.drawable.ic_broken_image),
+                                placeholder = painterResource(R.drawable.loading_img),
+                                contentDescription = stringResource(R.string.profile_icon_in_row),
+                                modifier = Modifier
+                                    .size(48.dp)
+                                    .clip(RoundedCornerShape(16.dp))
+                                    .border(2.dp, PurpleForGroupedPeople, RoundedCornerShape(16.dp)),
+                            )
+                        }
+                    }
+                    Text(
+                        text = stringResource(id = R.string.number_of_people, accountsIconsURLList.size-accountsInOverlappingRow ),
+                        fontSize = MaterialTheme.typography.BodyText1.fontSize,
+                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = SFProDisplay,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                }
             }
         }
     }

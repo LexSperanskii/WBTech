@@ -94,7 +94,7 @@ fun BottomNavigationBar(navController: NavController) {
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = Color.Transparent // Прозрачный цвет для индикатора
+                    indicatorColor = Color.Transparent
                 ),
             )
         }

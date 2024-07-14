@@ -3,6 +3,7 @@ package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
@@ -50,7 +51,7 @@ fun TopAppBarBackNameAction(
             if (isNavigateBack){
                 IconButton(onClick = onClickNavigateBack) {
                     Icon(
-                        imageVector = Icons.Filled.KeyboardArrowLeft,
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                         contentDescription = stringResource(R.string.back_button),
                         modifier = Modifier.size(24.dp)
                     )
@@ -96,7 +97,7 @@ fun TopAppBarForProfile(
         navigationIcon = {
             IconButton(onClick = onClickNavigateBack) {
                 Icon(
-                    imageVector = Icons.Filled.KeyboardArrowLeft,
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = stringResource(R.string.back_button),
                     modifier = Modifier.size(24.dp)
                 )
@@ -140,7 +141,7 @@ fun TopAppBarForEventDetails(
         navigationIcon = {
             IconButton(onClick = onClickNavigateBack) {
                 Icon(
-                    imageVector = Icons.Filled.KeyboardArrowLeft,
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = stringResource(R.string.back_button),
                     modifier = Modifier.size(24.dp)
                 )

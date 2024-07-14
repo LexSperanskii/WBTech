@@ -15,7 +15,7 @@
     <string name="more">Еще</string>
     <string name="events_details">Детали встречи</string>
     <string name="map">Карта</string>
-    <string name="profile_icon_in_row">Иконка $d.</string>
+    <string name="profile_icon_in_row">Иконка</string>
     <string name="profile_icon">Иконка профиля</string>
     <string name="i_will_go_to_the_event">Пойду на встречу!</string>
     <string name="i_will_go_next_time">Схожу в другой раз</string>
