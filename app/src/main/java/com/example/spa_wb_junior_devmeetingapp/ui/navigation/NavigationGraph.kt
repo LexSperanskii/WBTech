@@ -7,7 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDestination
+import androidx.navigation.navigation
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunitiesDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDetailsDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDetailsScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityScreen
@@ -35,6 +36,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreenDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.VerificationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.VerificationScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavItem
 import com.google.gson.Gson
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -53,117 +55,190 @@ fun NavHost(
         modifier = Modifier
     ) {
         composable(route = SplashScreenDestination.route) {
-            SplashScreen(navigateToStartScreen = {navController.navigate(AuthenticationDestination.route)})
-        }
-        composable(route = EventsAllDestination.route) {
-            EventsAllScreen(
-                navController = navController,
-                navigateToEventDetailItem = {
-                    val eventJson  = GsonInstance.gson.toJson(it)
-                    val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
-                    navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
-                },
-                navigateToDeveloperScreen = {navController.navigate(DeveloperDestination.route)}
-            )
-        }
-        composable(route = CommunityDestination.route) {
-            CommunityScreen(
-                navController = navController,
-                navigateToCommunityDetailItem = {
-                    /*
-                     * Сериализуем и кодируем в JSON наш объект, который мы хоти передать.
-                     * Кодируем, тк JSON не поддерживает некоторые знаки в URL
-                     * it - это наш объект MockCommunityItem
-                     */
-                    val communityJson  = GsonInstance.gson.toJson(it)
-                    val encodedJson = URLEncoder.encode(communityJson , "UTF-8")
-
-                    navController.navigate("${CommunityDetailsDestination.route}/${encodedJson}")
+            SplashScreen(navigateToStartScreen = {
+                navController.navigate("registration_tab"){
+                    popUpTo(SplashScreenDestination.route){
+                        inclusive = true
+                    }
                 }
-            )
-        }
-        composable(route = MenuDestination.route) {
-            MenuScreen(
-                navController = navController,
-                navigateToProfile = {navController.navigate(ProfileDestination.route)},
-                navigateToUserEvents = {navController.navigate(EventsUserDestination.route)}
-            )
-        }
-        composable(
-            route = CommunityDetailsDestination.routeWithArgs,
-            arguments = listOf(navArgument(CommunityDetailsDestination.itemIdArg) {
-                type = NavType.StringType
             })
-        ) { backStackEntry ->
-            /*
-             * Блок для десериализации и декодирования объекта который хотим получить
-             */
-            val encodedJson = backStackEntry.arguments?.getString(CommunityDetailsDestination.itemIdArg)
-            val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
-            val community = GsonInstance.gson.fromJson(communityJson, MockCommunityItem::class.java)
-
-            CommunityDetailsScreen(
-                navController = navController,
-                community = community,
-                navigateToEventDetailItem = {
-                    val eventJson  = GsonInstance.gson.toJson(it)
-                    val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
-                    navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
-                }
-            )
-        }
-        composable(route = EventsUserDestination.route) {
-            EventsUserScreen(
-                navController = navController,
-                navigateToEventDetailItem = {
-                    val eventJson  = GsonInstance.gson.toJson(it)
-                    val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
-                    navController.navigate("${EventDetailsDestination.route}/${encodedJson}")
-                }
-            )
-        }
-        composable(
-            route = EventDetailsDestination.routeWithArgs,
-            arguments = listOf(navArgument(EventDetailsDestination.itemIdArg) {
-                type = NavType.StringType
-            })
-        ) { backStackEntry ->
-            val encodedJson = backStackEntry.arguments?.getString(EventDetailsDestination.itemIdArg)
-            val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
-            val event = GsonInstance.gson.fromJson(communityJson, MockEventItem::class.java)
-            EventDetailsScreen(
-                navController = navController,
-                event = event,
-                navigateToFullScreenMap = {
-                    navController.navigate(MapDestination.route)
-                }
-            )
-        }
-        composable(route = ProfileDestination.route) {
-            ProfileScreen(navController = navController)
-        }
-        composable(route = MapDestination.route) {
-            FullScreenMapScreen(navController = navController)
         }
         composable(route = DeveloperDestination.route) {
             DeveloperScreen()
         }
-        composable(route = AuthenticationDestination.route) {
-            AuthenticationScreen(
-                navigateToVerificationScreen = {navController.navigate(VerificationDestination.route)}
-            )
+        navigation(
+            startDestination = AuthenticationDestination.route,
+            route = "registration_tab"
+        ){
+            composable(route = AuthenticationDestination.route) {
+                AuthenticationScreen(
+                    navigateToVerificationScreen = {navController.navigate(VerificationDestination.route)},
+                    onClickNavigateBack = {navController.popBackStack()}
+                )
+            }
+            composable(route = VerificationDestination.route) {
+                VerificationScreen(
+                    onClickNavigateBack = { navController.popBackStack() } ,
+                    navigateToRegistrationProfile = {navController.navigate(RegistrationProfileDestination.route)}
+                )
+            }
+            composable(route = RegistrationProfileDestination.route) {
+                RegistrationProfileScreen(
+                    onClickNavigateBack = {navController.popBackStack()},
+                    navigateToEventsAllScreen = {
+                        navController.navigate(BottomNavItem.Events.route){
+                            popUpTo("registration_tab"){
+                                inclusive = true
+                            }
+                        }
+                    }
+                )
+            }
         }
-        composable(route = VerificationDestination.route) {
-            VerificationScreen(
-                onClickNavigateBack = {navController.popBackStack()} ,
-                navigateToRegistrationProfile = {navController.navigate(RegistrationProfileDestination.route)}
-            )
+        navigation(
+            startDestination = EventsAllDestination.route,
+            route = BottomNavItem.Events.route
+        ){
+            composable(route = EventsAllDestination.route) {
+                EventsAllScreen(
+                    navController = navController,
+                    navigateToEventDetailItem = {
+                        val eventJson  = GsonInstance.gson.toJson(it)
+                        val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
+                        navController.navigate("${BottomNavItem.Events.route}/${EventDetailsDestination.route}/${encodedJson}")
+                    },
+                    navigateToDeveloperScreen = {navController.navigate(DeveloperDestination.route)}
+                )
+            }
+            composable(
+                route = "${BottomNavItem.Events.route}/${EventDetailsDestination.routeWithArgs}",
+                arguments = listOf(
+                    navArgument(EventDetailsDestination.itemIdArg) { type = NavType.StringType },
+                )
+            ) { backStackEntry ->
+                val encodedJson = backStackEntry.arguments?.getString(EventDetailsDestination.itemIdArg)
+                val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
+                val event = GsonInstance.gson.fromJson(communityJson, MockEventItem::class.java)
+                EventDetailsScreen(
+                    navController = navController,
+                    event = event,
+                    navigateToFullScreenMap = {
+                        navController.navigate("${BottomNavItem.Events.route}/${MapDestination.route}")
+                    }
+                )
+            }
+            composable(route = "${BottomNavItem.Events.route}/${MapDestination.route}") {
+                FullScreenMapScreen(navController = navController)
+            }
         }
-        composable(route = RegistrationProfileDestination.route) {
-            RegistrationProfileScreen(
-                onClickNavigateBack = {navController.popBackStack()},
-                navigateToEventsAllScreen = {navController.navigate(EventsAllDestination.route)}
-            )
+        navigation(
+            startDestination = CommunitiesDestination.route,
+            route = BottomNavItem.Communities.route
+        ){
+            composable(route = CommunitiesDestination.route) {
+                CommunityScreen(
+                    navController = navController,
+                    navigateToCommunityDetailItem = {
+                        /*
+                         * Сериализуем и кодируем в JSON наш объект, который мы хоти передать.
+                         * Кодируем, тк JSON не поддерживает некоторые знаки в URL
+                         * it - это наш объект MockCommunityItem
+                         */
+                        val communityJson  = GsonInstance.gson.toJson(it)
+                        val encodedJson = URLEncoder.encode(communityJson , "UTF-8")
+
+                        navController.navigate("${CommunityDetailsDestination.route}/${encodedJson}")
+                    }
+                )
+            }
+            composable(
+                route = CommunityDetailsDestination.routeWithArgs,
+                arguments = listOf(navArgument(CommunityDetailsDestination.itemIdArg) {
+                    type = NavType.StringType
+                })
+            ) { backStackEntry ->
+                /*
+                 * Блок для десериализации и декодирования объекта который хотим получить
+                 */
+                val encodedJson = backStackEntry.arguments?.getString(CommunityDetailsDestination.itemIdArg)
+                val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
+                val community = GsonInstance.gson.fromJson(communityJson, MockCommunityItem::class.java)
+
+                CommunityDetailsScreen(
+                    navController = navController,
+                    community = community,
+                    navigateToEventDetailItem = {
+                        val eventJson  = GsonInstance.gson.toJson(it)
+                        val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
+                        navController.navigate("${BottomNavItem.Communities.route}/${EventDetailsDestination.route}/${encodedJson}")
+                    }
+                )
+            }
+            composable(
+                route = "${BottomNavItem.Communities.route}/${EventDetailsDestination.routeWithArgs}",
+                arguments = listOf(
+                    navArgument(EventDetailsDestination.itemIdArg) { type = NavType.StringType },
+                )
+            ) { backStackEntry ->
+                val encodedJson = backStackEntry.arguments?.getString(EventDetailsDestination.itemIdArg)
+                val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
+                val event = GsonInstance.gson.fromJson(communityJson, MockEventItem::class.java)
+                EventDetailsScreen(
+                    navController = navController,
+                    event = event,
+                    navigateToFullScreenMap = {
+                        navController.navigate("${BottomNavItem.Communities.route}/${MapDestination.route}")
+                    }
+                )
+            }
+            composable(route = "${BottomNavItem.Communities.route}/${MapDestination.route}") {
+                FullScreenMapScreen(navController = navController)
+            }
+        }
+        navigation(
+            startDestination = MenuDestination.route,
+            route = BottomNavItem.Menu.route
+        ){
+            composable(route = MenuDestination.route) {
+                MenuScreen(
+                    navController = navController,
+                    navigateToProfile = {navController.navigate(ProfileDestination.route)},
+                    navigateToUserEvents = {navController.navigate(EventsUserDestination.route)}
+                )
+            }
+            composable(route = ProfileDestination.route) {
+                ProfileScreen(navController = navController)
+            }
+            composable(route = EventsUserDestination.route) {
+                EventsUserScreen(
+                    navController = navController,
+                    navigateToEventDetailItem = {
+                        val eventJson  = GsonInstance.gson.toJson(it)
+                        val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
+                        navController.navigate("${BottomNavItem.Menu.route}/${EventDetailsDestination.route}/${encodedJson}")
+                    }
+                )
+            }
+            composable(
+                route = "${BottomNavItem.Menu.route}/${EventDetailsDestination.routeWithArgs}",
+                arguments = listOf(
+                    navArgument(EventDetailsDestination.itemIdArg) { type = NavType.StringType },
+                )
+            ) { backStackEntry ->
+                val encodedJson = backStackEntry.arguments?.getString(EventDetailsDestination.itemIdArg)
+                val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
+                val event = GsonInstance.gson.fromJson(communityJson, MockEventItem::class.java)
+                EventDetailsScreen(
+                    navController = navController,
+                    event = event,
+                    navigateToFullScreenMap = {
+                        navController.navigate("${BottomNavItem.Menu.route}/${MapDestination.route}")
+                    }
+                )
+            }
+            composable(route = "${BottomNavItem.Menu.route}/${MapDestination.route}") {
+                FullScreenMapScreen(navController = navController)
+            }
         }
     }
 }

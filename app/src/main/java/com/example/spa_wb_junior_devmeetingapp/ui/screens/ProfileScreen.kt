@@ -47,7 +47,7 @@ fun ProfileScreen(
     Scaffold(
         topBar = {
             TopAppBarForProfile(
-                title = stringResource(id = EventsUserDestination.title),
+                title = stringResource(id = ProfileDestination.title),
                 onClickNavigateBack = {navController.popBackStack()},
                 onEditClick = {}
             )

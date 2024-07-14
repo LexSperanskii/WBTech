@@ -25,9 +25,9 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 
-object CommunityDestination : NavigationDestination {
-    override val route = "community"
-    override val title = R.string.community
+object CommunitiesDestination : NavigationDestination {
+    override val route = "communities"
+    override val title = R.string.communities
 }
 
 @Composable
@@ -38,7 +38,7 @@ fun CommunityScreen(
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = stringResource(id = CommunityDestination.title),
+                title = stringResource(id = CommunitiesDestination.title),
                 isNavigateBack = false,
                 isAddCapable = false
             )
