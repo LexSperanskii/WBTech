@@ -143,7 +143,7 @@ fun EventDetailsBody(
                 contentDescription = stringResource(id = R.string.map),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(2f)// Соотношение сторон 2:1 (ширина в два раза больше высоты)
+                    .aspectRatio(2f)
                     .clip(RoundedCornerShape(24.dp))
                     .clickable { onMapClick() },
                 contentScale = ContentScale.Crop

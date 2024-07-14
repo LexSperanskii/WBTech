@@ -91,10 +91,11 @@ fun CustomTextField(
 }
 class NameSurnameVisualTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
-        val transformedText = if (text.text.isNotEmpty()) {
-            text.text.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
-        } else {
-            text.text
+        val transformedText = text.text.replaceFirstChar {
+            when {
+                it.isLowerCase() -> it.titlecase()
+                else -> it.toString()
+            }
         }
 
         return TransformedText(

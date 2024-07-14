@@ -48,11 +48,12 @@ fun CommunityCard(
     modifier: Modifier = Modifier
 ) {
 
-    val locale = LocaleListCompat.getDefault().get(0) // Получаем локаль из настроек телефона
-    val symbols = DecimalFormatSymbols(locale)
-    symbols.groupingSeparator = ' ' // Устанавливаем пробел как разделитель тысяч
-    val formatter = DecimalFormat("#,###", symbols) // Используем DecimalFormat с пробелом
-    val formattedNumber = formatter.format(communitySize)
+    // Устанавливаем пробел как разделитель тысяч
+    val formattedCommunitySize = DecimalFormat("#,###", DecimalFormatSymbols(
+        LocaleListCompat.getDefault().get(0)
+    ).apply{
+        groupingSeparator = ' '
+    }).format(communitySize)
 
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -69,7 +70,7 @@ fun CommunityCard(
                     AsyncImage(
                         model = ImageRequest.Builder(context = LocalContext.current)
                             .data(communityIconURL)
-                            .crossfade(true)//плавное затухание
+                            .crossfade(true)
                             .build(),
                         contentScale = ContentScale.Crop,
                         error = painterResource(R.drawable.ic_broken_image),
@@ -93,7 +94,7 @@ fun CommunityCard(
                         text = LocalContext.current.resources.getQuantityString  (
                             R.plurals.community_people_count,
                             communitySize,
-                            formattedNumber
+                            formattedCommunitySize
                         ),
                         fontSize = MaterialTheme.typography.Metadata1.fontSize,
                         fontWeight = FontWeight.Normal,

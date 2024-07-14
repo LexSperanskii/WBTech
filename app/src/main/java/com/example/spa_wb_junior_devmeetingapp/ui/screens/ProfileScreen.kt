@@ -59,6 +59,9 @@ fun ProfileScreen(
         }
     ) { innerPadding ->
         ProfileBody(
+            name = "Иван Иванов",
+            mobileNumber = "+7 999 999-99-99",
+            onSocialMedeaButtonClick = {},
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxWidth()
@@ -68,6 +71,9 @@ fun ProfileScreen(
 
 @Composable
 fun ProfileBody(
+    name: String,
+    mobileNumber: String,
+    onSocialMedeaButtonClick: (SocialMedia)->Unit,
     modifier: Modifier = Modifier
 ){
     Column(
@@ -80,14 +86,14 @@ fun ProfileBody(
             modifier = Modifier. padding(top = 136.dp)
         )
         Text(
-            text = "Иван Иванов",
+            text = name,
             fontSize = MaterialTheme.typography.Heading2.fontSize,
             fontWeight = FontWeight.SemiBold,
             fontFamily = SFProDisplay,
             modifier = Modifier.padding(top = 20.dp)
         )
         Text(
-            text = "+7 999 999-99-99",
+            text = mobileNumber,
             fontSize = MaterialTheme.typography.Subheading2.fontSize,
             fontWeight = FontWeight.Normal,
             fontFamily = SFProDisplay,
@@ -99,7 +105,7 @@ fun ProfileBody(
         ) {
             for (socialMedia in SocialMedia.entries) {
                 CustomSocialMedeaButtonOutlined(
-                    onClick = {},
+                    onClick = {onSocialMedeaButtonClick(socialMedia)},
                     modifier = Modifier,
                     pressedColor = DarkPurple,
                     contentColor = Purple,

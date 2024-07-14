@@ -29,16 +29,15 @@ fun CustomFilterChip(text : String) {
         },
         shape = RoundedCornerShape(40.dp),
         selected = selected,
-        leadingIcon = if (selected) {
-            {
-                Icon(
+        leadingIcon = {
+            when (selected) {
+                true -> Icon(
                     imageVector = Icons.Filled.Done,
                     contentDescription = "Done icon",
                     modifier = Modifier.size(FilterChipDefaults.IconSize)
                 )
+                false -> null
             }
-        } else {
-            null
         },
         colors = FilterChipDefaults.filterChipColors(
             containerColor = LightPurple,
