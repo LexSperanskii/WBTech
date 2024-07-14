@@ -1,7 +1,5 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens
 
-import android.app.Activity
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -43,24 +40,19 @@ object AuthenticationDestination : NavigationDestination {
 
 @Composable
 fun AuthenticationScreen(
-    navigateToVerificationScreen: () -> Unit
+    navigateToVerificationScreen: () -> Unit,
+    onClickNavigateBack: () -> Unit
 ) {
 
     var countryCode by remember { mutableStateOf(countryList[0]) }
     var phoneNumber by remember { mutableStateOf("") }
-
-    // Обрабатываем кнопку назад на выход из приложения
-    val activity = LocalContext.current as Activity
-    BackHandler(enabled = true) {
-        activity.finish()
-    }
 
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
                 title = "",
                 isNavigateBack = true,
-                onClickNavigateBack = { activity.finish() },
+                onClickNavigateBack = onClickNavigateBack,
                 isAddCapable = false
             )
         }
