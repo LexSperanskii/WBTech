@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.ui.mockData.PhoneNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
@@ -55,7 +56,7 @@ fun VerificationScreen(
     ) { innerPadding ->
         VerificationBody(
             modifier = Modifier.padding(innerPadding),
-            phoneNumber = "+7 999 999-99-99",
+            phoneNumber = PhoneNumber("+44","9876540022"),
             picCode = pinCode,
             onPinCodeChange = { pinCode = it },
             onDoneKeyboardPressed = {
@@ -71,7 +72,7 @@ fun VerificationScreen(
 @Composable
 fun VerificationBody(
     modifier: Modifier = Modifier,
-    phoneNumber: String,
+    phoneNumber: PhoneNumber,
     picCode: String,
     onPinCodeChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
@@ -91,7 +92,7 @@ fun VerificationBody(
             modifier = Modifier.padding(top = 80.dp, bottom = 8.dp)
         )
         Text(
-            text = stringResource(id = R.string.sent_you_verification_code,phoneNumber),
+            text = stringResource(id = R.string.sent_you_verification_code,formattedMobileNumber(phoneNumber)),
             fontSize = MaterialTheme.typography.BodyText1.fontSize,
             fontWeight = FontWeight.Normal,
             fontFamily = SFProDisplay,
