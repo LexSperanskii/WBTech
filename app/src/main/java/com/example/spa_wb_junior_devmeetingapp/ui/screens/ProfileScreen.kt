@@ -13,13 +13,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.ui.mockData.PhoneNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneVisualTransformation
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarForProfile
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomSocialMedeaButtonOutlined
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
@@ -60,7 +66,7 @@ fun ProfileScreen(
     ) { innerPadding ->
         ProfileBody(
             name = "Иван Иванов",
-            mobileNumber = "+7 999 999-99-99",
+            mobileNumber = PhoneNumber("+44","5433354222"),
             onSocialMedeaButtonClick = {},
             modifier = Modifier
                 .padding(innerPadding)
@@ -72,7 +78,7 @@ fun ProfileScreen(
 @Composable
 fun ProfileBody(
     name: String,
-    mobileNumber: String,
+    mobileNumber: PhoneNumber,
     onSocialMedeaButtonClick: (SocialMedia)->Unit,
     modifier: Modifier = Modifier
 ){
@@ -93,7 +99,7 @@ fun ProfileBody(
             modifier = Modifier.padding(top = 20.dp)
         )
         Text(
-            text = mobileNumber,
+            text = formattedMobileNumber(mobileNumber),
             fontSize = MaterialTheme.typography.Subheading2.fontSize,
             fontWeight = FontWeight.Normal,
             fontFamily = SFProDisplay,
@@ -112,6 +118,27 @@ fun ProfileBody(
                     painter = painterResource(id = socialMedia.icon)
                 )
             }
+        }
+    }
+}
+
+fun formattedMobileNumber(mobileNumber: PhoneNumber): String {
+    return when (mobileNumber.number.length) {
+        10 -> buildString {
+            append(mobileNumber.countryCode)
+            append(" ")
+            append(mobileNumber.number.substring(0, 3))
+            append(" ")
+            append(mobileNumber.number.substring(3, 6))
+            append("-")
+            append(mobileNumber.number.substring(6, 8))
+            append("-")
+            append(mobileNumber.number.substring(8))
+        }
+        else -> buildString {
+            append(mobileNumber.countryCode)
+            append(" ")
+            append(mobileNumber.number)
         }
     }
 }

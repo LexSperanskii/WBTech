@@ -19,11 +19,10 @@
     <string name="i_will_go_to_the_event">I will go to the event!</string>
     <string name="i_will_go_next_time">I will go next time</string>
     <string name="splash_screen">Splash Screen</string>
-    <string name="country_code">contry code</string>
+    <string name="country_code">country code</string>
     <string name="back_button">Back button</string>
     <string name="top_bar_action">TopBar sign</string>
     <string name="forward">Forward</string>
-    <string name="phone_number_with_country_code">%1$s %2$s</string>
     <string name="menu_icon">Menu icon</string>
     <string name="my_events">My events</string>
     <string name="my_theme">Theme</string>
