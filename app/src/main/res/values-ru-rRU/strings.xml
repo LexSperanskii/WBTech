@@ -24,7 +24,6 @@
     <string name="back_button">Назад</string>
     <string name="top_bar_action">Знак верхнего бара</string>
     <string name="forward">Вперед</string>
-    <string name="phone_number_with_country_code">%1$s %2$s</string>
     <string name="menu_icon">Иконка меню</string>
     <string name="my_events">Мои встречи</string>
     <string name="my_theme">Тема</string>

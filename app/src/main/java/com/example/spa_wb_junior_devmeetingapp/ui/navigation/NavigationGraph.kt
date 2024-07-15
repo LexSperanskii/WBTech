@@ -115,13 +115,10 @@ fun NavHost(
                 arguments = listOf(
                     navArgument(EventDetailsDestination.itemIdArg) { type = NavType.StringType },
                 )
-            ) { backStackEntry ->
-                val encodedJson = backStackEntry.arguments?.getString(EventDetailsDestination.itemIdArg)
-                val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
-                val event = GsonInstance.gson.fromJson(communityJson, MockEventItem::class.java)
+            ) {
                 EventDetailsScreen(
                     navController = navController,
-                    event = event,
+                    event = deserializeEvent(it.arguments?.getString(EventDetailsDestination.itemIdArg)),
                     navigateToFullScreenMap = {
                         navController.navigate("${BottomNavItem.Events.route}/${MapDestination.route}")
                     }
@@ -139,11 +136,6 @@ fun NavHost(
                 CommunityScreen(
                     navController = navController,
                     navigateToCommunityDetailItem = {
-                        /*
-                         * Сериализуем и кодируем в JSON наш объект, который мы хоти передать.
-                         * Кодируем, тк JSON не поддерживает некоторые знаки в URL
-                         * it - это наш объект MockCommunityItem
-                         */
                         val communityJson  = GsonInstance.gson.toJson(it)
                         val encodedJson = URLEncoder.encode(communityJson , "UTF-8")
 
@@ -156,17 +148,10 @@ fun NavHost(
                 arguments = listOf(navArgument(CommunityDetailsDestination.itemIdArg) {
                     type = NavType.StringType
                 })
-            ) { backStackEntry ->
-                /*
-                 * Блок для десериализации и декодирования объекта который хотим получить
-                 */
-                val encodedJson = backStackEntry.arguments?.getString(CommunityDetailsDestination.itemIdArg)
-                val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
-                val community = GsonInstance.gson.fromJson(communityJson, MockCommunityItem::class.java)
-
+            ) {
                 CommunityDetailsScreen(
                     navController = navController,
-                    community = community,
+                    community = deserializeCommunity(it.arguments?.getString(CommunityDetailsDestination.itemIdArg)),
                     navigateToEventDetailItem = {
                         val eventJson  = GsonInstance.gson.toJson(it)
                         val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
@@ -179,13 +164,10 @@ fun NavHost(
                 arguments = listOf(
                     navArgument(EventDetailsDestination.itemIdArg) { type = NavType.StringType },
                 )
-            ) { backStackEntry ->
-                val encodedJson = backStackEntry.arguments?.getString(EventDetailsDestination.itemIdArg)
-                val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
-                val event = GsonInstance.gson.fromJson(communityJson, MockEventItem::class.java)
+            ) {
                 EventDetailsScreen(
                     navController = navController,
-                    event = event,
+                    event = deserializeEvent(it.arguments?.getString(EventDetailsDestination.itemIdArg)),
                     navigateToFullScreenMap = {
                         navController.navigate("${BottomNavItem.Communities.route}/${MapDestination.route}")
                     }
@@ -224,13 +206,10 @@ fun NavHost(
                 arguments = listOf(
                     navArgument(EventDetailsDestination.itemIdArg) { type = NavType.StringType },
                 )
-            ) { backStackEntry ->
-                val encodedJson = backStackEntry.arguments?.getString(EventDetailsDestination.itemIdArg)
-                val communityJson = URLDecoder.decode(encodedJson, "UTF-8")
-                val event = GsonInstance.gson.fromJson(communityJson, MockEventItem::class.java)
+            ) {
                 EventDetailsScreen(
                     navController = navController,
-                    event = event,
+                    event = deserializeEvent(it.arguments?.getString(EventDetailsDestination.itemIdArg)),
                     navigateToFullScreenMap = {
                         navController.navigate("${BottomNavItem.Menu.route}/${MapDestination.route}")
                     }
@@ -241,4 +220,25 @@ fun NavHost(
             }
         }
     }
+}
+fun deserializeEvent(encodedJson: String?): MockEventItem{
+    return encodedJson?.let {
+        try {
+            val eventJson = URLDecoder.decode(it, "UTF-8")
+            GsonInstance.gson.fromJson(eventJson, MockEventItem::class.java)
+        } catch (e: Exception) {
+            MockEventItem()
+        }
+    } ?: MockEventItem()
+}
+
+fun deserializeCommunity(encodedJson: String?): MockCommunityItem {
+    return encodedJson?.let {
+        try {
+            val communityJson = URLDecoder.decode(it, "UTF-8")
+            GsonInstance.gson.fromJson(communityJson, MockCommunityItem::class.java)
+        } catch (e: Exception) {
+            MockCommunityItem()
+        }
+    } ?: MockCommunityItem()
 }
