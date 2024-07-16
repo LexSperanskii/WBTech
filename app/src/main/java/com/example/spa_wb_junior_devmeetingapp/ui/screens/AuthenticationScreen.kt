@@ -23,7 +23,7 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.Country
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.countryList
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberRow
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
@@ -98,7 +98,7 @@ fun AuthenticationBody(
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 50.dp)
         )
-        PhoneNumberRow(
+        PhoneNumberInput(
             phoneNumber = phoneNumber,
             onPhoneNumberChange = onPhoneNumberChange,
             countryCode = countryCode,

@@ -25,6 +25,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestinati
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2

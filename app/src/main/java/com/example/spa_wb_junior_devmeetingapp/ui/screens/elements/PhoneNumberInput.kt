@@ -39,8 +39,10 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
+const val PHONE_NUMBER_MAX_LENGTH = 10
+
 @Composable
-fun PhoneNumberRow(
+fun PhoneNumberInput(
     phoneNumber: String,
     onPhoneNumberChange :  (String) -> Unit,
     countryCode: Country,
@@ -49,7 +51,6 @@ fun PhoneNumberRow(
     placeholder : String = "000 000-00-00",
     modifier: Modifier = Modifier
 ) {
-    val phoneLength = 10
     val focusManager = LocalFocusManager.current
     var focusState by remember { mutableStateOf(false) }
 
@@ -73,7 +74,7 @@ fun PhoneNumberRow(
             value = phoneNumber,
             onValueChange = {
                 if (it.isDigitsOnly()){
-                    onPhoneNumberChange(it.take(phoneLength))
+                    onPhoneNumberChange(it.take(PHONE_NUMBER_MAX_LENGTH))
                 }
             },
             keyboardOptions = KeyboardOptions(
@@ -106,39 +107,45 @@ fun PhoneNumberRow(
             },
             visualTransformation = PhoneVisualTransformation()
         )
+        Text(text = phoneNumber)
     }
 }
 class PhoneVisualTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         val formattedText = StringBuilder()
-        for (i in text.indices) {
-            formattedText.append(text[i])
-            when (i) {
-                2 -> formattedText.append(" ")
-                5 -> formattedText.append("-")
-                7 -> formattedText.append("-")
+        text.forEachIndexed{index, char ->
+            formattedText.append(char)
+            when (index) {
+                SPACE_POSITION -> formattedText.append(" ")
+                FIRST_DASH_POSITION, SECOND_DASH_POSITION -> formattedText.append("-")
             }
         }
 
         val phoneNumberOffsetTranslator = object : OffsetMapping {
-            override fun originalToTransformed(offset: Int): Int = when {
-                offset <= 2 -> offset
-                offset <= 5 -> offset + 1
-                offset <= 7 -> offset + 2
-                offset <= 9 -> offset + 3
-                else -> 13
+            override fun originalToTransformed(offset: Int): Int = when (offset) {
+                in 0..SPACE_POSITION -> offset
+                in SPACE_POSITION + 1..FIRST_DASH_POSITION -> offset + 1
+                in FIRST_DASH_POSITION + 1..SECOND_DASH_POSITION -> offset + 2
+                else -> offset + 3
             }
 
-            override fun transformedToOriginal(offset: Int): Int = when{
-                offset <= 3 -> offset
-                offset <= 7 -> offset - 1
-                offset <= 10 -> offset - 2
-                offset <= 13 -> offset - 3
-                else -> 10
+            override fun transformedToOriginal(offset: Int): Int = when(offset){
+                in 0..SPACE_POSITION + 1 -> offset
+                in SPACE_POSITION + 2..FIRST_DASH_POSITION + 2 -> offset - 1
+                in FIRST_DASH_POSITION + 3..SECOND_DASH_POSITION + 3 -> offset - 2
+                else -> offset - 3
             }
+
         }
 
         return TransformedText(AnnotatedString(formattedText.toString()), phoneNumberOffsetTranslator)
     }
+
+    private companion object {
+        const val SPACE_POSITION = 2
+        const val FIRST_DASH_POSITION = 5
+        const val SECOND_DASH_POSITION = 7
+    }
+
 }
 

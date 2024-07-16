@@ -62,7 +62,9 @@ fun MySearchBar(
             .onFocusChanged { focusState = it.isFocused }
             .padding(horizontal = 8.dp, vertical = 6.dp),
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = {
+            onValueChange(replaceFirstCharToCapitalCase(it))
+        },
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,
         ),
@@ -86,7 +88,9 @@ fun MySearchBar(
                     imageVector = Icons.Outlined.Search,
                     contentDescription = stringResource(id = R.string.search),
                     tint = GrayForCommunityCard,
-                    modifier = Modifier.padding(horizontal = 8.dp).size(24.dp)
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp)
+                        .size(24.dp)
                 )
                 if (!focusState && value.isEmpty()) {
                     Text(
@@ -100,22 +104,6 @@ fun MySearchBar(
                 }
                 innerTextField()
             }
-        },
-        visualTransformation = SearchFieldVisualTransformation(),
-    )
-}
-class SearchFieldVisualTransformation : VisualTransformation {
-    override fun filter(text: AnnotatedString): TransformedText {
-        val transformedText = text.text.replaceFirstChar {
-            when {
-                it.isLowerCase() -> it.titlecase()
-                else -> it.toString()
-            }
         }
-
-        return TransformedText(
-            AnnotatedString(transformedText),
-            OffsetMapping.Identity
-        )
-    }
+    )
 }

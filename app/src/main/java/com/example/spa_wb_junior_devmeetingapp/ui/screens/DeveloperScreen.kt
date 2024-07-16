@@ -43,7 +43,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberRow
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyRow
@@ -157,7 +157,7 @@ fun DeveloperScreen() {
                 }
             }
             item {
-                PhoneNumberRow(
+                PhoneNumberInput(
                     phoneNumber = phoneNumber,
                     onPhoneNumberChange = { phoneNumber = it },
                     countryCode = countryCode,

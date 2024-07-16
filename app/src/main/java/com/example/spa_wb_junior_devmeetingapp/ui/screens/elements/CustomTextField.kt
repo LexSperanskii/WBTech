@@ -1,5 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 
+import androidx.collection.emptyLongSet
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -55,7 +56,8 @@ fun CustomTextField(
             .onFocusChanged { focusState = it.isFocused }
             .padding(horizontal = 8.dp, vertical = 6.dp),
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = {
+            onValueChange(replaceFirstCharToCapitalCase(it)) },
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,
         ),
@@ -74,33 +76,35 @@ fun CustomTextField(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
             ) {
-                if (!focusState && value.isEmpty()) Text(
-                    text = placeholder,
-                    color = GrayForCommunityCard,
-                    fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = SFProDisplay,
-                    lineHeight = 24.sp
-                )
-                innerTextField()
+                when {
+                    !focusState && value.isEmpty() -> {
+                        Text(
+                            text = placeholder,
+                            color = GrayForCommunityCard,
+                            fontSize = MaterialTheme.typography.BodyText1.fontSize,
+                            fontWeight = FontWeight.SemiBold,
+                            fontFamily = SFProDisplay,
+                            lineHeight = 24.sp
+                        )
+                    }
+
+                    else -> {
+                        innerTextField()
+                    }
+                }
             }
         },
-        visualTransformation = NameSurnameVisualTransformation(),
         maxLines = 1
     )
 }
-class NameSurnameVisualTransformation : VisualTransformation {
-    override fun filter(text: AnnotatedString): TransformedText {
-        val transformedText = text.text.replaceFirstChar {
-            when {
-                it.isLowerCase() -> it.titlecase()
-                else -> it.toString()
-            }
+fun replaceFirstCharToCapitalCase(text: String): String {
+    return when {
+        text.length == 1 -> {
+            text.replaceFirstChar { it.titlecaseChar() }
         }
 
-        return TransformedText(
-            AnnotatedString(transformedText),
-            OffsetMapping.Identity
-        )
+        else -> {
+            text
+        }
     }
 }
