@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
@@ -31,11 +32,11 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 @Composable
-fun ProfileRow(
+fun ProfileMenuItem(
     modifier: Modifier = Modifier,
     onProfileClick: () -> Unit,
     profileName: String,
-    profilePhoneNumber: PhoneNumber,
+    mobileNumber: PhoneNumber,
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -65,7 +66,7 @@ fun ProfileRow(
                     modifier = Modifier
                 )
                 Text(
-                    text = stringResource(id = R.string.phone_number_with_country_code, profilePhoneNumber.countryCode,formattedPhoneNumber(profilePhoneNumber.number) ),
+                    text = formattedMobileNumber(mobileNumber),
                     fontSize = MaterialTheme.typography.Metadata1.fontSize,
                     fontWeight = FontWeight.Normal,
                     fontFamily = SFProDisplay,
@@ -75,25 +76,11 @@ fun ProfileRow(
             }
             Spacer(modifier = Modifier.weight(1f))
             Icon(
-                imageVector = Icons.Filled.KeyboardArrowRight,
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = stringResource(id = R.string.forward),
                 tint = ExtraDarkPurpleForBottomBar,
                 modifier = Modifier.size(24.dp)
             )
         }
-    }
-}
-fun formattedPhoneNumber(phoneNumber: String): String {
-    return when (phoneNumber.length) {
-        10 -> buildString {
-            append(phoneNumber.substring(0, 3))
-            append(" ")
-            append(phoneNumber.substring(3, 6))
-            append("-")
-            append(phoneNumber.substring(6, 8))
-            append("-")
-            append(phoneNumber.substring(8))
-        }
-        else -> phoneNumber
     }
 }

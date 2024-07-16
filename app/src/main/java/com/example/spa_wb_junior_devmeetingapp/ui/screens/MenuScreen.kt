@@ -18,7 +18,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestinati
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MenuItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MenuItemForMyEvents
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.ProfileRow
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.ProfileMenuItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightGray
 
@@ -81,10 +81,10 @@ fun MenuBody(
         modifier = modifier
     ) {
         item {
-            ProfileRow(
+            ProfileMenuItem(
                 onProfileClick = onProfileClick,
                 profileName = profileName,
-                profilePhoneNumber = profilePhoneNumber,
+                mobileNumber = profilePhoneNumber,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
         }

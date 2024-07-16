@@ -23,6 +23,7 @@ private val LightColorScheme = lightColorScheme(
     secondary = PurpleGrey40,
     tertiary = Pink40,
     background = Color.White, //определяет задний фон. Динамические цвета выключить надо
+    surface = Color.White //задний фон topAppBar
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

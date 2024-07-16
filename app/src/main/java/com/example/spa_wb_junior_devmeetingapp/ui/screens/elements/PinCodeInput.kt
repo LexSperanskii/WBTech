@@ -35,7 +35,8 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 fun PinCodeInput(
     value: String,
     onValueChange :  (String) -> Unit,
-    valueLength : Int = 4,
+    onDoneKeyboardPressed :  () -> Unit,
+    numberOfDigits : Int = 4,
     modifier : Modifier = Modifier
 ){
     val focusManager = LocalFocusManager.current
@@ -44,13 +45,16 @@ fun PinCodeInput(
         value = value,
         onValueChange = {
             if (it.isDigitsOnly())
-                onValueChange(it.take(valueLength))
+                onValueChange(it.take(numberOfDigits))
         },
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,
             keyboardType = KeyboardType.Number
         ),
-        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+        keyboardActions = KeyboardActions(onDone = {
+            onDoneKeyboardPressed()
+            focusManager.clearFocus()
+        }),
         maxLines = 1,
         decorationBox = {
             Row(
@@ -58,7 +62,7 @@ fun PinCodeInput(
                 horizontalArrangement = Arrangement.spacedBy(40.dp),
                 modifier = Modifier.heightIn(40.dp)
             ) {
-                repeat(valueLength) { index ->
+                repeat(numberOfDigits) { index ->
                     when (index in value.indices) {
                         true -> Text(
                             text = value[index].toString(),

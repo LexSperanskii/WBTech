@@ -8,6 +8,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -21,9 +25,9 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 
-object CommunityDestination : NavigationDestination {
-    override val route = "community"
-    override val title = R.string.community
+object CommunitiesDestination : NavigationDestination {
+    override val route = "communities"
+    override val title = R.string.communities
 }
 
 @Composable
@@ -34,7 +38,7 @@ fun CommunityScreen(
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = stringResource(id = CommunityDestination.title),
+                title = stringResource(id = CommunitiesDestination.title),
                 isNavigateBack = false,
                 isAddCapable = false
             )
@@ -45,9 +49,15 @@ fun CommunityScreen(
             )
         }
     ) { innerPadding ->
+
+        var searchField by remember { mutableStateOf("") }
+
         CommunityBody(
             listOfCommunities = mockListOfCommunities,
             onCommunityItemClick = { navigateToCommunityDetailItem(it) },
+            searchField = searchField,
+            onSearchFieldChange = {searchField = it},
+            onDoneKeyboardPressed = {},
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -64,12 +74,18 @@ fun CommunityScreen(
 fun CommunityBody(
     listOfCommunities: List<MockCommunityItem>,
     onCommunityItemClick: (MockCommunityItem) -> Unit,
+    searchField : String,
+    onSearchFieldChange: (String) -> Unit,
+    onDoneKeyboardPressed: () -> Unit,
     modifier: Modifier = Modifier
 ){
     Column(
         modifier = modifier
     ) {
         MySearchBar(
+            value = searchField ,
+            onValueChange = onSearchFieldChange,
+            onDoneKeyboardPressed = onDoneKeyboardPressed,
             modifier = Modifier.padding(bottom = 16.dp)
         )
         LazyColumn(

@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.ui.mockData.countryList
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockAccountsIconsURLList1
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockAccountsIconsURLList2
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
@@ -42,7 +43,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberRow
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyRow
@@ -129,7 +130,11 @@ fun DeveloperScreen() {
         "Moscow"
     )
     var pinCode by remember { mutableStateOf("") }
+    var countryCode by remember { mutableStateOf(countryList[0]) }
     var phoneNumber by remember { mutableStateOf("") }
+
+    var searchField by remember { mutableStateOf("") }
+
 
     Scaffold(
     ) { innerPadding ->
@@ -146,14 +151,17 @@ fun DeveloperScreen() {
                 ) {
                     PinCodeInput(
                         value = pinCode,
-                        onValueChange = { pinCode = it}
+                        onValueChange = { pinCode = it},
+                        onDoneKeyboardPressed = {}
                     )
                 }
             }
             item {
-                PhoneNumber(
-                    value = phoneNumber,
-                    onValueChange = {phoneNumber = it}
+                PhoneNumberRow(
+                    phoneNumber = phoneNumber,
+                    onPhoneNumberChange = { phoneNumber = it },
+                    countryCode = countryCode,
+                    onCountryCodeChange = { countryCode = it }
                 )
             }
             item {
@@ -254,7 +262,6 @@ fun DeveloperScreen() {
                     CustomButtonText(
                         onClick = {},
                         pressedColor = DarkPurple,
-                        containerColor = Color. Transparent,
                         contentColor = Purple
                     )
                 }
@@ -282,7 +289,6 @@ fun DeveloperScreen() {
                     CustomButtonText(
                         onClick = {},
                         pressedColor = DarkPurple,
-                        containerColor = Color.Transparent,
                         contentColor = Purple,
                         enabled = false
                     )
@@ -319,7 +325,12 @@ fun DeveloperScreen() {
                 }
             }
             item {
-                MySearchBar(modifier = Modifier)
+                MySearchBar(
+                    value = searchField,
+                    onValueChange = {searchField = it},
+                    onDoneKeyboardPressed = {},
+                    modifier = Modifier
+                )
             }
             item {
                 Row(

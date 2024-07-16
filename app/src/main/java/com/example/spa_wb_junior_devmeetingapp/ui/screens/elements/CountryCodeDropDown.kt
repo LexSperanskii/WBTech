@@ -4,14 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -25,129 +21,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.core.text.isDigitsOnly
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.Country
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.countryList
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
-@Composable
-fun PhoneNumber(
-    value: String,
-    onValueChange :  (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val focusManager = LocalFocusManager.current
-    val placeholder = "000 000-00-00"
-    val phoneLength = 10
-
-    var userData by remember { mutableStateOf(countryList[0]) }
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-    ) {
-        CountryCode(
-            country = userData,
-            listOfCountries = countryList,
-            onDropdownMenuItemClick = {userData = it}
-        )
-        BasicTextField(
-            modifier = Modifier
-                .weight(1f)
-                .heightIn(36.dp)
-                .clip(RoundedCornerShape(4.dp))
-                .background(color = ExtraLightGray)
-                .padding(horizontal = 8.dp, vertical = 6.dp),
-            value = value,
-            onValueChange = {
-                if (it.isDigitsOnly())
-                    onValueChange(it.take(phoneLength))
-            },
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Number
-            ),
-            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-            maxLines = 1,
-            textStyle= TextStyle(
-                color = GrayForCommunityCard,
-                fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = SFProDisplay
-            ),
-            decorationBox = { innerTextField ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                ) {
-                    if (value.isEmpty()) Text(
-                        text = placeholder,
-                        color = GrayForCommunityCard,
-                        fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                        fontWeight = FontWeight.SemiBold,
-                        fontFamily = SFProDisplay
-                    )
-                    innerTextField() // Отображаем поле ввода
-                }
-            },
-            visualTransformation = PhoneVisualTransformation()
-        )
-    }
-}
-class PhoneVisualTransformation : VisualTransformation {
-    override fun filter(text: AnnotatedString): TransformedText {
-        val trimmed = if (text.text.length > 10) text.text.substring(0..9) else text.text
-        var output = ""
-        for (i in trimmed.indices) {
-            output += trimmed[i]
-            when (i) {
-                2 -> output += " "
-                5 -> output += "-"
-                7 -> output += "-"
-            }
-        }
-
-        val phoneNumberOffsetTranslator = object : OffsetMapping {
-            override fun originalToTransformed(offset: Int): Int {
-                if (offset <= 2) return offset
-                if (offset <= 5) return offset + 1
-                if (offset <= 7) return offset + 2
-                if (offset <= 9) return offset + 3
-                return 13
-            }
-
-            override fun transformedToOriginal(offset: Int): Int {
-                if (offset <= 3) return offset
-                if (offset <= 7) return offset - 1
-                if (offset <= 10) return offset - 2
-                if (offset <= 13) return offset - 3
-                return 10
-            }
-        }
-
-        return TransformedText(AnnotatedString(output), phoneNumberOffsetTranslator)
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CountryCode(
+fun CountryCodeDropDown(
     country: Country,
     listOfCountries : List<Country>,
     onDropdownMenuItemClick: (Country)->Unit,
@@ -225,4 +112,3 @@ fun CountryCode(
         }
     }
 }
-
