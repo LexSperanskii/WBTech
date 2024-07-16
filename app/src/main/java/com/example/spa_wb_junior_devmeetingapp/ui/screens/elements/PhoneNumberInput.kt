@@ -33,23 +33,23 @@ import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.Country
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.countryList
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.UiUtils.PHONE_NUMBER_LENGTH
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
-const val PHONE_NUMBER_MAX_LENGTH = 10
 
 @Composable
 fun PhoneNumberInput(
     phoneNumber: String,
-    onPhoneNumberChange :  (String) -> Unit,
+    onPhoneNumberChange: (String) -> Unit,
     countryCode: Country,
-    listOfCountriesCodes :List<Country> = countryList,
-    onCountryCodeChange :  (Country) -> Unit,
-    placeholder : String = "000 000-00-00",
-    modifier: Modifier = Modifier
+    onCountryCodeChange: (Country) -> Unit,
+    modifier: Modifier = Modifier,
+    listOfCountriesCodes: List<Country> = countryList,
+    placeholder: String = "000 000-00-00"
 ) {
     val focusManager = LocalFocusManager.current
     var focusState by remember { mutableStateOf(false) }
@@ -74,7 +74,7 @@ fun PhoneNumberInput(
             value = phoneNumber,
             onValueChange = {
                 if (it.isDigitsOnly()){
-                    onPhoneNumberChange(it.take(PHONE_NUMBER_MAX_LENGTH))
+                    onPhoneNumberChange(it.take(PHONE_NUMBER_LENGTH))
                 }
             },
             keyboardOptions = KeyboardOptions(
@@ -95,19 +95,24 @@ fun PhoneNumberInput(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                 ) {
-                    if (!focusState && phoneNumber.isEmpty()) Text(
-                        text = placeholder,
-                        color = GrayForCommunityCard,
-                        fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                        fontWeight = FontWeight.SemiBold,
-                        fontFamily = SFProDisplay
-                    )
-                    innerTextField()
+                    when{
+                        !focusState && phoneNumber.isEmpty() ->{
+                            Text(
+                                text = placeholder,
+                                color = GrayForCommunityCard,
+                                fontSize = MaterialTheme.typography.BodyText1.fontSize,
+                                fontWeight = FontWeight.SemiBold,
+                                fontFamily = SFProDisplay
+                            )
+                        }
+                        else -> {
+                            innerTextField()
+                        }
+                    }
                 }
             },
             visualTransformation = PhoneVisualTransformation()
         )
-        Text(text = phoneNumber)
     }
 }
 class PhoneVisualTransformation : VisualTransformation {

@@ -66,14 +66,14 @@ fun RegistrationProfileScreen(
 
 @Composable
 fun RegistrationProfileScreenBody(
-    modifier: Modifier = Modifier,
     name: String,
     onNameChange: (String) -> Unit,
     surname: String,
     onSurnameChange: (String) -> Unit,
     onButtonSafeClick: () -> Unit,
-    isButtonSafeEnabled:Boolean
-) {
+    isButtonSafeEnabled:Boolean,
+    modifier: Modifier = Modifier
+    ) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

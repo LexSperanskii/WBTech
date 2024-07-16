@@ -30,11 +30,11 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 @Composable
 fun MenuItem(
-    modifier: Modifier = Modifier,
     onMenuItemClick: () -> Unit,
     menuItemIcon: Painter,
     menuItemName: String,
-) {
+    modifier: Modifier = Modifier
+    ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
@@ -72,11 +72,11 @@ fun MenuItem(
 }
 @Composable
 fun MenuItemForMyEvents(
-    modifier: Modifier = Modifier,
     onMenuItemClick: () -> Unit,
     menuItemIcon: Painter,
     menuItemName: String,
-) {
+    modifier: Modifier = Modifier
+    ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier

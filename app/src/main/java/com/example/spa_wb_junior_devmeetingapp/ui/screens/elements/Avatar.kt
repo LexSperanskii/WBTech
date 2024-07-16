@@ -30,10 +30,10 @@ fun PersonAvatar(
     size: Dp,
     isEdit: Boolean,
     imageURL: String = "",
+    onEditClick: () -> Unit = {},
+    modifier: Modifier = Modifier,
     defaultIcon: Painter = painterResource(id = R.drawable.icon_avatar_person),
     backgroundColor: Color = ExtraLightGray,
-    onEditClick: () -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
 
     val iconScale = size.value / 100 // Коэффициент масштабирования иконки
@@ -57,7 +57,7 @@ fun PersonAvatar(
             else -> AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
                     .data(imageURL)
-                    .crossfade(true)//плавное затухание
+                    .crossfade(true)
                     .build(),
                 contentScale = ContentScale.Crop,
                 error = painterResource(R.drawable.ic_broken_image),

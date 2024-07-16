@@ -20,8 +20,6 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.FullScreenMapScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MapDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockCommunityItem
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.AuthenticationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.AuthenticationScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperDestination
@@ -37,8 +35,9 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreenDestinatio
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.VerificationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.VerificationScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavItem
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.NavUtils.deserializeCommunity
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.NavUtils.deserializeEvent
 import com.google.gson.Gson
-import java.net.URLDecoder
 import java.net.URLEncoder
 
 object GsonInstance {
@@ -220,25 +219,4 @@ fun NavHost(
             }
         }
     }
-}
-fun deserializeEvent(encodedJson: String?): MockEventItem{
-    return encodedJson?.let {
-        try {
-            val eventJson = URLDecoder.decode(it, "UTF-8")
-            GsonInstance.gson.fromJson(eventJson, MockEventItem::class.java)
-        } catch (e: Exception) {
-            MockEventItem()
-        }
-    } ?: MockEventItem()
-}
-
-fun deserializeCommunity(encodedJson: String?): MockCommunityItem {
-    return encodedJson?.let {
-        try {
-            val communityJson = URLDecoder.decode(it, "UTF-8")
-            GsonInstance.gson.fromJson(communityJson, MockCommunityItem::class.java)
-        } catch (e: Exception) {
-            MockCommunityItem()
-        }
-    } ?: MockCommunityItem()
 }

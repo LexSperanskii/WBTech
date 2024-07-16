@@ -48,13 +48,13 @@ class CustomRippleTheme(): RippleTheme {
 
 @Composable
 fun CustomButtonRipple(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     containerColor: Color,
     contentColor: Color,
     pressedColor: Color,
     rippleColor: Color,
+    onClick: () -> Unit,
     text: String = "Button",
+    modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(30.dp),
     rippleSize: Dp = 8.dp,
     enabled:Boolean = true,
@@ -97,9 +97,17 @@ fun CustomButtonRipple(
                         .clip(shape)
                         .background(
                             when {
-                                !enabled -> containerColor.copy(alpha = 0.5f)
-                                isPressed -> pressedColor
-                                else -> containerColor
+                                !enabled -> {
+                                    containerColor.copy(alpha = 0.5f)
+                                }
+
+                                isPressed -> {
+                                    pressedColor
+                                }
+
+                                else -> {
+                                    containerColor
+                                }
                             }
                         )
                         .padding(
@@ -114,13 +122,13 @@ fun CustomButtonRipple(
 
 @Composable
 fun CustomButtonOutlinedRipple(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     contentColor: Color,
     pressedColor: Color,
     rippleColor: Color,
-    containerColor: Color = Color.Transparent,
+    onClick: () -> Unit,
     text: String = "Button",
+    modifier: Modifier = Modifier,
+    containerColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(30.dp),
     rippleSize: Dp = 8.dp,
     enabled: Boolean = true,
@@ -171,9 +179,15 @@ fun CustomButtonOutlinedRipple(
                                 BorderStroke(
                                     width = 2.dp,
                                     color = when {
-                                        !enabled -> contentColor.copy(alpha = 0.5f)
-                                        isPressed -> pressedColor
-                                        else -> contentColor
+                                        !enabled -> {
+                                            contentColor.copy(alpha = 0.5f)
+                                        }
+                                        isPressed -> {
+                                            pressedColor
+                                        }
+                                        else -> {
+                                            contentColor
+                                        }
                                     }
                                 ), shape
                             )

@@ -30,12 +30,12 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
 @Composable
 fun TopAppBarBackNameAction(
     title: String,
-    isNavigateBack : Boolean= true,
-    onClickNavigateBack: () -> Unit = {},
-    isAddCapable: Boolean = true,
-    onAddCLick: () -> Unit = {},
     modifier: Modifier = Modifier,
-) {
+    onClickNavigateBack: () -> Unit = {},
+    onAddCLick: () -> Unit = {},
+    isNavigateBack : Boolean= true,
+    isAddCapable: Boolean = true
+    ) {
     TopAppBar(
         title = {
             Text(

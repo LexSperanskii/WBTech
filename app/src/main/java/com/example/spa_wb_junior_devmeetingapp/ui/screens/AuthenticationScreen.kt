@@ -71,14 +71,14 @@ fun AuthenticationScreen(
 
 @Composable
 fun AuthenticationBody(
-    modifier: Modifier = Modifier,
     phoneNumber: String,
     onPhoneNumberChange: (String) -> Unit,
     countryCode: Country,
     onCountryCodeChange: (Country) -> Unit,
     onForwardButtonClick: () -> Unit,
-    isForwardButtonEnabled:Boolean
-) {
+    isForwardButtonEnabled:Boolean,
+    modifier: Modifier = Modifier
+    ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxSize().padding(24.dp)

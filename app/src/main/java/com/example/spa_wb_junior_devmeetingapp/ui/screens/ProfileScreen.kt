@@ -23,7 +23,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigat
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarForProfile
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomSocialMedeaButtonOutlined
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.formattedMobileNumber
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.UiUtils.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
@@ -111,7 +111,7 @@ fun ProfileBody(
                     modifier = Modifier,
                     pressedColor = DarkPurple,
                     contentColor = Purple,
-                    painter = painterResource(id = socialMedia.icon)
+                    icon = painterResource(id = socialMedia.icon)
                 )
             }
         }

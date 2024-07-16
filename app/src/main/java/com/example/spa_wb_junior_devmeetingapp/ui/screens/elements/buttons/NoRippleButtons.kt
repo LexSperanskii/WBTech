@@ -25,12 +25,12 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
 
 @Composable
 fun CustomButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     pressedColor: Color,
     containerColor: Color,
-    contentColor: Color = Color.White,
+    onClick: () -> Unit,
     text: String = "Button",
+    modifier: Modifier = Modifier,
+    contentColor: Color = Color.White,
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(30.dp),
     fontSize: TextUnit = MaterialTheme.typography.Subheading2.fontSize,
@@ -46,7 +46,14 @@ fun CustomButton(
         shape = shape,
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (isPressed) pressedColor else containerColor,
+            containerColor = when (isPressed) {
+                true -> {
+                    pressedColor
+                }
+                false -> {
+                    containerColor
+                }
+            },
             contentColor = contentColor,
             disabledContainerColor = containerColor.copy(alpha = 0.5f),
             disabledContentColor = contentColor
@@ -64,12 +71,12 @@ fun CustomButton(
 
 @Composable
 fun CustomButtonOutlined(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     pressedColor: Color,
     contentColor: Color,
-    containerColor: Color = Color.Transparent,
+    onClick: () -> Unit,
     text: String = "Button",
+    modifier: Modifier = Modifier,
+    containerColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(30.dp),
     enabled: Boolean = true
 ) {
@@ -83,14 +90,27 @@ fun CustomButtonOutlined(
         modifier = modifier,
         border = BorderStroke(
             width = 2.dp, color = when {
-                !enabled  -> contentColor.copy(alpha = 0.5f)
-                isPressed -> pressedColor
-                else -> contentColor
+                !enabled -> {
+                    contentColor.copy(alpha = 0.5f)
+                }
+                isPressed -> {
+                    pressedColor
+                }
+                else -> {
+                    contentColor
+                }
             }
         ),
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
-            contentColor = if (isPressed) pressedColor else contentColor,
+            contentColor = when(isPressed){
+                true -> {
+                    pressedColor
+                }
+                false -> {
+                    contentColor
+                }
+            },
             disabledContainerColor = containerColor,
             disabledContentColor = contentColor.copy(alpha = 0.5f)
         ),
@@ -102,11 +122,11 @@ fun CustomButtonOutlined(
 
 @Composable
 fun CustomButtonText(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     pressedColor: Color,
     contentColor: Color,
+    onClick: () -> Unit,
     text: String = "Button",
+    modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(30.dp),
     enabled: Boolean = true,
     fontSize: TextUnit = MaterialTheme.typography.Subheading2.fontSize,
@@ -122,7 +142,14 @@ fun CustomButtonText(
         shape = shape,
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
-            contentColor = if (isPressed) pressedColor else contentColor,
+            contentColor = when(isPressed){
+                true -> {
+                    pressedColor
+                }
+                false -> {
+                    contentColor
+                }
+            },
             containerColor = Color.Transparent,
             disabledContainerColor = Color.Transparent,
             disabledContentColor = contentColor.copy(alpha = 0.5f)

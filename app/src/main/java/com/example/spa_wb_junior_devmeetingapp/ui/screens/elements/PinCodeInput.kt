@@ -30,15 +30,14 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 
-
 @Composable
 fun PinCodeInput(
     value: String,
-    onValueChange :  (String) -> Unit,
-    onDoneKeyboardPressed :  () -> Unit,
-    numberOfDigits : Int = 4,
-    modifier : Modifier = Modifier
-){
+    onValueChange: (String) -> Unit,
+    onDoneKeyboardPressed: () -> Unit,
+    modifier: Modifier = Modifier,
+    numberOfDigits: Int = 4
+) {
     val focusManager = LocalFocusManager.current
 
     BasicTextField(

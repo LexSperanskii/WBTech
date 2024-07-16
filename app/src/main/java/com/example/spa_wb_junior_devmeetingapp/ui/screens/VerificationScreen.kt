@@ -25,7 +25,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestinati
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.formattedMobileNumber
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.UiUtils.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
@@ -72,14 +72,14 @@ fun VerificationScreen(
 
 @Composable
 fun VerificationBody(
-    modifier: Modifier = Modifier,
     phoneNumber: PhoneNumber,
     picCode: String,
     onPinCodeChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
     onRequestButtonClick: () -> Unit,
-    isRequestButtonEnabled: Boolean
-) {
+    isRequestButtonEnabled: Boolean,
+    modifier: Modifier = Modifier,
+    ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -93,7 +93,7 @@ fun VerificationBody(
             modifier = Modifier.padding(top = 80.dp, bottom = 8.dp)
         )
         Text(
-            text = stringResource(id = R.string.sent_you_verification_code,formattedMobileNumber(phoneNumber)),
+            text = stringResource(id = R.string.sent_you_verification_code, formattedMobileNumber(phoneNumber)),
             fontSize = MaterialTheme.typography.BodyText1.fontSize,
             fontWeight = FontWeight.Normal,
             fontFamily = SFProDisplay,

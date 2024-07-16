@@ -53,9 +53,9 @@ fun EventCard(
     eventCategories: List<String>,
     eventIconURL: String,
     onEventItemClick : ()-> Unit,
+    modifier: Modifier = Modifier,
     dividerColor: Color = DividerColor,
     dividerThickness: Dp = DividerDefaults.Thickness,
-    modifier: Modifier = Modifier
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),

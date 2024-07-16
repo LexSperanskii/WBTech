@@ -65,7 +65,6 @@ fun MenuScreen(
 
 @Composable
 fun MenuBody(
-    modifier: Modifier = Modifier,
     onProfileClick : ()->Unit,
     profileName : String,
     profilePhoneNumber: PhoneNumber,
@@ -76,7 +75,8 @@ fun MenuBody(
     onStorageAndAssetsClick: () -> Unit,
     onHelpClick: () -> Unit,
     onInviteFriendClick: () -> Unit,
-){
+    modifier: Modifier = Modifier
+    ){
     LazyColumn(
         modifier = modifier
     ) {

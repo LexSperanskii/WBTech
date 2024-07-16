@@ -1,6 +1,5 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 
-import androidx.collection.emptyLongSet
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,15 +21,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.UiUtils.replaceFirstCharToCapitalCase
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
@@ -57,7 +53,8 @@ fun CustomTextField(
             .padding(horizontal = 8.dp, vertical = 6.dp),
         value = value,
         onValueChange = {
-            onValueChange(replaceFirstCharToCapitalCase(it)) },
+            onValueChange(replaceFirstCharToCapitalCase(it))
+        },
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,
         ),
@@ -96,15 +93,4 @@ fun CustomTextField(
         },
         maxLines = 1
     )
-}
-fun replaceFirstCharToCapitalCase(text: String): String {
-    return when {
-        text.length == 1 -> {
-            text.replaceFirstChar { it.titlecaseChar() }
-        }
-
-        else -> {
-            text
-        }
-    }
 }

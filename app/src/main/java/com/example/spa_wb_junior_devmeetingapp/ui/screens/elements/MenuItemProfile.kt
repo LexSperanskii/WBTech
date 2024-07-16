@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.mockData.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.UiUtils.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
@@ -32,11 +33,11 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 @Composable
 fun MenuItemProfile(
-    modifier: Modifier = Modifier,
     onProfileClick: () -> Unit,
     profileName: String,
     mobileNumber: PhoneNumber,
-) {
+    modifier: Modifier = Modifier
+    ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
@@ -65,7 +66,7 @@ fun MenuItemProfile(
                     modifier = Modifier
                 )
                 Text(
-                    text = formattedMobileNumber(mobileNumber),
+                    text =  formattedMobileNumber(mobileNumber),
                     fontSize = MaterialTheme.typography.Metadata1.fontSize,
                     fontWeight = FontWeight.Normal,
                     fontFamily = SFProDisplay,
@@ -80,26 +81,6 @@ fun MenuItemProfile(
                 tint = ExtraDarkPurpleForBottomBar,
                 modifier = Modifier.size(24.dp)
             )
-        }
-    }
-}
-fun formattedMobileNumber(mobileNumber: PhoneNumber): String {
-    return when (mobileNumber.number.length) {
-        10 -> buildString {
-            append(mobileNumber.countryCode)
-            append(" ")
-            append(mobileNumber.number.substring(0, 3))
-            append(" ")
-            append(mobileNumber.number.substring(3, 6))
-            append("-")
-            append(mobileNumber.number.substring(6, 8))
-            append("-")
-            append(mobileNumber.number.substring(8))
-        }
-        else -> buildString {
-            append(mobileNumber.countryCode)
-            append(" ")
-            append(mobileNumber.number)
         }
     }
 }
