@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +25,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigat
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
+import org.koin.androidx.compose.koinViewModel
 
 object CommunitiesDestination : NavigationDestination {
     override val route = "communities"
@@ -33,8 +35,12 @@ object CommunitiesDestination : NavigationDestination {
 @Composable
 fun CommunityScreen(
     navController: NavHostController,
-    navigateToCommunityDetailItem: (CommunityItem) -> Unit
+    navigateToCommunityDetailItem: (CommunityItem) -> Unit,
+    viewModel: CommunitiesViewModel = koinViewModel()
 ){
+
+    val communitiesScreenUiState = viewModel.getCommunitiesScreenUiStateFlow().collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(

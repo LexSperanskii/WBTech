@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -29,6 +30,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+import org.koin.androidx.compose.koinViewModel
 
 object ProfileDestination : NavigationDestination {
     override val route = "profile"
@@ -44,8 +46,12 @@ enum class SocialMedia(val icon: Int) {
 
 @Composable
 fun ProfileScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: ProfileViewModel = koinViewModel()
 ) {
+
+    val profileScreenUiState = viewModel.getProfileScreenUiStateFlow().collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBarForProfile(

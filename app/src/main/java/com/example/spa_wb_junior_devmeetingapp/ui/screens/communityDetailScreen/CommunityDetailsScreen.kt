@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +29,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightDarkGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import org.koin.androidx.compose.koinViewModel
 
 object CommunityDetailsDestination : NavigationDestination {
     override val route = "community_details"
@@ -40,8 +42,12 @@ object CommunityDetailsDestination : NavigationDestination {
 fun CommunityDetailsScreen(
     navController: NavHostController,
     community: CommunityItem,
-    navigateToEventDetailItem : (EventItem) -> Unit
+    navigateToEventDetailItem : (EventItem) -> Unit,
+    viewModel: CommunityDetailViewModel = koinViewModel()
 ) {
+
+    val communityDetailScreenUiState = viewModel.getCommunityDetailScreenUiStateFlow().collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(

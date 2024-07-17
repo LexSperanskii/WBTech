@@ -47,7 +47,7 @@ fun AuthenticationScreen(
     viewModel: AuthenticationViewModel = koinViewModel(),
     ) {
 
-    val authenticationUiState = viewModel.getUiStateFlow().collectAsState()
+    val authenticationUiState = viewModel.getAuthenticationScreenUiStateFlow().collectAsState()
 
     var countryCode by remember { mutableStateOf(countryList[0]) }
     var phoneNumber by remember { mutableStateOf("") }

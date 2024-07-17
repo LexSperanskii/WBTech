@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -47,6 +48,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata2
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import org.koin.androidx.compose.koinViewModel
 
 object EventDetailsDestination : NavigationDestination {
     override val route = "event_details"
@@ -59,8 +61,12 @@ object EventDetailsDestination : NavigationDestination {
 fun EventDetailsScreen(
     navController: NavHostController,
     navigateToFullScreenMap : () -> Unit,
-    event: EventItem
+    event: EventItem,
+    viewModel: EventDetailViewModel = koinViewModel()
 ) {
+
+    val eventDetailScreenUiState = viewModel.getEventDetailScreenUiStateFlow().collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBarForEventDetails(

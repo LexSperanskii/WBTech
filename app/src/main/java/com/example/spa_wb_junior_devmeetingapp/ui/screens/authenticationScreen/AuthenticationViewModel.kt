@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 data class AuthenticationScreenUiState(
-    val accountName : String = "",
+    val mock : String = "",
 )
 
 class AuthenticationViewModel(): ViewModel() {
@@ -14,6 +14,6 @@ class AuthenticationViewModel(): ViewModel() {
     private val _uiState = MutableStateFlow(AuthenticationScreenUiState())
     private val uiState: StateFlow<AuthenticationScreenUiState> = _uiState.asStateFlow()
 
-    fun getUiStateFlow(): StateFlow<AuthenticationScreenUiState> = uiState
+    fun getAuthenticationScreenUiStateFlow(): StateFlow<AuthenticationScreenUiState> = uiState
 
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -21,6 +22,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MenuItemForMy
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MenuItemProfile
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightGray
+import org.koin.androidx.compose.koinViewModel
 
 object MenuDestination : NavigationDestination {
     override val route = "menu"
@@ -31,8 +33,12 @@ object MenuDestination : NavigationDestination {
 fun MenuScreen(
     navController: NavHostController,
     navigateToProfile: () -> Unit,
-    navigateToUserEvents: () -> Unit
+    navigateToUserEvents: () -> Unit,
+    viewModel: MenuViewModel = koinViewModel()
 ) {
+
+    val menuScreenUiState = viewModel.getMenuScreenUiStateFlow().collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(

@@ -15,6 +15,7 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -38,6 +39,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForTabs
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 object EventsUserDestination : NavigationDestination {
     override val route = "events_user"
@@ -52,8 +54,12 @@ enum class EventsUserTabs(val text: String){
 @Composable
 fun EventsUserScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (EventItem) -> Unit
+    navigateToEventDetailItem : (EventItem) -> Unit,
+    viewModel: EventsUserViewModel = koinViewModel()
 ) {
+
+    val eventsUserScreenUiState = viewModel.getEventsUserScreenUiStateFlow().collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
