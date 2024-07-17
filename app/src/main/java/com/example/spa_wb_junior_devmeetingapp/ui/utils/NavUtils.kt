@@ -1,7 +1,7 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens.utils
+package com.example.spa_wb_junior_devmeetingapp.ui.utils
 
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockCommunityItem
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockCommunityItem
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockEventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.GsonInstance
 import java.net.URLDecoder
 

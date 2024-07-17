@@ -1,6 +1,6 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens.utils
+package com.example.spa_wb_junior_devmeetingapp.ui.utils
 
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.PhoneNumber
 
 
 object UiUtils {

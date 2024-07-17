@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.verificationScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,12 +20,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.Country
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.countryList
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.PhoneNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberInput
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
@@ -33,19 +33,17 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
 
-object AuthenticationDestination : NavigationDestination {
-    override val route = "authentication"
-    override val title = R.string.authentication
+object VerificationDestination : NavigationDestination {
+    override val route = "verification"
+    override val title = R.string.verification
 }
 
 @Composable
-fun AuthenticationScreen(
-    navigateToVerificationScreen: () -> Unit,
-    onClickNavigateBack: () -> Unit
+fun VerificationScreen(
+    onClickNavigateBack: () -> Unit,
+    navigateToRegistrationProfile: () -> Unit
 ) {
-
-    var countryCode by remember { mutableStateOf(countryList[0]) }
-    var phoneNumber by remember { mutableStateOf("") }
+    var pinCode by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -57,65 +55,70 @@ fun AuthenticationScreen(
             )
         }
     ) { innerPadding ->
-        AuthenticationBody(
+        VerificationBody(
             modifier = Modifier.padding(innerPadding),
-            phoneNumber = phoneNumber,
-            onPhoneNumberChange = { phoneNumber = it },
-            countryCode = countryCode,
-            onCountryCodeChange = { countryCode = it },
-            onForwardButtonClick = navigateToVerificationScreen,
-            isForwardButtonEnabled = phoneNumber.length == 10
+            phoneNumber = PhoneNumber("+44","9876540022"),
+            picCode = pinCode,
+            onPinCodeChange = { pinCode = it },
+            onDoneKeyboardPressed = {
+                if (pinCode.length == 4)
+                    navigateToRegistrationProfile()
+            },
+            onRequestButtonClick = {},
+            isRequestButtonEnabled = true
         )
     }
 }
 
 @Composable
-fun AuthenticationBody(
-    phoneNumber: String,
-    onPhoneNumberChange: (String) -> Unit,
-    countryCode: Country,
-    onCountryCodeChange: (Country) -> Unit,
-    onForwardButtonClick: () -> Unit,
-    isForwardButtonEnabled:Boolean,
-    modifier: Modifier = Modifier
+fun VerificationBody(
+    phoneNumber: PhoneNumber,
+    picCode: String,
+    onPinCodeChange: (String) -> Unit,
+    onDoneKeyboardPressed: () -> Unit,
+    onRequestButtonClick: () -> Unit,
+    isRequestButtonEnabled: Boolean,
+    modifier: Modifier = Modifier,
     ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxSize().padding(24.dp)
+        modifier = modifier
+            .fillMaxSize()
     ) {
         Text(
-            text = stringResource(id = R.string.enter_your_number),
+            text = stringResource(id = R.string.enter_your_code),
             fontSize = MaterialTheme.typography.Heading2.fontSize,
             fontWeight = FontWeight.Bold,
             fontFamily = SFProDisplay,
             modifier = Modifier.padding(top = 80.dp, bottom = 8.dp)
         )
         Text(
-            text = stringResource(id = R.string.we_will_send_you_verification_code),
+            text = stringResource(id = R.string.sent_you_verification_code, formattedMobileNumber(phoneNumber)),
             fontSize = MaterialTheme.typography.BodyText1.fontSize,
             fontWeight = FontWeight.Normal,
             fontFamily = SFProDisplay,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 50.dp)
         )
-        PhoneNumberInput(
-            phoneNumber = phoneNumber,
-            onPhoneNumberChange = onPhoneNumberChange,
-            countryCode = countryCode,
-            onCountryCodeChange = onCountryCodeChange,
+        PinCodeInput(
+            value = picCode,
+            onValueChange = onPinCodeChange,
+            onDoneKeyboardPressed = onDoneKeyboardPressed,
             modifier = Modifier.padding(bottom = 70.dp)
         )
-        CustomButton(
-            onClick = onForwardButtonClick,
+        CustomButtonText(
+            onClick = onRequestButtonClick,
             pressedColor = DarkPurple,
-            containerColor = Purple,
-            enabled = isForwardButtonEnabled,
-            text = stringResource(id = R.string.forward_button),
+            contentColor = Purple,
+            enabled = isRequestButtonEnabled,
+            text = stringResource(id = R.string.request_code_again),
             fontSize = MaterialTheme.typography.Subheading2.fontSize,
             fontWeight = FontWeight.SemiBold,
             fontFamily = SFProDisplay,
-            modifier = Modifier.fillMaxWidth().height(52.dp)
+            modifier = Modifier
+                .padding(horizontal = 64.dp)
+                .fillMaxWidth()
+                .height(52.dp)
         )
-
     }
 }

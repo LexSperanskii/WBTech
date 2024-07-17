@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.mockData
+package com.example.spa_wb_junior_devmeetingapp.data.mockData
 
 import com.example.spa_wb_junior_devmeetingapp.R
 

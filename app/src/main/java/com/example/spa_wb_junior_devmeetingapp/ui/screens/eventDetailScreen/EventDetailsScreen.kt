@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.eventDetailScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.longText
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockAccountsIconsURLList1
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockEventItem
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.longText
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockAccountsIconsURLList1
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
@@ -52,7 +52,7 @@ object EventDetailsDestination : NavigationDestination {
     override val route = "event_details"
     override val title = R.string.events_details
     const val itemIdArg = "itemId"
-    val routeWithArgs = "${route}/{$itemIdArg}"
+    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable

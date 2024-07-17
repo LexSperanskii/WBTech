@@ -1,10 +1,13 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.eventsAllScreen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
@@ -17,8 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -27,38 +32,41 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListUserPassed
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListUserPlanned
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockEventItem
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListActive
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListAll
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForTabs
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import kotlinx.coroutines.launch
 
-object EventsUserDestination : NavigationDestination {
-    override val route = "events_user"
-    override val title = R.string.events_user
+object EventsAllDestination : NavigationDestination {
+    override val route = "events_all"
+    override val title = R.string.events_all
 }
 
-enum class EventsUserTabs(val text: String){
-    Planned(text = "ЗАПЛАНИРОВАНО"),
-    HasPassed(text = "УЖЕ ПРОШЛИ")
+enum class EventsAllTabs(val text: String){
+    AllMeetings(text = "ВСЕ ВСТРЕЧИ"),
+    Active(text = "АКТИВНЫЕ")
 }
 
 @Composable
-fun EventsUserScreen(
+fun EventsAllScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (MockEventItem) -> Unit
+    navigateToEventDetailItem : (MockEventItem) -> Unit,
+    navigateToDeveloperScreen : () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = stringResource(id = EventsUserDestination.title),
-                isAddCapable = false,
-                onClickNavigateBack = {navController.popBackStack()}
+                title = stringResource(id = EventsAllDestination.title),
+                isNavigateBack = false,
+                onAddCLick = navigateToDeveloperScreen
             )
         },
         bottomBar = {
@@ -67,8 +75,12 @@ fun EventsUserScreen(
             )
         }
     ) { innerPadding ->
-        EventsUserBody(
+        var searchField by remember { mutableStateOf("") }
+        EventsBody(
             navigateToEventDetailItem = navigateToEventDetailItem,
+            searchField = searchField,
+            onSearchFieldChange = {searchField = it},
+            onDoneKeyboardPressed = {},
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -83,17 +95,26 @@ fun EventsUserScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun EventsUserBody(
+fun EventsBody(
     navigateToEventDetailItem : (MockEventItem) -> Unit,
+    searchField : String,
+    onSearchFieldChange: (String) -> Unit,
+    onDoneKeyboardPressed: () -> Unit,
     modifier: Modifier = Modifier
 ){
     val scope = rememberCoroutineScope()
-    val pagerState = rememberPagerState(pageCount = { EventsUserTabs.entries.size})
+    val pagerState = rememberPagerState(pageCount = { EventsAllTabs.entries.size})
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
 
     Column(
         modifier = modifier
     ) {
+        MySearchBar(
+            value = searchField ,
+            onValueChange = onSearchFieldChange,
+            onDoneKeyboardPressed = onDoneKeyboardPressed,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
         TabRow(
             selectedTabIndex = selectedTabIndex,
             divider = {},
@@ -107,7 +128,7 @@ fun EventsUserBody(
             containerColor = Color.White,
             modifier = Modifier
         ) {
-            EventsUserTabs.entries.forEachIndexed { index, currentTab ->
+            EventsAllTabs.entries.forEachIndexed { index, currentTab ->
                 Tab(
                     selected = selectedTabIndex == index,
                     selectedContentColor = Purple,
@@ -138,14 +159,38 @@ fun EventsUserBody(
         ) { page ->
             when (page) {
                 0 -> Events(
-                    listOfMeetings = mockEventsListUserPlanned,
+                    listOfMeetings = mockEventsListAll,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
                 1 -> Events(
-                    listOfMeetings = mockEventsListUserPassed,
+                    listOfMeetings = mockEventsListActive,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun Events(
+    listOfMeetings : List<MockEventItem>,
+    onEventItemClick : (MockEventItem) -> Unit
+){
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier
+    ) {
+        items (listOfMeetings){ event ->
+            EventCard(
+                eventName = event.eventName,
+                eventStatus = event.eventStatus.status,
+                eventDate = event.eventDate,
+                eventPlace = event.eventPlace,
+                eventCategories = event.eventCategory,
+                eventIconURL = event.eventIconURL,
+                onEventItemClick  = { onEventItemClick(event) },
+                modifier = Modifier
+            )
         }
     }
 }

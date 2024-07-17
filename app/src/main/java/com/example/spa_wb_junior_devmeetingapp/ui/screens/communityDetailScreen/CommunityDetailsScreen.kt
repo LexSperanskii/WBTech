@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.communityDetailScreen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
@@ -16,10 +16,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockCommunityItem
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.longText
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListAll
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockCommunityItem
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockEventItem
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.longText
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListAll
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard

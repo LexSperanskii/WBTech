@@ -8,35 +8,35 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunitiesDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDetailsDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityDetailsScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.CommunityScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventDetailsDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventDetailsScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsAllScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.EventsUserScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.communitiesScreen.CommunitiesDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.communityDetailScreen.CommunityDetailsDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.communityDetailScreen.CommunityDetailsScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.communitiesScreen.CommunityScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.eventDetailScreen.EventDetailsDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.eventDetailScreen.EventDetailsScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.eventsAllScreen.EventsAllDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.eventsAllScreen.EventsAllScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.eventsUserScreen.EventsUserDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.eventsUserScreen.EventsUserScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.FullScreenMapScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.MapDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.AuthenticationDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.AuthenticationScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.authenticationScreen.AuthenticationDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.authenticationScreen.AuthenticationScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.MenuDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.MenuScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.ProfileScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.RegistrationProfileDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.RegistrationProfileScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.menuScreen.MenuDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.menuScreen.MenuScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.profileScreen.ProfileDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.profileScreen.ProfileScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.registratinProfileScreen.RegistrationProfileDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.registratinProfileScreen.RegistrationProfileScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreenDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.VerificationDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.VerificationScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.verificationScreen.VerificationDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.verificationScreen.VerificationScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavItem
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.NavUtils.deserializeCommunity
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.NavUtils.deserializeEvent
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.NavUtils.deserializeCommunity
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.NavUtils.deserializeEvent
 import com.google.gson.Gson
 import java.net.URLEncoder
 
@@ -78,7 +78,8 @@ fun NavHost(
             composable(route = VerificationDestination.route) {
                 VerificationScreen(
                     onClickNavigateBack = { navController.popBackStack() } ,
-                    navigateToRegistrationProfile = {navController.navigate(RegistrationProfileDestination.route)}
+                    navigateToRegistrationProfile = {navController.navigate(
+                        RegistrationProfileDestination.route)}
                 )
             }
             composable(route = RegistrationProfileDestination.route) {
@@ -150,7 +151,8 @@ fun NavHost(
             ) {
                 CommunityDetailsScreen(
                     navController = navController,
-                    community = deserializeCommunity(it.arguments?.getString(CommunityDetailsDestination.itemIdArg)),
+                    community = deserializeCommunity(it.arguments?.getString(
+                        CommunityDetailsDestination.itemIdArg)),
                     navigateToEventDetailItem = {
                         val eventJson  = GsonInstance.gson.toJson(it)
                         val encodedJson = URLEncoder.encode(eventJson , "UTF-8")

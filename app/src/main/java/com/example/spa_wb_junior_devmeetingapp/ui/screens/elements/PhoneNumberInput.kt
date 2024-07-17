@@ -31,9 +31,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.Country
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.countryList
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.utils.UiUtils.PHONE_NUMBER_LENGTH
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.Country
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.countryList
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
