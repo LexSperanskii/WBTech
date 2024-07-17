@@ -7,13 +7,13 @@ import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
 
 
-val countryList = listOf(
+val mockCountryList = listOf(
     Country("Russia", "+7", R.drawable.flag_rus),
     Country("Kazakhstan", "+7", R.drawable.flag_kz),
     Country("UK", "+44", R.drawable.flag_gb),
-    Country("China", "+86", R.drawable.flag_gb),
-    Country("Germany", "+49", R.drawable.flag_gb)
-)
+    Country("China", "+86", R.drawable.flag_cn),
+    Country("Germany", "+49", R.drawable.flag_ger),
+    )
 
 val mockAccountNumber = PhoneNumber("+7","9995554422")
 val mockAccountName = "Иван Иванов"

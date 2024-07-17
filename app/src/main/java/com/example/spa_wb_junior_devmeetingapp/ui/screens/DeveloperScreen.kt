@@ -28,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.countryList
+import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockCountryList
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockAccountsIconsURLList1
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockAccountsIconsURLList2
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
@@ -130,7 +130,7 @@ fun DeveloperScreen() {
         "Moscow"
     )
     var pinCode by remember { mutableStateOf("") }
-    var countryCode by remember { mutableStateOf(countryList[0]) }
+    var countryCode by remember { mutableStateOf(mockCountryList[0]) }
     var phoneNumber by remember { mutableStateOf("") }
 
     var searchField by remember { mutableStateOf("") }
@@ -158,10 +158,11 @@ fun DeveloperScreen() {
             }
             item {
                 PhoneNumberInput(
-                    phoneNumber = phoneNumber,
-                    onPhoneNumberChange = { phoneNumber = it },
+                    number = phoneNumber,
+                    onNumberChange = { phoneNumber = it },
                     countryCode = countryCode,
-                    onCountryCodeChange = { countryCode = it }
+                    onCountryCodeChange = { countryCode = it },
+                    listOfCountriesCodes = mockCountryList
                 )
             }
             item {

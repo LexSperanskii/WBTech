@@ -11,9 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,8 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.countryList
 import com.example.spa_wb_junior_devmeetingapp.model.Country
+import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
@@ -42,15 +39,12 @@ object AuthenticationDestination : NavigationDestination {
 
 @Composable
 fun AuthenticationScreen(
-    navigateToVerificationScreen: () -> Unit,
+    navigateToVerificationScreen: (PhoneNumber) -> Unit,
     onClickNavigateBack: () -> Unit,
     viewModel: AuthenticationViewModel = koinViewModel(),
     ) {
 
-    val authenticationUiState = viewModel.getAuthenticationScreenUiStateFlow().collectAsState()
-
-    var countryCode by remember { mutableStateOf(countryList[0]) }
-    var phoneNumber by remember { mutableStateOf("") }
+    val authenticationUiState by viewModel.getAuthenticationScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
@@ -63,25 +57,27 @@ fun AuthenticationScreen(
         }
     ) { innerPadding ->
         AuthenticationBody(
-            modifier = Modifier.padding(innerPadding),
-            phoneNumber = phoneNumber,
-            onPhoneNumberChange = { phoneNumber = it },
-            countryCode = countryCode,
-            onCountryCodeChange = { countryCode = it },
-            onForwardButtonClick = navigateToVerificationScreen,
-            isForwardButtonEnabled = phoneNumber.length == 10
-        )
+            number = authenticationUiState.phoneNumber.number,
+            onNumberChange = { viewModel.changeNumber(it) },
+            countryCode = authenticationUiState.country,
+            onCountryCodeChange = { viewModel.changeCountryCode(it) },
+            listOfCountriesCodes = authenticationUiState.listOfCountries,
+            isForwardButtonEnabled = authenticationUiState.isButtonActive,
+            onForwardButtonClick = {navigateToVerificationScreen(authenticationUiState.phoneNumber)},
+            modifier = Modifier.padding(innerPadding)
+            )
     }
 }
 
 @Composable
 fun AuthenticationBody(
-    phoneNumber: String,
-    onPhoneNumberChange: (String) -> Unit,
+    number: String,
+    onNumberChange: (String) -> Unit,
     countryCode: Country,
     onCountryCodeChange: (Country) -> Unit,
     onForwardButtonClick: () -> Unit,
     isForwardButtonEnabled:Boolean,
+    listOfCountriesCodes:  List<Country>,
     modifier: Modifier = Modifier
     ) {
     Column(
@@ -104,10 +100,11 @@ fun AuthenticationBody(
             modifier = Modifier.padding(bottom = 50.dp)
         )
         PhoneNumberInput(
-            phoneNumber = phoneNumber,
-            onPhoneNumberChange = onPhoneNumberChange,
+            number = number,
+            onNumberChange = onNumberChange,
             countryCode = countryCode,
             onCountryCodeChange = onCountryCodeChange,
+            listOfCountriesCodes = listOfCountriesCodes,
             modifier = Modifier.padding(bottom = 70.dp)
         )
         CustomButton(

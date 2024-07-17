@@ -31,7 +31,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.countryList
 import com.example.spa_wb_junior_devmeetingapp.model.Country
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
@@ -43,12 +42,12 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 @Composable
 fun PhoneNumberInput(
-    phoneNumber: String,
-    onPhoneNumberChange: (String) -> Unit,
-    countryCode: Country,
+    number: String,
+    onNumberChange: (String) -> Unit,
+    countryCode:  Country,
     onCountryCodeChange: (Country) -> Unit,
+    listOfCountriesCodes: List<Country>,
     modifier: Modifier = Modifier,
-    listOfCountriesCodes: List<Country> = countryList,
     placeholder: String = "000 000-00-00"
 ) {
     val focusManager = LocalFocusManager.current
@@ -71,10 +70,10 @@ fun PhoneNumberInput(
                 .background(color = ExtraLightGray)
                 .onFocusChanged { focusState = it.isFocused }
                 .padding(horizontal = 8.dp, vertical = 6.dp),
-            value = phoneNumber,
+            value = number,
             onValueChange = {
                 if (it.isDigitsOnly()){
-                    onPhoneNumberChange(it.take(PHONE_NUMBER_LENGTH))
+                    onNumberChange(it.take(PHONE_NUMBER_LENGTH))
                 }
             },
             keyboardOptions = KeyboardOptions(
@@ -96,7 +95,7 @@ fun PhoneNumberInput(
                     modifier = Modifier
                 ) {
                     when{
-                        !focusState && phoneNumber.isEmpty() ->{
+                        !focusState && number.isEmpty() ->{
                             Text(
                                 text = placeholder,
                                 color = GrayForCommunityCard,

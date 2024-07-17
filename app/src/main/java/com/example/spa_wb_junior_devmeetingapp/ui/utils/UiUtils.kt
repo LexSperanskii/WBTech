@@ -5,6 +5,7 @@ import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
 
 object UiUtils {
     const val PHONE_NUMBER_LENGTH = 10
+    const val PIN_CODE_LENGTH = 4
 
     private const val ONE_CHAR_LENGTH = 1
     private const val FIRST_SPACE_POSITION = 3

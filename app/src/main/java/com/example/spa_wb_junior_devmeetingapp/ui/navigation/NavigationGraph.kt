@@ -71,8 +71,10 @@ fun NavHost(
         ){
             composable(route = AuthenticationDestination.route) {
                 AuthenticationScreen(
-                    navigateToVerificationScreen = {navController.navigate(VerificationDestination.route)},
-                    onClickNavigateBack = {navController.popBackStack()}
+                    navigateToVerificationScreen = {
+                        navController.navigate(VerificationDestination.route)
+                    },
+                    onClickNavigateBack = { navController.popBackStack() }
                 )
             }
             composable(route = VerificationDestination.route) {

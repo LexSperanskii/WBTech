@@ -28,6 +28,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottom
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PIN_CODE_LENGTH
 
 
 @Composable
@@ -36,7 +37,7 @@ fun PinCodeInput(
     onValueChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
     modifier: Modifier = Modifier,
-    numberOfDigits: Int = 4
+    numberOfDigits: Int = PIN_CODE_LENGTH
 ) {
     val focusManager = LocalFocusManager.current
 

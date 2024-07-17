@@ -11,9 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -47,9 +44,8 @@ fun VerificationScreen(
     viewModel: VerificationViewModel = koinViewModel()
 ) {
 
-    val verificationScreenUiState = viewModel.getVerificationScreenUiStateFlow().collectAsState()
+    val verificationScreenUiState by viewModel.getVerificationScreenUiStateFlow().collectAsState()
 
-    var pinCode by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -62,16 +58,17 @@ fun VerificationScreen(
         }
     ) { innerPadding ->
         VerificationBody(
-            modifier = Modifier.padding(innerPadding),
-            phoneNumber = PhoneNumber("+44","9876540022"),
-            picCode = pinCode,
-            onPinCodeChange = { pinCode = it },
+            phoneNumber = verificationScreenUiState.phoneNumber,
+            picCode = verificationScreenUiState.pinCode,
+            onPinCodeChange = {
+                viewModel.changePinCode(it)
+            },
             onDoneKeyboardPressed = {
-                if (pinCode.length == 4)
-                    navigateToRegistrationProfile()
+                viewModel.onDoneKeyboardPressed { navigateToRegistrationProfile() }
             },
             onRequestButtonClick = {},
-            isRequestButtonEnabled = true
+            isRequestButtonEnabled = true,
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }

@@ -2,12 +2,11 @@ package com.example.spa_wb_junior_devmeetingapp
 
 import android.app.Application
 import com.example.spa_wb_junior_devmeetingapp.di.appModule
-import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
-class App : Application() {
+class DeveloperMeetingsApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
