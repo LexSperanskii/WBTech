@@ -77,8 +77,6 @@ dependencies {
     implementation(libs.dotlottie.android)
     //For DI KOIN
     implementation("io.insert-koin:koin-core:3.5.6")
-    // Koin for Android
     implementation("io.insert-koin:koin-android:3.5.6")
-    // Koin Android - Compose support
     implementation("io.insert-koin:koin-androidx-compose:3.5.6")
 }

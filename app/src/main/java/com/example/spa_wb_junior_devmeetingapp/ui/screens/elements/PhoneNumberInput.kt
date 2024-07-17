@@ -31,8 +31,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.Country
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.countryList
+import com.example.spa_wb_junior_devmeetingapp.model.Country
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
@@ -121,24 +121,24 @@ class PhoneVisualTransformation : VisualTransformation {
         text.forEachIndexed{index, char ->
             formattedText.append(char)
             when (index) {
-                SPACE_POSITION -> formattedText.append(" ")
-                FIRST_DASH_POSITION, SECOND_DASH_POSITION -> formattedText.append("-")
+                SPACE_POSITION -> formattedText.append(SPACE)
+                FIRST_DASH_POSITION, SECOND_DASH_POSITION -> formattedText.append(DASH)
             }
         }
 
         val phoneNumberOffsetTranslator = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int = when (offset) {
-                in 0..SPACE_POSITION -> offset
-                in SPACE_POSITION + 1..FIRST_DASH_POSITION -> offset + 1
-                in FIRST_DASH_POSITION + 1..SECOND_DASH_POSITION -> offset + 2
-                else -> offset + 3
+                in ZERO..SPACE_POSITION -> offset
+                in SPACE_POSITION + ONE..FIRST_DASH_POSITION -> offset + ONE
+                in FIRST_DASH_POSITION + ONE..SECOND_DASH_POSITION -> offset + TWO
+                else -> offset + THREE
             }
 
             override fun transformedToOriginal(offset: Int): Int = when(offset){
-                in 0..SPACE_POSITION + 1 -> offset
-                in SPACE_POSITION + 2..FIRST_DASH_POSITION + 2 -> offset - 1
-                in FIRST_DASH_POSITION + 3..SECOND_DASH_POSITION + 3 -> offset - 2
-                else -> offset - 3
+                in ZERO..SPACE_POSITION + ONE -> offset
+                in SPACE_POSITION + TWO..FIRST_DASH_POSITION + TWO -> offset - ONE
+                in FIRST_DASH_POSITION + THREE..SECOND_DASH_POSITION + THREE -> offset - TWO
+                else -> offset - THREE
             }
 
         }
@@ -150,7 +150,13 @@ class PhoneVisualTransformation : VisualTransformation {
         const val SPACE_POSITION = 2
         const val FIRST_DASH_POSITION = 5
         const val SECOND_DASH_POSITION = 7
-    }
 
+        const val SPACE = " "
+        const val DASH = "-"
+        const val ZERO = 0
+        const val ONE = 1
+        const val TWO = 2
+        const val THREE = 3
+    }
 }
 

@@ -16,10 +16,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockCommunityItem
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockEventItem
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.longText
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListAll
+import com.example.spa_wb_junior_devmeetingapp.model.CommunityItem
+import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
@@ -39,8 +39,8 @@ object CommunityDetailsDestination : NavigationDestination {
 @Composable
 fun CommunityDetailsScreen(
     navController: NavHostController,
-    community: MockCommunityItem,
-    navigateToEventDetailItem : (MockEventItem) -> Unit
+    community: CommunityItem,
+    navigateToEventDetailItem : (EventItem) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -70,8 +70,8 @@ fun CommunityDetailsScreen(
 
 @Composable
 fun CommunityDetailsBody(
-    navigateToEventDetailItem : (MockEventItem) -> Unit,
-    eventsListAll : List<MockEventItem>,
+    navigateToEventDetailItem : (EventItem) -> Unit,
+    eventsListAll : List<EventItem>,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(

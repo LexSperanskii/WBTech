@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockEventItem
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.longText
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockAccountsIconsURLList1
+import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
@@ -59,7 +59,7 @@ object EventDetailsDestination : NavigationDestination {
 fun EventDetailsScreen(
     navController: NavHostController,
     navigateToFullScreenMap : () -> Unit,
-    event: MockEventItem
+    event: EventItem
 ) {
     Scaffold(
         topBar = {
@@ -93,7 +93,7 @@ fun EventDetailsScreen(
 
 @Composable
 fun EventDetailsBody(
-    event : MockEventItem,
+    event : EventItem,
     accountsIconsURLList: List<String>,
     onButtonClick : ()-> Unit,
     onMapClick : ()-> Unit,

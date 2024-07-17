@@ -32,9 +32,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockEventItem
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListActive
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListAll
+import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
@@ -58,7 +58,7 @@ enum class EventsAllTabs(val text: String){
 @Composable
 fun EventsAllScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (MockEventItem) -> Unit,
+    navigateToEventDetailItem : (EventItem) -> Unit,
     navigateToDeveloperScreen : () -> Unit
 ) {
     Scaffold(
@@ -96,7 +96,7 @@ fun EventsAllScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventsBody(
-    navigateToEventDetailItem : (MockEventItem) -> Unit,
+    navigateToEventDetailItem : (EventItem) -> Unit,
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
@@ -173,8 +173,8 @@ fun EventsBody(
 
 @Composable
 fun Events(
-    listOfMeetings : List<MockEventItem>,
-    onEventItemClick : (MockEventItem) -> Unit
+    listOfMeetings : List<EventItem>,
+    onEventItemClick : (EventItem) -> Unit
 ){
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),

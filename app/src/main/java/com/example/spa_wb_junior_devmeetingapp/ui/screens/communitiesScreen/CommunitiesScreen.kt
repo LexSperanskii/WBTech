@@ -17,8 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.MockCommunityItem
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockListOfCommunities
+import com.example.spa_wb_junior_devmeetingapp.model.CommunityItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
@@ -33,7 +33,7 @@ object CommunitiesDestination : NavigationDestination {
 @Composable
 fun CommunityScreen(
     navController: NavHostController,
-    navigateToCommunityDetailItem: (MockCommunityItem) -> Unit
+    navigateToCommunityDetailItem: (CommunityItem) -> Unit
 ){
     Scaffold(
         topBar = {
@@ -72,8 +72,8 @@ fun CommunityScreen(
 
 @Composable
 fun CommunityBody(
-    listOfCommunities: List<MockCommunityItem>,
-    onCommunityItemClick: (MockCommunityItem) -> Unit,
+    listOfCommunities: List<CommunityItem>,
+    onCommunityItemClick: (CommunityItem) -> Unit,
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
