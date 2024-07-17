@@ -36,6 +36,7 @@ fun MenuItemProfile(
     onProfileClick: () -> Unit,
     profileName: String,
     mobileNumber: PhoneNumber,
+    avatarURL: String,
     modifier: Modifier = Modifier
     ) {
     Card(
@@ -52,6 +53,7 @@ fun MenuItemProfile(
             PersonAvatar(
                 size = 50.dp,
                 isEdit = false,
+                imageURL = avatarURL
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(2.dp),

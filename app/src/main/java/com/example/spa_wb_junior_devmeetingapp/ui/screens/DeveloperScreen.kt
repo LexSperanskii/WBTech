@@ -60,6 +60,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SpA_WB_Junior_DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+import org.threeten.bp.LocalDate
 
 object DeveloperDestination : NavigationDestination {
     override val route = "developer"
@@ -347,7 +348,7 @@ fun DeveloperScreen() {
                 EventCard(
                     eventName = "Developer Meeting",
                     eventStatus = "Закончилась",
-                    eventDate = "13.09.2024",
+                    eventDate = LocalDate.of(2023,1,5),
                     eventPlace = "Москва",
                     eventCategories = listOf("Python", "Junior", "Moscow"),
                     eventIconURL = "",
@@ -359,7 +360,7 @@ fun DeveloperScreen() {
                 EventCard(
                     eventName = "Developer Meeting",
                     eventStatus = "",
-                    eventDate = "14.09.2024",
+                    eventDate = LocalDate.of(2023,1,10),
                     eventPlace = "Москва",
                     eventCategories = listOf("Python", "Junior", "Moscow"),
                     eventIconURL = "",

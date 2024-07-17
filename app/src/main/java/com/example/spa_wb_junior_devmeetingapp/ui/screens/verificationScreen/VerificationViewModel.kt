@@ -29,7 +29,7 @@ class VerificationViewModel() : ViewModel() {
         }
     }
 
-    fun changePinCode( pinCode : String) {
+    fun onPinCodeChange(pinCode : String) {
         _uiState.update {
             it.copy(
                 pinCode = pinCode

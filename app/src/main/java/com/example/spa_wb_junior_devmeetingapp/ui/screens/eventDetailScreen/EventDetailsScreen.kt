@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -32,7 +33,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.data.mockData.longText
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockAccountsIconsURLList1
 import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
@@ -48,32 +48,32 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata2
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.dateFormatter
 import org.koin.androidx.compose.koinViewModel
 
 object EventDetailsDestination : NavigationDestination {
     override val route = "event_details"
     override val title = R.string.events_details
-    const val itemIdArg = "itemId"
-    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable
 fun EventDetailsScreen(
     navController: NavHostController,
     navigateToFullScreenMap : () -> Unit,
-    event: EventItem,
     viewModel: EventDetailViewModel = koinViewModel()
 ) {
 
-    val eventDetailScreenUiState = viewModel.getEventDetailScreenUiStateFlow().collectAsState()
+    val eventDetailScreenUiState by viewModel.getEventDetailScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
             TopAppBarForEventDetails(
-                title = stringResource(id = EventDetailsDestination.title),
+                title = eventDetailScreenUiState.event.eventName,
                 onClickNavigateBack = {navController.popBackStack()},
-                isStatusPlanned = event.eventIsPlaned ,
-                onStatusCLick = {}
+                isStatusPlanned = eventDetailScreenUiState.event.eventIsScheduled,
+                onStatusCLick = {
+                    viewModel.onGoToMeetingClick()
+                }
             )
         },
         bottomBar = {
@@ -82,11 +82,13 @@ fun EventDetailsScreen(
     )
     { innerPadding ->
         EventDetailsBody(
-            event = event,
-            accountsIconsURLList = mockAccountsIconsURLList1,
-            onButtonClick = {},
+            event = eventDetailScreenUiState.event,
+            accountsIconsURLList = eventDetailScreenUiState.participants,
+            onButtonClick = {
+                viewModel.onGoToMeetingClick()
+            },
+            isScheduled = eventDetailScreenUiState.event.eventIsScheduled,
             onMapClick = navigateToFullScreenMap,
-            isStatusActive = event.eventIsPlaned,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -103,7 +105,7 @@ fun EventDetailsBody(
     accountsIconsURLList: List<String>,
     onButtonClick : ()-> Unit,
     onMapClick : ()-> Unit,
-    isStatusActive: Boolean,
+    isScheduled: Boolean,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -111,7 +113,7 @@ fun EventDetailsBody(
     ) {
         item {
             Text(
-                text = stringResource(id = R.string.event_date_place,event.eventDate,event.eventPlace),
+                text = stringResource(id = R.string.event_date_place, dateFormatter(event.eventDate),event.eventPlace),
                 fontSize = MaterialTheme.typography.BodyText1.fontSize,
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = SFProDisplay,
@@ -175,7 +177,7 @@ fun EventDetailsBody(
             )
         }
         item {
-            when (isStatusActive) {
+            when (isScheduled) {
                 true -> CustomButtonOutlined(
                     text = stringResource(id = R.string.i_will_go_next_time),
                     onClick = onButtonClick,

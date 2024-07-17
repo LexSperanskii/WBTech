@@ -62,7 +62,7 @@ fun AuthenticationScreen(
             countryCode = authenticationUiState.country,
             onCountryCodeChange = { viewModel.changeCountryCode(it) },
             listOfCountriesCodes = authenticationUiState.listOfCountries,
-            isForwardButtonEnabled = authenticationUiState.isButtonActive,
+            isForwardButtonEnabled = authenticationUiState.isButtonEnabled,
             onForwardButtonClick = {navigateToVerificationScreen(authenticationUiState.phoneNumber)},
             modifier = Modifier.padding(innerPadding)
             )

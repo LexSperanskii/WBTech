@@ -14,7 +14,7 @@ data class AuthenticationScreenUiState(
     val phoneNumber: PhoneNumber = PhoneNumber(),
     val country: Country = Country(),
     val listOfCountries: List<Country> = listOf(),
-    val isButtonActive: Boolean = false
+    val isButtonEnabled: Boolean = false
 )
 
 class AuthenticationViewModel(): ViewModel() {
@@ -55,10 +55,9 @@ class AuthenticationViewModel(): ViewModel() {
 
     private fun isButtonActive(){
         val phoneNumber = uiState.value.phoneNumber
-        val isButtonActive = phoneNumber.countryCode.isNotBlank() && phoneNumber.number.isNotBlank() && phoneNumber.number.length == PHONE_NUMBER_LENGTH
         _uiState.update {
             it.copy(
-                isButtonActive = isButtonActive
+                isButtonEnabled = phoneNumber.number.length == PHONE_NUMBER_LENGTH
             )
         }
     }

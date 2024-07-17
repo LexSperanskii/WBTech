@@ -3,10 +3,8 @@ package com.example.spa_wb_junior_devmeetingapp.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.communitiesScreen.CommunitiesDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.communityDetailScreen.CommunityDetailsDestination
@@ -30,19 +28,13 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.profileScreen.ProfileD
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.profileScreen.ProfileScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registratinProfileScreen.RegistrationProfileDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registratinProfileScreen.RegistrationProfileScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.SplashScreenDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen.SplashScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen.SplashScreenDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.verificationScreen.VerificationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.verificationScreen.VerificationScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavItem
-import com.example.spa_wb_junior_devmeetingapp.ui.utils.NavUtils.deserializeCommunity
-import com.example.spa_wb_junior_devmeetingapp.ui.utils.NavUtils.deserializeEvent
 import com.google.gson.Gson
-import java.net.URLEncoder
 
-object GsonInstance {
-    val gson = Gson()
-}
 
 @Composable
 fun NavHost(
@@ -80,16 +72,17 @@ fun NavHost(
             composable(route = VerificationDestination.route) {
                 VerificationScreen(
                     onClickNavigateBack = { navController.popBackStack() } ,
-                    navigateToRegistrationProfile = {navController.navigate(
-                        RegistrationProfileDestination.route)}
+                    navigateToRegistrationProfile = {
+                        navController.navigate(RegistrationProfileDestination.route)
+                    }
                 )
             }
             composable(route = RegistrationProfileDestination.route) {
                 RegistrationProfileScreen(
-                    onClickNavigateBack = {navController.popBackStack()},
+                    onClickNavigateBack = { navController.popBackStack() },
                     navigateToEventsAllScreen = {
-                        navController.navigate(BottomNavItem.Events.route){
-                            popUpTo("registration_tab"){
+                        navController.navigate(BottomNavItem.Events.route) {
+                            popUpTo("registration_tab") {
                                 inclusive = true
                             }
                         }
@@ -105,28 +98,24 @@ fun NavHost(
                 EventsAllScreen(
                     navController = navController,
                     navigateToEventDetailItem = {
-                        val eventJson  = GsonInstance.gson.toJson(it)
-                        val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
-                        navController.navigate("${BottomNavItem.Events.route}/${EventDetailsDestination.route}/${encodedJson}")
+                        navController.navigate("${BottomNavItem.Events.route}/${EventDetailsDestination.route}")
                     },
                     navigateToDeveloperScreen = {navController.navigate(DeveloperDestination.route)}
                 )
             }
             composable(
-                route = "${BottomNavItem.Events.route}/${EventDetailsDestination.routeWithArgs}",
-                arguments = listOf(
-                    navArgument(EventDetailsDestination.itemIdArg) { type = NavType.StringType },
-                )
+                route = "${BottomNavItem.Events.route}/${EventDetailsDestination.route}"
             ) {
                 EventDetailsScreen(
                     navController = navController,
-                    event = deserializeEvent(it.arguments?.getString(EventDetailsDestination.itemIdArg)),
                     navigateToFullScreenMap = {
                         navController.navigate("${BottomNavItem.Events.route}/${MapDestination.route}")
                     }
                 )
             }
-            composable(route = "${BottomNavItem.Events.route}/${MapDestination.route}") {
+            composable(
+                route = "${BottomNavItem.Events.route}/${MapDestination.route}")
+            {
                 FullScreenMapScreen(navController = navController)
             }
         }
@@ -138,39 +127,25 @@ fun NavHost(
                 CommunityScreen(
                     navController = navController,
                     navigateToCommunityDetailItem = {
-                        val communityJson  = GsonInstance.gson.toJson(it)
-                        val encodedJson = URLEncoder.encode(communityJson , "UTF-8")
-
-                        navController.navigate("${CommunityDetailsDestination.route}/${encodedJson}")
+                        navController.navigate(CommunityDetailsDestination.route)
                     }
                 )
             }
             composable(
-                route = CommunityDetailsDestination.routeWithArgs,
-                arguments = listOf(navArgument(CommunityDetailsDestination.itemIdArg) {
-                    type = NavType.StringType
-                })
+                route = CommunityDetailsDestination.route
             ) {
                 CommunityDetailsScreen(
                     navController = navController,
-                    community = deserializeCommunity(it.arguments?.getString(
-                        CommunityDetailsDestination.itemIdArg)),
                     navigateToEventDetailItem = {
-                        val eventJson  = GsonInstance.gson.toJson(it)
-                        val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
-                        navController.navigate("${BottomNavItem.Communities.route}/${EventDetailsDestination.route}/${encodedJson}")
+                        navController.navigate("${BottomNavItem.Communities.route}/${EventDetailsDestination.route}")
                     }
                 )
             }
             composable(
-                route = "${BottomNavItem.Communities.route}/${EventDetailsDestination.routeWithArgs}",
-                arguments = listOf(
-                    navArgument(EventDetailsDestination.itemIdArg) { type = NavType.StringType },
-                )
+                route = "${BottomNavItem.Communities.route}/${EventDetailsDestination.route}"
             ) {
                 EventDetailsScreen(
                     navController = navController,
-                    event = deserializeEvent(it.arguments?.getString(EventDetailsDestination.itemIdArg)),
                     navigateToFullScreenMap = {
                         navController.navigate("${BottomNavItem.Communities.route}/${MapDestination.route}")
                     }
@@ -198,21 +173,15 @@ fun NavHost(
                 EventsUserScreen(
                     navController = navController,
                     navigateToEventDetailItem = {
-                        val eventJson  = GsonInstance.gson.toJson(it)
-                        val encodedJson = URLEncoder.encode(eventJson , "UTF-8")
-                        navController.navigate("${BottomNavItem.Menu.route}/${EventDetailsDestination.route}/${encodedJson}")
+                        navController.navigate("${BottomNavItem.Menu.route}/${EventDetailsDestination.route}")
                     }
                 )
             }
             composable(
-                route = "${BottomNavItem.Menu.route}/${EventDetailsDestination.routeWithArgs}",
-                arguments = listOf(
-                    navArgument(EventDetailsDestination.itemIdArg) { type = NavType.StringType },
-                )
+                route = "${BottomNavItem.Menu.route}/${EventDetailsDestination.route}"
             ) {
                 EventDetailsScreen(
                     navController = navController,
-                    event = deserializeEvent(it.arguments?.getString(EventDetailsDestination.itemIdArg)),
                     navigateToFullScreenMap = {
                         navController.navigate("${BottomNavItem.Menu.route}/${MapDestination.route}")
                     }

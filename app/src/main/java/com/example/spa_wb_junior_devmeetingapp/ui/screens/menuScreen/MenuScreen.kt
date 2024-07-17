@@ -6,14 +6,13 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockAccountName
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockAccountNumber
 import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
@@ -37,7 +36,7 @@ fun MenuScreen(
     viewModel: MenuViewModel = koinViewModel()
 ) {
 
-    val menuScreenUiState = viewModel.getMenuScreenUiStateFlow().collectAsState()
+    val menuScreenUiState by viewModel.getMenuScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
@@ -54,18 +53,19 @@ fun MenuScreen(
         }
     ) { innerPadding ->
         MenuBody(
-            modifier = Modifier.padding(innerPadding),
+            avatarURL = menuScreenUiState.avatarURL,
+            profileName = menuScreenUiState.name,
+            profilePhoneNumber = menuScreenUiState.phoneNumber,
             onProfileClick = navigateToProfile,
-            profileName = mockAccountName,
-            profilePhoneNumber = mockAccountNumber,
             onMyEventsClick = navigateToUserEvents,
             onThemeClick = {},
             onNotificationsClick = {},
             onSecurityClick = {},
             onStorageAndAssetsClick = {},
             onHelpClick = {},
-            onInviteFriendClick = {}
-        )
+            onInviteFriendClick = {},
+            modifier = Modifier.padding(innerPadding),
+            )
     }
 }
 
@@ -74,6 +74,7 @@ fun MenuBody(
     onProfileClick : ()->Unit,
     profileName : String,
     profilePhoneNumber: PhoneNumber,
+    avatarURL : String,
     onMyEventsClick: () -> Unit,
     onThemeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
@@ -91,6 +92,7 @@ fun MenuBody(
                 onProfileClick = onProfileClick,
                 profileName = profileName,
                 mobileNumber = profilePhoneNumber,
+                avatarURL = avatarURL,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
         }

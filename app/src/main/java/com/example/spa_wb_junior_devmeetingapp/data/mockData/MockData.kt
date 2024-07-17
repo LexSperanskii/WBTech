@@ -1,10 +1,12 @@
 package com.example.spa_wb_junior_devmeetingapp.data.mockData
 
+import androidx.compose.animation.fadeIn
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.model.CommunityItem
 import com.example.spa_wb_junior_devmeetingapp.model.Country
 import com.example.spa_wb_junior_devmeetingapp.model.EventItem
-import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.model.EventStatus
+import org.threeten.bp.LocalDate
 
 
 val mockCountryList = listOf(
@@ -15,308 +17,269 @@ val mockCountryList = listOf(
     Country("Germany", "+49", R.drawable.flag_ger),
     )
 
-val mockAccountNumber = PhoneNumber("+7","9995554422")
-val mockAccountName = "Иван Иванов"
+const val avatarIconURL =  "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+const val IconURL1 = "https://i.pinimg.com/564x/07/1e/f4/071ef43b8a3e3a3e32eba626da61faa9.jpg"
+const val IconURL2 = "https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg"
+const val IconURL3 = "https://i.pinimg.com/564x/f4/e0/c8/f4e0c8655494b4ed5fb490df336c5dcb.jpg"
+const val IconURL4 = "https://i.pinimg.com/564x/51/c8/ed/51c8ed24ded0e56fbeedd10fa8d424d5.jpg"
+const val IconURL5 = "https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg"
+const val IconURL6 = "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg"
+const val IconURL7 = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+const val IconURL8 = "https://i.pinimg.com/564x/dc/c4/ef/dcc4ef15c657260d1d13331daf3a13c8.jpg"
 
-
-enum class EventStatus(val status: String) {
-    NONE(""),
-    FINISHED("Завершилась")
-}
-
-const val eventIconURL = "https://i.pinimg.com/564x/9c/b1/64/9cb164c7777bcc08bda333504b6210bf.jpg"
-val mockEventsListAll = listOf(
+val mockListEventsAll = listOf(
     EventItem(
-        eventName = "Все встречи",
+        eventName = "Все встречи 1",
         eventStatus = EventStatus.NONE,
-        eventDate = "13.09.2024",
+        eventDate = LocalDate.of(2023, 9, 1),
         eventPlace = "Петрозаводск",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL1,
+        eventIsScheduled = true,
+        communityId = 1
     ),
     EventItem(
-        eventName = "Все встречи",
+        eventName = "Все встречи 2",
         eventStatus = EventStatus.FINISHED,
-        eventDate = "14.09.2024",
+        eventDate = LocalDate.of(2023, 9, 2),
         eventPlace = "Майкоп",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = IconURL2,
+        eventIsScheduled = false,
+        communityId = 2
     ),
     EventItem(
-        eventName = "Все встречи",
+        eventName = "Все встречи 3",
         eventStatus = EventStatus.NONE,
-        eventDate = "15.09.2024",
+        eventDate = LocalDate.of(2023, 9, 3),
         eventPlace = "Владивосток",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL3,
+        eventIsScheduled = true,
+        communityId = 3
     ),
     EventItem(
-        eventName = "Все встречи",
+        eventName = "Все встречи 4",
         eventStatus = EventStatus.FINISHED,
-        eventDate = "16.09.2024",
+        eventDate = LocalDate.of(2023, 9, 4),
         eventPlace = "Краснодар",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = IconURL4,
+        eventIsScheduled = false,
+        communityId = 4
     ),
     EventItem(
-        eventName = "Все встречи",
-        eventStatus = EventStatus.FINISHED,
-        eventDate = "17.09.2024",
+        eventName = "Все встречи 5",
+        eventStatus = EventStatus.NONE,
+        eventDate = LocalDate.of(2023, 9, 5),
         eventPlace = "Рязань",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL5,
+        eventIsScheduled = true,
+        communityId = 1
     ),
     EventItem(
-        eventName = "Все встречи",
-        eventStatus = EventStatus.NONE,
-        eventDate = "18.09.2024",
+        eventName = "Все встречи 6",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = LocalDate.of(2023, 9, 6),
         eventPlace = "Сочи",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = IconURL6,
+        eventIsScheduled = false,
+        communityId = 2
     ),
     EventItem(
-        eventName = "Все встречи",
-        eventStatus = EventStatus.FINISHED,
-        eventDate = "19.09.2024",
+        eventName = "Все встречи 7",
+        eventStatus = EventStatus.NONE,
+        eventDate = LocalDate.of(2023, 9, 7),
         eventPlace = "Санкт-Петербург",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL7,
+        eventIsScheduled = true,
+        communityId = 3
     ),
     EventItem(
-        eventName = "Все встречи",
-        eventStatus = EventStatus.NONE,
-        eventDate = "20.09.2024",
+        eventName = "Все встречи 7",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = LocalDate.of(2023, 9, 8),
         eventPlace = "Москва",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = IconURL8,
+        eventIsScheduled = false,
+        communityId = 4
     ),
     EventItem(
-        eventName = "Все встречи",
-        eventStatus = EventStatus.FINISHED,
-        eventDate = "21.09.2024",
+        eventName = "Все встречи 9",
+        eventStatus = EventStatus.NONE,
+        eventDate = LocalDate.of(2023, 9, 9),
         eventPlace = "Казань",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
-    )
-)
-val mockEventsListActive = listOf(
+        eventIconURL = IconURL1,
+        eventIsScheduled = true,
+        communityId = 1
+    ),
     EventItem(
-        eventName = "Все встречи Активные",
-        eventStatus = EventStatus.NONE,
-        eventDate = "13.09.2024",
+        eventName = "Все встречи 10",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = LocalDate.of(2023, 9, 10),
         eventPlace = "Петрозаводск",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL2,
+        eventIsScheduled = false,
+        communityId = 2
     ),
     EventItem(
-        eventName = "Все встречи Активные",
+        eventName = "Все встречи 11",
         eventStatus = EventStatus.NONE,
-        eventDate = "14.09.2024",
+        eventDate = LocalDate.of(2023, 9, 10),
         eventPlace = "Майкоп",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL3,
+        eventIsScheduled = true,
+        communityId = 3
     ),
     EventItem(
-        eventName = "Все встречи Активные",
-        eventStatus = EventStatus.NONE,
-        eventDate = "15.09.2024",
+        eventName = "Все встречи 12",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = LocalDate.of(2023, 9, 12),
         eventPlace = "Владивосток",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = IconURL4,
+        eventIsScheduled = false,
+        communityId = 4
     ),
     EventItem(
-        eventName = "Все встречи Активные",
+        eventName = "Все встречи 13",
         eventStatus = EventStatus.NONE,
-        eventDate = "16.09.2024",
+        eventDate = LocalDate.of(2023, 9, 10),
         eventPlace = "Краснодар",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
-    )
-)
-val mockEventsListUserPlanned = listOf(
+        eventIconURL = IconURL5,
+        eventIsScheduled = true,
+        communityId = 1
+    ),
     EventItem(
-        eventName = "Мои встречи Запланированные",
-        eventStatus = EventStatus.NONE,
-        eventDate = "13.09.2024",
+        eventName = "Мои встречи 14",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = LocalDate.of(2023, 9, 14),
         eventPlace = "Петрозаводск",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL6,
+        eventIsScheduled = false,
+        communityId = 2
     ),
     EventItem(
-        eventName = "Мои встречи Запланированные",
+        eventName = "Мои встречи 15",
         eventStatus = EventStatus.NONE,
-        eventDate = "14.09.2024",
+        eventDate = LocalDate.of(2023, 9, 15),
         eventPlace = "Майкоп",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL7,
+        eventIsScheduled = true,
+        communityId = 3
     ),
     EventItem(
-        eventName = "Мои встречи Запланированные",
-        eventStatus = EventStatus.NONE,
-        eventDate = "15.09.2024",
+        eventName = "Мои встречи 16",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = LocalDate.of(2023, 9, 16),
         eventPlace = "Владивосток",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL8,
+        eventIsScheduled = false,
+        communityId = 4
     ),
     EventItem(
-        eventName = "Мои встречи Запланированные",
+        eventName = "Мои встречи 17",
         eventStatus = EventStatus.NONE,
-        eventDate = "16.09.2024",
+        eventDate = LocalDate.of(2023, 9, 17),
         eventPlace = "Краснодар",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL1,
+        eventIsScheduled = true,
+        communityId = 1
     ),
     EventItem(
-        eventName = "Мои встречи Запланированные",
-        eventStatus = EventStatus.NONE,
-        eventDate = "17.09.2024",
+        eventName = "Мои встречи 18",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = LocalDate.of(2023, 9, 18),
         eventPlace = "Рязань",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL2,
+        eventIsScheduled = false,
+        communityId = 2
     ),
     EventItem(
-        eventName = "Мои встречи Запланированные",
+        eventName = "Мои встречи 19",
         eventStatus = EventStatus.NONE,
-        eventDate = "18.09.2024",
+        eventDate = LocalDate.of(2023, 9, 19),
         eventPlace = "Сочи",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
+        eventIconURL = IconURL3,
+        eventIsScheduled = true,
+        communityId = 3
     ),
     EventItem(
-        eventName = "Мои встречи Запланированные",
-        eventStatus = EventStatus.NONE,
-        eventDate = "19.09.2024",
+        eventName = "Мои встречи 20",
+        eventStatus = EventStatus.FINISHED,
+        eventDate = LocalDate.of(2023, 9, 20),
         eventPlace = "Санкт-Петербург",
         eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
-    ),
-    EventItem(
-        eventName = "Мои встречи Запланированные",
-        eventStatus = EventStatus.NONE,
-        eventDate = "20.09.2024",
-        eventPlace = "Москва",
-        eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
-    ),
-    EventItem(
-        eventName = "Мои встречи Запланированные",
-        eventStatus = EventStatus.NONE,
-        eventDate = "21.09.2024",
-        eventPlace = "Казань",
-        eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL,
-        eventIsPlaned = true
-    )
-)
-val mockEventsListUserPassed = listOf(
-    EventItem(
-        eventName = "Мои встречи Запланированные Прошедшие",
-        eventStatus = EventStatus.FINISHED,
-        eventDate = "13.09.2024",
-        eventPlace = "Петрозаводск",
-        eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
-    ),
-    EventItem(
-        eventName = "Мои встречи Запланированные Прошедшие",
-        eventStatus = EventStatus.FINISHED,
-        eventDate = "14.09.2024",
-        eventPlace = "Майкоп",
-        eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
-    ),
-    EventItem(
-        eventName = "Мои встречи Запланированные Прошедшие",
-        eventStatus = EventStatus.FINISHED,
-        eventDate = "15.09.2024",
-        eventPlace = "Владивосток",
-        eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
-    ),
-    EventItem(
-        eventName = "Мои встречи Запланированные Прошедшие",
-        eventStatus = EventStatus.FINISHED,
-        eventDate = "16.09.2024",
-        eventPlace = "Краснодар",
-        eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
-    ),
-    EventItem(
-        eventName = "Мои встречи Запланированные Прошедшие",
-        eventStatus = EventStatus.FINISHED,
-        eventDate = "17.09.2024",
-        eventPlace = "Рязань",
-        eventCategory = listOf("Python", "Junior", "Moscow"),
-        eventIconURL = eventIconURL
+        eventIconURL = IconURL4,
+        eventIsScheduled = false,
+        communityId = 4
     )
 )
 
-const val communityIconURL = "https://i.pinimg.com/564x/dc/c4/ef/dcc4ef15c657260d1d13331daf3a13c8.jpg"
 val mockListOfCommunities = listOf(
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 1",
         communitySize = 1,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL1
     ),
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 2",
         communitySize = 2,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL2
     ),
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 3",
         communitySize = 4,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL3
     ),
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 4",
         communitySize = 5,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL4
     ),
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 5",
         communitySize = 1500,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL5
     ),
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 6",
         communitySize = 7000,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL6
     ),
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 7",
         communitySize = 15000,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL7
     ),
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 8",
         communitySize = 150000,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL8
     ),
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 9",
         communitySize = 1000000,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL1
     ),
     CommunityItem(
-        communityName = "Имя сообщества",
+        communityName = "Имя сообщества 10",
         communitySize = 10000000,
-        communityIconURL = communityIconURL
+        communityIconURL = IconURL2
     )
 )
 
@@ -328,17 +291,10 @@ const val longText = "Гай Ю́лий Це́зарь (аутентичное �
         "\n" +
         "К Цезарю по-разному относились при жизни, и эта традиция сохранилась в Римской империи: его имя всячески обелялось сторонниками правителей, а оппозиционеры восхваляли его жертв и заговорщиков. Очень популярной была личность Цезаря в Средние века и Новое время. Помимо политической и военной деятельности, Цезарь известен и как литератор. Из-за простоты и ясности стиля, его сочинения считаются классикой древнеримской литературы и используются при обучении латыни. К имени Юлия Цезаря восходят титулы кайзер и царь, название седьмого месяца года во многих языках мира — июль."
 
+
 val mockAccountsIconsURLList1 = listOf(
-    "https://i.pinimg.com/564x/07/1e/f4/071ef43b8a3e3a3e32eba626da61faa9.jpg",
-    "https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg",
-    "https://i.pinimg.com/564x/f4/e0/c8/f4e0c8655494b4ed5fb490df336c5dcb.jpg",
-    "https://i.pinimg.com/564x/51/c8/ed/51c8ed24ded0e56fbeedd10fa8d424d5.jpg",
-    "https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg",
-    "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg",
-    "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+    IconURL1,IconURL2,IconURL3,IconURL4,IconURL5,IconURL6,IconURL7,IconURL8
 )
 val mockAccountsIconsURLList2 = listOf(
-    "https://i.pinimg.com/564x/07/1e/f4/071ef43b8a3e3a3e32eba626da61faa9.jpg",
-    "https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg",
-    "https://i.pinimg.com/564x/f4/e0/c8/f4e0c8655494b4ed5fb490df336c5dcb.jpg",
+    IconURL1,IconURL2,IconURL3
 )

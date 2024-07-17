@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -17,9 +18,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.longText
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListAll
-import com.example.spa_wb_junior_devmeetingapp.model.CommunityItem
 import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
@@ -34,19 +32,16 @@ import org.koin.androidx.compose.koinViewModel
 object CommunityDetailsDestination : NavigationDestination {
     override val route = "community_details"
     override val title = R.string.community_details
-    const val itemIdArg = "itemId"
-    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable
 fun CommunityDetailsScreen(
     navController: NavHostController,
-    community: CommunityItem,
     navigateToEventDetailItem : (EventItem) -> Unit,
     viewModel: CommunityDetailViewModel = koinViewModel()
 ) {
 
-    val communityDetailScreenUiState = viewModel.getCommunityDetailScreenUiStateFlow().collectAsState()
+    val communityDetailScreenUiState by viewModel.getCommunityDetailScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
@@ -62,8 +57,9 @@ fun CommunityDetailsScreen(
     )
     { innerPadding ->
         CommunityDetailsBody(
+            communityEventsList = communityDetailScreenUiState.communityEventsList ,
+            description = communityDetailScreenUiState.description,
             navigateToEventDetailItem = navigateToEventDetailItem,
-            eventsListAll = mockEventsListAll ,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -77,7 +73,8 @@ fun CommunityDetailsScreen(
 @Composable
 fun CommunityDetailsBody(
     navigateToEventDetailItem : (EventItem) -> Unit,
-    eventsListAll : List<EventItem>,
+    description: String,
+    communityEventsList : List<EventItem>,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -85,7 +82,7 @@ fun CommunityDetailsBody(
     ) {
         item {
             Text(
-                text = longText,
+                text = description,
                 fontSize = MaterialTheme.typography.Metadata1.fontSize,
                 fontWeight = FontWeight.Normal,
                 fontFamily = SFProDisplay,
@@ -105,7 +102,7 @@ fun CommunityDetailsBody(
                 modifier = Modifier.padding(top = 30.dp, bottom = 16.dp)
             )
         }
-        items (eventsListAll){ event ->
+        items (communityEventsList){ event ->
             EventCard(
                 eventName = event.eventName,
                 eventStatus = event.eventStatus.status,

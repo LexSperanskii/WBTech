@@ -9,6 +9,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.eventsUserScreen.Event
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.menuScreen.MenuViewModel
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.profileScreen.ProfileViewModel
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registratinProfileScreen.RegistrationProfileViewModel
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen.SplashScreenViewModel
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.verificationScreen.VerificationViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -52,5 +53,8 @@ val appModule = module {
 
     viewModel<ProfileViewModel> {
         ProfileViewModel()
+    }
+    viewModel<SplashScreenViewModel> {
+        SplashScreenViewModel()
     }
 }

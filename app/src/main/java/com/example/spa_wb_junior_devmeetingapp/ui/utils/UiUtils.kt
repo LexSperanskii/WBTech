@@ -1,6 +1,9 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.utils
 
 import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
+import java.util.Locale
 
 
 object UiUtils {
@@ -43,4 +46,6 @@ object UiUtils {
             }
         }
     }
+
+    fun dateFormatter(date: LocalDate): String = date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
 }

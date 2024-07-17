@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -50,13 +51,13 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel()
 ) {
 
-    val profileScreenUiState = viewModel.getProfileScreenUiStateFlow().collectAsState()
+    val profileScreenUiState by viewModel.getProfileScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
             TopAppBarForProfile(
                 title = stringResource(id = ProfileDestination.title),
-                onClickNavigateBack = {navController.popBackStack()},
+                onClickNavigateBack = { navController.popBackStack() },
                 onEditClick = {}
             )
         },
@@ -67,8 +68,9 @@ fun ProfileScreen(
         }
     ) { innerPadding ->
         ProfileBody(
-            name = "Иван Иванов",
-            mobileNumber = PhoneNumber("+44","5433354222"),
+            name = profileScreenUiState.name,
+            mobileNumber = profileScreenUiState.phoneNumber,
+            avatarURL = profileScreenUiState.avatarURL,
             onSocialMedeaButtonClick = {},
             modifier = Modifier
                 .padding(innerPadding)
@@ -81,6 +83,7 @@ fun ProfileScreen(
 fun ProfileBody(
     name: String,
     mobileNumber: PhoneNumber,
+    avatarURL : String,
     onSocialMedeaButtonClick: (SocialMedia)->Unit,
     modifier: Modifier = Modifier
 ){
@@ -90,6 +93,7 @@ fun ProfileBody(
     ) {
         PersonAvatar(
             size = 200.dp,
+            imageURL = avatarURL,
             isEdit = false,
             modifier = Modifier. padding(top = 136.dp)
         )

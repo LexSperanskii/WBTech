@@ -21,10 +21,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -33,8 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListActive
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListAll
 import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
@@ -65,7 +61,7 @@ fun EventsAllScreen(
     viewModel: EventsAllViewModel = koinViewModel()
 ) {
 
-    val eventsAllScreenUiState = viewModel.getEventsAllScreenUiStateFlow().collectAsState()
+    val eventsAllScreenUiState by viewModel.getEventsAllScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
@@ -81,12 +77,15 @@ fun EventsAllScreen(
             )
         }
     ) { innerPadding ->
-        var searchField by remember { mutableStateOf("") }
         EventsBody(
             navigateToEventDetailItem = navigateToEventDetailItem,
-            searchField = searchField,
-            onSearchFieldChange = {searchField = it},
+            searchField = eventsAllScreenUiState.search,
+            onSearchFieldChange = {
+                viewModel.onSearchChange(it)
+            },
             onDoneKeyboardPressed = {},
+            listOfMeetingsAll = eventsAllScreenUiState.listOfMeetingsAll,
+            listOfMeetingsActive = eventsAllScreenUiState.listOfMeetingsActive,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -106,6 +105,8 @@ fun EventsBody(
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
+    listOfMeetingsAll: List<EventItem>,
+    listOfMeetingsActive: List<EventItem>,
     modifier: Modifier = Modifier
 ){
     val scope = rememberCoroutineScope()
@@ -165,11 +166,11 @@ fun EventsBody(
         ) { page ->
             when (page) {
                 0 -> Events(
-                    listOfMeetings = mockEventsListAll,
+                    listOfMeetings = listOfMeetingsAll,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
                 1 -> Events(
-                    listOfMeetings = mockEventsListActive,
+                    listOfMeetings = listOfMeetingsActive,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
             }
@@ -180,11 +181,12 @@ fun EventsBody(
 @Composable
 fun Events(
     listOfMeetings : List<EventItem>,
-    onEventItemClick : (EventItem) -> Unit
+    onEventItemClick : (EventItem) -> Unit,
+    modifier : Modifier = Modifier
 ){
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier
+        modifier = modifier.fillMaxSize()
     ) {
         items (listOfMeetings){ event ->
             EventCard(

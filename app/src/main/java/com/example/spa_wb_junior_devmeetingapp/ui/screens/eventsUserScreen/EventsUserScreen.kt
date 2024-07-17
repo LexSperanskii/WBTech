@@ -28,8 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListUserPassed
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockEventsListUserPlanned
 import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
@@ -58,7 +56,7 @@ fun EventsUserScreen(
     viewModel: EventsUserViewModel = koinViewModel()
 ) {
 
-    val eventsUserScreenUiState = viewModel.getEventsUserScreenUiStateFlow().collectAsState()
+    val eventsUserScreenUiState by viewModel.getEventsUserScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
@@ -75,6 +73,8 @@ fun EventsUserScreen(
         }
     ) { innerPadding ->
         EventsUserBody(
+            listOfMeetingsScheduled = eventsUserScreenUiState.listOfMeetingsScheduled,
+            listOfMeetingsPast = eventsUserScreenUiState.listOfMeetingsPast,
             navigateToEventDetailItem = navigateToEventDetailItem,
             modifier = Modifier
                 .padding(innerPadding)
@@ -92,6 +92,8 @@ fun EventsUserScreen(
 @Composable
 fun EventsUserBody(
     navigateToEventDetailItem : (EventItem) -> Unit,
+    listOfMeetingsScheduled: List<EventItem>,
+    listOfMeetingsPast: List<EventItem>,
     modifier: Modifier = Modifier
 ){
     val scope = rememberCoroutineScope()
@@ -145,11 +147,11 @@ fun EventsUserBody(
         ) { page ->
             when (page) {
                 0 -> Events(
-                    listOfMeetings = mockEventsListUserPlanned,
+                    listOfMeetings = listOfMeetingsScheduled,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
                 1 -> Events(
-                    listOfMeetings = mockEventsListUserPassed,
+                    listOfMeetings = listOfMeetingsPast,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
             }

@@ -39,7 +39,7 @@ fun CommunityScreen(
     viewModel: CommunitiesViewModel = koinViewModel()
 ){
 
-    val communitiesScreenUiState = viewModel.getCommunitiesScreenUiStateFlow().collectAsState()
+    val communitiesScreenUiState by viewModel.getCommunitiesScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
@@ -56,13 +56,13 @@ fun CommunityScreen(
         }
     ) { innerPadding ->
 
-        var searchField by remember { mutableStateOf("") }
-
         CommunityBody(
-            listOfCommunities = mockListOfCommunities,
+            listOfCommunities = communitiesScreenUiState.listOfCommunities,
             onCommunityItemClick = { navigateToCommunityDetailItem(it) },
-            searchField = searchField,
-            onSearchFieldChange = {searchField = it},
+            searchField = communitiesScreenUiState.search,
+            onSearchFieldChange = {
+                viewModel.onSearchChange(it)
+            },
             onDoneKeyboardPressed = {},
             modifier = Modifier
                 .padding(innerPadding)

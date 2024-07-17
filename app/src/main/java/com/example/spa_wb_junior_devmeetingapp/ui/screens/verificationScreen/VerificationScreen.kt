@@ -61,7 +61,7 @@ fun VerificationScreen(
             phoneNumber = verificationScreenUiState.phoneNumber,
             picCode = verificationScreenUiState.pinCode,
             onPinCodeChange = {
-                viewModel.changePinCode(it)
+                viewModel.onPinCodeChange(it)
             },
             onDoneKeyboardPressed = {
                 viewModel.onDoneKeyboardPressed { navigateToRegistrationProfile() }

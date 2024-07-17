@@ -10,9 +10,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -42,10 +39,7 @@ fun RegistrationProfileScreen(
     viewModel: RegistrationProfileViewModel = koinViewModel()
 ) {
 
-    val registrationProfileScreenUiState = viewModel.getRegistrationProfileScreenUiStateFlow().collectAsState()
-
-    var name by remember { mutableStateOf("") }
-    var surname by remember { mutableStateOf("") }
+    val registrationProfileScreenUiState by viewModel.getRegistrationProfileScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
@@ -58,14 +52,19 @@ fun RegistrationProfileScreen(
         }
     ) { innerPadding ->
         RegistrationProfileScreenBody(
-            modifier = Modifier.padding(innerPadding),
-            name = name,
-            onNameChange = {name = it},
-            surname = surname ,
-            onSurnameChange = {surname = it},
+            name = registrationProfileScreenUiState.name,
+            onNameChange = {
+                viewModel.onNameChange(it)
+            },
+            surname = registrationProfileScreenUiState.surname ,
+            onSurnameChange = {
+                viewModel.onSurnameChange(it)
+            },
+            isButtonSafeEnabled = registrationProfileScreenUiState.isButtonEnabled,
             onButtonSafeClick = navigateToEventsAllScreen,
-            isButtonSafeEnabled = name.isNotEmpty()
-        )
+            modifier = Modifier.padding(innerPadding),
+
+            )
     }
 }
 
