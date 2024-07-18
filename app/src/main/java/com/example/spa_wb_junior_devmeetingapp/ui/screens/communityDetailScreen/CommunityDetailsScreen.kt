@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.communityDetailScreen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
@@ -9,6 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -16,10 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockCommunityItem
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.longText
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListAll
+import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
@@ -28,20 +27,22 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightDarkGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import org.koin.androidx.compose.koinViewModel
 
 object CommunityDetailsDestination : NavigationDestination {
     override val route = "community_details"
     override val title = R.string.community_details
-    const val itemIdArg = "itemId"
-    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable
 fun CommunityDetailsScreen(
     navController: NavHostController,
-    community: MockCommunityItem,
-    navigateToEventDetailItem : (MockEventItem) -> Unit
+    navigateToEventDetailItem : (EventItem) -> Unit,
+    viewModel: CommunityDetailViewModel = koinViewModel()
 ) {
+
+    val communityDetailScreenUiState by viewModel.getCommunityDetailScreenUiStateFlow().collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
@@ -56,8 +57,9 @@ fun CommunityDetailsScreen(
     )
     { innerPadding ->
         CommunityDetailsBody(
+            communityEventsList = communityDetailScreenUiState.communityEventsList ,
+            description = communityDetailScreenUiState.description,
             navigateToEventDetailItem = navigateToEventDetailItem,
-            eventsListAll = mockEventsListAll ,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -70,8 +72,9 @@ fun CommunityDetailsScreen(
 
 @Composable
 fun CommunityDetailsBody(
-    navigateToEventDetailItem : (MockEventItem) -> Unit,
-    eventsListAll : List<MockEventItem>,
+    navigateToEventDetailItem : (EventItem) -> Unit,
+    description: String,
+    communityEventsList : List<EventItem>,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -79,7 +82,7 @@ fun CommunityDetailsBody(
     ) {
         item {
             Text(
-                text = longText,
+                text = description,
                 fontSize = MaterialTheme.typography.Metadata1.fontSize,
                 fontWeight = FontWeight.Normal,
                 fontFamily = SFProDisplay,
@@ -99,7 +102,7 @@ fun CommunityDetailsBody(
                 modifier = Modifier.padding(top = 30.dp, bottom = 16.dp)
             )
         }
-        items (eventsListAll){ event ->
+        items (communityEventsList){ event ->
             EventCard(
                 eventName = event.eventName,
                 eventStatus = event.eventStatus.status,

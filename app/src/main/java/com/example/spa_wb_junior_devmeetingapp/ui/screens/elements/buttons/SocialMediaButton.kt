@@ -19,13 +19,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CustomSocialMedeaButtonOutlined(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     pressedColor: Color,
     contentColor: Color,
+    icon: Painter,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     containerColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(25.dp),
-    painter: Painter,
     enabled: Boolean = true
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -38,21 +38,34 @@ fun CustomSocialMedeaButtonOutlined(
         modifier = modifier,
         border = BorderStroke(
             width = 2.dp, color = when {
-                !enabled  -> contentColor.copy(alpha = 0.5f)
-                isPressed -> pressedColor
-                else -> contentColor
+                !enabled -> {
+                    contentColor.copy(alpha = 0.5f)
+                }
+                isPressed -> {
+                    pressedColor
+                }
+                else -> {
+                    contentColor
+                }
             }
         ),
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
-            contentColor = if (isPressed) pressedColor else contentColor,
+            contentColor = when (isPressed){
+                true -> {
+                    pressedColor
+                }
+                false -> {
+                    contentColor
+                }
+            },
             disabledContainerColor = containerColor,
             disabledContentColor = contentColor.copy(alpha = 0.5f)
         ),
         interactionSource = interactionSource
     ) {
         Icon(
-            painter = painter,
+            painter = icon,
             contentDescription = "social media icon",
             modifier = Modifier
                 .size(20.dp)

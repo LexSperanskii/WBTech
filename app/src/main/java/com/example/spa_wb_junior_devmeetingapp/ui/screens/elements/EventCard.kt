@@ -43,19 +43,20 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata2
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import org.threeten.bp.LocalDate
 
 @Composable
 fun EventCard(
     eventName: String,
     eventStatus: String,
-    eventDate: String,
+    eventDate: LocalDate,
     eventPlace:String,
     eventCategories: List<String>,
     eventIconURL: String,
     onEventItemClick : ()-> Unit,
+    modifier: Modifier = Modifier,
     dividerColor: Color = DividerColor,
     dividerThickness: Dp = DividerDefaults.Thickness,
-    modifier: Modifier = Modifier
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),

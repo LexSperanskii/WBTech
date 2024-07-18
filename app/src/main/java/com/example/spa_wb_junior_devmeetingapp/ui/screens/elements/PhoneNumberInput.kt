@@ -31,25 +31,25 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.Country
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.countryList
+import com.example.spa_wb_junior_devmeetingapp.model.Country
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
+
 @Composable
-fun PhoneNumberRow(
-    phoneNumber: String,
-    onPhoneNumberChange :  (String) -> Unit,
-    countryCode: Country,
-    listOfCountriesCodes :List<Country> = countryList,
-    onCountryCodeChange :  (Country) -> Unit,
-    placeholder : String = "000 000-00-00",
-    modifier: Modifier = Modifier
+fun PhoneNumberInput(
+    number: String,
+    onNumberChange: (String) -> Unit,
+    countryCode:  Country,
+    onCountryCodeChange: (Country) -> Unit,
+    listOfCountriesCodes: List<Country>,
+    modifier: Modifier = Modifier,
+    placeholder: String = "000 000-00-00"
 ) {
-    val phoneLength = 10
     val focusManager = LocalFocusManager.current
     var focusState by remember { mutableStateOf(false) }
 
@@ -70,10 +70,10 @@ fun PhoneNumberRow(
                 .background(color = ExtraLightGray)
                 .onFocusChanged { focusState = it.isFocused }
                 .padding(horizontal = 8.dp, vertical = 6.dp),
-            value = phoneNumber,
+            value = number,
             onValueChange = {
                 if (it.isDigitsOnly()){
-                    onPhoneNumberChange(it.take(phoneLength))
+                    onNumberChange(it.take(PHONE_NUMBER_LENGTH))
                 }
             },
             keyboardOptions = KeyboardOptions(
@@ -94,14 +94,20 @@ fun PhoneNumberRow(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                 ) {
-                    if (!focusState && phoneNumber.isEmpty()) Text(
-                        text = placeholder,
-                        color = GrayForCommunityCard,
-                        fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                        fontWeight = FontWeight.SemiBold,
-                        fontFamily = SFProDisplay
-                    )
-                    innerTextField()
+                    when{
+                        !focusState && number.isEmpty() ->{
+                            Text(
+                                text = placeholder,
+                                color = GrayForCommunityCard,
+                                fontSize = MaterialTheme.typography.BodyText1.fontSize,
+                                fontWeight = FontWeight.SemiBold,
+                                fontFamily = SFProDisplay
+                            )
+                        }
+                        else -> {
+                            innerTextField()
+                        }
+                    }
                 }
             },
             visualTransformation = PhoneVisualTransformation()
@@ -111,34 +117,45 @@ fun PhoneNumberRow(
 class PhoneVisualTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         val formattedText = StringBuilder()
-        for (i in text.indices) {
-            formattedText.append(text[i])
-            when (i) {
-                2 -> formattedText.append(" ")
-                5 -> formattedText.append("-")
-                7 -> formattedText.append("-")
+        text.forEachIndexed{index, char ->
+            formattedText.append(char)
+            when (index) {
+                SPACE_POSITION -> formattedText.append(SPACE)
+                FIRST_DASH_POSITION, SECOND_DASH_POSITION -> formattedText.append(DASH)
             }
         }
 
         val phoneNumberOffsetTranslator = object : OffsetMapping {
-            override fun originalToTransformed(offset: Int): Int = when {
-                offset <= 2 -> offset
-                offset <= 5 -> offset + 1
-                offset <= 7 -> offset + 2
-                offset <= 9 -> offset + 3
-                else -> 13
+            override fun originalToTransformed(offset: Int): Int = when (offset) {
+                in ZERO..SPACE_POSITION -> offset
+                in SPACE_POSITION + ONE..FIRST_DASH_POSITION -> offset + ONE
+                in FIRST_DASH_POSITION + ONE..SECOND_DASH_POSITION -> offset + TWO
+                else -> offset + THREE
             }
 
-            override fun transformedToOriginal(offset: Int): Int = when{
-                offset <= 3 -> offset
-                offset <= 7 -> offset - 1
-                offset <= 10 -> offset - 2
-                offset <= 13 -> offset - 3
-                else -> 10
+            override fun transformedToOriginal(offset: Int): Int = when(offset){
+                in ZERO..SPACE_POSITION + ONE -> offset
+                in SPACE_POSITION + TWO..FIRST_DASH_POSITION + TWO -> offset - ONE
+                in FIRST_DASH_POSITION + THREE..SECOND_DASH_POSITION + THREE -> offset - TWO
+                else -> offset - THREE
             }
+
         }
 
         return TransformedText(AnnotatedString(formattedText.toString()), phoneNumberOffsetTranslator)
+    }
+
+    private companion object {
+        const val SPACE_POSITION = 2
+        const val FIRST_DASH_POSITION = 5
+        const val SECOND_DASH_POSITION = 7
+
+        const val SPACE = " "
+        const val DASH = "-"
+        const val ZERO = 0
+        const val ONE = 1
+        const val TWO = 2
+        const val THREE = 3
     }
 }
 

@@ -32,10 +32,10 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 @Composable
 fun OverlappingPeopleRow(
     accountsIconsURLList: List<String>,
+    modifier: Modifier = Modifier,
     reverse: Boolean = false,
     overlappingPercentage: Float = 0.20f,
-    accountsInOverlappingRow: Int = 5,
-    modifier: Modifier = Modifier
+    accountsInOverlappingRow: Int = 5
 ){
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -106,9 +106,9 @@ fun OverlappingPeopleRow(
 }
 @Composable
 fun OverlappingRow(
-    modifier: Modifier = Modifier,
     overlappingPercentage: Float,
     reverse: Boolean,
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
     // Фактор перекрытия элементов

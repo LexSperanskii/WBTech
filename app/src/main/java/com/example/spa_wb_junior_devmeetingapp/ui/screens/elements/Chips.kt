@@ -36,7 +36,9 @@ fun CustomFilterChip(text : String) {
                     contentDescription = "Done icon",
                     modifier = Modifier.size(FilterChipDefaults.IconSize)
                 )
-                false -> null
+                false -> {
+                    null
+                }
             }
         },
         colors = FilterChipDefaults.filterChipColors(

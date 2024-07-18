@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.eventsUserScreen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -15,6 +15,7 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -27,16 +28,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.MockEventItem
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListUserPassed
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.mockEventsListUserPlanned
+import com.example.spa_wb_junior_devmeetingapp.model.EventItem
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.eventsAllScreen.Events
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForTabs
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 object EventsUserDestination : NavigationDestination {
     override val route = "events_user"
@@ -51,8 +52,12 @@ enum class EventsUserTabs(val text: String){
 @Composable
 fun EventsUserScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (MockEventItem) -> Unit
+    navigateToEventDetailItem : (EventItem) -> Unit,
+    viewModel: EventsUserViewModel = koinViewModel()
 ) {
+
+    val eventsUserScreenUiState by viewModel.getEventsUserScreenUiStateFlow().collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
@@ -68,6 +73,8 @@ fun EventsUserScreen(
         }
     ) { innerPadding ->
         EventsUserBody(
+            listOfMeetingsScheduled = eventsUserScreenUiState.listOfMeetingsScheduled,
+            listOfMeetingsPast = eventsUserScreenUiState.listOfMeetingsPast,
             navigateToEventDetailItem = navigateToEventDetailItem,
             modifier = Modifier
                 .padding(innerPadding)
@@ -84,7 +91,9 @@ fun EventsUserScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventsUserBody(
-    navigateToEventDetailItem : (MockEventItem) -> Unit,
+    navigateToEventDetailItem : (EventItem) -> Unit,
+    listOfMeetingsScheduled: List<EventItem>,
+    listOfMeetingsPast: List<EventItem>,
     modifier: Modifier = Modifier
 ){
     val scope = rememberCoroutineScope()
@@ -138,11 +147,11 @@ fun EventsUserBody(
         ) { page ->
             when (page) {
                 0 -> Events(
-                    listOfMeetings = mockEventsListUserPlanned,
+                    listOfMeetings = listOfMeetingsScheduled,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
                 1 -> Events(
-                    listOfMeetings = mockEventsListUserPassed,
+                    listOfMeetings = listOfMeetingsPast,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
             }

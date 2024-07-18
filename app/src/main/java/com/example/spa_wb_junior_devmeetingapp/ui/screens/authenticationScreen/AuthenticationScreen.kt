@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.authenticationScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,10 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -20,10 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.Country
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.countryList
+import com.example.spa_wb_junior_devmeetingapp.model.Country
+import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberRow
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
@@ -32,6 +30,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+import org.koin.androidx.compose.koinViewModel
 
 object AuthenticationDestination : NavigationDestination {
     override val route = "authentication"
@@ -40,12 +39,12 @@ object AuthenticationDestination : NavigationDestination {
 
 @Composable
 fun AuthenticationScreen(
-    navigateToVerificationScreen: () -> Unit,
-    onClickNavigateBack: () -> Unit
-) {
+    navigateToVerificationScreen: (PhoneNumber) -> Unit,
+    onClickNavigateBack: () -> Unit,
+    viewModel: AuthenticationViewModel = koinViewModel(),
+    ) {
 
-    var countryCode by remember { mutableStateOf(countryList[0]) }
-    var phoneNumber by remember { mutableStateOf("") }
+    val authenticationUiState by viewModel.getAuthenticationScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
@@ -58,27 +57,29 @@ fun AuthenticationScreen(
         }
     ) { innerPadding ->
         AuthenticationBody(
-            modifier = Modifier.padding(innerPadding),
-            phoneNumber = phoneNumber,
-            onPhoneNumberChange = { phoneNumber = it },
-            countryCode = countryCode,
-            onCountryCodeChange = { countryCode = it },
-            onForwardButtonClick = navigateToVerificationScreen,
-            isForwardButtonEnabled = phoneNumber.length == 10
-        )
+            number = authenticationUiState.phoneNumber.number,
+            onNumberChange = { viewModel.changeNumber(it) },
+            countryCode = authenticationUiState.country,
+            onCountryCodeChange = { viewModel.changeCountryCode(it) },
+            listOfCountriesCodes = authenticationUiState.listOfCountries,
+            isForwardButtonEnabled = authenticationUiState.isButtonEnabled,
+            onForwardButtonClick = {navigateToVerificationScreen(authenticationUiState.phoneNumber)},
+            modifier = Modifier.padding(innerPadding)
+            )
     }
 }
 
 @Composable
 fun AuthenticationBody(
-    modifier: Modifier = Modifier,
-    phoneNumber: String,
-    onPhoneNumberChange: (String) -> Unit,
+    number: String,
+    onNumberChange: (String) -> Unit,
     countryCode: Country,
     onCountryCodeChange: (Country) -> Unit,
     onForwardButtonClick: () -> Unit,
-    isForwardButtonEnabled:Boolean
-) {
+    isForwardButtonEnabled:Boolean,
+    listOfCountriesCodes:  List<Country>,
+    modifier: Modifier = Modifier
+    ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxSize().padding(24.dp)
@@ -98,11 +99,12 @@ fun AuthenticationBody(
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 50.dp)
         )
-        PhoneNumberRow(
-            phoneNumber = phoneNumber,
-            onPhoneNumberChange = onPhoneNumberChange,
+        PhoneNumberInput(
+            number = number,
+            onNumberChange = onNumberChange,
             countryCode = countryCode,
             onCountryCodeChange = onCountryCodeChange,
+            listOfCountriesCodes = listOfCountriesCodes,
             modifier = Modifier.padding(bottom = 70.dp)
         )
         CustomButton(

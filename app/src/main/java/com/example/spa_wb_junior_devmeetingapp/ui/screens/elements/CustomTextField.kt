@@ -21,15 +21,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.replaceFirstCharToCapitalCase
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
@@ -55,7 +52,9 @@ fun CustomTextField(
             .onFocusChanged { focusState = it.isFocused }
             .padding(horizontal = 8.dp, vertical = 6.dp),
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = {
+            onValueChange(replaceFirstCharToCapitalCase(it))
+        },
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,
         ),
@@ -74,33 +73,24 @@ fun CustomTextField(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
             ) {
-                if (!focusState && value.isEmpty()) Text(
-                    text = placeholder,
-                    color = GrayForCommunityCard,
-                    fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = SFProDisplay,
-                    lineHeight = 24.sp
-                )
-                innerTextField()
+                when {
+                    !focusState && value.isEmpty() -> {
+                        Text(
+                            text = placeholder,
+                            color = GrayForCommunityCard,
+                            fontSize = MaterialTheme.typography.BodyText1.fontSize,
+                            fontWeight = FontWeight.SemiBold,
+                            fontFamily = SFProDisplay,
+                            lineHeight = 24.sp
+                        )
+                    }
+
+                    else -> {
+                        innerTextField()
+                    }
+                }
             }
         },
-        visualTransformation = NameSurnameVisualTransformation(),
         maxLines = 1
     )
-}
-class NameSurnameVisualTransformation : VisualTransformation {
-    override fun filter(text: AnnotatedString): TransformedText {
-        val transformedText = text.text.replaceFirstChar {
-            when {
-                it.isLowerCase() -> it.titlecase()
-                else -> it.toString()
-            }
-        }
-
-        return TransformedText(
-            AnnotatedString(transformedText),
-            OffsetMapping.Identity
-        )
-    }
 }

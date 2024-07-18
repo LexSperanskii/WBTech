@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.registratinProfileScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,6 +25,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+import org.koin.androidx.compose.koinViewModel
 
 object RegistrationProfileDestination : NavigationDestination {
     override val route = "registration_profile"
@@ -36,11 +35,11 @@ object RegistrationProfileDestination : NavigationDestination {
 @Composable
 fun RegistrationProfileScreen(
     onClickNavigateBack: () -> Unit,
-    navigateToEventsAllScreen: () -> Unit
+    navigateToEventsAllScreen: () -> Unit,
+    viewModel: RegistrationProfileViewModel = koinViewModel()
 ) {
 
-    var name by remember { mutableStateOf("") }
-    var surname by remember { mutableStateOf("") }
+    val registrationProfileScreenUiState by viewModel.getRegistrationProfileScreenUiStateFlow().collectAsState()
 
     Scaffold(
         topBar = {
@@ -53,27 +52,32 @@ fun RegistrationProfileScreen(
         }
     ) { innerPadding ->
         RegistrationProfileScreenBody(
-            modifier = Modifier.padding(innerPadding),
-            name = name,
-            onNameChange = {name = it},
-            surname = surname ,
-            onSurnameChange = {surname = it},
+            name = registrationProfileScreenUiState.name,
+            onNameChange = {
+                viewModel.onNameChange(it)
+            },
+            surname = registrationProfileScreenUiState.surname ,
+            onSurnameChange = {
+                viewModel.onSurnameChange(it)
+            },
+            isButtonSafeEnabled = registrationProfileScreenUiState.isButtonEnabled,
             onButtonSafeClick = navigateToEventsAllScreen,
-            isButtonSafeEnabled = name.isNotEmpty()
-        )
+            modifier = Modifier.padding(innerPadding),
+
+            )
     }
 }
 
 @Composable
 fun RegistrationProfileScreenBody(
-    modifier: Modifier = Modifier,
     name: String,
     onNameChange: (String) -> Unit,
     surname: String,
     onSurnameChange: (String) -> Unit,
     onButtonSafeClick: () -> Unit,
-    isButtonSafeEnabled:Boolean
-) {
+    isButtonSafeEnabled:Boolean,
+    modifier: Modifier = Modifier
+    ) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

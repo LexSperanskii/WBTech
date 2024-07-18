@@ -23,8 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.PhoneNumber
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.formattedMobileNumber
+import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
@@ -32,12 +32,13 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 @Composable
-fun ProfileMenuItem(
-    modifier: Modifier = Modifier,
+fun MenuItemProfile(
     onProfileClick: () -> Unit,
     profileName: String,
     mobileNumber: PhoneNumber,
-) {
+    avatarURL: String,
+    modifier: Modifier = Modifier
+    ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
@@ -52,6 +53,7 @@ fun ProfileMenuItem(
             PersonAvatar(
                 size = 50.dp,
                 isEdit = false,
+                imageURL = avatarURL
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(2.dp),
@@ -66,7 +68,7 @@ fun ProfileMenuItem(
                     modifier = Modifier
                 )
                 Text(
-                    text = formattedMobileNumber(mobileNumber),
+                    text =  formattedMobileNumber(mobileNumber),
                     fontSize = MaterialTheme.typography.Metadata1.fontSize,
                     fontWeight = FontWeight.Normal,
                     fontFamily = SFProDisplay,

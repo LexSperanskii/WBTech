@@ -7,7 +7,6 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,12 +29,12 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
 @Composable
 fun TopAppBarBackNameAction(
     title: String,
-    isNavigateBack : Boolean= true,
-    onClickNavigateBack: () -> Unit = {},
-    isAddCapable: Boolean = true,
-    onAddCLick: () -> Unit = {},
     modifier: Modifier = Modifier,
-) {
+    onClickNavigateBack: () -> Unit = {},
+    onAddCLick: () -> Unit = {},
+    isNavigateBack : Boolean= true,
+    isAddCapable: Boolean = true
+    ) {
     TopAppBar(
         title = {
             Text(

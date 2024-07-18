@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.profileScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,30 +9,29 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.mockData.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneVisualTransformation
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarForProfile
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomSocialMedeaButtonOutlined
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+import org.koin.androidx.compose.koinViewModel
 
 object ProfileDestination : NavigationDestination {
     override val route = "profile"
@@ -48,13 +47,17 @@ enum class SocialMedia(val icon: Int) {
 
 @Composable
 fun ProfileScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: ProfileViewModel = koinViewModel()
 ) {
+
+    val profileScreenUiState by viewModel.getProfileScreenUiStateFlow().collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBarForProfile(
                 title = stringResource(id = ProfileDestination.title),
-                onClickNavigateBack = {navController.popBackStack()},
+                onClickNavigateBack = { navController.popBackStack() },
                 onEditClick = {}
             )
         },
@@ -65,8 +68,9 @@ fun ProfileScreen(
         }
     ) { innerPadding ->
         ProfileBody(
-            name = "Иван Иванов",
-            mobileNumber = PhoneNumber("+44","5433354222"),
+            name = profileScreenUiState.name,
+            mobileNumber = profileScreenUiState.phoneNumber,
+            avatarURL = profileScreenUiState.avatarURL,
             onSocialMedeaButtonClick = {},
             modifier = Modifier
                 .padding(innerPadding)
@@ -79,6 +83,7 @@ fun ProfileScreen(
 fun ProfileBody(
     name: String,
     mobileNumber: PhoneNumber,
+    avatarURL : String,
     onSocialMedeaButtonClick: (SocialMedia)->Unit,
     modifier: Modifier = Modifier
 ){
@@ -88,6 +93,7 @@ fun ProfileBody(
     ) {
         PersonAvatar(
             size = 200.dp,
+            imageURL = avatarURL,
             isEdit = false,
             modifier = Modifier. padding(top = 136.dp)
         )
@@ -115,30 +121,9 @@ fun ProfileBody(
                     modifier = Modifier,
                     pressedColor = DarkPurple,
                     contentColor = Purple,
-                    painter = painterResource(id = socialMedia.icon)
+                    icon = painterResource(id = socialMedia.icon)
                 )
             }
-        }
-    }
-}
-
-fun formattedMobileNumber(mobileNumber: PhoneNumber): String {
-    return when (mobileNumber.number.length) {
-        10 -> buildString {
-            append(mobileNumber.countryCode)
-            append(" ")
-            append(mobileNumber.number.substring(0, 3))
-            append(" ")
-            append(mobileNumber.number.substring(3, 6))
-            append("-")
-            append(mobileNumber.number.substring(6, 8))
-            append("-")
-            append(mobileNumber.number.substring(8))
-        }
-        else -> buildString {
-            append(mobileNumber.countryCode)
-            append(" ")
-            append(mobileNumber.number)
         }
     }
 }

@@ -25,7 +25,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.os.LocaleListCompat
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
@@ -34,27 +33,18 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DividerColor
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 @Composable
 fun CommunityCard(
     communityName: String,
     communitySize: Int,
     communityIconURL: String,
-    onCommunityItemClick : () -> Unit,
+    onCommunityItemClick: () -> Unit,
+    modifier: Modifier = Modifier,
     dividerColor: Color = DividerColor,
-    dividerThickness: Dp = DividerDefaults.Thickness,
-    modifier: Modifier = Modifier
+    dividerThickness: Dp = DividerDefaults.Thickness
 ) {
-
-    // Устанавливаем пробел как разделитель тысяч
-    val formattedCommunitySize = DecimalFormat("#,###", DecimalFormatSymbols(
-        LocaleListCompat.getDefault().get(0)
-    ).apply{
-        groupingSeparator = ' '
-    }).format(communitySize)
-
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
@@ -94,7 +84,7 @@ fun CommunityCard(
                         text = LocalContext.current.resources.getQuantityString  (
                             R.plurals.community_people_count,
                             communitySize,
-                            formattedCommunitySize
+                            String.format(Locale.getDefault(), "%,d", communitySize)
                         ),
                         fontSize = MaterialTheme.typography.Metadata1.fontSize,
                         fontWeight = FontWeight.Normal,
