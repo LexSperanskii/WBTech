@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
 fun PersonAvatar(
@@ -33,7 +33,7 @@ fun PersonAvatar(
     onEditClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     defaultIcon: Painter = painterResource(id = R.drawable.icon_avatar_person),
-    backgroundColor: Color = ExtraLightGray,
+    backgroundColor: Color = DevMeetingAppTheme.colors.extraLightGray
 ) {
 
     val iconScale = size.value / 100 // Коэффициент масштабирования иконки

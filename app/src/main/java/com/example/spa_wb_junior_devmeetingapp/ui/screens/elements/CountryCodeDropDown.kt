@@ -3,18 +3,14 @@ package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,14 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.model.Country
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,7 +46,7 @@ fun CountryCodeDropDown(
             modifier = Modifier
                 .padding(end = 8.dp)
                 .clip(RoundedCornerShape(4.dp))
-                .background(color = ExtraLightGray)
+                .background(color = DevMeetingAppTheme.colors.extraLightGray)
                 .menuAnchor(),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -69,10 +61,8 @@ fun CountryCodeDropDown(
             Text(
                 modifier = Modifier.padding(end = 8.dp),
                 text = country.countryCode,
-                color = GrayForCommunityCard,
-                fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = SFProDisplay
+                color = DevMeetingAppTheme.colors.grayForCommunityCard,
+                style = DevMeetingAppTheme.typography.bodyText1,
             )
         }
         ExposedDropdownMenu(
@@ -81,7 +71,7 @@ fun CountryCodeDropDown(
             modifier = Modifier
                 .widthIn(76.dp)
                 .clip(RoundedCornerShape(4.dp))
-                .background(color = ExtraLightGray)
+                .background(color = DevMeetingAppTheme.colors.extraLightGray)
         ) {
             listOfCountries.forEach {
                 DropdownMenuItem(
@@ -102,10 +92,8 @@ fun CountryCodeDropDown(
                             Text(
                                 modifier = Modifier,
                                 text = it.countryCode,
-                                color = GrayForCommunityCard,
-                                fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                                fontWeight = FontWeight.SemiBold,
-                                fontFamily = SFProDisplay
+                                color = DevMeetingAppTheme.colors.grayForCommunityCard,
+                                style = DevMeetingAppTheme.typography.bodyText1,
                             )
                         }
                     },

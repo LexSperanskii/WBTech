@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,14 +19,11 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.PurpleForGroupedPeople
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
 fun OverlappingPeopleRow(
@@ -61,7 +57,7 @@ fun OverlappingPeopleRow(
                             modifier = Modifier
                                 .size(48.dp)
                                 .clip(RoundedCornerShape(16.dp))
-                                .border(2.dp, PurpleForGroupedPeople, RoundedCornerShape(16.dp)),
+                                .border(2.dp, DevMeetingAppTheme.colors.purpleForGroupedPeople, RoundedCornerShape(16.dp)),
                         )
                     }
                 }
@@ -88,15 +84,13 @@ fun OverlappingPeopleRow(
                                 modifier = Modifier
                                     .size(48.dp)
                                     .clip(RoundedCornerShape(16.dp))
-                                    .border(2.dp, PurpleForGroupedPeople, RoundedCornerShape(16.dp)),
+                                    .border(2.dp, DevMeetingAppTheme.colors.purpleForGroupedPeople, RoundedCornerShape(16.dp)),
                             )
                         }
                     }
                     Text(
                         text = stringResource(id = R.string.number_of_people, accountsIconsURLList.size-accountsInOverlappingRow ),
-                        fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                        fontWeight = FontWeight.SemiBold,
-                        fontFamily = SFProDisplay,
+                        style = DevMeetingAppTheme.typography.bodyText1,
                         modifier = Modifier.padding(start = 10.dp)
                     )
                 }

@@ -12,7 +12,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,17 +21,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.DividerColor
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import java.util.Locale
 
 @Composable
@@ -42,7 +36,7 @@ fun CommunityCard(
     communityIconURL: String,
     onCommunityItemClick: () -> Unit,
     modifier: Modifier = Modifier,
-    dividerColor: Color = DividerColor,
+    dividerColor: Color = DevMeetingAppTheme.colors.dividerColor,
     dividerThickness: Dp = DividerDefaults.Thickness
 ) {
     Card(
@@ -75,9 +69,7 @@ fun CommunityCard(
                 Column {
                     Text(
                         text = communityName,
-                        fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                        fontWeight = FontWeight.SemiBold,
-                        fontFamily = SFProDisplay,
+                        style = DevMeetingAppTheme.typography.bodyText1,
                         modifier = Modifier.padding(bottom = 2.dp)
                     )
                     Text(
@@ -86,10 +78,8 @@ fun CommunityCard(
                             communitySize,
                             String.format(Locale.getDefault(), "%,d", communitySize)
                         ),
-                        fontSize = MaterialTheme.typography.Metadata1.fontSize,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = SFProDisplay,
-                        color = GrayForCommunityCard,
+                        style = DevMeetingAppTheme.typography.metadata1,
+                        color = DevMeetingAppTheme.colors.grayForCommunityCard,
                         modifier = Modifier
                     )
                 }

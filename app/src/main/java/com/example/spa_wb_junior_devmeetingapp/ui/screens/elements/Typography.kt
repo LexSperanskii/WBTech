@@ -8,16 +8,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Gray
 
 data class TypographyItem(
-    val fontSize: TextUnit,
-    val fontWeight: FontWeight,
+    val style : TextStyle,
     val title: String,
     val subTitle: String
 )
@@ -26,9 +25,8 @@ data class TypographyItem(
 fun TypographyRow(
     title: String,
     subTitle: String,
-    fontSize: TextUnit,
+    style : TextStyle,
     modifier: Modifier = Modifier,
-    fontWeight: FontWeight,
 ) {
     val text = "The quick brown fox jumps over the lazy dog"
     LazyRow(
@@ -42,23 +40,18 @@ fun TypographyRow(
             ) {
                 Text(
                     text = title,
-                    fontSize = MaterialTheme.typography.Subheading1.fontSize,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = SFProDisplay
+                    style = DevMeetingAppTheme.typography.subheading1,
                 )
                 Text(
                     text = subTitle,
-                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                    color = Gray,
-                    fontFamily = SFProDisplay
+                    style = DevMeetingAppTheme.typography.bodyText2,
+                    color = DevMeetingAppTheme.colors.gray,
                 )
 
             }
             Text(
                 text = text,
-                fontSize = fontSize,
-                fontWeight = fontWeight,
-                fontFamily = SFProDisplay
+                style = style,
             )
         }
     }

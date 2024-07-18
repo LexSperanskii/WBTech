@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -24,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
@@ -47,19 +45,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberIn
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyRow
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText2
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightGray
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata2
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata3
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SpA_WB_Junior_DevMeetingAppTheme
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.threeten.bp.LocalDate
 
 object DeveloperDestination : NavigationDestination {
@@ -71,56 +57,47 @@ object DeveloperDestination : NavigationDestination {
 fun DeveloperScreen() {
     val typographyList = listOf(
         TypographyItem(
-            fontSize = MaterialTheme.typography.Heading1.fontSize,
-            fontWeight = FontWeight.Bold,
+            style = DevMeetingAppTheme.typography.heading1,
             title = "Heading 1",
             subTitle = "SF Pro Display/32/Bold"
         ),
         TypographyItem(
-            fontSize = MaterialTheme.typography.Heading2.fontSize,
-            fontWeight = FontWeight.Bold,
+            style = DevMeetingAppTheme.typography.heading2,
             title = "Heading 2",
             subTitle = "SF Pro Display/24/Bold"
         ),
         TypographyItem(
-            fontSize = MaterialTheme.typography.Subheading1.fontSize,
-            fontWeight = FontWeight.SemiBold,
+            style = DevMeetingAppTheme.typography.subheading1,
             title = "Subheading 1",
             subTitle = "SF Pro Display/18/SemiBold"
         ),
         TypographyItem(
-            fontSize = MaterialTheme.typography.Subheading2.fontSize,
-            fontWeight = FontWeight.SemiBold,
+            style = DevMeetingAppTheme.typography.subheading2,
             title = "Subheading 2",
             subTitle = "SF Pro Display/16/SemiBold"
         ),
         TypographyItem(
-            fontSize = MaterialTheme.typography.BodyText1.fontSize,
-            fontWeight = FontWeight.SemiBold,
+            style = DevMeetingAppTheme.typography.bodyText1,
             title = "Body Text 1",
             subTitle = "SF Pro Display/14/SemiBold"
         ),
         TypographyItem(
-            fontSize = MaterialTheme.typography.BodyText2.fontSize,
-            fontWeight = FontWeight.Normal,
+            style = DevMeetingAppTheme.typography.bodyText2,
             title = "Body Text 2",
             subTitle = "SF Pro Display/14/Regular"
         ),
         TypographyItem(
-            fontSize = MaterialTheme.typography.Metadata1.fontSize,
-            fontWeight = FontWeight.Normal,
+            style = DevMeetingAppTheme.typography.metadata1,
             title = "Metadata 1",
             subTitle = "SF Pro Display/12/Regular"
         ),
         TypographyItem(
-            fontSize = MaterialTheme.typography.Metadata2.fontSize,
-            fontWeight = FontWeight.Normal,
+            style = DevMeetingAppTheme.typography.metadata2,
             title = "Metadata 2",
             subTitle = "SF Pro Display/10/Regular"
         ),
         TypographyItem(
-            fontSize = MaterialTheme.typography.Metadata3.fontSize,
-            fontWeight = FontWeight.SemiBold,
+            style = DevMeetingAppTheme.typography.metadata3,
             title = "Metadata 3",
             subTitle = "SF Pro Display/10/SemiBold"
         )
@@ -177,25 +154,25 @@ fun DeveloperScreen() {
                 ) {
                     CustomButtonRipple(
                         onClick = {},
-                        containerColor = Purple,
+                        containerColor = DevMeetingAppTheme.colors.purple,
                         contentColor = Color.White,
-                        pressedColor = DarkPurple,
-                        rippleColor = LightGray,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        rippleColor = DevMeetingAppTheme.colors.lightGray,
                         enabled = true,
                     )
                     CustomButtonOutlinedRipple(
                         onClick = {},
-                        contentColor = Purple,
-                        pressedColor = DarkPurple,
-                        rippleColor = LightGray,
+                        contentColor = DevMeetingAppTheme.colors.purple,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        rippleColor = DevMeetingAppTheme.colors.lightGray,
                         enabled = true,
                         border = true
                     )
                     CustomButtonOutlinedRipple(
                         onClick = {},
-                        contentColor = Purple,
-                        pressedColor = DarkPurple,
-                        rippleColor = LightGray,
+                        contentColor = DevMeetingAppTheme.colors.purple,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        rippleColor = DevMeetingAppTheme.colors.lightGray,
                         enabled = true,
                         border = false
                     )
@@ -209,25 +186,25 @@ fun DeveloperScreen() {
                 ) {
                     CustomButtonRipple(
                         onClick = {},
-                        containerColor = Purple,
+                        containerColor = DevMeetingAppTheme.colors.purple,
                         contentColor = Color.White,
-                        pressedColor = DarkPurple,
-                        rippleColor = LightGray,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        rippleColor = DevMeetingAppTheme.colors.lightGray,
                         enabled = false,
                     )
                     CustomButtonOutlinedRipple(
                         onClick = {},
-                        contentColor = Purple,
-                        pressedColor = DarkPurple,
-                        rippleColor = LightGray,
+                        contentColor = DevMeetingAppTheme.colors.purple,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        rippleColor = DevMeetingAppTheme.colors.lightGray,
                         enabled = false,
                         border = true
                     )
                     CustomButtonOutlinedRipple(
                         onClick = {},
-                        contentColor = Purple,
-                        pressedColor = DarkPurple,
-                        rippleColor = LightGray,
+                        contentColor = DevMeetingAppTheme.colors.purple,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        rippleColor = DevMeetingAppTheme.colors.lightGray,
                         enabled = false,
                         border = false
                     )
@@ -251,20 +228,20 @@ fun DeveloperScreen() {
                 ){
                     CustomButton(
                         onClick = {},
-                        pressedColor = DarkPurple,
-                        containerColor = Purple,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        containerColor = DevMeetingAppTheme.colors.purple,
                         contentColor = Color.White
                     )
                     CustomButtonOutlined(
                         onClick = {},
-                        pressedColor = DarkPurple,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
                         containerColor = Color. Transparent,
-                        contentColor = Purple
+                        contentColor = DevMeetingAppTheme.colors.purple
                     )
                     CustomButtonText(
                         onClick = {},
-                        pressedColor = DarkPurple,
-                        contentColor = Purple
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        contentColor = DevMeetingAppTheme.colors.purple
                     )
                 }
             }
@@ -276,22 +253,22 @@ fun DeveloperScreen() {
                 ){
                     CustomButton(
                         onClick = {},
-                        pressedColor = DarkPurple,
-                        containerColor = Purple,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        containerColor = DevMeetingAppTheme.colors.purple,
                         contentColor = Color.White,
                         enabled = false
                     )
                     CustomButtonOutlined(
                         onClick = {},
-                        pressedColor = DarkPurple,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
                         containerColor = Color. Transparent,
-                        contentColor = Purple,
+                        contentColor = DevMeetingAppTheme.colors.purple,
                         enabled = false
                     )
                     CustomButtonText(
                         onClick = {},
-                        pressedColor = DarkPurple,
-                        contentColor = Purple,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        contentColor = DevMeetingAppTheme.colors.purple,
                         enabled = false
                     )
                 }
@@ -299,10 +276,9 @@ fun DeveloperScreen() {
             item {
                 typographyList.forEach{
                     TypographyRow(
+                        style = it.style,
                         title = it.title,
                         subTitle = it.subTitle,
-                        fontSize = it.fontSize,
-                        fontWeight = it.fontWeight,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
                 }
@@ -422,7 +398,7 @@ fun DeveloperScreen() {
 @Preview(showBackground = true)
 @Composable
 fun FirstScreenPreview() {
-    SpA_WB_Junior_DevMeetingAppTheme {
+    DevMeetingAppTheme {
         Surface() {
             DeveloperScreen()
         }

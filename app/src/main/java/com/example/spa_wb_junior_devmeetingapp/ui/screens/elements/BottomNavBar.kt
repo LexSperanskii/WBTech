@@ -27,9 +27,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.DeepBlueForBottomBar
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 
@@ -73,22 +71,20 @@ fun BottomNavigationBar(navController: NavController) {
                         ) {
                             Text(
                                 text = stringResource(id = bottomBarItem.title ),
-                                fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                                fontWeight = FontWeight.SemiBold,
-                                fontFamily = SFProDisplay,
-                                color = ExtraDarkPurpleForBottomBar
+                                style = DevMeetingAppTheme.typography.bodyText1,
+                                color = DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar
                             )
                             Box(
                                 modifier = Modifier
                                     .size(4.dp)
-                                    .background(ExtraDarkPurpleForBottomBar, shape = CircleShape)
+                                    .background(DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar, shape = CircleShape)
                             )
                         }
                     } else {
                         Icon(
                             painter = painterResource(id = bottomBarItem.icon),
                             contentDescription = stringResource(id = bottomBarItem.title ),
-                            tint = DeepBlueForBottomBar,
+                            tint = DevMeetingAppTheme.colors.deepBlueForBottomBar,
                             modifier = Modifier
                         )
                     }
