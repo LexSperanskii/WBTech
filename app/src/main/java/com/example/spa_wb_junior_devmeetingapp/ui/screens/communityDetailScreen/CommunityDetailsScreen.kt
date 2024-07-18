@@ -1,5 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.communityDetailScreen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -73,7 +74,8 @@ fun CommunityDetailsBody(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
             Text(
@@ -90,7 +92,7 @@ fun CommunityDetailsBody(
                 text = stringResource(id = R.string.community_events),
                 style = DevMeetingAppTheme.typography.bodyText1,
                 color = DevMeetingAppTheme.colors.lightDarkGray,
-                modifier = Modifier.padding(top = 30.dp, bottom = 16.dp)
+                modifier = Modifier.padding(top = 14.dp)
             )
         }
         items (communityEventsList){ event ->
