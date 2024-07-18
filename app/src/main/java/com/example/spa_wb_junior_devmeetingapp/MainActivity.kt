@@ -8,14 +8,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.spa_wb_junior_devmeetingapp.ui.DevMeetingAppScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SpA_WB_Junior_DevMeetingAppTheme
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SpA_WB_Junior_DevMeetingAppTheme {
+            DevMeetingAppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
