@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,7 +12,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -23,10 +21,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestinati
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightDarkGray
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
 object CommunityDetailsDestination : NavigationDestination {
@@ -83,10 +78,8 @@ fun CommunityDetailsBody(
         item {
             Text(
                 text = description,
-                fontSize = MaterialTheme.typography.Metadata1.fontSize,
-                fontWeight = FontWeight.Normal,
-                fontFamily = SFProDisplay,
-                color = LightDarkGray,
+                style = DevMeetingAppTheme.typography.metadata1,
+                color = DevMeetingAppTheme.colors.lightDarkGray,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .heightIn(min = 0.dp, max = 270.dp)
@@ -95,10 +88,8 @@ fun CommunityDetailsBody(
         item {
             Text(
                 text = stringResource(id = R.string.community_events),
-                fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = SFProDisplay,
-                color = LightDarkGray,
+                style = DevMeetingAppTheme.typography.bodyText1,
+                color = DevMeetingAppTheme.colors.lightDarkGray,
                 modifier = Modifier.padding(top = 30.dp, bottom = 16.dp)
             )
         }

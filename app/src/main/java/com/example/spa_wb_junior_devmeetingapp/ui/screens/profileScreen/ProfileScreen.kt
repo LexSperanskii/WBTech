@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,11 +25,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarForProfile
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomSocialMedeaButtonOutlined
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileNumber
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
 object ProfileDestination : NavigationDestination {
@@ -99,16 +94,14 @@ fun ProfileBody(
         )
         Text(
             text = name,
-            fontSize = MaterialTheme.typography.Heading2.fontSize,
+            style = DevMeetingAppTheme.typography.heading2,
             fontWeight = FontWeight.SemiBold,
-            fontFamily = SFProDisplay,
             modifier = Modifier.padding(top = 20.dp)
         )
         Text(
             text = formattedMobileNumber(mobileNumber),
-            fontSize = MaterialTheme.typography.Subheading2.fontSize,
+            style = DevMeetingAppTheme.typography.subheading2,
             fontWeight = FontWeight.Normal,
-            fontFamily = SFProDisplay,
             modifier = Modifier.padding(top = 4.dp)
         )
         Row(
@@ -119,8 +112,8 @@ fun ProfileBody(
                 CustomSocialMedeaButtonOutlined(
                     onClick = {onSocialMedeaButtonClick(socialMedia)},
                     modifier = Modifier,
-                    pressedColor = DarkPurple,
-                    contentColor = Purple,
+                    pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                    contentColor = DevMeetingAppTheme.colors.purple,
                     icon = painterResource(id = socialMedia.icon)
                 )
             }

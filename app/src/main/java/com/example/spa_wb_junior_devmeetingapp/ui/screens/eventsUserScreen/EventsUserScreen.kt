@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -33,9 +32,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestinati
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.eventsAllScreen.Events
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForTabs
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -110,7 +107,7 @@ fun EventsUserBody(
                 TabRowDefaults.SecondaryIndicator(
                     modifier =  Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
                     height = 2.dp,
-                    color = Purple
+                    color = DevMeetingAppTheme.colors.purple
                 )
             },
             containerColor = Color.White,
@@ -119,8 +116,8 @@ fun EventsUserBody(
             EventsUserTabs.entries.forEachIndexed { index, currentTab ->
                 Tab(
                     selected = selectedTabIndex == index,
-                    selectedContentColor = Purple,
-                    unselectedContentColor = GrayForTabs,
+                    selectedContentColor = DevMeetingAppTheme.colors.purple,
+                    unselectedContentColor = DevMeetingAppTheme.colors.grayForTabs,
                     onClick = {
                         scope.launch {
                             pagerState.animateScrollToPage(currentTab.ordinal)
@@ -129,7 +126,7 @@ fun EventsUserBody(
                     text = {
                         Text(
                             text = currentTab.text,
-                            fontSize = MaterialTheme.typography.BodyText1.fontSize,
+                            fontSize = DevMeetingAppTheme.typography.bodyText1.fontSize,
                             fontWeight = FontWeight.Medium,
                             fontFamily = FontFamily.SansSerif,
                             modifier = Modifier,

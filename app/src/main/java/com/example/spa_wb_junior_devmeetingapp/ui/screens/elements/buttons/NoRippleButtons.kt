@@ -29,7 +29,7 @@ fun CustomButton(
     contentColor: Color = Color.White,
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(30.dp),
-    fontStyle: TextStyle = DevMeetingAppTheme.typography.subheading2,
+    textStyle: TextStyle = DevMeetingAppTheme.typography.subheading2,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -56,7 +56,7 @@ fun CustomButton(
     ) {
         Text(
             text = text,
-            style = fontStyle,
+            style = textStyle,
         )
     }
 }
@@ -71,7 +71,7 @@ fun CustomButtonOutlined(
     containerColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(30.dp),
     enabled: Boolean = true,
-    fontStyle: TextStyle = DevMeetingAppTheme.typography.subheading2,
+    textStyle: TextStyle = DevMeetingAppTheme.typography.subheading2,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -111,7 +111,7 @@ fun CustomButtonOutlined(
     ) {
         Text(
             text = text,
-            style = fontStyle
+            style = textStyle
         )
     }
 }
@@ -125,7 +125,7 @@ fun CustomButtonText(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(30.dp),
     enabled: Boolean = true,
-    fontStyle: TextStyle = DevMeetingAppTheme.typography.subheading2,
+    textStyle: TextStyle = DevMeetingAppTheme.typography.subheading2,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -153,7 +153,7 @@ fun CustomButtonText(
     ) {
         Text(
             text = text,
-            style = fontStyle
+            style = textStyle
         )
     }
 }

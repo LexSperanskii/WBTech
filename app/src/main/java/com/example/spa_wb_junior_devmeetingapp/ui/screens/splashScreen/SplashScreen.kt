@@ -2,7 +2,6 @@ package com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -11,11 +10,10 @@ import androidx.compose.ui.Modifier
 import com.dotlottie.dlplayer.Mode
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.lottiefiles.dotlottie.core.compose.runtime.DotLottieController
 import com.lottiefiles.dotlottie.core.compose.ui.DotLottieAnimation
 import com.lottiefiles.dotlottie.core.util.DotLottieSource
-import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 object SplashScreenDestination : NavigationDestination {
@@ -54,7 +52,7 @@ fun SplashScreen(
         useFrameInterpolation = false,
         playMode = Mode.FORWARD,
         controller = dotLottieController,
-        modifier = Modifier.background(Purple)
+        modifier = Modifier.background(DevMeetingAppTheme.colors.purple)
     )
 }
 

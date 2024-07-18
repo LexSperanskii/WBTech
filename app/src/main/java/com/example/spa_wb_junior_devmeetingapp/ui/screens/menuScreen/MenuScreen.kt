@@ -20,7 +20,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MenuItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MenuItemForMyEvents
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MenuItemProfile
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightGray
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
 object MenuDestination : NavigationDestination {
@@ -140,7 +140,7 @@ fun MenuBody(
         item {
             HorizontalDivider(
                 thickness = 1.dp,
-                color = LightGray,
+                color = DevMeetingAppTheme.colors.lightGray,
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
             )
         }

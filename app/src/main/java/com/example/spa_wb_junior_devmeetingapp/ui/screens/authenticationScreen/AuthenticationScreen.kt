@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
@@ -24,12 +22,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestinati
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading2
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading2
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
 object AuthenticationDestination : NavigationDestination {
@@ -86,16 +79,12 @@ fun AuthenticationBody(
     ) {
         Text(
             text = stringResource(id = R.string.enter_your_number),
-            fontSize = MaterialTheme.typography.Heading2.fontSize,
-            fontWeight = FontWeight.Bold,
-            fontFamily = SFProDisplay,
+            style = DevMeetingAppTheme.typography.heading2,
             modifier = Modifier.padding(top = 80.dp, bottom = 8.dp)
         )
         Text(
             text = stringResource(id = R.string.we_will_send_you_verification_code),
-            fontSize = MaterialTheme.typography.BodyText1.fontSize,
-            fontWeight = FontWeight.Normal,
-            fontFamily = SFProDisplay,
+            style = DevMeetingAppTheme.typography.bodyText2,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 50.dp)
         )
@@ -109,15 +98,12 @@ fun AuthenticationBody(
         )
         CustomButton(
             onClick = onForwardButtonClick,
-            pressedColor = DarkPurple,
-            containerColor = Purple,
+            pressedColor = DevMeetingAppTheme.colors.darkPurple,
+            containerColor = DevMeetingAppTheme.colors.purple,
             enabled = isForwardButtonEnabled,
             text = stringResource(id = R.string.forward_button),
-            fontSize = MaterialTheme.typography.Subheading2.fontSize,
-            fontWeight = FontWeight.SemiBold,
-            fontFamily = SFProDisplay,
+            textStyle = DevMeetingAppTheme.typography.subheading2,
             modifier = Modifier.fillMaxWidth().height(52.dp)
         )
-
     }
 }

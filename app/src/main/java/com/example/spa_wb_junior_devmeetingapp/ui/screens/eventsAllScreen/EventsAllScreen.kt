@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -37,9 +36,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigat
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForTabs
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -129,7 +126,7 @@ fun EventsBody(
                 TabRowDefaults.SecondaryIndicator(
                     modifier =  Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
                     height = 2.dp,
-                    color = Purple
+                    color = DevMeetingAppTheme.colors.purple
                 )
             },
             containerColor = Color.White,
@@ -138,8 +135,8 @@ fun EventsBody(
             EventsAllTabs.entries.forEachIndexed { index, currentTab ->
                 Tab(
                     selected = selectedTabIndex == index,
-                    selectedContentColor = Purple,
-                    unselectedContentColor = GrayForTabs,
+                    selectedContentColor = DevMeetingAppTheme.colors.purple,
+                    unselectedContentColor = DevMeetingAppTheme.colors.grayForTabs,
                     onClick = {
                         scope.launch {
                             pagerState.animateScrollToPage(currentTab.ordinal)
@@ -148,7 +145,7 @@ fun EventsBody(
                     text = {
                         Text(
                             text = currentTab.text,
-                            fontSize = MaterialTheme.typography.BodyText1.fontSize,
+                            fontSize = DevMeetingAppTheme.typography.bodyText1.fontSize,
                             fontWeight = FontWeight.Medium,
                             fontFamily = FontFamily.SansSerif,
                             modifier = Modifier,
