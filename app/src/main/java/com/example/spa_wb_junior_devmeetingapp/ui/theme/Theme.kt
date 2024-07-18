@@ -1,6 +1,7 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.theme
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
@@ -81,6 +82,10 @@ fun DevMeetingAppTheme(
         LocalTypography provides typography,
     ){
         MaterialTheme(
+            colorScheme = lightColorScheme(
+                background = Color.White,
+                surface = Color.White
+            ),
             content = content
         )
     }

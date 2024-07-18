@@ -20,9 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DevMeetingAppTheme {
                 Surface(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    color = Color.White
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     DevMeetingAppScreen()
                 }
