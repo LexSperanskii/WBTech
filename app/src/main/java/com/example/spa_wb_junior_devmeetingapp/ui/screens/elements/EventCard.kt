@@ -34,14 +34,13 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
-import org.threeten.bp.LocalDate
 
 @Composable
 fun EventCard(
     eventName: String,
-    eventStatus: String,
-    eventDate: LocalDate,
-    eventPlace:String,
+    isEventFinished: Boolean,
+    eventDate: String,
+    eventCity:String,
     eventCategories: List<String>,
     eventIconURL: String,
     onEventItemClick : ()-> Unit,
@@ -89,15 +88,20 @@ fun EventCard(
                                 .align(Alignment.CenterVertically)
                                 .weight(1f)
                         )
-                        Text(
-                            text = eventStatus,
-                            style = DevMeetingAppTheme.typography.metadata2,
-                            color = DevMeetingAppTheme.colors.lightDarkGray,
-                            modifier = Modifier.padding(start = 8.dp)
-                            )
+                        when(isEventFinished){
+                            true-> {
+                                Text(
+                                    text = stringResource(id = R.string.finished),
+                                    style = DevMeetingAppTheme.typography.metadata2,
+                                    color = DevMeetingAppTheme.colors.lightDarkGray,
+                                    modifier = Modifier.padding(start = 8.dp)
+                                )
+                            }
+                            else -> {}
+                        }
                     }
                     Text(
-                        text = stringResource(id = R.string.event_date_place,eventDate,eventPlace),
+                        text = stringResource(id = R.string.event_date_place,eventDate,eventCity),
                         style = DevMeetingAppTheme.typography.metadata1,
                         color = DevMeetingAppTheme.colors.lightDarkGray,
                         modifier = Modifier.padding(bottom = 2.dp)

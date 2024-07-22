@@ -29,7 +29,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 fun PersonAvatar(
     size: Dp,
     isEdit: Boolean,
-    imageURL: String = "",
+    imageURL: String?,
     onEditClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     defaultIcon: Painter = painterResource(id = R.drawable.icon_avatar_person),
@@ -40,34 +40,39 @@ fun PersonAvatar(
 
     Box(modifier = modifier) {
         when (imageURL) {
-            "" -> Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .size(size)
-                    .background(backgroundColor)
-            ) {
-                Icon(
-                    painter = defaultIcon,
-                    contentDescription = "avatar person",
+            null, "" -> {
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(size)
+                        .background(backgroundColor)
+                ) {
+                    Icon(
+                        painter = defaultIcon,
+                        contentDescription = "avatar person",
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .scale(iconScale)
+                    )
+                }
+            }
+
+            else -> {
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(imageURL)
+                        .crossfade(true)
+                        .build(),
+                    contentScale = ContentScale.Crop,
+                    error = painterResource(R.drawable.ic_broken_image),
+                    placeholder = painterResource(R.drawable.loading_img),
+                    contentDescription = stringResource(R.string.profile_icon),
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .scale(iconScale)
+                        .size(size)
+                        .clip(CircleShape)
                 )
             }
-            else -> AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(imageURL)
-                    .crossfade(true)
-                    .build(),
-                contentScale = ContentScale.Crop,
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_img),
-                contentDescription = stringResource(R.string.profile_icon),
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(size)
-                    .clip(CircleShape)
-            )
         }
         if (isEdit) {
             IconButton(

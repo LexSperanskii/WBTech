@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
@@ -29,8 +29,9 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 fun MenuItemProfile(
     onProfileClick: () -> Unit,
     profileName: String,
-    mobileNumber: PhoneNumber,
-    avatarURL: String,
+    profileSurname: String,
+    mobileNumber: PhoneNumberModelUI,
+    avatarURL: String?,
     modifier: Modifier = Modifier
     ) {
     Card(
@@ -54,7 +55,7 @@ fun MenuItemProfile(
                 modifier = Modifier.padding(start = 20.dp)
             ) {
                 Text(
-                    text = profileName,
+                    text = stringResource(id = R.string.name_surname, profileName, profileSurname),
                     style = DevMeetingAppTheme.typography.bodyText1,
                     color = DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar,
                     modifier = Modifier

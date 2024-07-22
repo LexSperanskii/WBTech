@@ -29,7 +29,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
-import com.example.spa_wb_junior_devmeetingapp.model.Country
+import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
@@ -38,9 +38,9 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 fun PhoneNumberInput(
     number: String,
     onNumberChange: (String) -> Unit,
-    countryCode:  Country,
-    onCountryCodeChange: (Country) -> Unit,
-    listOfCountriesCodes: List<Country>,
+    countryCode:  CountryModelUI,
+    onCountryCodeChange: (CountryModelUI) -> Unit,
+    listOfCountriesCodes: List<CountryModelUI>,
     modifier: Modifier = Modifier,
     placeholder: String = "000 000-00-00"
 ) {

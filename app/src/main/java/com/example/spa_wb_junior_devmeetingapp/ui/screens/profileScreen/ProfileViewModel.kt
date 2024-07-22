@@ -1,20 +1,22 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.profileScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.avatarIconURL
-import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import com.example.domain.models.MockData
+import com.example.spa_wb_junior_devmeetingapp.models.Mapper
+import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.UserModelUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 data class ProfileScreenUiState(
-    val name : String = "",
-    val phoneNumber: PhoneNumber = PhoneNumber(),
-    val avatarURL: String = ""
+    val user : UserModelUI = UserModelUI()
 )
 
-class ProfileViewModel(): ViewModel() {
+class ProfileViewModel(
+    private val mapper: Mapper
+): ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileScreenUiState())
     private val uiState: StateFlow<ProfileScreenUiState> = _uiState.asStateFlow()
@@ -24,9 +26,7 @@ class ProfileViewModel(): ViewModel() {
     init {
         _uiState.update {
             it.copy(
-                name = "Иван Иванов",
-                phoneNumber = PhoneNumber("+7", "1234567788"),
-                avatarURL = avatarIconURL
+                user = mapper.mapUserToUserModelUI(MockData.getUser())
             )
         }
     }

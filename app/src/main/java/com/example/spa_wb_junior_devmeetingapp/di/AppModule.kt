@@ -26,7 +26,9 @@ val appModule = module {
     }
 
     viewModel<VerificationViewModel> {
-        VerificationViewModel()
+        VerificationViewModel(
+            mapper = get()
+        )
     }
 
     viewModel<RegistrationProfileViewModel> {
@@ -34,31 +36,45 @@ val appModule = module {
     }
 
     viewModel<EventsAllViewModel> {
-        EventsAllViewModel()
+        EventsAllViewModel(
+            mapper = get()
+        )
     }
 
     viewModel<EventsUserViewModel> {
-        EventsUserViewModel()
+        EventsUserViewModel(
+            mapper = get()
+        )
     }
 
     viewModel<EventDetailViewModel> {
-        EventDetailViewModel()
+        EventDetailViewModel(
+            mapper = get()
+        )
     }
 
     viewModel<CommunitiesViewModel> {
-        CommunitiesViewModel()
+        CommunitiesViewModel(
+            mapper = get()
+        )
     }
 
     viewModel<CommunityDetailViewModel> {
-        CommunityDetailViewModel()
+        CommunityDetailViewModel(
+            mapper = get()
+        )
     }
 
     viewModel<MenuViewModel> {
-        MenuViewModel()
+        MenuViewModel(
+            mapper = get()
+        )
     }
 
     viewModel<ProfileViewModel> {
-        ProfileViewModel()
+        ProfileViewModel(
+            mapper = get()
+        )
     }
     viewModel<SplashScreenViewModel> {
         SplashScreenViewModel()

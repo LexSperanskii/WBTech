@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.model.EventItem
+import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
@@ -49,7 +49,7 @@ enum class EventsUserTabs(val text: String){
 @Composable
 fun EventsUserScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (EventItem) -> Unit,
+    navigateToEventDetailItem : (EventModelUI) -> Unit,
     viewModel: EventsUserViewModel = koinViewModel()
 ) {
 
@@ -88,9 +88,9 @@ fun EventsUserScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventsUserBody(
-    navigateToEventDetailItem : (EventItem) -> Unit,
-    listOfMeetingsScheduled: List<EventItem>,
-    listOfMeetingsPast: List<EventItem>,
+    navigateToEventDetailItem : (EventModelUI) -> Unit,
+    listOfMeetingsScheduled: List<EventModelUI>,
+    listOfMeetingsPast: List<EventModelUI>,
     modifier: Modifier = Modifier
 ){
     val scope = rememberCoroutineScope()

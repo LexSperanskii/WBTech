@@ -30,7 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.model.EventItem
+import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
@@ -53,7 +53,7 @@ enum class EventsAllTabs(val text: String){
 @Composable
 fun EventsAllScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (EventItem) -> Unit,
+    navigateToEventDetailItem : (EventModelUI) -> Unit,
     navigateToDeveloperScreen : () -> Unit,
     viewModel: EventsAllViewModel = koinViewModel()
 ) {
@@ -98,12 +98,12 @@ fun EventsAllScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventsBody(
-    navigateToEventDetailItem : (EventItem) -> Unit,
+    navigateToEventDetailItem : (EventModelUI) -> Unit,
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
-    listOfMeetingsAll: List<EventItem>,
-    listOfMeetingsActive: List<EventItem>,
+    listOfMeetingsAll: List<EventModelUI>,
+    listOfMeetingsActive: List<EventModelUI>,
     modifier: Modifier = Modifier
 ){
     val scope = rememberCoroutineScope()
@@ -177,8 +177,8 @@ fun EventsBody(
 
 @Composable
 fun Events(
-    listOfMeetings : List<EventItem>,
-    onEventItemClick : (EventItem) -> Unit,
+    listOfMeetings : List<EventModelUI>,
+    onEventItemClick : (EventModelUI) -> Unit,
     modifier : Modifier = Modifier
 ){
     LazyColumn(
@@ -187,12 +187,12 @@ fun Events(
     ) {
         items (listOfMeetings){ event ->
             EventCard(
-                eventName = event.eventName,
-                eventStatus = event.eventStatus.status,
-                eventDate = event.eventDate,
-                eventPlace = event.eventPlace,
-                eventCategories = event.eventCategory,
-                eventIconURL = event.eventIconURL,
+                eventName = event.name,
+                isEventFinished = event.isFinished,
+                eventDate = event.date,
+                eventCity = event.city,
+                eventCategories = event.category,
+                eventIconURL = event.iconURL,
                 onEventItemClick  = { onEventItemClick(event) },
                 modifier = Modifier
             )

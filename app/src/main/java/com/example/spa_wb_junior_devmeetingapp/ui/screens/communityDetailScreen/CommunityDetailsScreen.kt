@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.model.EventItem
+import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
@@ -33,7 +33,7 @@ object CommunityDetailsDestination : NavigationDestination {
 @Composable
 fun CommunityDetailsScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (EventItem) -> Unit,
+    navigateToEventDetailItem : (EventModelUI) -> Unit,
     viewModel: CommunityDetailViewModel = koinViewModel()
 ) {
 
@@ -42,7 +42,7 @@ fun CommunityDetailsScreen(
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = stringResource(id = CommunityDetailsDestination.title),
+                title = communityDetailScreenUiState.nameOfCommunity,
                 isAddCapable = false,
                 onClickNavigateBack = {navController.popBackStack()}
             )
@@ -68,9 +68,9 @@ fun CommunityDetailsScreen(
 
 @Composable
 fun CommunityDetailsBody(
-    navigateToEventDetailItem : (EventItem) -> Unit,
+    navigateToEventDetailItem : (EventModelUI) -> Unit,
     description: String,
-    communityEventsList : List<EventItem>,
+    communityEventsList : List<EventModelUI>,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -97,12 +97,12 @@ fun CommunityDetailsBody(
         }
         items (communityEventsList){ event ->
             EventCard(
-                eventName = event.eventName,
-                eventStatus = event.eventStatus.status,
-                eventDate = event.eventDate,
-                eventPlace = event.eventPlace,
-                eventCategories = event.eventCategory,
-                eventIconURL = event.eventIconURL,
+                eventName = event.name,
+                isEventFinished = event.isFinished,
+                eventDate = event.date,
+                eventCity = event.city,
+                eventCategories = event.category,
+                eventIconURL = event.iconURL,
                 onEventItemClick  = { navigateToEventDetailItem(event) },
                 modifier = Modifier
             )

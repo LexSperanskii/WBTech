@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.longText
-import com.example.spa_wb_junior_devmeetingapp.model.EventItem
+import com.example.spa_wb_junior_devmeetingapp.models.EventDetailModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
@@ -39,7 +39,6 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarForE
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
-import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.dateFormatter
 import org.koin.androidx.compose.koinViewModel
 
 object EventDetailsDestination : NavigationDestination {
@@ -59,9 +58,9 @@ fun EventDetailsScreen(
     Scaffold(
         topBar = {
             TopAppBarForEventDetails(
-                title = eventDetailScreenUiState.event.eventName,
+                title = eventDetailScreenUiState.event.name,
                 onClickNavigateBack = {navController.popBackStack()},
-                isStatusPlanned = eventDetailScreenUiState.event.eventIsScheduled,
+                isStatusPlanned = eventDetailScreenUiState.event.isUserInParticipants,
                 onStatusCLick = {
                     viewModel.onGoToMeetingClick()
                 }
@@ -74,11 +73,12 @@ fun EventDetailsScreen(
     { innerPadding ->
         EventDetailsBody(
             event = eventDetailScreenUiState.event,
-            accountsIconsURLList = eventDetailScreenUiState.participants,
+            participantsList = eventDetailScreenUiState.event.listOfParticipants,
             onButtonClick = {
                 viewModel.onGoToMeetingClick()
             },
-            isScheduled = eventDetailScreenUiState.event.eventIsScheduled,
+            isUserInParticipants = eventDetailScreenUiState.event.isUserInParticipants,
+            enabled = !eventDetailScreenUiState.event.isFinished,
             onMapClick = navigateToFullScreenMap,
             modifier = Modifier
                 .padding(innerPadding)
@@ -92,11 +92,12 @@ fun EventDetailsScreen(
 
 @Composable
 fun EventDetailsBody(
-    event : EventItem,
-    accountsIconsURLList: List<String>,
+    event : EventDetailModelUI,
+    participantsList: List<RegisteredPersonModelUI>,
     onButtonClick : ()-> Unit,
     onMapClick : ()-> Unit,
-    isScheduled: Boolean,
+    isUserInParticipants: Boolean,
+    enabled: Boolean,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -104,7 +105,7 @@ fun EventDetailsBody(
     ) {
         item {
             Text(
-                text = stringResource(id = R.string.event_date_place, dateFormatter(event.eventDate),event.eventPlace),
+                text = stringResource(id = R.string.event_date_place, event.date,event.address),
                 style = DevMeetingAppTheme.typography.bodyText1,
                 color = DevMeetingAppTheme.colors.lightDarkGray,
                 modifier = Modifier.padding(bottom = 2.dp)
@@ -115,7 +116,7 @@ fun EventDetailsBody(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.padding(bottom = 16.dp)
             ) {
-                items(event.eventCategory){ item ->
+                items(event.category){ item ->
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(40.dp))
@@ -146,7 +147,7 @@ fun EventDetailsBody(
         }
         item {
             Text(
-                text = longText,
+                text = event.description,
                 style = DevMeetingAppTheme.typography.metadata1,
                 color = DevMeetingAppTheme.colors.lightDarkGray,
                 overflow = TextOverflow.Ellipsis,
@@ -157,31 +158,37 @@ fun EventDetailsBody(
         }
         item {
             OverlappingPeopleRow(
-                accountsIconsURLList = accountsIconsURLList,
+                participantsList = participantsList,
                 modifier = Modifier.padding(bottom = 13.dp)
             )
         }
         item {
-            when (isScheduled) {
-                true -> CustomButtonOutlined(
-                    text = stringResource(id = R.string.i_will_go_next_time),
-                    onClick = onButtonClick,
-                    pressedColor = DevMeetingAppTheme.colors.darkPurple,
-                    contentColor = DevMeetingAppTheme.colors.purple,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp)
-                )
+            when (isUserInParticipants) {
+                true -> {
+                    CustomButtonOutlined(
+                        text = stringResource(id = R.string.i_will_go_next_time),
+                        onClick = onButtonClick,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        contentColor = DevMeetingAppTheme.colors.purple,
+                        enabled = enabled,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp)
+                    )
+                }
 
-                false -> CustomButton(
-                    text = stringResource(id = R.string.i_will_go_to_the_event),
-                    onClick = onButtonClick,
-                    pressedColor = DevMeetingAppTheme.colors.darkPurple,
-                    containerColor = DevMeetingAppTheme.colors.purple,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp)
-                )
+                else -> {
+                    CustomButton(
+                        text = stringResource(id = R.string.i_will_go_to_the_event),
+                        onClick = onButtonClick,
+                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
+                        containerColor = DevMeetingAppTheme.colors.purple,
+                        enabled = enabled,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp)
+                    )
+                }
             }
         }
     }

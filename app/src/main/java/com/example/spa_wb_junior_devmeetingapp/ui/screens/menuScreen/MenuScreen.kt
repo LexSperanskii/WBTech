@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MenuItem
@@ -53,9 +53,10 @@ fun MenuScreen(
         }
     ) { innerPadding ->
         MenuBody(
-            avatarURL = menuScreenUiState.avatarURL,
-            profileName = menuScreenUiState.name,
-            profilePhoneNumber = menuScreenUiState.phoneNumber,
+            avatarURL = menuScreenUiState.user.iconURL,
+            profileName = menuScreenUiState.user.name,
+            profileSurname = menuScreenUiState.user.surname,
+            profilePhoneNumber = menuScreenUiState.user.phoneNumberModelUI,
             onProfileClick = navigateToProfile,
             onMyEventsClick = navigateToUserEvents,
             onThemeClick = {},
@@ -73,8 +74,9 @@ fun MenuScreen(
 fun MenuBody(
     onProfileClick : ()->Unit,
     profileName : String,
-    profilePhoneNumber: PhoneNumber,
-    avatarURL : String,
+    profileSurname : String,
+    profilePhoneNumber: PhoneNumberModelUI,
+    avatarURL : String?,
     onMyEventsClick: () -> Unit,
     onThemeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
@@ -91,6 +93,7 @@ fun MenuBody(
             MenuItemProfile(
                 onProfileClick = onProfileClick,
                 profileName = profileName,
+                profileSurname = profileSurname,
                 mobileNumber = profilePhoneNumber,
                 avatarURL = avatarURL,
                 modifier = Modifier.padding(vertical = 8.dp)

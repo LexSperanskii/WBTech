@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 data class AuthenticationScreenUiState(
-    val phoneNumber: PhoneNumberModelUI = PhoneNumberModelUI(),
     val country: CountryModelUI = CountryModelUI(),
     val listOfCountries: List<CountryModelUI> = listOf(),
+    val number: String = "",
     val isButtonEnabled: Boolean = false
 )
 
@@ -30,17 +30,16 @@ class AuthenticationViewModel(
     init {
         _uiState.update {
             it.copy(
-                phoneNumber = it.phoneNumber.copy(countryCode = MockData.getAvailableCountries()[0].code),
                 country = mapper.mapCountryToCountryModelUI(MockData.getAvailableCountries()[0]),
-                listOfCountries = MockData.getAvailableCountries().map { mapper.mapCountryToCountryModelUI(it) }
+                listOfCountries = MockData.getAvailableCountries().map { mapper.mapCountryToCountryModelUI(it) },
             )
         }
     }
 
-    fun changeNumber( number : String) {
+    fun changeNumber(number : String) {
         _uiState.update {
             it.copy(
-                phoneNumber = it.phoneNumber.copy(number = number)
+                number = number
             )
         }
         isButtonActive()
@@ -49,18 +48,22 @@ class AuthenticationViewModel(
     fun changeCountryCode(country: CountryModelUI) {
         _uiState.update {
             it.copy(
-                phoneNumber = it.phoneNumber.copy(countryCode = country.code),
-                country = country
+                country = country,
             )
         }
         isButtonActive()
     }
 
+    fun onForwardButtonClick(){
+        val state = uiState.value
+        MockData.setUserPhoneNumber(state.country.code, state.number)
+    }
+
     private fun isButtonActive(){
-        val phoneNumber = uiState.value.phoneNumber
+        val number = uiState.value.number
         _uiState.update {
             it.copy(
-                isButtonEnabled = phoneNumber.number.length == PHONE_NUMBER_LENGTH
+                isButtonEnabled = number.length == PHONE_NUMBER_LENGTH
             )
         }
     }

@@ -5,9 +5,9 @@ import com.example.domain.models.PhoneNumber
 
 interface IUserRepository {
 
-    fun getAvailableCountriesList(): List<Country>
-
-    fun savePhoneNumber(phoneNumber: PhoneNumber)
-
-    fun getPhoneNumber(): PhoneNumber
+//    fun getAvailableCountriesList(): List<Country>
+//
+//    fun savePhoneNumber(phoneNumber: PhoneNumber)
+//
+//    fun getPhoneNumber(): PhoneNumber
 }

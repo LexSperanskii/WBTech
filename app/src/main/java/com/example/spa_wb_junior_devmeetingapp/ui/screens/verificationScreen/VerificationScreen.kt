@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
@@ -68,7 +68,7 @@ fun VerificationScreen(
 
 @Composable
 fun VerificationBody(
-    phoneNumber: PhoneNumber,
+    phoneNumber: PhoneNumberModelUI,
     picCode: String,
     onPinCodeChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,

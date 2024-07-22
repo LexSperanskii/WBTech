@@ -1,21 +1,58 @@
 package com.example.domain.models
 
+import kotlin.math.truncate
+
 object MockData {
 
-    private var phoneNumber = PhoneNumber("","")
+    private var user = User(
+        id = 0,
+        name = "",
+        surname = "",
+        phoneNumber = PhoneNumber("",""),
+        iconURL = null
+    )
 
-    fun setUserPhoneNumber(userPhone: PhoneNumber){
-        phoneNumber = userPhone
+    fun setUserPhoneNumber(code: String, number: String){
+        user = user.copy(
+            phoneNumber = PhoneNumber(code,number)
+//            phoneNumber = user.phoneNumber.copy(
+//                countryCode = code,
+//                number = number
+//            )
+        )
     }
     fun getUserPhoneNumber() : PhoneNumber{
-        return phoneNumber
+        return user.phoneNumber
+    }
+    fun setUserName(name: String){
+        user = user.copy(
+            name = name
+        )
+    }
+    fun setUserSurname(surname: String){
+        user = user.copy(
+            surname = surname
+        )
     }
 
+    fun setUserAvatar(avatarURL: String?){
+        user = user.copy(
+            iconURL = avatarURL
+        )
+    }
+    fun getUserAvatar() : String{
+        return IconURL1
+    }
+    fun getUser(): User{
+        return user
+    }
     fun getAvailableCountries(): List<Country> = mockAvailableCountries
     fun getListOfEvents(): List<Event> = listOfEvents
-    fun getEvent(): EventDetail = eventDetail
+    fun getEventDetail(): EventDetail = eventDetail
     fun getListOfCommunities(): List<Community> = communities
     fun getCommunity(): CommunityDetail = communityDetail
+    fun getListOfParticipants(): List<RegisteredPerson> = listOfParticipants
+    fun getListOfParticipantsSmall(): List<RegisteredPerson> = listOfParticipantsSmall
 
     private val longText = "Гай Ю́лий Це́зарь (аутентичное произношение близко к Ка́йсар[4]; лат. Gaius Iulius Caesar [ˈgaːjʊs ˈjuːliʊs ˈkae̯sar]; 12 июля 100 года до н. э.[5] — 15 марта 44 года до н. э.) — древнеримский государственный и политический деятель, полководец, писатель. Консул 59, 48, 46, 45 и 44 годов до н. э., диктатор 49, 48—47 и 46—44 годов до н. э., великий понтифик с 63 года до н. э.\n" +
             "\n" +
@@ -60,11 +97,25 @@ object MockData {
             city = "Санкт-Петербург",
             category = listOf("Python", "Junior", "Moscow"),
             iconURL = IconURL4,
-            isFinished = false
+            isFinished = true
         )
     }
 
     private val listOfEvents = eventsActive.plus(eventsFinished).shuffled()
+
+    private val listOfParticipants = listOf(
+        RegisteredPerson(0, IconURL2),
+        RegisteredPerson(1, IconURL3),
+        RegisteredPerson(2,IconURL4),
+        RegisteredPerson(3,IconURL5),
+        RegisteredPerson(4,IconURL6),
+        RegisteredPerson(5,IconURL7)
+    )
+    private val listOfParticipantsSmall = listOf(
+        RegisteredPerson(0, IconURL2),
+        RegisteredPerson(1, IconURL3),
+        RegisteredPerson(2,IconURL4)
+    )
 
     private val eventDetail = EventDetail(
         id = 0,
@@ -74,14 +125,7 @@ object MockData {
         category = listOf("Python", "Junior", "Moscow"),
         locationCoordinates ="115.22455 , 5554.15651",
         description = longText,
-        listOfParticipants = listOf(
-            RegisteredPerson(0, IconURL2),
-            RegisteredPerson(0, IconURL3),
-            RegisteredPerson(0,IconURL4),
-            RegisteredPerson(0,IconURL5),
-            RegisteredPerson(0,IconURL6),
-            RegisteredPerson(0,IconURL7)
-        ),
+        listOfParticipants = listOfParticipants,
         isFinished = false,
         isUserInParticipants = false
     )

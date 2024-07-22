@@ -18,6 +18,9 @@ data class EventAddress(
     val street: String,
     val building: String
 )
+fun EventAddress.toString(): String{
+    return "$city, $street, $building"
+}
 
 data class RegisteredPerson(
     val id: Int,

@@ -25,10 +25,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.domain.models.MockData
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockCountryList
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockAccountsIconsURLList1
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockAccountsIconsURLList2
+import com.example.spa_wb_junior_devmeetingapp.models.Mapper
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
@@ -46,7 +45,6 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyRow
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
-import org.threeten.bp.LocalDate
 
 object DeveloperDestination : NavigationDestination {
     override val route = "developer"
@@ -108,7 +106,7 @@ fun DeveloperScreen() {
         "Moscow"
     )
     var pinCode by remember { mutableStateOf("") }
-    var countryCode by remember { mutableStateOf(mockCountryList[0]) }
+    var countryCode by remember { mutableStateOf(MockData.getAvailableCountries().map { Mapper().mapCountryToCountryModelUI(it) }[0]) }
     var phoneNumber by remember { mutableStateOf("") }
 
     var searchField by remember { mutableStateOf("") }
@@ -140,7 +138,7 @@ fun DeveloperScreen() {
                     onNumberChange = { phoneNumber = it },
                     countryCode = countryCode,
                     onCountryCodeChange = { countryCode = it },
-                    listOfCountriesCodes = mockCountryList
+                    listOfCountriesCodes = MockData.getAvailableCountries().map { Mapper().mapCountryToCountryModelUI(it) }
                 )
             }
             item {
@@ -292,6 +290,7 @@ fun DeveloperScreen() {
                 ) {
                     PersonAvatar(
                         size = 200.dp,
+                        imageURL = null,
                         isEdit = false
                     )
                     Image(
@@ -323,9 +322,9 @@ fun DeveloperScreen() {
             item {
                 EventCard(
                     eventName = "Developer Meeting",
-                    eventStatus = "Закончилась",
-                    eventDate = LocalDate.of(2023,1,5),
-                    eventPlace = "Москва",
+                    isEventFinished = true,
+                    eventDate = "05.14.2023",
+                    eventCity = "Москва",
                     eventCategories = listOf("Python", "Junior", "Moscow"),
                     eventIconURL = "",
                     onEventItemClick = {},
@@ -335,9 +334,9 @@ fun DeveloperScreen() {
             item {
                 EventCard(
                     eventName = "Developer Meeting",
-                    eventStatus = "",
-                    eventDate = LocalDate.of(2023,1,10),
-                    eventPlace = "Москва",
+                    isEventFinished = false,
+                    eventDate = "05.14.2023",
+                    eventCity = "Москва",
                     eventCategories = listOf("Python", "Junior", "Moscow"),
                     eventIconURL = "",
                     onEventItemClick = {},
@@ -364,13 +363,13 @@ fun DeveloperScreen() {
             }
             item {
                 OverlappingPeopleRow(
-                    accountsIconsURLList = mockAccountsIconsURLList1,
+                    participantsList = MockData.getListOfParticipants().map { Mapper().mapRegisteredPersonToRegisteredPersonModelUI(it) },
                     modifier = Modifier
                 )
             }
             item {
                 OverlappingPeopleRow(
-                    accountsIconsURLList = mockAccountsIconsURLList2,
+                    participantsList = MockData.getListOfParticipantsSmall().map { Mapper().mapRegisteredPersonToRegisteredPersonModelUI(it) },
                     modifier = Modifier
                 )
             }
@@ -383,10 +382,12 @@ fun DeveloperScreen() {
                     PersonAvatar(
                         size = 200.dp,
                         isEdit = false,
+                        imageURL = null
                     )
                     PersonAvatar(
                         size = 100.dp,
                         isEdit = true,
+                        imageURL = null
                     )
                 }
             }

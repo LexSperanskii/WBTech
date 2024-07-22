@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
@@ -63,9 +63,10 @@ fun ProfileScreen(
         }
     ) { innerPadding ->
         ProfileBody(
-            name = profileScreenUiState.name,
-            mobileNumber = profileScreenUiState.phoneNumber,
-            avatarURL = profileScreenUiState.avatarURL,
+            name = profileScreenUiState.user.name,
+            surname = profileScreenUiState.user.surname,
+            mobileNumber = profileScreenUiState.user.phoneNumberModelUI,
+            avatarURL = profileScreenUiState.user.iconURL,
             onSocialMedeaButtonClick = {},
             modifier = Modifier
                 .padding(innerPadding)
@@ -77,8 +78,9 @@ fun ProfileScreen(
 @Composable
 fun ProfileBody(
     name: String,
-    mobileNumber: PhoneNumber,
-    avatarURL : String,
+    surname: String,
+    mobileNumber: PhoneNumberModelUI,
+    avatarURL : String?,
     onSocialMedeaButtonClick: (SocialMedia)->Unit,
     modifier: Modifier = Modifier
 ){
@@ -93,7 +95,7 @@ fun ProfileBody(
             modifier = Modifier. padding(top = 136.dp)
         )
         Text(
-            text = name,
+            text = stringResource(id = R.string.name_surname,name,surname ),
             style = DevMeetingAppTheme.typography.heading2,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(top = 20.dp)

@@ -9,15 +9,15 @@ import com.example.domain.repositories.IUserRepository
 
 class UserRepositoryImpl(private val mock: MockData) : IUserRepository {
 
-    override fun getAvailableCountriesList(): List<Country> {
-        return mock.getAvailableCountries()
-    }
-
-    override fun savePhoneNumber(phoneNumber: PhoneNumber) {
-        mock.setUserPhoneNumber(phoneNumber)
-    }
-
-    override fun getPhoneNumber(): PhoneNumber {
-        return mock.getUserPhoneNumber()
-    }
+//    override fun getAvailableCountriesList(): List<Country> {
+//        return mock.getAvailableCountries()
+//    }
+//
+//    override fun savePhoneNumber(phoneNumber: PhoneNumber) {
+//        mock.setUserPhoneNumber(phoneNumber)
+//    }
+//
+//    override fun getPhoneNumber(): PhoneNumber {
+//        return mock.getUserPhoneNumber()
+//    }
 }

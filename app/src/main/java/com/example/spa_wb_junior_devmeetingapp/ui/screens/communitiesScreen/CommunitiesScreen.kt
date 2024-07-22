@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.model.CommunityItem
+import com.example.spa_wb_junior_devmeetingapp.models.CommunityModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
@@ -31,7 +31,7 @@ object CommunitiesDestination : NavigationDestination {
 @Composable
 fun CommunityScreen(
     navController: NavHostController,
-    navigateToCommunityDetailItem: (CommunityItem) -> Unit,
+    navigateToCommunityDetailItem: (CommunityModelUI) -> Unit,
     viewModel: CommunitiesViewModel = koinViewModel()
 ){
 
@@ -74,8 +74,8 @@ fun CommunityScreen(
 
 @Composable
 fun CommunityBody(
-    listOfCommunities: List<CommunityItem>,
-    onCommunityItemClick: (CommunityItem) -> Unit,
+    listOfCommunities: List<CommunityModelUI>,
+    onCommunityItemClick: (CommunityModelUI) -> Unit,
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
@@ -94,12 +94,12 @@ fun CommunityBody(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
         ) {
-            items (listOfCommunities){ communityItem ->
+            items (listOfCommunities) { communityModelUI ->
                 CommunityCard(
-                    communityName = communityItem.communityName,
-                    communitySize = communityItem.communitySize,
-                    communityIconURL = communityItem.communityIconURL,
-                    onCommunityItemClick = { onCommunityItemClick(communityItem) }
+                    communityName = communityModelUI.name,
+                    communitySize = communityModelUI.size,
+                    communityIconURL = communityModelUI.iconURL,
+                    onCommunityItemClick = { onCommunityItemClick(communityModelUI) }
                 )
             }
         }

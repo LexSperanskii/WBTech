@@ -51,15 +51,19 @@ fun RegistrationProfileScreen(
             onNameChange = {
                 viewModel.onNameChange(it)
             },
-            surname = registrationProfileScreenUiState.surname ,
+            surname = registrationProfileScreenUiState.surname,
             onSurnameChange = {
                 viewModel.onSurnameChange(it)
             },
             isButtonSafeEnabled = registrationProfileScreenUiState.isButtonEnabled,
-            onButtonSafeClick = navigateToEventsAllScreen,
-            modifier = Modifier.padding(innerPadding),
-
-            )
+            avatarURL = registrationProfileScreenUiState.avatarURL ,
+            onEditAvatarClick = {viewModel.onAvatarEditButtonClick()},
+            onButtonSafeClick = {
+                viewModel.inButtonSaveClick()
+                navigateToEventsAllScreen()
+            },
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }
 
@@ -70,6 +74,8 @@ fun RegistrationProfileScreenBody(
     surname: String,
     onSurnameChange: (String) -> Unit,
     onButtonSafeClick: () -> Unit,
+    avatarURL: String?,
+    onEditAvatarClick: () -> Unit,
     isButtonSafeEnabled:Boolean,
     modifier: Modifier = Modifier
     ) {
@@ -83,6 +89,8 @@ fun RegistrationProfileScreenBody(
         PersonAvatar(
             size = 100.dp,
             isEdit = true,
+            imageURL = avatarURL,
+            onEditClick = onEditAvatarClick,
             modifier = Modifier.padding(top = 46.dp, bottom = 31.dp)
         )
         CustomTextField(

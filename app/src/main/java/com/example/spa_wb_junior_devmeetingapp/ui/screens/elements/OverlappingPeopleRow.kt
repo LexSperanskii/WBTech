@@ -23,31 +23,34 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_PEOPLE_COUNT
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_PERCENTAGE
 
 @Composable
 fun OverlappingPeopleRow(
-    accountsIconsURLList: List<String>,
+    participantsList: List<RegisteredPersonModelUI>,
     modifier: Modifier = Modifier,
     reverse: Boolean = false,
-    overlappingPercentage: Float = 0.20f,
-    accountsInOverlappingRow: Int = 5
+    overlappingPercentage: Float = DEFAULT_OVERLAPPING_PERCENTAGE,
+    accountsInOverlappingRow: Int = DEFAULT_OVERLAPPING_PEOPLE_COUNT
 ){
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
     ) {
         when {
-            accountsIconsURLList.size < accountsInOverlappingRow -> {
+            participantsList.size < accountsInOverlappingRow -> {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(2.dp),
                     modifier = Modifier.padding(4.dp)
                 ) {
-                    accountsIconsURLList.forEach { imageURL ->
+                    participantsList.forEach { participant ->
                         AsyncImage(
                             model = ImageRequest.Builder(context = LocalContext.current)
-                                .data(imageURL)
+                                .data(participant.iconURL)
                                 .crossfade(true)
                                 .build(),
                             contentScale = ContentScale.Crop,
@@ -71,10 +74,10 @@ fun OverlappingPeopleRow(
                         reverse = reverse,
                         overlappingPercentage = overlappingPercentage
                     ) {
-                        accountsIconsURLList.take(accountsInOverlappingRow).forEach { imageURL ->
+                        participantsList.take(accountsInOverlappingRow).forEach { participant ->
                             AsyncImage(
                                 model = ImageRequest.Builder(context = LocalContext.current)
-                                    .data(imageURL)
+                                    .data(participant.iconURL)
                                     .crossfade(true)
                                     .build(),
                                 contentScale = ContentScale.Crop,
@@ -89,7 +92,7 @@ fun OverlappingPeopleRow(
                         }
                     }
                     Text(
-                        text = stringResource(id = R.string.number_of_people, accountsIconsURLList.size-accountsInOverlappingRow ),
+                        text = stringResource(id = R.string.number_of_people, participantsList.size-accountsInOverlappingRow ),
                         style = DevMeetingAppTheme.typography.bodyText1,
                         modifier = Modifier.padding(start = 10.dp)
                     )

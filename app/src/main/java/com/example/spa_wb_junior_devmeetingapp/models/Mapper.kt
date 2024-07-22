@@ -55,7 +55,7 @@ class Mapper {
             id = eventDetail.id,
             name = eventDetail.name,
             date = eventDetail.date,
-            address = mapEventAddressToEventAddressModelUI(eventDetail.address),
+            address = eventDetail.address.toString(),
             category = eventDetail.category,
             locationCoordinates= eventDetail.locationCoordinates,
             description = eventDetail.description,
@@ -65,13 +65,6 @@ class Mapper {
         )
     }
 
-    fun mapEventAddressToEventAddressModelUI(eventAddress: EventAddress): EventAddressModelUI {
-        return EventAddressModelUI(
-            city = eventAddress.city,
-            street = eventAddress.street,
-            building = eventAddress.building,
-        )
-    }
     fun mapRegisteredPersonToRegisteredPersonModelUI(registeredPerson: RegisteredPerson): RegisteredPersonModelUI {
         return RegisteredPersonModelUI(
             id = registeredPerson.id,

@@ -16,8 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.model.Country
-import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
@@ -32,7 +32,7 @@ object AuthenticationDestination : NavigationDestination {
 
 @Composable
 fun AuthenticationScreen(
-    navigateToVerificationScreen: (PhoneNumber) -> Unit,
+    navigateToVerificationScreen: () -> Unit,
     onClickNavigateBack: () -> Unit,
     viewModel: AuthenticationViewModel = koinViewModel(),
     ) {
@@ -50,13 +50,16 @@ fun AuthenticationScreen(
         }
     ) { innerPadding ->
         AuthenticationBody(
-            number = authenticationUiState.phoneNumber.number,
+            number = authenticationUiState.number,
             onNumberChange = { viewModel.changeNumber(it) },
             countryCode = authenticationUiState.country,
             onCountryCodeChange = { viewModel.changeCountryCode(it) },
             listOfCountriesCodes = authenticationUiState.listOfCountries,
             isForwardButtonEnabled = authenticationUiState.isButtonEnabled,
-            onForwardButtonClick = {navigateToVerificationScreen(authenticationUiState.phoneNumber)},
+            onForwardButtonClick = {
+                viewModel.onForwardButtonClick()
+                navigateToVerificationScreen()
+            },
             modifier = Modifier.padding(innerPadding)
             )
     }
@@ -66,16 +69,18 @@ fun AuthenticationScreen(
 fun AuthenticationBody(
     number: String,
     onNumberChange: (String) -> Unit,
-    countryCode: Country,
-    onCountryCodeChange: (Country) -> Unit,
+    countryCode: CountryModelUI,
+    onCountryCodeChange: (CountryModelUI) -> Unit,
     onForwardButtonClick: () -> Unit,
     isForwardButtonEnabled:Boolean,
-    listOfCountriesCodes:  List<Country>,
+    listOfCountriesCodes:  List<CountryModelUI>,
     modifier: Modifier = Modifier
     ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxSize().padding(24.dp)
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp)
     ) {
         Text(
             text = stringResource(id = R.string.enter_your_number),
@@ -103,7 +108,9 @@ fun AuthenticationBody(
             enabled = isForwardButtonEnabled,
             text = stringResource(id = R.string.forward_button),
             textStyle = DevMeetingAppTheme.typography.subheading2,
-            modifier = Modifier.fillMaxWidth().height(52.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(52.dp)
         )
     }
 }
