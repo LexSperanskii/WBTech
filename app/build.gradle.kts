@@ -81,6 +81,4 @@ dependencies {
     implementation("io.insert-koin:koin-core:3.5.6")
     implementation("io.insert-koin:koin-android:3.5.6")
     implementation("io.insert-koin:koin-androidx-compose:3.5.6")
-    //для использования LocalDate
-    implementation ("com.jakewharton.threetenabp:threetenabp:1.4.4")
 }

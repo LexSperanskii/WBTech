@@ -1,9 +1,10 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.authenticationScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockCountryList
-import com.example.spa_wb_junior_devmeetingapp.model.Country
-import com.example.spa_wb_junior_devmeetingapp.model.PhoneNumber
+import com.example.domain.models.MockData
+import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.Mapper
+import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,13 +12,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 data class AuthenticationScreenUiState(
-    val phoneNumber: PhoneNumber = PhoneNumber(),
-    val country: Country = Country(),
-    val listOfCountries: List<Country> = listOf(),
+    val phoneNumber: PhoneNumberModelUI = PhoneNumberModelUI(),
+    val country: CountryModelUI = CountryModelUI(),
+    val listOfCountries: List<CountryModelUI> = listOf(),
     val isButtonEnabled: Boolean = false
 )
 
-class AuthenticationViewModel(): ViewModel() {
+class AuthenticationViewModel(
+    private val mapper: Mapper,
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AuthenticationScreenUiState())
     private val uiState: StateFlow<AuthenticationScreenUiState> = _uiState.asStateFlow()
@@ -27,9 +30,9 @@ class AuthenticationViewModel(): ViewModel() {
     init {
         _uiState.update {
             it.copy(
-                phoneNumber = it.phoneNumber.copy(countryCode = mockCountryList[0].countryCode),
-                country = mockCountryList[0],
-                listOfCountries = mockCountryList
+                phoneNumber = it.phoneNumber.copy(countryCode = MockData.getAvailableCountries()[0].code),
+                country = mapper.mapCountryToCountryModelUI(MockData.getAvailableCountries()[0]),
+                listOfCountries = MockData.getAvailableCountries().map { mapper.mapCountryToCountryModelUI(it) }
             )
         }
     }
@@ -43,10 +46,10 @@ class AuthenticationViewModel(): ViewModel() {
         isButtonActive()
     }
 
-    fun changeCountryCode(country: Country) {
+    fun changeCountryCode(country: CountryModelUI) {
         _uiState.update {
             it.copy(
-                phoneNumber = it.phoneNumber.copy(countryCode = country.countryCode),
+                phoneNumber = it.phoneNumber.copy(countryCode = country.code),
                 country = country
             )
         }

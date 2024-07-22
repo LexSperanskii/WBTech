@@ -1,6 +1,15 @@
-package com.example.domain.model
+package com.example.domain.models
 
 object MockData {
+
+    private var phoneNumber = PhoneNumber("","")
+
+    fun setUserPhoneNumber(userPhone: PhoneNumber){
+        phoneNumber = userPhone
+    }
+    fun getUserPhoneNumber() : PhoneNumber{
+        return phoneNumber
+    }
 
     fun getAvailableCountries(): List<Country> = mockAvailableCountries
     fun getListOfEvents(): List<Event> = listOfEvents
@@ -63,7 +72,7 @@ object MockData {
         date = "13.09.2024",
         address = EventAddress("Москва","ул. Громова", "4"),
         category = listOf("Python", "Junior", "Moscow"),
-        mapCoordinates ="115.22455 , 5554.15651",
+        locationCoordinates ="115.22455 , 5554.15651",
         description = longText,
         listOfParticipants = listOf(
             RegisteredPerson(0, IconURL2),

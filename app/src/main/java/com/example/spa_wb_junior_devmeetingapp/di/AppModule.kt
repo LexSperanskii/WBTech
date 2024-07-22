@@ -1,5 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.di
 
+import com.example.spa_wb_junior_devmeetingapp.models.Mapper
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.authenticationScreen.AuthenticationViewModel
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.communitiesScreen.CommunitiesViewModel
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.communityDetailScreen.CommunityDetailViewModel
@@ -15,8 +16,13 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
+
+    single { Mapper() }
+
     viewModel<AuthenticationViewModel> {
-        AuthenticationViewModel()
+        AuthenticationViewModel(
+            mapper = get()
+        )
     }
 
     viewModel<VerificationViewModel> {

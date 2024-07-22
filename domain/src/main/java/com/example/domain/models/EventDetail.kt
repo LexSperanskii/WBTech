@@ -1,6 +1,4 @@
-package com.example.domain.model
-
-import javax.management.Descriptor
+package com.example.domain.models
 
 data class EventDetail(
     val id : Int,
@@ -8,7 +6,7 @@ data class EventDetail(
     val date : String,
     val address : EventAddress,
     val category : List<String>,
-    val mapCoordinates: String,
+    val locationCoordinates: String,
     val description : String,
     val listOfParticipants: List<RegisteredPerson>,
     val isFinished: Boolean = false,

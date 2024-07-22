@@ -1,8 +1,9 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.communitiesScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.spa_wb_junior_devmeetingapp.data.mockData.mockListOfCommunities
-import com.example.spa_wb_junior_devmeetingapp.model.CommunityItem
+import com.example.domain.models.Community
+import com.example.domain.models.MockData
+import com.example.spa_wb_junior_devmeetingapp.models.Mapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,10 +11,12 @@ import kotlinx.coroutines.flow.update
 
 data class CommunitiesScreenUiState(
     val search : String = "",
-    val listOfCommunities : List<CommunityItem> = listOf()
+    val listOfCommunities : List<Community> = listOf()
 )
 
-class CommunitiesViewModel(): ViewModel() {
+class CommunitiesViewModel(
+    private val mapper: Mapper
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CommunitiesScreenUiState())
     private val uiState: StateFlow<CommunitiesScreenUiState> = _uiState.asStateFlow()
@@ -23,7 +26,7 @@ class CommunitiesViewModel(): ViewModel() {
     init {
         _uiState.update {
             it.copy(
-                listOfCommunities = mockListOfCommunities
+                listOfCommunities = MockData.getListOfCommunities()
             )
         }
     }
