@@ -2,7 +2,7 @@ package com.example.domain.models
 
 import kotlin.math.truncate
 
-object MockData {
+class MockData {
 
     private var user = User(
         id = 0,

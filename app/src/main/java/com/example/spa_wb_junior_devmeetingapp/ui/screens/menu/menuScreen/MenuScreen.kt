@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens.menuScreen
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.menu.menuScreen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn

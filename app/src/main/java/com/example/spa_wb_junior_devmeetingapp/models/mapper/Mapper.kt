@@ -1,14 +1,21 @@
-package com.example.spa_wb_junior_devmeetingapp.models
+package com.example.spa_wb_junior_devmeetingapp.models.mapper
 
 import com.example.domain.models.Community
 import com.example.domain.models.CommunityDetail
 import com.example.domain.models.Country
 import com.example.domain.models.Event
-import com.example.domain.models.EventAddress
 import com.example.domain.models.EventDetail
 import com.example.domain.models.PhoneNumber
 import com.example.domain.models.RegisteredPerson
 import com.example.domain.models.User
+import com.example.spa_wb_junior_devmeetingapp.models.CommunityDetailModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.CommunityModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.EventDetailModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.UserModelUI
 
 
 class Mapper {

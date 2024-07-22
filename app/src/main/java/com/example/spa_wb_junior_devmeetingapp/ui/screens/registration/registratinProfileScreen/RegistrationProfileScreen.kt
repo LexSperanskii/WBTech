@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens.registratinProfileScreen
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.registratinProfileScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

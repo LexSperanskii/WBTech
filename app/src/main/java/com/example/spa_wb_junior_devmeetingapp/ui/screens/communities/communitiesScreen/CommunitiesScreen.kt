@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens.communitiesScreen
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communitiesScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

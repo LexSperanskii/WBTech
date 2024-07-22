@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens.eventDetailScreen
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventDetailScreen
 
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.MockData

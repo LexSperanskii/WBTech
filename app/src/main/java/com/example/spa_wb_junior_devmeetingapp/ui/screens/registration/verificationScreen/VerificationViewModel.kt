@@ -1,7 +1,8 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens.verificationScreen
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.verificationScreen
 
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.MockData
+import com.example.domain.usecases.user.GetUserPhoneNumberUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PIN_CODE_LENGTH
@@ -17,7 +18,8 @@ data class VerificationScreenUiState(
 )
 
 class VerificationViewModel(
-    private val mapper: Mapper
+    private val mapper: Mapper,
+    private val getUserPhoneNumberUseCase: GetUserPhoneNumberUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(VerificationScreenUiState())
@@ -28,7 +30,7 @@ class VerificationViewModel(
     init {
         _uiState.update {
             it.copy(
-                phoneNumber = mapper.mapPhoneNumberToPhoneNumberModelUI(MockData.getUserPhoneNumber())
+                phoneNumber = mapper.mapPhoneNumberToPhoneNumberModelUI(getUserPhoneNumberUseCase.execute())
             )
         }
     }

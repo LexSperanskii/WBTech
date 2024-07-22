@@ -1,7 +1,10 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.screens.authenticationScreen
+package com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.authenticationScreen
 
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.MockData
+import com.example.domain.usecases.user.GetAvailableCountriesListUseCase
+import com.example.domain.usecases.user.GetAvailableCountyUseCase
+import com.example.domain.usecases.user.SetUserPhoneNumberUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
@@ -19,6 +22,9 @@ data class AuthenticationScreenUiState(
 
 class AuthenticationViewModel(
     private val mapper: Mapper,
+    private val getAvailableCountriesListUseCase: GetAvailableCountriesListUseCase,
+    private val getAvailableCountyUseCase: GetAvailableCountyUseCase,
+    private val setUserPhoneNumberUseCase: SetUserPhoneNumberUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AuthenticationScreenUiState())
@@ -29,8 +35,8 @@ class AuthenticationViewModel(
     init {
         _uiState.update {
             it.copy(
-                country = mapper.mapCountryToCountryModelUI(MockData.getAvailableCountries()[0]),
-                listOfCountries = MockData.getAvailableCountries().map { mapper.mapCountryToCountryModelUI(it) },
+                country = mapper.mapCountryToCountryModelUI(getAvailableCountyUseCase.execute()) ,
+                listOfCountries = getAvailableCountriesListUseCase.execute().map { mapper.mapCountryToCountryModelUI(it) },
             )
         }
     }
@@ -55,7 +61,7 @@ class AuthenticationViewModel(
 
     fun onForwardButtonClick(){
         val state = uiState.value
-        MockData.setUserPhoneNumber(state.country.code, state.number)
+        setUserPhoneNumberUseCase.execute(state.country.code, state.number)
     }
 
     private fun isButtonActive(){
