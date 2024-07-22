@@ -5,7 +5,7 @@ import com.example.domain.usecases.user.GetAvailableCountriesListUseCase
 import com.example.domain.usecases.user.GetAvailableCountyUseCase
 import com.example.domain.usecases.user.SetUserPhoneNumberUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +20,6 @@ data class AuthenticationScreenUiState(
 )
 
 class AuthenticationViewModel(
-    private val mapper: Mapper,
     private val getAvailableCountriesListUseCase: GetAvailableCountriesListUseCase,
     private val getAvailableCountyUseCase: GetAvailableCountyUseCase,
     private val setUserPhoneNumberUseCase: SetUserPhoneNumberUseCase,
@@ -34,8 +33,8 @@ class AuthenticationViewModel(
     init {
         _uiState.update {
             it.copy(
-                country = mapper.mapCountryToCountryModelUI(getAvailableCountyUseCase.execute()) ,
-                listOfCountries = getAvailableCountriesListUseCase.execute().map { mapper.mapCountryToCountryModelUI(it) },
+                country = getAvailableCountyUseCase.execute().toCountryModelUI() ,
+                listOfCountries = getAvailableCountriesListUseCase.execute().map { it.toCountryModelUI() },
             )
         }
     }

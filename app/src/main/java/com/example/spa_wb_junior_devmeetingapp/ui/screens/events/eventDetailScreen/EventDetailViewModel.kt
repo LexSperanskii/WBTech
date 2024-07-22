@@ -3,7 +3,7 @@ package com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventDetailScr
 import androidx.lifecycle.ViewModel
 import com.example.domain.usecases.events.GetEventDetailsUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventDetailModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.toEventDetailModelUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,7 +14,6 @@ data class EventDetailScreenUiState(
 )
 
 class EventDetailViewModel(
-    private val mapper: Mapper,
     private val getEventDetailsUseCase: GetEventDetailsUseCase,
 ): ViewModel() {
 
@@ -26,7 +25,7 @@ class EventDetailViewModel(
     init {
         _uiState.update {
             it.copy(
-                event = mapper.mapEventDetailToEventDetailModelUI(getEventDetailsUseCase.execute())
+                event = getEventDetailsUseCase.execute().toEventDetailModelUI()
             )
         }
     }

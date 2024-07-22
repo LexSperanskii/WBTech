@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.domain.usecases.events.GetAllEventsActiveUseCase
 import com.example.domain.usecases.events.GetAllEventsUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.toEventModelUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +17,6 @@ data class EventsAllScreenUiState(
 )
 
 class EventsAllViewModel(
-    private val mapper: Mapper,
     private val getAllEventsUseCase: GetAllEventsUseCase,
     private val getAllEventsActiveUseCase: GetAllEventsActiveUseCase,
 ): ViewModel() {
@@ -30,8 +29,8 @@ class EventsAllViewModel(
     init {
         _uiState.update { it ->
             it.copy(
-                listOfMeetingsAll = getAllEventsUseCase.execute().map { mapper.mapEventToEventModelUI(it) },
-                listOfMeetingsActive = getAllEventsActiveUseCase.execute().map { mapper.mapEventToEventModelUI(it) }
+                listOfMeetingsAll = getAllEventsUseCase.execute().map { it.toEventModelUI() },
+                listOfMeetingsActive = getAllEventsActiveUseCase.execute().map { it.toEventModelUI() }
             )
         }
     }

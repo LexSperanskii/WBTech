@@ -1,6 +1,5 @@
 package com.example.spa_wb_junior_devmeetingapp.di
 
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.authenticationScreen.AuthenticationViewModel
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communitiesScreen.CommunitiesViewModel
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communityDetailScreen.CommunityDetailViewModel
@@ -17,11 +16,8 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    single { Mapper() }
-
     viewModel<AuthenticationViewModel> {
         AuthenticationViewModel(
-            mapper = get(),
             getAvailableCountriesListUseCase = get(),
             getAvailableCountyUseCase = get(),
             setUserPhoneNumberUseCase = get()
@@ -30,7 +26,6 @@ val appModule = module {
 
     viewModel<VerificationViewModel> {
         VerificationViewModel(
-            mapper = get(),
             getUserPhoneNumberUseCase = get()
         )
     }
@@ -46,7 +41,6 @@ val appModule = module {
 
     viewModel<EventsAllViewModel> {
         EventsAllViewModel(
-            mapper = get(),
             getAllEventsUseCase = get(),
             getAllEventsActiveUseCase = get()
         )
@@ -54,7 +48,6 @@ val appModule = module {
 
     viewModel<EventsUserViewModel> {
         EventsUserViewModel(
-            mapper = get(),
             getMyEventsListUseCase = get(),
             getMyEventsPastListUseCase = get()
         )
@@ -62,35 +55,30 @@ val appModule = module {
 
     viewModel<EventDetailViewModel> {
         EventDetailViewModel(
-            mapper = get(),
             getEventDetailsUseCase = get()
         )
     }
 
     viewModel<CommunitiesViewModel> {
         CommunitiesViewModel(
-            mapper = get(),
             getCommunitiesListUseCase = get()
         )
     }
 
     viewModel<CommunityDetailViewModel> {
         CommunityDetailViewModel(
-            mapper = get(),
             getCommunityDetailUseCase = get()
         )
     }
 
     viewModel<MenuViewModel> {
         MenuViewModel(
-            mapper = get(),
             getUserUseCase = get()
         )
     }
 
     viewModel<ProfileViewModel> {
         ProfileViewModel(
-            mapper = get(),
             getUserUseCase = get()
         )
     }
