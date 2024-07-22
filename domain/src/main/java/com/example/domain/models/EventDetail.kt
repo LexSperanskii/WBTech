@@ -18,7 +18,7 @@ data class EventAddress(
     val street: String,
     val building: String
 )
-fun EventAddress.toString(): String{
+fun EventAddress.toAddressString(): String{
     return "$city, $street, $building"
 }
 

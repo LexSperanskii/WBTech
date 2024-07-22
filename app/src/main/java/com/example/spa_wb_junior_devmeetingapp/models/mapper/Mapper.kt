@@ -8,6 +8,7 @@ import com.example.domain.models.EventDetail
 import com.example.domain.models.PhoneNumber
 import com.example.domain.models.RegisteredPerson
 import com.example.domain.models.User
+import com.example.domain.models.toAddressString
 import com.example.spa_wb_junior_devmeetingapp.models.CommunityDetailModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.CommunityModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
@@ -62,7 +63,7 @@ class Mapper {
             id = eventDetail.id,
             name = eventDetail.name,
             date = eventDetail.date,
-            address = eventDetail.address.toString(),
+            address = eventDetail.address.toAddressString(),
             category = eventDetail.category,
             locationCoordinates= eventDetail.locationCoordinates,
             description = eventDetail.description,

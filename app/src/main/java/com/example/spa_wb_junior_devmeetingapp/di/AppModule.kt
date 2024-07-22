@@ -30,53 +30,68 @@ val appModule = module {
 
     viewModel<VerificationViewModel> {
         VerificationViewModel(
-            mapper = get()
+            mapper = get(),
+            getUserPhoneNumberUseCase = get()
         )
     }
 
     viewModel<RegistrationProfileViewModel> {
-        RegistrationProfileViewModel()
+        RegistrationProfileViewModel(
+            getUserAvatarUseCase = get(),
+            setUserNameUseCase = get(),
+            setUserSurnameUseCase = get(),
+            setUserAvatarUseCase = get()
+        )
     }
 
     viewModel<EventsAllViewModel> {
         EventsAllViewModel(
-            mapper = get()
+            mapper = get(),
+            getAllEventsUseCase = get(),
+            getAllEventsActiveUseCase = get()
         )
     }
 
     viewModel<EventsUserViewModel> {
         EventsUserViewModel(
-            mapper = get()
+            mapper = get(),
+            getMyEventsListUseCase = get(),
+            getMyEventsPastListUseCase = get()
         )
     }
 
     viewModel<EventDetailViewModel> {
         EventDetailViewModel(
-            mapper = get()
+            mapper = get(),
+            getEventDetailsUseCase = get()
         )
     }
 
     viewModel<CommunitiesViewModel> {
         CommunitiesViewModel(
-            mapper = get()
+            mapper = get(),
+            getCommunitiesListUseCase = get()
         )
     }
 
     viewModel<CommunityDetailViewModel> {
         CommunityDetailViewModel(
-            mapper = get()
+            mapper = get(),
+            getCommunityDetailUseCase = get()
         )
     }
 
     viewModel<MenuViewModel> {
         MenuViewModel(
-            mapper = get()
+            mapper = get(),
+            getUserUseCase = get()
         )
     }
 
     viewModel<ProfileViewModel> {
         ProfileViewModel(
-            mapper = get()
+            mapper = get(),
+            getUserUseCase = get()
         )
     }
     viewModel<SplashScreenViewModel> {
