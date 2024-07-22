@@ -1,6 +1,5 @@
 package com.example.spa_wb_junior_devmeetingapp.data.mockData
 
-import androidx.compose.animation.fadeIn
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.model.CommunityItem
 import com.example.spa_wb_junior_devmeetingapp.model.Country
@@ -15,7 +14,7 @@ val mockCountryList = listOf(
     Country("UK", "+44", R.drawable.flag_gb),
     Country("China", "+86", R.drawable.flag_cn),
     Country("Germany", "+49", R.drawable.flag_ger),
-    )
+)
 
 const val avatarIconURL =  "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
 const val IconURL1 = "https://i.pinimg.com/564x/07/1e/f4/071ef43b8a3e3a3e32eba626da61faa9.jpg"
