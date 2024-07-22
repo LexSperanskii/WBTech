@@ -1,7 +1,7 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventDetailScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.MockData
+import com.example.domain.usecases.events.GetEventDetailsUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventDetailModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,8 @@ data class EventDetailScreenUiState(
 )
 
 class EventDetailViewModel(
-    private val mapper: Mapper
+    private val mapper: Mapper,
+    private val getEventDetailsUseCase: GetEventDetailsUseCase,
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(EventDetailScreenUiState())
@@ -25,7 +26,7 @@ class EventDetailViewModel(
     init {
         _uiState.update {
             it.copy(
-                event = mapper.mapEventDetailToEventDetailModelUI(MockData.getEventDetail())
+                event = mapper.mapEventDetailToEventDetailModelUI(getEventDetailsUseCase.execute())
             )
         }
     }

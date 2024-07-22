@@ -1,7 +1,7 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communityDetailScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.MockData
+import com.example.domain.usecases.communities.GetCommunityDetailUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,8 @@ data class CommunityDetailScreenUiState(
 )
 
 class CommunityDetailViewModel(
-    private val mapper: Mapper
+    private val mapper: Mapper,
+    private val getCommunityDetailUseCase: GetCommunityDetailUseCase,
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(CommunityDetailScreenUiState())
@@ -27,9 +28,9 @@ class CommunityDetailViewModel(
     init {
         _uiState.update {
             it.copy(
-                nameOfCommunity = MockData.getCommunity().name,
-                description = MockData.getCommunity().description,
-                communityEventsList = MockData.getCommunity().events.map{mapper.mapEventToEventModelUI(it)}
+                nameOfCommunity = getCommunityDetailUseCase.execute().name,
+                description = getCommunityDetailUseCase.execute().description,
+                communityEventsList = getCommunityDetailUseCase.execute().events.map{mapper.mapEventToEventModelUI(it)}
             )
         }
     }

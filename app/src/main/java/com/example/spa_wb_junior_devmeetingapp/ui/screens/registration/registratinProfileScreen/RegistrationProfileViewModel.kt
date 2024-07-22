@@ -1,7 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.registratinProfileScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.MockData
 import com.example.domain.usecases.user.GetUserAvatarUseCase
 import com.example.domain.usecases.user.SetUserAvatarUseCase
 import com.example.domain.usecases.user.SetUserNameUseCase

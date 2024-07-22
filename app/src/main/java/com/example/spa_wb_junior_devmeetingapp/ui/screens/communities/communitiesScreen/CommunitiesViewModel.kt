@@ -1,7 +1,7 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communitiesScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.MockData
+import com.example.domain.usecases.communities.GetCommunitiesListUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.CommunityModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,8 @@ data class CommunitiesScreenUiState(
 )
 
 class CommunitiesViewModel(
-    private val mapper: Mapper
+    private val mapper: Mapper,
+    private val getCommunitiesListUseCase: GetCommunitiesListUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CommunitiesScreenUiState())
@@ -26,7 +27,7 @@ class CommunitiesViewModel(
     init {
         _uiState.update {
             it.copy(
-                listOfCommunities = MockData.getListOfCommunities().map { mapper.mapCommunityToCommunityModelUI(it) }
+                listOfCommunities = getCommunitiesListUseCase.execute().map { mapper.mapCommunityToCommunityModelUI(it) }
             )
         }
     }

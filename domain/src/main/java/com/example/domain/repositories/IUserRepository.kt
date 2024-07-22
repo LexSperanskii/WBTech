@@ -1,6 +1,7 @@
 package com.example.domain.repositories
 
 import com.example.domain.models.PhoneNumber
+import com.example.domain.models.User
 
 interface IUserRepository {
 
@@ -11,4 +12,5 @@ interface IUserRepository {
     fun setUserSurname(surname: String)
     fun setUserAvatar(avatarURL: String?)
     fun getUserPhoneNumber() : PhoneNumber
+    fun getUser(): User
 }

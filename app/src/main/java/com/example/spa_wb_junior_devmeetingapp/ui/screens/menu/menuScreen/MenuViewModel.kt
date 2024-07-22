@@ -1,7 +1,7 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.menu.menuScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.MockData
+import com.example.domain.usecases.user.GetUserUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import com.example.spa_wb_junior_devmeetingapp.models.UserModelUI
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,8 @@ data class MenuScreenUiState(
 )
 
 class MenuViewModel(
-    private val mapper: Mapper
+    private val mapper: Mapper,
+    private val getUserUseCase: GetUserUseCase,
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(MenuScreenUiState())
@@ -25,7 +26,7 @@ class MenuViewModel(
     init {
         _uiState.update {
             it.copy(
-                user = mapper.mapUserToUserModelUI(MockData.getUser())
+                user = mapper.mapUserToUserModelUI(getUserUseCase.execute())
             )
         }
     }

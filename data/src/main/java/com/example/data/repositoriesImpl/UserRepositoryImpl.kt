@@ -2,6 +2,7 @@ package com.example.data.repositoriesImpl
 
 import com.example.domain.models.MockData
 import com.example.domain.models.PhoneNumber
+import com.example.domain.models.User
 import com.example.domain.repositories.IUserRepository
 
 class UserRepositoryImpl(private val mock: MockData): IUserRepository {
@@ -28,6 +29,10 @@ class UserRepositoryImpl(private val mock: MockData): IUserRepository {
 
     override fun getUserPhoneNumber(): PhoneNumber {
         return mock.getUserPhoneNumber()
+    }
+
+    override fun getUser(): User {
+        return mock.getUser()
     }
 
 }

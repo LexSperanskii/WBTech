@@ -1,7 +1,8 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.menu.eventsUserScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.MockData
+import com.example.domain.usecases.events.GetMyEventsListUseCase
+import com.example.domain.usecases.events.GetMyEventsPastListUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,9 @@ data class EventsUserScreenUiState(
 )
 
 class EventsUserViewModel(
-    private val mapper: Mapper
+    private val mapper: Mapper,
+    private val getMyEventsListUseCase: GetMyEventsListUseCase,
+    private val getMyEventsPastListUseCase: GetMyEventsPastListUseCase,
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(EventsUserScreenUiState())
@@ -26,8 +29,8 @@ class EventsUserViewModel(
     init {
         _uiState.update { it ->
             it.copy(
-                listOfMeetingsScheduled = MockData.getListOfEvents().map { mapper.mapEventToEventModelUI(it) },
-                listOfMeetingsPast = MockData.getListOfEvents().map { mapper.mapEventToEventModelUI(it) }.filter { it.isFinished }
+                listOfMeetingsScheduled = getMyEventsListUseCase.execute().map { mapper.mapEventToEventModelUI(it) },
+                listOfMeetingsPast = getMyEventsPastListUseCase.execute().map { mapper.mapEventToEventModelUI(it) }
             )
         }
     }

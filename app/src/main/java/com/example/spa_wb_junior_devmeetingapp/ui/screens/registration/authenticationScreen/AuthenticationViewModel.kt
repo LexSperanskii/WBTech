@@ -1,7 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.authenticationScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.MockData
 import com.example.domain.usecases.user.GetAvailableCountriesListUseCase
 import com.example.domain.usecases.user.GetAvailableCountyUseCase
 import com.example.domain.usecases.user.SetUserPhoneNumberUseCase

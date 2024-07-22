@@ -1,7 +1,5 @@
 package com.example.domain.models
 
-import kotlin.math.truncate
-
 class MockData {
 
     private var user = User(

@@ -12,6 +12,4 @@ internal class GetUserPhoneNumberInteractor(private val userRepository: IUserRep
     override fun execute(): PhoneNumber {
         return userRepository.getUserPhoneNumber()
     }
-
-
 }

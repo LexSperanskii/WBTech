@@ -25,9 +25,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.domain.models.MockData
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
+import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
@@ -105,8 +105,29 @@ fun DeveloperScreen() {
         "Junior",
         "Moscow"
     )
+    val listOfParticipantsForDevScreen = listOf(
+        RegisteredPersonModelUI(0, "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"),
+        RegisteredPersonModelUI(1, "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg"),
+        RegisteredPersonModelUI(2,"https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg"),
+        RegisteredPersonModelUI(3,"https://i.pinimg.com/564x/f4/e0/c8/f4e0c8655494b4ed5fb490df336c5dcb.jpg"),
+        RegisteredPersonModelUI(4,"https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg"),
+        RegisteredPersonModelUI(5,"https://i.pinimg.com/564x/07/1e/f4/071ef43b8a3e3a3e32eba626da61faa9.jpg")
+    )
+    val listOfParticipantsSmallForDevScreen = listOf(
+        RegisteredPersonModelUI(0, "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"),
+        RegisteredPersonModelUI(1, "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg"),
+        RegisteredPersonModelUI(2,"https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg")
+    )
+    val mockAvailableCountriesForDevScreen = listOf(
+        CountryModelUI("Russia", "+7", "https://i.pinimg.com/564x/42/8d/91/428d9169accc5277fc03a0c41394eb10.jpg"),
+        CountryModelUI("Kazakhstan", "+7", "https://i.pinimg.com/564x/12/d9/f9/12d9f9633023c5f053a654da6035af7f.jpg"),
+        CountryModelUI("UK", "+44","https://i.pinimg.com/564x/aa/7d/c8/aa7dc8130b972fdd4837c19a189717fc.jpg"),
+        CountryModelUI("China", "+86", "https://i.pinimg.com/564x/51/08/62/510862488ad2a8037423567218afe069.jpg"),
+        CountryModelUI("Germany", "+49", "https://i.pinimg.com/564x/4c/b7/8b/4cb78bce83b82a83382d18d207423f48.jpg")
+    )
+
     var pinCode by remember { mutableStateOf("") }
-    var countryCode by remember { mutableStateOf(MockData.getAvailableCountries().map { Mapper().mapCountryToCountryModelUI(it) }[0]) }
+    var countryCode by remember { mutableStateOf(mockAvailableCountriesForDevScreen[0]) }
     var phoneNumber by remember { mutableStateOf("") }
 
     var searchField by remember { mutableStateOf("") }
@@ -138,7 +159,7 @@ fun DeveloperScreen() {
                     onNumberChange = { phoneNumber = it },
                     countryCode = countryCode,
                     onCountryCodeChange = { countryCode = it },
-                    listOfCountriesCodes = MockData.getAvailableCountries().map { Mapper().mapCountryToCountryModelUI(it) }
+                    listOfCountriesCodes = mockAvailableCountriesForDevScreen
                 )
             }
             item {
@@ -363,13 +384,13 @@ fun DeveloperScreen() {
             }
             item {
                 OverlappingPeopleRow(
-                    participantsList = MockData.getListOfParticipants().map { Mapper().mapRegisteredPersonToRegisteredPersonModelUI(it) },
+                    participantsList = listOfParticipantsForDevScreen,
                     modifier = Modifier
                 )
             }
             item {
                 OverlappingPeopleRow(
-                    participantsList = MockData.getListOfParticipantsSmall().map { Mapper().mapRegisteredPersonToRegisteredPersonModelUI(it) },
+                    participantsList = listOfParticipantsSmallForDevScreen,
                     modifier = Modifier
                 )
             }
