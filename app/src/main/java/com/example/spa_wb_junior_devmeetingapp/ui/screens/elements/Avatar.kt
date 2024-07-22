@@ -23,51 +23,56 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
 fun PersonAvatar(
     size: Dp,
     isEdit: Boolean,
-    imageURL: String = "",
+    imageURL: String?,
     onEditClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     defaultIcon: Painter = painterResource(id = R.drawable.icon_avatar_person),
-    backgroundColor: Color = ExtraLightGray,
+    backgroundColor: Color = DevMeetingAppTheme.colors.extraLightGray
 ) {
 
     val iconScale = size.value / 100 // Коэффициент масштабирования иконки
 
     Box(modifier = modifier) {
         when (imageURL) {
-            "" -> Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .size(size)
-                    .background(backgroundColor)
-            ) {
-                Icon(
-                    painter = defaultIcon,
-                    contentDescription = "avatar person",
+            null, "" -> {
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(size)
+                        .background(backgroundColor)
+                ) {
+                    Icon(
+                        painter = defaultIcon,
+                        contentDescription = "avatar person",
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .scale(iconScale)
+                    )
+                }
+            }
+
+            else -> {
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(imageURL)
+                        .crossfade(true)
+                        .build(),
+                    contentScale = ContentScale.Crop,
+                    error = painterResource(R.drawable.ic_broken_image),
+                    placeholder = painterResource(R.drawable.loading_img),
+                    contentDescription = stringResource(R.string.profile_icon),
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .scale(iconScale)
+                        .size(size)
+                        .clip(CircleShape)
                 )
             }
-            else -> AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(imageURL)
-                    .crossfade(true)
-                    .build(),
-                contentScale = ContentScale.Crop,
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_img),
-                contentDescription = stringResource(R.string.profile_icon),
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(size)
-                    .clip(CircleShape)
-            )
         }
         if (isEdit) {
             IconButton(

@@ -10,19 +10,14 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Purple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Subheading1
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,10 +34,8 @@ fun TopAppBarBackNameAction(
         title = {
             Text(
                 text = title,
-                color = ExtraDarkPurpleForBottomBar,
-                fontSize = MaterialTheme.typography.Subheading1.fontSize,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = SFProDisplay,
+                color = DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar,
+                style = DevMeetingAppTheme.typography.subheading1,
                 modifier = if (isNavigateBack) Modifier.padding(start = 0.dp) else Modifier.padding(start = 8.dp)
             )
         },
@@ -86,10 +79,8 @@ fun TopAppBarForProfile(
         title = {
             Text(
                 text = title,
-                color = ExtraDarkPurpleForBottomBar,
-                fontSize = MaterialTheme.typography.Subheading1.fontSize,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = SFProDisplay,
+                color = DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar,
+                style = DevMeetingAppTheme.typography.subheading1,
                 modifier = Modifier
             )
         },
@@ -130,10 +121,8 @@ fun TopAppBarForEventDetails(
         title = {
             Text(
                 text = title,
-                color = ExtraDarkPurpleForBottomBar,
-                fontSize = MaterialTheme.typography.Subheading1.fontSize,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = SFProDisplay,
+                color = DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar,
+                style = DevMeetingAppTheme.typography.subheading1,
                 modifier = Modifier
             )
         },
@@ -155,7 +144,7 @@ fun TopAppBarForEventDetails(
                     Icon(
                         imageVector = Icons.Filled.Done,
                         contentDescription = stringResource(id = R.string.top_bar_action),
-                        tint = Purple,
+                        tint = DevMeetingAppTheme.colors.purple,
                         modifier = Modifier.size(24.dp)
                     )
                 }

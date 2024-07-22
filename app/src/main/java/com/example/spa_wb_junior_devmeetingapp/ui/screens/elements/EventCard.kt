@@ -17,7 +17,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,34 +27,25 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.DividerColor
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightDarkGray
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightPurple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata2
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
-import org.threeten.bp.LocalDate
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
 fun EventCard(
     eventName: String,
-    eventStatus: String,
-    eventDate: LocalDate,
-    eventPlace:String,
+    isEventFinished: Boolean,
+    eventDate: String,
+    eventCity:String,
     eventCategories: List<String>,
     eventIconURL: String,
     onEventItemClick : ()-> Unit,
     modifier: Modifier = Modifier,
-    dividerColor: Color = DividerColor,
+    dividerColor: Color = DevMeetingAppTheme.colors.dividerColor,
     dividerThickness: Dp = DividerDefaults.Thickness,
 ) {
     Card(
@@ -66,7 +56,6 @@ fun EventCard(
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp)
             ){
                 Column(modifier = Modifier.widthIn(68.dp)) {
                     AsyncImage(
@@ -93,28 +82,27 @@ fun EventCard(
                     ) {
                         Text(
                             text = eventName,
-                            fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                            fontWeight = FontWeight.SemiBold,
-                            fontFamily = SFProDisplay,
+                            style = DevMeetingAppTheme.typography.bodyText1,
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
                                 .weight(1f)
                         )
-                        Text(
-                            text = eventStatus,
-                            fontSize = MaterialTheme.typography.Metadata2.fontSize,
-                            fontWeight = FontWeight.Normal,
-                            fontFamily = SFProDisplay,
-                            color = LightDarkGray,
-                            modifier = Modifier.padding(start = 8.dp)
-                            )
+                        when(isEventFinished){
+                            true-> {
+                                Text(
+                                    text = stringResource(id = R.string.finished),
+                                    style = DevMeetingAppTheme.typography.metadata2,
+                                    color = DevMeetingAppTheme.colors.lightDarkGray,
+                                    modifier = Modifier.padding(start = 8.dp)
+                                )
+                            }
+                            else -> {}
+                        }
                     }
                     Text(
-                        text = stringResource(id = R.string.event_date_place,eventDate,eventPlace),
-                        fontSize = MaterialTheme.typography.Metadata1.fontSize,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = SFProDisplay,
-                        color = LightDarkGray,
+                        text = stringResource(id = R.string.event_date_place,eventDate,eventCity),
+                        style = DevMeetingAppTheme.typography.metadata1,
+                        color = DevMeetingAppTheme.colors.lightDarkGray,
                         modifier = Modifier.padding(bottom = 2.dp)
                     )
                     LazyRow(
@@ -125,15 +113,13 @@ fun EventCard(
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(40.dp))
-                                    .background(LightPurple)
+                                    .background(DevMeetingAppTheme.colors.lightPurple)
                                     .padding(horizontal = 8.dp, vertical = 2.dp)
                             ) {
                                 Text(
                                     text = item,
-                                    fontSize = MaterialTheme.typography.Metadata2.fontSize,
-                                    fontWeight = FontWeight.SemiBold,
-                                    fontFamily = SFProDisplay,
-                                    color = DarkPurple,
+                                    style = DevMeetingAppTheme.typography.metadata3,
+                                    color = DevMeetingAppTheme.colors.darkPurple,
                                     lineHeight = 16.sp
                                 )
                             }

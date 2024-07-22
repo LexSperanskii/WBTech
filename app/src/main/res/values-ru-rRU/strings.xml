@@ -44,6 +44,9 @@
     <string name="authentication">Authentication</string>
     <string name="verification">Verification</string>
     <string name="search">Search</string>
+    <string name="finished">Завершено</string>
+    <string name="name_surname">%1$s %2$s</string>
+
 
     <plurals name="community_people_count">
         <item quantity="one">%s человек</item>

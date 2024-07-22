@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "SpA_WB_Junior_DevMeetingApp"
 include(":app")
+include(":data")
+include(":domain")

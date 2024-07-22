@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 class CustomRippleTheme(): RippleTheme {
@@ -91,8 +92,7 @@ fun CustomButtonRipple(
                 Text(  //Овальный контур кнопки с текстом
                     text = text,
                     color = contentColor,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
+                    style = DevMeetingAppTheme.typography.subheading2,
                     modifier = modifier
                         .clip(shape)
                         .background(
@@ -169,8 +169,7 @@ fun CustomButtonOutlinedRipple(
                         isPressed -> pressedColor
                         else -> contentColor
                     },
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
+                    style = DevMeetingAppTheme.typography.subheading2,
                     modifier = modifier
                         .clip(shape)
                         .background(containerColor)

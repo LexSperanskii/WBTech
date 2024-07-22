@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,16 +21,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.replaceFirstCharToCapitalCase
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraLightGray
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
 fun CustomTextField(
@@ -48,7 +42,7 @@ fun CustomTextField(
             .fillMaxWidth()
             .height(36.dp)
             .clip(RoundedCornerShape(4.dp))
-            .background(color = ExtraLightGray)
+            .background(color = DevMeetingAppTheme.colors.extraLightGray)
             .onFocusChanged { focusState = it.isFocused }
             .padding(horizontal = 8.dp, vertical = 6.dp),
         value = value,
@@ -62,10 +56,10 @@ fun CustomTextField(
             focusManager.clearFocus()
         }),
         textStyle= TextStyle(
-            color = ExtraDarkPurpleForBottomBar,
-            fontSize = MaterialTheme.typography.BodyText1.fontSize,
-            fontWeight = FontWeight.SemiBold,
-            fontFamily = SFProDisplay,
+            color = DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar,
+            fontSize = DevMeetingAppTheme.typography.bodyText1.fontSize,
+            fontWeight = DevMeetingAppTheme.typography.bodyText1.fontWeight,
+            fontFamily = DevMeetingAppTheme.typography.bodyText1.fontFamily,
             lineHeight = 24.sp
         ),
         decorationBox = { innerTextField ->
@@ -77,10 +71,8 @@ fun CustomTextField(
                     !focusState && value.isEmpty() -> {
                         Text(
                             text = placeholder,
-                            color = GrayForCommunityCard,
-                            fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                            fontWeight = FontWeight.SemiBold,
-                            fontFamily = SFProDisplay,
+                            color = DevMeetingAppTheme.colors.grayForCommunityCard,
+                            style = DevMeetingAppTheme.typography.bodyText1,
                             lineHeight = 24.sp
                         )
                     }
