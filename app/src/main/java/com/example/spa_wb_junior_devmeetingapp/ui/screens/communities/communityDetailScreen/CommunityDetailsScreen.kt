@@ -42,7 +42,7 @@ fun CommunityDetailsScreen(
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = communityDetailScreenUiState.nameOfCommunity,
+                title = communityDetailScreenUiState.communityDetail.name,
                 isAddCapable = false,
                 onClickNavigateBack = {navController.popBackStack()}
             )
@@ -53,8 +53,8 @@ fun CommunityDetailsScreen(
     )
     { innerPadding ->
         CommunityDetailsBody(
-            communityEventsList = communityDetailScreenUiState.communityEventsList ,
-            description = communityDetailScreenUiState.description,
+            communityEventsList = communityDetailScreenUiState.communityDetail.events ,
+            description = communityDetailScreenUiState.communityDetail.description,
             navigateToEventDetailItem = navigateToEventDetailItem,
             modifier = Modifier
                 .padding(innerPadding)

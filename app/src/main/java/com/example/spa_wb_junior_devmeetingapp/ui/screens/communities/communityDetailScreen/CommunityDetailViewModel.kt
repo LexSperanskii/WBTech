@@ -1,7 +1,9 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communityDetailScreen
 
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.CommunityDetail
 import com.example.domain.usecases.communities.GetCommunityDetailUseCase
+import com.example.spa_wb_junior_devmeetingapp.models.CommunityDetailModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,9 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 data class CommunityDetailScreenUiState(
-    val nameOfCommunity: String = "",
-    val description : String = "",
-    val communityEventsList : List<EventModelUI> = listOf()
+    val communityDetail : CommunityDetailModelUI = CommunityDetailModelUI()
 )
 
 class CommunityDetailViewModel(
@@ -28,9 +28,7 @@ class CommunityDetailViewModel(
     init {
         _uiState.update {
             it.copy(
-                nameOfCommunity = getCommunityDetailUseCase.execute().name,
-                description = getCommunityDetailUseCase.execute().description,
-                communityEventsList = getCommunityDetailUseCase.execute().events.map{mapper.mapEventToEventModelUI(it)}
+                communityDetail = mapper.mapCommunityDetailToCommunityDetailModelUI(getCommunityDetailUseCase.execute())
             )
         }
     }

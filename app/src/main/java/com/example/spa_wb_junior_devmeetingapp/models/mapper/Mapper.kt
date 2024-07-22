@@ -21,33 +21,31 @@ import com.example.spa_wb_junior_devmeetingapp.models.UserModelUI
 
 class Mapper {
 
-    fun mapCommunityToCommunityModelUI(community: Community): CommunityModelUI {
-        return CommunityModelUI(
+    fun mapCommunityToCommunityModelUI(community: Community): CommunityModelUI =
+        CommunityModelUI(
             id = community.id,
             name = community.name,
             size = community.size,
             iconURL = community.iconURL,
         )
-    }
 
-    fun mapCommunityDetailToCommunityDetailModelUI(communityDetail: CommunityDetail): CommunityDetailModelUI {
-        return CommunityDetailModelUI(
+    fun mapCommunityDetailToCommunityDetailModelUI(communityDetail: CommunityDetail): CommunityDetailModelUI =
+        CommunityDetailModelUI(
             id = communityDetail.id,
             name = communityDetail.name,
             description = communityDetail.description,
             events = communityDetail.events.map { mapEventToEventModelUI(it) },
         )
-    }
-    fun mapCountryToCountryModelUI(country: Country): CountryModelUI {
-        return CountryModelUI(
+
+    fun mapCountryToCountryModelUI(country: Country): CountryModelUI =
+        CountryModelUI(
             country = country.country,
             code = country.code,
             flag = country.flag,
         )
-    }
 
-    fun mapEventToEventModelUI(event: Event): EventModelUI {
-        return EventModelUI(
+    fun mapEventToEventModelUI(event: Event): EventModelUI =
+        EventModelUI(
             id = event.id,
             name = event.name,
             date = event.date,
@@ -56,10 +54,9 @@ class Mapper {
             iconURL = event.iconURL,
             isFinished = event.isFinished
         )
-    }
 
-    fun mapEventDetailToEventDetailModelUI(eventDetail: EventDetail): EventDetailModelUI {
-        return EventDetailModelUI(
+    fun mapEventDetailToEventDetailModelUI(eventDetail: EventDetail): EventDetailModelUI =
+        EventDetailModelUI(
             id = eventDetail.id,
             name = eventDetail.name,
             date = eventDetail.date,
@@ -71,27 +68,25 @@ class Mapper {
             isFinished = eventDetail.isFinished,
             isUserInParticipants = eventDetail.isUserInParticipants
         )
-    }
 
-    fun mapRegisteredPersonToRegisteredPersonModelUI(registeredPerson: RegisteredPerson): RegisteredPersonModelUI {
-        return RegisteredPersonModelUI(
+    fun mapRegisteredPersonToRegisteredPersonModelUI(registeredPerson: RegisteredPerson): RegisteredPersonModelUI =
+        RegisteredPersonModelUI(
             id = registeredPerson.id,
             iconURL = registeredPerson.iconURL,
         )
-    }
-    fun mapPhoneNumberToPhoneNumberModelUI(phoneNumber: PhoneNumber): PhoneNumberModelUI {
-        return PhoneNumberModelUI(
+
+    fun mapPhoneNumberToPhoneNumberModelUI(phoneNumber: PhoneNumber): PhoneNumberModelUI =
+        PhoneNumberModelUI(
             countryCode = phoneNumber.countryCode,
             number = phoneNumber.number,
         )
-    }
-    fun mapUserToUserModelUI(user: User): UserModelUI {
-        return UserModelUI(
+
+    fun mapUserToUserModelUI(user: User): UserModelUI =
+        UserModelUI(
             id = user.id,
             name = user.name,
             surname = user.surname,
             phoneNumberModelUI = mapPhoneNumberToPhoneNumberModelUI(user.phoneNumber),
             iconURL = user.iconURL
         )
-    }
 }

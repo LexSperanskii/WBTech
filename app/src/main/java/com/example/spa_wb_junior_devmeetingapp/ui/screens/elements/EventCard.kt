@@ -56,7 +56,6 @@ fun EventCard(
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
-//                    .padding(horizontal = 8.dp)
             ){
                 Column(modifier = Modifier.widthIn(68.dp)) {
                     AsyncImage(

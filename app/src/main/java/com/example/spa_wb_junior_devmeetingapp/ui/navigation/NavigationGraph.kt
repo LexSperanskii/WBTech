@@ -33,7 +33,6 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen.SplashScr
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.verificationScreen.VerificationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.verificationScreen.VerificationScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavItem
-import com.google.gson.Gson
 
 
 @Composable
