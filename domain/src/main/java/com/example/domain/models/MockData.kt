@@ -13,10 +13,6 @@ class MockData {
     fun setUserPhoneNumber(code: String, number: String){
         user = user.copy(
             phoneNumber = PhoneNumber(code,number)
-//            phoneNumber = user.phoneNumber.copy(
-//                countryCode = code,
-//                number = number
-//            )
         )
     }
     fun getUserPhoneNumber() : PhoneNumber{

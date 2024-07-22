@@ -161,12 +161,12 @@ fun EventsBody(
             modifier = Modifier
                 .fillMaxSize()
         ) { page ->
-            when (page) {
-                0 -> Events(
+            when (EventsAllTabs.entries[page]) {
+                EventsAllTabs.AllMeetings -> Events(
                     listOfMeetings = listOfMeetingsAll,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
-                1 -> Events(
+                EventsAllTabs.Active -> Events(
                     listOfMeetings = listOfMeetingsActive,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )

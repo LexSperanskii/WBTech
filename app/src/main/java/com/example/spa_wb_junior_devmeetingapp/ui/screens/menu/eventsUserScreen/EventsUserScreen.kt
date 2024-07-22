@@ -32,6 +32,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestinati
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventsAllScreen.Events
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventsAllScreen.EventsAllTabs
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -142,12 +143,12 @@ fun EventsUserBody(
             modifier = Modifier
                 .fillMaxSize()
         ) { page ->
-            when (page) {
-                0 -> Events(
+            when (EventsUserTabs.entries[page]) {
+                EventsUserTabs.Planned -> Events(
                     listOfMeetings = listOfMeetingsScheduled,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
-                1 -> Events(
+                EventsUserTabs.HasPassed -> Events(
                     listOfMeetings = listOfMeetingsPast,
                     onEventItemClick = { navigateToEventDetailItem(it) }
                 )
