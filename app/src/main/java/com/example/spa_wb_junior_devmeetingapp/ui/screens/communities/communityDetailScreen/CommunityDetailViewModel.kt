@@ -3,7 +3,7 @@ package com.example.spa_wb_junior_devmeetingapp.ui.screens.communityDetailScreen
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.MockData
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.Mapper
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

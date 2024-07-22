@@ -2,7 +2,7 @@ package com.example.spa_wb_junior_devmeetingapp.ui.screens.verificationScreen
 
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.MockData
-import com.example.spa_wb_junior_devmeetingapp.models.Mapper
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.Mapper
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PIN_CODE_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
