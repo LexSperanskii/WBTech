@@ -40,7 +40,7 @@ fun PersonAvatar(
 
     Box(modifier = modifier) {
         when (imageURL) {
-            null, "" -> {
+            null -> {
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
