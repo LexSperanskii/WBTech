@@ -16,8 +16,10 @@ data class AuthenticationScreenUiState(
     val country: CountryModelUI = CountryModelUI(),
     val listOfCountries: List<CountryModelUI> = listOf(),
     val number: String = "",
-    val isButtonEnabled: Boolean = false
-)
+){
+    val isButtonEnabled: Boolean
+        get() = number.length == PHONE_NUMBER_LENGTH
+}
 
 class AuthenticationViewModel(
     private val getAvailableCountriesListUseCase: GetAvailableCountriesListUseCase,
@@ -45,7 +47,6 @@ class AuthenticationViewModel(
                 number = number
             )
         }
-        isButtonActive()
     }
 
     fun changeCountryCode(country: CountryModelUI) {
@@ -54,21 +55,10 @@ class AuthenticationViewModel(
                 country = country,
             )
         }
-        isButtonActive()
     }
 
     fun onForwardButtonClick(){
         val state = uiState.value
         setUserPhoneNumberUseCase.execute(state.country.code, state.number)
     }
-
-    private fun isButtonActive(){
-        val number = uiState.value.number
-        _uiState.update {
-            it.copy(
-                isButtonEnabled = number.length == PHONE_NUMBER_LENGTH
-            )
-        }
-    }
-
 }

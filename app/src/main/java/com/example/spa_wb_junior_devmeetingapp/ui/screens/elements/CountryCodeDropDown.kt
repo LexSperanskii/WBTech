@@ -1,13 +1,11 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,35 +45,10 @@ fun CountryCodeDropDown(
         onExpandedChange = {isExpanded = !isExpanded},
         modifier = modifier
     ) {
-        Row(
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .clip(RoundedCornerShape(4.dp))
-                .background(color = DevMeetingAppTheme.colors.extraLightGray)
-                .menuAnchor(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(country.flag)
-                    .crossfade(true)
-                    .build(),
-                contentScale = ContentScale.Crop,
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_img),
-                contentDescription = stringResource(id = R.string.country_code),
-                modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 10.dp)
-                    .size(16.dp)
-                    .clip(RoundedCornerShape(4.dp))
-            )
-            Text(
-                modifier = Modifier.padding(end = 8.dp),
-                text = country.code,
-                color = DevMeetingAppTheme.colors.grayForCommunityCard,
-                style = DevMeetingAppTheme.typography.bodyText1,
-            )
-        }
+        DropdownMenuDefaultItem(
+            country = country,
+            modifier = Modifier.menuAnchor()
+        )
         ExposedDropdownMenu(
             expanded = isExpanded,
             onDismissRequest = { isExpanded = !isExpanded },
@@ -121,5 +94,40 @@ fun CountryCodeDropDown(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun DropdownMenuDefaultItem(
+    country: CountryModelUI,
+    modifier: Modifier = Modifier
+){
+    Row(
+        modifier = modifier
+            .padding(end = 8.dp)
+            .clip(RoundedCornerShape(4.dp))
+            .background(color = DevMeetingAppTheme.colors.extraLightGray),
+        verticalAlignment = Alignment.CenterVertically
+    ){
+        AsyncImage(
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(country.flag)
+                .crossfade(true)
+                .build(),
+            contentScale = ContentScale.Crop,
+            error = painterResource(R.drawable.ic_broken_image),
+            placeholder = painterResource(R.drawable.loading_img),
+            contentDescription = stringResource(id = R.string.country_code),
+            modifier = Modifier
+                .padding(horizontal = 8.dp, vertical = 10.dp)
+                .size(16.dp)
+                .clip(RoundedCornerShape(4.dp))
+        )
+        Text(
+            modifier = Modifier.padding(end = 8.dp),
+            text = country.code,
+            color = DevMeetingAppTheme.colors.grayForCommunityCard,
+            style = DevMeetingAppTheme.typography.bodyText1,
+        )
     }
 }

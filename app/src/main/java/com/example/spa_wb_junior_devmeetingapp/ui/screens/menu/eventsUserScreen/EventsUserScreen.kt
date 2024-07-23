@@ -50,7 +50,7 @@ enum class EventsUserTabs(val text: String){
 @Composable
 fun EventsUserScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (EventModelUI) -> Unit,
+    navigateToEventDetailItem : () -> Unit,
     viewModel: EventsUserViewModel = koinViewModel()
 ) {
 
@@ -89,7 +89,7 @@ fun EventsUserScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventsUserBody(
-    navigateToEventDetailItem : (EventModelUI) -> Unit,
+    navigateToEventDetailItem : () -> Unit,
     listOfMeetingsScheduled: List<EventModelUI>,
     listOfMeetingsPast: List<EventModelUI>,
     modifier: Modifier = Modifier
@@ -146,11 +146,11 @@ fun EventsUserBody(
             when (EventsUserTabs.entries[page]) {
                 EventsUserTabs.Planned -> Events(
                     listOfMeetings = listOfMeetingsScheduled,
-                    onEventItemClick = { navigateToEventDetailItem(it) }
+                    onEventItemClick = navigateToEventDetailItem
                 )
                 EventsUserTabs.HasPassed -> Events(
                     listOfMeetings = listOfMeetingsPast,
-                    onEventItemClick = { navigateToEventDetailItem(it) }
+                    onEventItemClick = navigateToEventDetailItem
                 )
             }
         }

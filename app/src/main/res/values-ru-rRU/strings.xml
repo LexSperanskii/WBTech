@@ -46,6 +46,7 @@
     <string name="search">Search</string>
     <string name="finished">Завершено</string>
     <string name="name_surname">%1$s %2$s</string>
+    <string name="chip">chip</string>
 
 
     <plurals name="community_people_count">

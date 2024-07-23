@@ -31,7 +31,7 @@ object CommunitiesDestination : NavigationDestination {
 @Composable
 fun CommunityScreen(
     navController: NavHostController,
-    navigateToCommunityDetailItem: (CommunityModelUI) -> Unit,
+    navigateToCommunityDetailItem: () -> Unit,
     viewModel: CommunitiesViewModel = koinViewModel()
 ){
 
@@ -54,7 +54,7 @@ fun CommunityScreen(
 
         CommunityBody(
             listOfCommunities = communitiesScreenUiState.listOfCommunities,
-            onCommunityItemClick = { navigateToCommunityDetailItem(it) },
+            onCommunityItemClick = navigateToCommunityDetailItem,
             searchField = communitiesScreenUiState.search,
             onSearchFieldChange = {
                 viewModel.onSearchChange(it)
@@ -75,7 +75,7 @@ fun CommunityScreen(
 @Composable
 fun CommunityBody(
     listOfCommunities: List<CommunityModelUI>,
-    onCommunityItemClick: (CommunityModelUI) -> Unit,
+    onCommunityItemClick: () -> Unit,
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
@@ -99,7 +99,7 @@ fun CommunityBody(
                     communityName = communityModelUI.name,
                     communitySize = communityModelUI.size,
                     communityIconURL = communityModelUI.iconURL,
-                    onCommunityItemClick = { onCommunityItemClick(communityModelUI) }
+                    onCommunityItemClick = onCommunityItemClick
                 )
             }
         }

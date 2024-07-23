@@ -37,6 +37,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigat
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarForEventDetails
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonForEvent
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
@@ -163,33 +164,11 @@ fun EventDetailsBody(
             )
         }
         item {
-            when (isUserInParticipants) {
-                true -> {
-                    CustomButtonOutlined(
-                        text = stringResource(id = R.string.i_will_go_next_time),
-                        onClick = onButtonClick,
-                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
-                        contentColor = DevMeetingAppTheme.colors.purple,
-                        enabled = enabled,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(52.dp)
-                    )
-                }
-
-                else -> {
-                    CustomButton(
-                        text = stringResource(id = R.string.i_will_go_to_the_event),
-                        onClick = onButtonClick,
-                        pressedColor = DevMeetingAppTheme.colors.darkPurple,
-                        containerColor = DevMeetingAppTheme.colors.purple,
-                        enabled = enabled,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(52.dp)
-                    )
-                }
-            }
+            CustomButtonForEvent(
+                isUserInParticipants = isUserInParticipants,
+                enabled = enabled,
+                onButtonClick = onButtonClick
+            )
         }
     }
 }

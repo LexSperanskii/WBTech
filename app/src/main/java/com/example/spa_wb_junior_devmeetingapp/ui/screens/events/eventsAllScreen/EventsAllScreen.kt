@@ -53,7 +53,7 @@ enum class EventsAllTabs(val text: String){
 @Composable
 fun EventsAllScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (EventModelUI) -> Unit,
+    navigateToEventDetailItem : () -> Unit,
     navigateToDeveloperScreen : () -> Unit,
     viewModel: EventsAllViewModel = koinViewModel()
 ) {
@@ -98,7 +98,7 @@ fun EventsAllScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventsBody(
-    navigateToEventDetailItem : (EventModelUI) -> Unit,
+    navigateToEventDetailItem : () -> Unit,
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
@@ -164,11 +164,11 @@ fun EventsBody(
             when (EventsAllTabs.entries[page]) {
                 EventsAllTabs.AllMeetings -> Events(
                     listOfMeetings = listOfMeetingsAll,
-                    onEventItemClick = { navigateToEventDetailItem(it) }
+                    onEventItemClick =  navigateToEventDetailItem
                 )
                 EventsAllTabs.Active -> Events(
                     listOfMeetings = listOfMeetingsActive,
-                    onEventItemClick = { navigateToEventDetailItem(it) }
+                    onEventItemClick = navigateToEventDetailItem
                 )
             }
         }
@@ -178,7 +178,7 @@ fun EventsBody(
 @Composable
 fun Events(
     listOfMeetings : List<EventModelUI>,
-    onEventItemClick : (EventModelUI) -> Unit,
+    onEventItemClick : () -> Unit,
     modifier : Modifier = Modifier
 ){
     LazyColumn(
@@ -193,7 +193,7 @@ fun Events(
                 eventCity = event.city,
                 eventCategories = event.category,
                 eventIconURL = event.iconURL,
-                onEventItemClick  = { onEventItemClick(event) },
+                onEventItemClick  = onEventItemClick,
                 modifier = Modifier
             )
         }

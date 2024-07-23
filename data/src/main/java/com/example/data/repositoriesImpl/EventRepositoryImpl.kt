@@ -5,7 +5,7 @@ import com.example.domain.models.EventDetail
 import com.example.domain.models.MockData
 import com.example.domain.repositories.IEventRepository
 
-class EventRepositoryImpl(private val mock: MockData) : IEventRepository {
+internal class EventRepositoryImpl(private val mock: MockData) : IEventRepository {
     override fun getListOfEvents(): List<Event> {
         return mock.getListOfEvents()
     }

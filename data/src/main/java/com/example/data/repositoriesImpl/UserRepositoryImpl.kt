@@ -5,7 +5,7 @@ import com.example.domain.models.PhoneNumber
 import com.example.domain.models.User
 import com.example.domain.repositories.IUserRepository
 
-class UserRepositoryImpl(private val mock: MockData): IUserRepository {
+internal class UserRepositoryImpl(private val mock: MockData): IUserRepository {
 
     override fun setUserPhoneNumber(code: String, number: String) {
         mock.setUserPhoneNumber(code,number)

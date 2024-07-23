@@ -68,38 +68,49 @@ fun BottomNavigationBar(navController: NavController) {
                     }
                 },
                 icon = {
-                    when(isSelected){
-                        true -> {
-                            Column(
-                                verticalArrangement = Arrangement.spacedBy(4.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Text(
-                                    text = stringResource(id = bottomBarItem.title ),
-                                    style = DevMeetingAppTheme.typography.bodyText1,
-                                    color = DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar
-                                )
-                                Box(
-                                    modifier = Modifier
-                                        .size(4.dp)
-                                        .clip(CircleShape)
-                                        .background(DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar)
-                                )
-                            }
-                        }
-                        false -> {
-                            Icon(
-                                painter = painterResource(id = bottomBarItem.icon),
-                                contentDescription = stringResource(id = bottomBarItem.title ),
-                                tint = DevMeetingAppTheme.colors.deepBlueForBottomBar,
-                                modifier = Modifier
-                            )
-                        }
-                    }
+                    NameAndDotBottomNavBarIcon(
+                        isSelected = isSelected,
+                        bottomBarItem = bottomBarItem
+                    )
                 },
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = Color.Transparent
                 ),
+            )
+        }
+    }
+}
+
+@Composable
+fun NameAndDotBottomNavBarIcon(
+    isSelected : Boolean,
+    bottomBarItem: BottomNavItem
+){
+    when(isSelected){
+        true -> {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(id = bottomBarItem.title ),
+                    style = DevMeetingAppTheme.typography.bodyText1,
+                    color = DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar
+                )
+                Box(
+                    modifier = Modifier
+                        .size(4.dp)
+                        .clip(CircleShape)
+                        .background(DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar)
+                )
+            }
+        }
+        else -> {
+            Icon(
+                painter = painterResource(id = bottomBarItem.icon),
+                contentDescription = stringResource(id = bottomBarItem.title ),
+                tint = DevMeetingAppTheme.colors.deepBlueForBottomBar,
+                modifier = Modifier
             )
         }
     }

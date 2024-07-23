@@ -33,7 +33,7 @@ object CommunityDetailsDestination : NavigationDestination {
 @Composable
 fun CommunityDetailsScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : (EventModelUI) -> Unit,
+    navigateToEventDetailItem : () -> Unit,
     viewModel: CommunityDetailViewModel = koinViewModel()
 ) {
 
@@ -68,7 +68,7 @@ fun CommunityDetailsScreen(
 
 @Composable
 fun CommunityDetailsBody(
-    navigateToEventDetailItem : (EventModelUI) -> Unit,
+    navigateToEventDetailItem : () -> Unit,
     description: String,
     communityEventsList : List<EventModelUI>,
     modifier: Modifier = Modifier
@@ -103,7 +103,7 @@ fun CommunityDetailsBody(
                 eventCity = event.city,
                 eventCategories = event.category,
                 eventIconURL = event.iconURL,
-                onEventItemClick  = { navigateToEventDetailItem(event) },
+                onEventItemClick  = navigateToEventDetailItem,
                 modifier = Modifier
             )
         }

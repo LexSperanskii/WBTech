@@ -14,7 +14,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
@@ -29,15 +31,12 @@ fun CustomFilterChip(text : String) {
         shape = RoundedCornerShape(40.dp),
         selected = selected,
         leadingIcon = {
-            when (selected) {
-                true -> Icon(
+            selected.takeIf { it }?.let { // Используем takeIf для проверки selected
+                Icon(
                     imageVector = Icons.Filled.Done,
-                    contentDescription = "Done icon",
+                    contentDescription = stringResource(id = R.string.chip),
                     modifier = Modifier.size(FilterChipDefaults.IconSize)
                 )
-                false -> {
-                    null
-                }
             }
         },
         colors = FilterChipDefaults.filterChipColors(
