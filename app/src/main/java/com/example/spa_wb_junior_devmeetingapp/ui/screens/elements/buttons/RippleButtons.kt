@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 class CustomRippleTheme(): RippleTheme {
@@ -48,13 +49,13 @@ class CustomRippleTheme(): RippleTheme {
 
 @Composable
 fun CustomButtonRipple(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     containerColor: Color,
     contentColor: Color,
     pressedColor: Color,
     rippleColor: Color,
+    onClick: () -> Unit,
     text: String = "Button",
+    modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(30.dp),
     rippleSize: Dp = 8.dp,
     enabled:Boolean = true,
@@ -91,15 +92,22 @@ fun CustomButtonRipple(
                 Text(  //Овальный контур кнопки с текстом
                     text = text,
                     color = contentColor,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
+                    style = DevMeetingAppTheme.typography.subheading2,
                     modifier = modifier
                         .clip(shape)
                         .background(
                             when {
-                                !enabled -> containerColor.copy(alpha = 0.5f)
-                                isPressed -> pressedColor
-                                else -> containerColor
+                                !enabled -> {
+                                    containerColor.copy(alpha = 0.5f)
+                                }
+
+                                isPressed -> {
+                                    pressedColor
+                                }
+
+                                else -> {
+                                    containerColor
+                                }
                             }
                         )
                         .padding(
@@ -114,13 +122,13 @@ fun CustomButtonRipple(
 
 @Composable
 fun CustomButtonOutlinedRipple(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     contentColor: Color,
     pressedColor: Color,
     rippleColor: Color,
-    containerColor: Color = Color.Transparent,
+    onClick: () -> Unit,
     text: String = "Button",
+    modifier: Modifier = Modifier,
+    containerColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(30.dp),
     rippleSize: Dp = 8.dp,
     enabled: Boolean = true,
@@ -161,8 +169,7 @@ fun CustomButtonOutlinedRipple(
                         isPressed -> pressedColor
                         else -> contentColor
                     },
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
+                    style = DevMeetingAppTheme.typography.subheading2,
                     modifier = modifier
                         .clip(shape)
                         .background(containerColor)
@@ -171,9 +178,15 @@ fun CustomButtonOutlinedRipple(
                                 BorderStroke(
                                     width = 2.dp,
                                     color = when {
-                                        !enabled -> contentColor.copy(alpha = 0.5f)
-                                        isPressed -> pressedColor
-                                        else -> contentColor
+                                        !enabled -> {
+                                            contentColor.copy(alpha = 0.5f)
+                                        }
+                                        isPressed -> {
+                                            pressedColor
+                                        }
+                                        else -> {
+                                            contentColor
+                                        }
                                     }
                                 ), shape
                             )

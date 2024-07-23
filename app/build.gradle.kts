@@ -50,6 +50,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -70,10 +72,11 @@ dependencies {
     //Navigation
     implementation (libs.androidx.navigation.compose)
     //  Coil for image loading
-    implementation("io.coil-kt:coil-compose:2.6.0")
-    //для сериализации чтобы передать объект из одного экрана в другой
-    implementation ("com.google.code.gson:gson:2.10.1")
-
+    implementation(libs.coil.compose)
     //For Lottie Splash Screen + maven in settings.gradle.ktx
     implementation(libs.dotlottie.android)
+    //For DI KOIN
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 }

@@ -12,33 +12,28 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.ExtraDarkPurpleForBottomBar
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Heading1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightGray
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
-
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PIN_CODE_LENGTH
 
 
 @Composable
 fun PinCodeInput(
     value: String,
-    onValueChange :  (String) -> Unit,
-    onDoneKeyboardPressed :  () -> Unit,
-    numberOfDigits : Int = 4,
-    modifier : Modifier = Modifier
-){
+    onValueChange: (String) -> Unit,
+    onDoneKeyboardPressed: () -> Unit,
+    modifier: Modifier = Modifier,
+    numberOfDigits: Int = PIN_CODE_LENGTH
+) {
     val focusManager = LocalFocusManager.current
 
     BasicTextField(
@@ -66,10 +61,8 @@ fun PinCodeInput(
                     when (index in value.indices) {
                         true -> Text(
                             text = value[index].toString(),
-                            color = ExtraDarkPurpleForBottomBar,
-                            fontSize = MaterialTheme.typography.Heading1.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = SFProDisplay,
+                            color = DevMeetingAppTheme.colors.extraDarkPurpleForBottomBar,
+                            style = DevMeetingAppTheme.typography.heading1,
                             modifier = Modifier.width(32.dp)
                         )
                         else -> Box(
@@ -77,7 +70,7 @@ fun PinCodeInput(
                                 .padding(horizontal = 4.dp)
                                 .size(24.dp)
                                 .clip(CircleShape)
-                                .background(LightGray)
+                                .background(DevMeetingAppTheme.colors.lightGray)
                         )
                     }
                 }

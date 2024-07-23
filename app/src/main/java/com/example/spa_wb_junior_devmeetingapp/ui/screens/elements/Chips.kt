@@ -14,9 +14,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.DarkPurple
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.LightPurple
+import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
 fun CustomFilterChip(text : String) {
@@ -30,21 +31,20 @@ fun CustomFilterChip(text : String) {
         shape = RoundedCornerShape(40.dp),
         selected = selected,
         leadingIcon = {
-            when (selected) {
-                true -> Icon(
+            selected.takeIf { it }?.let { // Используем takeIf для проверки selected
+                Icon(
                     imageVector = Icons.Filled.Done,
-                    contentDescription = "Done icon",
+                    contentDescription = stringResource(id = R.string.chip),
                     modifier = Modifier.size(FilterChipDefaults.IconSize)
                 )
-                false -> null
             }
         },
         colors = FilterChipDefaults.filterChipColors(
-            containerColor = LightPurple,
-            labelColor = DarkPurple,
-            selectedContainerColor = LightPurple,
-            selectedLabelColor = DarkPurple,
-            selectedLeadingIconColor = DarkPurple
+            containerColor = DevMeetingAppTheme.colors.lightPurple,
+            labelColor = DevMeetingAppTheme.colors.darkPurple,
+            selectedContainerColor = DevMeetingAppTheme.colors.lightPurple,
+            selectedLabelColor = DevMeetingAppTheme.colors.darkPurple,
+            selectedLeadingIconColor = DevMeetingAppTheme.colors.darkPurple
             ),
         border = null
     )

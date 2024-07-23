@@ -12,7 +12,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,39 +21,24 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.os.LocaleListCompat
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.BodyText1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.DividerColor
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.GrayForCommunityCard
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.Metadata1
-import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
+import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
+import java.util.Locale
 
 @Composable
 fun CommunityCard(
     communityName: String,
     communitySize: Int,
     communityIconURL: String,
-    onCommunityItemClick : () -> Unit,
-    dividerColor: Color = DividerColor,
-    dividerThickness: Dp = DividerDefaults.Thickness,
-    modifier: Modifier = Modifier
+    onCommunityItemClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    dividerColor: Color = DevMeetingAppTheme.colors.dividerColor,
+    dividerThickness: Dp = DividerDefaults.Thickness
 ) {
-
-    // Устанавливаем пробел как разделитель тысяч
-    val formattedCommunitySize = DecimalFormat("#,###", DecimalFormatSymbols(
-        LocaleListCompat.getDefault().get(0)
-    ).apply{
-        groupingSeparator = ' '
-    }).format(communitySize)
-
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
@@ -85,21 +69,17 @@ fun CommunityCard(
                 Column {
                     Text(
                         text = communityName,
-                        fontSize = MaterialTheme.typography.BodyText1.fontSize,
-                        fontWeight = FontWeight.SemiBold,
-                        fontFamily = SFProDisplay,
+                        style = DevMeetingAppTheme.typography.bodyText1,
                         modifier = Modifier.padding(bottom = 2.dp)
                     )
                     Text(
                         text = LocalContext.current.resources.getQuantityString  (
                             R.plurals.community_people_count,
                             communitySize,
-                            formattedCommunitySize
+                            String.format(Locale.getDefault(), "%,d", communitySize)
                         ),
-                        fontSize = MaterialTheme.typography.Metadata1.fontSize,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = SFProDisplay,
-                        color = GrayForCommunityCard,
+                        style = DevMeetingAppTheme.typography.metadata1,
+                        color = DevMeetingAppTheme.colors.grayForCommunityCard,
                         modifier = Modifier
                     )
                 }
