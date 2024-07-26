@@ -1,14 +1,19 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventsAllScreen
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.events.GetAllEventsActiveUseCase
 import com.example.domain.usecases.events.GetAllEventsUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCommunityDetailModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.toEventModelUI
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_COMMUNITY_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 data class EventsAllScreenUiState(
     val listOfMeetingsAll : List<EventModelUI> = listOf(),
@@ -27,11 +32,28 @@ class EventsAllViewModel(
     fun getEventsAllScreenUiStateFlow(): StateFlow<EventsAllScreenUiState> = uiState
 
     init {
-        _uiState.update { it ->
-            it.copy(
-                listOfMeetingsAll = getAllEventsUseCase.execute().map { it.toEventModelUI() },
-                listOfMeetingsActive = getAllEventsActiveUseCase.execute().map { it.toEventModelUI() }
-            )
+        getAllEvents()
+    }
+
+    private fun getAllEvents() {
+        viewModelScope.launch {
+            getAllEventsUseCase.execute()
+                .collect { events ->
+                    _uiState.update {
+                        it.copy(
+                            listOfMeetingsAll = events.map { it.toEventModelUI() }
+                        )
+                    }
+                }
+
+            getAllEventsActiveUseCase.execute()
+                .collect{ events ->
+                    _uiState.update {
+                        it.copy(
+                            listOfMeetingsActive = events.map { it.toEventModelUI() }
+                        )
+                    }
+                }
         }
     }
 

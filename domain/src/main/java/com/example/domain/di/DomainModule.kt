@@ -16,8 +16,6 @@ import com.example.domain.usecases.events.GetMyEventsPastListInteractor
 import com.example.domain.usecases.events.GetMyEventsPastListUseCase
 import com.example.domain.usecases.user.GetAvailableCountriesListInteractor
 import com.example.domain.usecases.user.GetAvailableCountriesListUseCase
-import com.example.domain.usecases.user.GetAvailableCountyInteractor
-import com.example.domain.usecases.user.GetAvailableCountyUseCase
 import com.example.domain.usecases.user.GetUserAvatarInteractor
 import com.example.domain.usecases.user.GetUserAvatarUseCase
 import com.example.domain.usecases.user.GetUserInteractor
@@ -38,9 +36,6 @@ val domainModule = module {
 
     single<GetAvailableCountriesListUseCase> {
         GetAvailableCountriesListInteractor(countriesRepository = get())
-    }
-    single<GetAvailableCountyUseCase> {
-        GetAvailableCountyInteractor(countriesRepository = get())
     }
     single<SetUserPhoneNumberUseCase> {
         SetUserPhoneNumberInteractor(userRepository = get())

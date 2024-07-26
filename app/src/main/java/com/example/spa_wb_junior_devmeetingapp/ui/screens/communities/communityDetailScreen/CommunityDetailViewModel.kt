@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.communities.GetCommunityDetailUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.CommunityDetailModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCommunityDetailModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCommunityModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_COMMUNITY_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +29,7 @@ class CommunityDetailViewModel(
         getCommunityDetail()
     }
 
-    fun getCommunityDetail() {
+    private fun getCommunityDetail() {
         viewModelScope.launch {
             getCommunityDetailUseCase.execute(DEFAULT_COMMUNITY_ID)
                 .collect { community ->

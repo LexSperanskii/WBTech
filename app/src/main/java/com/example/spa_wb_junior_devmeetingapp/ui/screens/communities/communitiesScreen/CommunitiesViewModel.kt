@@ -29,7 +29,7 @@ class CommunitiesViewModel(
         getCommunitiesList()
     }
 
-    fun getCommunitiesList(){
+    private fun getCommunitiesList(){
         viewModelScope.launch {
             getCommunitiesListUseCase.execute()
                 .collect { communities ->

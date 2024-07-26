@@ -19,7 +19,6 @@ val appModule = module {
     viewModel<AuthenticationViewModel> {
         AuthenticationViewModel(
             getAvailableCountriesListUseCase = get(),
-            getAvailableCountyUseCase = get(),
             setUserPhoneNumberUseCase = get()
         )
     }
