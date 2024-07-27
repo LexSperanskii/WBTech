@@ -10,7 +10,7 @@ interface IUserRepository {
 
     suspend fun getUserPhoneNumber() : PhoneNumber
 
-    suspend fun pinCodeVerification(pinCode: Int) : Boolean
+    suspend fun pinCodeVerification(pinCode: String) : Boolean
 
     suspend fun getUserAvatar(): String
 

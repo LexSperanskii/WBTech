@@ -56,7 +56,7 @@ class VerificationViewModel(
     fun onDoneKeyboardPressed(navigate: () -> Unit) {
         val pinCode = _uiState.value.pinCode
         viewModelScope.launch {
-            val isPinCodeValid = pinCodeVerificationUseCase.execute(pinCode.toInt())
+            val isPinCodeValid = pinCodeVerificationUseCase.execute(pinCode)
             when(isPinCodeValid){
                 true -> {
                     navigate()

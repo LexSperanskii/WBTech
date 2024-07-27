@@ -14,10 +14,6 @@ class TestUserRepository : IUserRepository {
         return PhoneNumber("+7", "0000000000")
     }
 
-    override suspend fun pinCodeVerification(pinCode: Int): Boolean {
-        return true
-    }
-
     override suspend fun getUserAvatar(): String {
         return "sdfsdfsdfsdfsdfsdf"
     }
@@ -37,7 +33,9 @@ class TestUserRepository : IUserRepository {
     }
 
 
-
+    override suspend fun pinCodeVerification(pinCode: String): Boolean {
+        TODO("Not yet implemented")
+    }
     override suspend fun setUserPhoneNumber(code: String, number: String) {
         TODO("Not yet implemented")
     }

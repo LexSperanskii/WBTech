@@ -9,9 +9,9 @@ class MockData {
         phoneNumber = PhoneNumber("",""),
         iconURL = null
     )
-    private val pinCode = 5555
+    private val pinCode = "5555"
 
-    fun pinCodeVerification(pin: Int): Boolean {
+    fun pinCodeVerification(pin: String): Boolean {
         return when (pin) {
             pinCode -> {
                 true

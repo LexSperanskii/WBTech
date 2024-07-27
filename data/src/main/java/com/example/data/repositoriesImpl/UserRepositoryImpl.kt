@@ -19,7 +19,7 @@ internal class UserRepositoryImpl(private val mock: MockData): IUserRepository {
         return mock.getUserPhoneNumber()
     }
 
-    override suspend fun pinCodeVerification(pinCode: Int) : Boolean {
+    override suspend fun pinCodeVerification(pinCode: String) : Boolean {
         return mock.pinCodeVerification(pinCode)
     }
 
