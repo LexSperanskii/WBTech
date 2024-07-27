@@ -9,6 +9,7 @@ object UiUtils {
     const val EMPTY_STRING = ""
     const val DEFAULT_OVERLAPPING_PERCENTAGE = 0.20f
     const val DEFAULT_OVERLAPPING_PEOPLE_COUNT = 5
+    const val DEFAULT_OVERLAPPING_SCALE = 0.48f
     const val SPLASH_SCREEN_DURATION = 3000L
     const val DEFAULT_COMMUNITY_ID = 0
     const val DEFAULT_EVENT_ID = 0

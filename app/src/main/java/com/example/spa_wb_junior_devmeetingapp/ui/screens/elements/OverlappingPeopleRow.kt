@@ -24,6 +24,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -32,6 +33,7 @@ import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_PEOPLE_COUNT
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_PERCENTAGE
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_SCALE
 
 @Composable
 fun OverlappingPeopleRow(
@@ -53,7 +55,10 @@ fun OverlappingPeopleRow(
                     modifier = Modifier.padding(4.dp)
                 ) {
                     participantsList.forEach { participant ->
-                        ParticipantIcon(participant)
+                        ParticipantIcon(
+                            size = 48.dp,
+                            participant = participant
+                        )
                     }
                 }
             }
@@ -67,7 +72,10 @@ fun OverlappingPeopleRow(
                         overlappingPercentage = overlappingPercentage
                     ) {
                         participantsList.take(accountsInOverlappingRow).forEach { participant ->
-                            ParticipantIcon(participant)
+                            ParticipantIcon(
+                                size = 48.dp,
+                                participant = participant
+                            )
                         }
                     }
                     Text(
@@ -82,12 +90,16 @@ fun OverlappingPeopleRow(
 }
 
 @Composable
-fun ParticipantIcon(participant: RegisteredPersonModelUI){
+fun ParticipantIcon(
+    size: Dp,
+    participant: RegisteredPersonModelUI
+){
+    val iconScale = size.value/ 100
     when (participant.iconURL){
         null ->{
             Box(
                 modifier = Modifier
-                    .size(48.dp)
+                    .size(size)
                     .clip(RoundedCornerShape(16.dp))
                     .border(2.dp, DevMeetingAppTheme.colors.purpleForGroupedPeople, RoundedCornerShape(16.dp))
                     .background(DevMeetingAppTheme.colors.extraLightGray)
@@ -97,7 +109,7 @@ fun ParticipantIcon(participant: RegisteredPersonModelUI){
                     contentDescription = stringResource(R.string.profile_icon_in_row),
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .scale(0.48f)
+                        .scale(iconScale)
                 )
             }
         }
@@ -112,7 +124,7 @@ fun ParticipantIcon(participant: RegisteredPersonModelUI){
                 placeholder = painterResource(R.drawable.loading_img),
                 contentDescription = stringResource(R.string.profile_icon_in_row),
                 modifier = Modifier
-                    .size(48.dp)
+                    .size(size)
                     .clip(RoundedCornerShape(16.dp))
                     .border(2.dp, DevMeetingAppTheme.colors.purpleForGroupedPeople, RoundedCornerShape(16.dp)),
             )
