@@ -63,11 +63,15 @@ fun EventDetail.toEventDetailModelUI(): EventDetailModelUI =
         description = this.description,
         listOfParticipants = this.listOfParticipants.map { it.toRegisteredPersonModelUI() },
         isFinished = this.isFinished,
-        isUserInParticipants = this.isUserInParticipants
     )
 
 fun RegisteredPerson.toRegisteredPersonModelUI(): RegisteredPersonModelUI =
     RegisteredPersonModelUI(
+        id = this.id,
+        iconURL = this.iconURL,
+    )
+fun RegisteredPersonModelUI.toRegisteredPerson(): RegisteredPerson =
+    RegisteredPerson(
         id = this.id,
         iconURL = this.iconURL,
     )

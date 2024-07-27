@@ -6,6 +6,7 @@ import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 object UiUtils {
     const val PHONE_NUMBER_LENGTH = 10
     const val PIN_CODE_LENGTH = 4
+    const val EMPTY_STRING = ""
     const val DEFAULT_OVERLAPPING_PERCENTAGE = 0.20f
     const val DEFAULT_OVERLAPPING_PEOPLE_COUNT = 5
     const val SPLASH_SCREEN_DURATION = 3000L

@@ -4,12 +4,12 @@ import com.example.domain.repositories.IUserRepository
 
 
 interface SetUserPhoneNumberUseCase {
-    fun execute(code: String, number: String)
+    suspend fun execute(code: String, number: String)
 }
 
 internal class SetUserPhoneNumberInteractor(private val userRepository: IUserRepository) : SetUserPhoneNumberUseCase {
 
-    override fun execute(code: String, number: String) {
+    override suspend fun execute(code: String, number: String) {
         userRepository.setUserPhoneNumber(code,number)
     }
 }

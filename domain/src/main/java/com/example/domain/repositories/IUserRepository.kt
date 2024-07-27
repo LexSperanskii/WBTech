@@ -2,15 +2,20 @@ package com.example.domain.repositories
 
 import com.example.domain.models.PhoneNumber
 import com.example.domain.models.User
+import kotlinx.coroutines.flow.Flow
 
 interface IUserRepository {
 
-    fun setUserPhoneNumber(code: String, number: String)
+    suspend fun setUserPhoneNumber(code: String, number: String)
 
-    fun getUserAvatar(): String
-    fun setUserName(name: String)
-    fun setUserSurname(surname: String)
-    fun setUserAvatar(avatarURL: String?)
-    fun getUserPhoneNumber() : PhoneNumber
-    fun getUser(): User
+    suspend fun getUserPhoneNumber() : PhoneNumber
+
+    suspend fun pinCodeVerification(pinCode: Int) : Boolean
+
+    suspend fun getUserAvatar(): String
+
+    suspend fun setUser(name: String,surname: String,avatarURL: String?)
+
+    fun getUser(): Flow<User>
+
 }

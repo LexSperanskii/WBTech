@@ -25,16 +25,15 @@ val appModule = module {
 
     viewModel<VerificationViewModel> {
         VerificationViewModel(
-            getUserPhoneNumberUseCase = get()
+            getUserPhoneNumberUseCase = get(),
+            pinCodeVerificationUseCase = get()
         )
     }
 
     viewModel<RegistrationProfileViewModel> {
         RegistrationProfileViewModel(
             getUserAvatarUseCase = get(),
-            setUserNameUseCase = get(),
-            setUserSurnameUseCase = get(),
-            setUserAvatarUseCase = get()
+            setUserUseCase = get()
         )
     }
 
@@ -54,7 +53,10 @@ val appModule = module {
 
     viewModel<EventDetailViewModel> {
         EventDetailViewModel(
-            getEventDetailsUseCase = get()
+            getEventDetailsUseCase = get(),
+            addUserAsParticipantUseCase = get(),
+            removeUserAsParticipantUseCase = get(),
+            getUserUseCase = get(),
         )
     }
 

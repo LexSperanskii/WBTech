@@ -68,6 +68,8 @@ class AuthenticationViewModel(
 
     fun onForwardButtonClick(){
         val state = uiState.value
-        setUserPhoneNumberUseCase.execute(state.country.code, state.number)
+        viewModelScope.launch {
+            setUserPhoneNumberUseCase.execute(state.country.code, state.number)
+        }
     }
 }
