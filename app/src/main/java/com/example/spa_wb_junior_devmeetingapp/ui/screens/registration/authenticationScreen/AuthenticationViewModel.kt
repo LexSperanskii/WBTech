@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class AuthenticationScreenUiState(
+internal data class AuthenticationScreenUiState(
     val country: CountryModelUI = CountryModelUI(),
     val listOfCountries: List<CountryModelUI> = listOf(),
     val number: String = "",
@@ -24,7 +24,7 @@ data class AuthenticationScreenUiState(
         get() = number.length == PHONE_NUMBER_LENGTH
 }
 
-class AuthenticationViewModel(
+internal class AuthenticationViewModel(
     private val getAvailableCountriesListUseCase: GetAvailableCountriesListUseCase,
     private val setUserPhoneNumberUseCase: SetUserPhoneNumberUseCase,
 ) : ViewModel() {

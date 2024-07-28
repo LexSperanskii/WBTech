@@ -23,13 +23,13 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.Custo
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-object RegistrationProfileDestination : NavigationDestination {
+internal object RegistrationProfileDestination : NavigationDestination {
     override val route = "registration_profile"
     override val title = R.string.profile
 }
 
 @Composable
-fun RegistrationProfileScreen(
+internal fun RegistrationProfileScreen(
     onClickNavigateBack: () -> Unit,
     navigateToEventsAllScreen: () -> Unit,
     viewModel: RegistrationProfileViewModel = koinViewModel()
@@ -69,7 +69,7 @@ fun RegistrationProfileScreen(
 }
 
 @Composable
-fun RegistrationProfileScreenBody(
+internal fun RegistrationProfileScreenBody(
     name: String,
     onNameChange: (String) -> Unit,
     surname: String,

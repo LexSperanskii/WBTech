@@ -14,12 +14,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class CommunitiesScreenUiState(
+internal data class CommunitiesScreenUiState(
     val search: String = EMPTY_STRING,
     val listOfCommunities: List<CommunityModelUI> = listOf()
 )
 
-class CommunitiesViewModel(
+internal class CommunitiesViewModel(
     private val getCommunitiesListUseCase: GetCommunitiesListUseCase,
 ) : ViewModel() {
 

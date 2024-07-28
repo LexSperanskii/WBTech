@@ -41,18 +41,18 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
-object EventsAllDestination : NavigationDestination {
+internal object EventsAllDestination : NavigationDestination {
     override val route = "events_all"
     override val title = R.string.events_all
 }
 
-enum class EventsAllTabs(val text: String){
+internal enum class EventsAllTabs(val text: String){
     AllMeetings(text = "ВСЕ ВСТРЕЧИ"),
     Active(text = "АКТИВНЫЕ")
 }
 
 @Composable
-fun EventsAllScreen(
+internal fun EventsAllScreen(
     navController: NavHostController,
     navigateToEventDetailItem : () -> Unit,
     navigateToDeveloperScreen : () -> Unit,
@@ -98,7 +98,7 @@ fun EventsAllScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun EventsBody(
+internal fun EventsBody(
     navigateToEventDetailItem : () -> Unit,
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
@@ -177,7 +177,7 @@ fun EventsBody(
 }
 
 @Composable
-fun Events(
+internal fun Events(
     listOfMeetings : List<EventModelUI>,
     onEventItemClick : () -> Unit,
     modifier : Modifier = Modifier

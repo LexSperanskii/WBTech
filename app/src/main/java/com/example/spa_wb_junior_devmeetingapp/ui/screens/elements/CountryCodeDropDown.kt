@@ -32,7 +32,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CountryCodeDropDown(
+internal fun CountryCodeDropDown(
     country: CountryModelUI,
     listOfCountries : List<CountryModelUI>,
     onDropdownMenuItemClick: (CountryModelUI)->Unit,
@@ -98,7 +98,7 @@ fun CountryCodeDropDown(
 }
 
 @Composable
-fun DropdownMenuDefaultItem(
+internal fun DropdownMenuDefaultItem(
     country: CountryModelUI,
     modifier: Modifier = Modifier
 ){

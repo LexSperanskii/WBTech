@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class EventDetailScreenUiState(
+internal data class EventDetailScreenUiState(
     val event: EventDetailModelUI = EventDetailModelUI(),
     val userAsRegisteredPerson: RegisteredPersonModelUI = RegisteredPersonModelUI()
 ) {
@@ -29,7 +29,7 @@ data class EventDetailScreenUiState(
         get() = event.listOfParticipants.contains(userAsRegisteredPerson)
 }
 
-class EventDetailViewModel(
+internal class EventDetailViewModel(
     private val getEventDetailsUseCase: GetEventDetailsUseCase,
     private val addUserAsParticipantUseCase: AddUserAsParticipantUseCase,
     private val removeUserAsParticipantUseCase: RemoveUserAsParticipantUseCase,

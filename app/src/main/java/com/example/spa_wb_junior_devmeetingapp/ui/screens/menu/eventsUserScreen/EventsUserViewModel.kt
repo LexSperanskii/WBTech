@@ -14,12 +14,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class EventsUserScreenUiState(
+internal data class EventsUserScreenUiState(
     val listOfMeetingsScheduled: List<EventModelUI> = listOf(),
     val listOfMeetingsPast: List<EventModelUI> = listOf(),
 )
 
-class EventsUserViewModel(
+internal class EventsUserViewModel(
     private val getMyEventsListUseCase: GetMyEventsListUseCase,
     private val getMyEventsPastListUseCase: GetMyEventsPastListUseCase,
 ) : ViewModel() {

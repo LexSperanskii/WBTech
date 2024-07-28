@@ -18,7 +18,8 @@ import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.UserModelUI
 
-fun Community.toCommunityModelUI(): CommunityModelUI =
+
+internal fun Community.toCommunityModelUI(): CommunityModelUI =
     CommunityModelUI(
         id = this.id,
         name = this.name,
@@ -26,7 +27,7 @@ fun Community.toCommunityModelUI(): CommunityModelUI =
         iconURL = this.iconURL,
     )
 
-fun CommunityDetail.toCommunityDetailModelUI(): CommunityDetailModelUI =
+internal fun CommunityDetail.toCommunityDetailModelUI(): CommunityDetailModelUI =
     CommunityDetailModelUI(
         id = this.id,
         name = this.name,
@@ -34,14 +35,14 @@ fun CommunityDetail.toCommunityDetailModelUI(): CommunityDetailModelUI =
         events = this.events.map { it.toEventModelUI() },
     )
 
-fun Country.toCountryModelUI(): CountryModelUI =
+internal fun Country.toCountryModelUI(): CountryModelUI =
     CountryModelUI(
         country = this.country,
         code = this.code,
         flag = this.flag,
     )
 
-fun Event.toEventModelUI(): EventModelUI =
+internal fun Event.toEventModelUI(): EventModelUI =
     EventModelUI(
         id = this.id,
         name = this.name,
@@ -52,7 +53,7 @@ fun Event.toEventModelUI(): EventModelUI =
         isFinished = this.isFinished
     )
 
-fun EventDetail.toEventDetailModelUI(): EventDetailModelUI =
+internal fun EventDetail.toEventDetailModelUI(): EventDetailModelUI =
     EventDetailModelUI(
         id = this.id,
         name = this.name,
@@ -65,24 +66,24 @@ fun EventDetail.toEventDetailModelUI(): EventDetailModelUI =
         isFinished = this.isFinished,
     )
 
-fun RegisteredPerson.toRegisteredPersonModelUI(): RegisteredPersonModelUI =
+internal fun RegisteredPerson.toRegisteredPersonModelUI(): RegisteredPersonModelUI =
     RegisteredPersonModelUI(
         id = this.id,
         iconURL = this.iconURL,
     )
-fun RegisteredPersonModelUI.toRegisteredPerson(): RegisteredPerson =
+internal fun RegisteredPersonModelUI.toRegisteredPerson(): RegisteredPerson =
     RegisteredPerson(
         id = this.id,
         iconURL = this.iconURL,
     )
 
-fun PhoneNumber.toPhoneNumberModelUI(): PhoneNumberModelUI =
+internal fun PhoneNumber.toPhoneNumberModelUI(): PhoneNumberModelUI =
     PhoneNumberModelUI(
         countryCode = this.countryCode,
         number = this.number,
     )
 
-fun User.toUserModelUI(): UserModelUI =
+internal fun User.toUserModelUI(): UserModelUI =
     UserModelUI(
         id = this.id,
         name = this.name,

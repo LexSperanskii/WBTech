@@ -15,11 +15,11 @@ enum class SplashScreenStatus {
     Finished
 }
 
-data class SplashScreenUiState(
+internal data class SplashScreenUiState(
     val status: SplashScreenStatus = SplashScreenStatus.Loading
 )
 
-class SplashScreenViewModel() : ViewModel() {
+internal class SplashScreenViewModel() : ViewModel() {
 
     private val _uiState = MutableStateFlow(SplashScreenUiState())
     private val uiState: StateFlow<SplashScreenUiState> = _uiState.asStateFlow()

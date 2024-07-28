@@ -27,7 +27,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PIN_CODE_LENGTH
 
 
 @Composable
-fun PinCodeInput(
+internal fun PinCodeInput(
     value: String,
     onValueChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,

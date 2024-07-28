@@ -38,18 +38,18 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
-object EventsUserDestination : NavigationDestination {
+internal object EventsUserDestination : NavigationDestination {
     override val route = "events_user"
     override val title = R.string.events_user
 }
 
-enum class EventsUserTabs(val text: String){
+internal enum class EventsUserTabs(val text: String){
     Planned(text = "ЗАПЛАНИРОВАНО"),
     HasPassed(text = "УЖЕ ПРОШЛИ")
 }
 
 @Composable
-fun EventsUserScreen(
+internal fun EventsUserScreen(
     navController: NavHostController,
     navigateToEventDetailItem : () -> Unit,
     viewModel: EventsUserViewModel = koinViewModel()
@@ -89,7 +89,7 @@ fun EventsUserScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun EventsUserBody(
+internal fun EventsUserBody(
     navigateToEventDetailItem : () -> Unit,
     listOfMeetingsScheduled: List<EventModelUI>,
     listOfMeetingsPast: List<EventModelUI>,

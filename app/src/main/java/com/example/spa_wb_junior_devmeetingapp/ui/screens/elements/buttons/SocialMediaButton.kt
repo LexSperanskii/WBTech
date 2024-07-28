@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomSocialMedeaButtonOutlined(
+internal fun CustomSocialMedeaButtonOutlined(
     pressedColor: Color,
     contentColor: Color,
     icon: Painter,

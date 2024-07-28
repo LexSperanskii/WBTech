@@ -24,13 +24,13 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBack
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-object MenuDestination : NavigationDestination {
+internal object MenuDestination : NavigationDestination {
     override val route = "menu"
     override val title = R.string.more
 }
 
 @Composable
-fun MenuScreen(
+internal fun MenuScreen(
     navController: NavHostController,
     navigateToProfile: () -> Unit,
     navigateToUserEvents: () -> Unit,
@@ -72,7 +72,7 @@ fun MenuScreen(
 }
 
 @Composable
-fun MenuBody(
+internal fun MenuBody(
     onProfileClick : ()->Unit,
     profileName : String,
     profileSurname : String,

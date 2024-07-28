@@ -14,11 +14,11 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class ProfileScreenUiState(
+internal data class ProfileScreenUiState(
     val user: UserModelUI = UserModelUI()
 )
 
-class ProfileViewModel(
+internal class ProfileViewModel(
     private val getUserUseCase: GetUserUseCase,
 ) : ViewModel() {
 

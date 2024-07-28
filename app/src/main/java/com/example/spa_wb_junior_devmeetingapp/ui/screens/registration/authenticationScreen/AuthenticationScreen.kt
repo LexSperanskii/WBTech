@@ -26,13 +26,13 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.Custo
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-object AuthenticationDestination : NavigationDestination {
+internal object AuthenticationDestination : NavigationDestination {
     override val route = "authentication"
     override val title = R.string.authentication
 }
 
 @Composable
-fun AuthenticationScreen(
+internal fun AuthenticationScreen(
     navigateToVerificationScreen: () -> Unit,
     onClickNavigateBack: () -> Unit,
     viewModel: AuthenticationViewModel = koinViewModel(),
@@ -67,7 +67,7 @@ fun AuthenticationScreen(
 }
 
 @Composable
-fun AuthenticationBody(
+internal fun AuthenticationBody(
     number: String,
     onNumberChange: (String) -> Unit,
     countryCode: CountryModelUI,

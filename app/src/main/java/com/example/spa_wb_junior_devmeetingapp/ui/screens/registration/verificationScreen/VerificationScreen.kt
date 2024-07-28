@@ -26,13 +26,13 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileN
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-object VerificationDestination : NavigationDestination {
+internal object VerificationDestination : NavigationDestination {
     override val route = "verification"
     override val title = R.string.verification
 }
 
 @Composable
-fun VerificationScreen(
+internal fun VerificationScreen(
     onClickNavigateBack: () -> Unit,
     navigateToRegistrationProfile: () -> Unit,
     viewModel: VerificationViewModel = koinViewModel()
@@ -68,7 +68,7 @@ fun VerificationScreen(
 }
 
 @Composable
-fun VerificationBody(
+internal fun VerificationBody(
     phoneNumber: PhoneNumberModelUI,
     picCode: String,
     onPinCodeChange: (String) -> Unit,

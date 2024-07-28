@@ -17,13 +17,13 @@ import com.lottiefiles.dotlottie.core.compose.ui.DotLottieAnimation
 import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import org.koin.androidx.compose.koinViewModel
 
-object SplashScreenDestination : NavigationDestination {
+internal object SplashScreenDestination : NavigationDestination {
     override val route = "splash_screen"
     override val title = R.string.splash_screen
 }
 
 @Composable
-fun SplashScreen(
+internal fun SplashScreen(
     navigateToStartScreen: () -> Unit,
     viewModel: SplashScreenViewModel = koinViewModel()
 ) {

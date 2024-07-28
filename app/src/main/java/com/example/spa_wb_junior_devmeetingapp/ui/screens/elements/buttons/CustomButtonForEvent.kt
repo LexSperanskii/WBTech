@@ -10,7 +10,7 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun CustomButtonForEvent(
+internal fun CustomButtonForEvent(
     isUserInParticipants: Boolean,
     enabled: Boolean,
     onButtonClick: ()-> Unit

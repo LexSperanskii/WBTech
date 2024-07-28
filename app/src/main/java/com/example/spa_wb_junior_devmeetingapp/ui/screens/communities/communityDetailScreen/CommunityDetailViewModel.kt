@@ -12,13 +12,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
-data class CommunityDetailScreenUiState(
+internal data class CommunityDetailScreenUiState(
     val communityDetail: CommunityDetailModelUI = CommunityDetailModelUI()
 )
 
-class CommunityDetailViewModel(
+internal class CommunityDetailViewModel(
     private val getCommunityDetailUseCase: GetCommunityDetailUseCase,
 ) : ViewModel() {
 

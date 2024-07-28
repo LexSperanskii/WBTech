@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class MenuScreenUiState(
+internal data class MenuScreenUiState(
     val user: UserModelUI = UserModelUI(),
 )
 
-class MenuViewModel(
+internal class MenuViewModel(
     private val getUserUseCase: GetUserUseCase,
 ) : ViewModel() {
 

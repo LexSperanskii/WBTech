@@ -18,13 +18,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class EventsAllScreenUiState(
+internal data class EventsAllScreenUiState(
     val listOfMeetingsAll: List<EventModelUI> = listOf(),
     val listOfMeetingsActive: List<EventModelUI> = listOf(),
     val search: String = EMPTY_STRING,
 )
 
-class EventsAllViewModel(
+internal class EventsAllViewModel(
     private val getAllEventsUseCase: GetAllEventsUseCase,
     private val getAllEventsActiveUseCase: GetAllEventsActiveUseCase,
 ) : ViewModel() {

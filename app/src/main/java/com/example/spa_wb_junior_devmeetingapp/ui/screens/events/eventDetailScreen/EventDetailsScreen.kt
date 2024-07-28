@@ -43,13 +43,13 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.Custo
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-object EventDetailsDestination : NavigationDestination {
+internal object EventDetailsDestination : NavigationDestination {
     override val route = "event_details"
     override val title = R.string.events_details
 }
 
 @Composable
-fun EventDetailsScreen(
+internal fun EventDetailsScreen(
     navController: NavHostController,
     navigateToFullScreenMap : () -> Unit,
     viewModel: EventDetailViewModel = koinViewModel()
@@ -93,7 +93,7 @@ fun EventDetailsScreen(
 }
 
 @Composable
-fun EventDetailsBody(
+internal fun EventDetailsBody(
     event : EventDetailModelUI,
     participantsList: List<RegisteredPersonModelUI>,
     onButtonClick : ()-> Unit,

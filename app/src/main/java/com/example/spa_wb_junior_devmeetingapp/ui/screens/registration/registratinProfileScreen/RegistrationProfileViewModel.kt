@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-data class RegistrationProfileScreenUiState(
+internal data class RegistrationProfileScreenUiState(
     val name : String = EMPTY_STRING,
     val surname : String = EMPTY_STRING,
     val avatarURL : String? = null,
@@ -25,7 +25,7 @@ data class RegistrationProfileScreenUiState(
         get() = name.isNotBlank()
 }
 
-class RegistrationProfileViewModel(
+internal class RegistrationProfileViewModel(
     private val getUserAvatarUseCase : GetUserAvatarUseCase,
     private val setUserUseCase : SetUserUseCase
 ): ViewModel() {

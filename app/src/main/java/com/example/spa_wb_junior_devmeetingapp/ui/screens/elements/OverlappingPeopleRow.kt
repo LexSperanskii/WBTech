@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -33,10 +32,9 @@ import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_PEOPLE_COUNT
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_PERCENTAGE
-import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_SCALE
 
 @Composable
-fun OverlappingPeopleRow(
+internal fun OverlappingPeopleRow(
     participantsList: List<RegisteredPersonModelUI>,
     modifier: Modifier = Modifier,
     reverse: Boolean = false,
@@ -90,7 +88,7 @@ fun OverlappingPeopleRow(
 }
 
 @Composable
-fun ParticipantIcon(
+internal fun ParticipantIcon(
     size: Dp,
     participant: RegisteredPersonModelUI
 ){
@@ -133,7 +131,7 @@ fun ParticipantIcon(
 }
 
 @Composable
-fun OverlappingRow(
+internal fun OverlappingRow(
     overlappingPercentage: Float,
     reverse: Boolean,
     modifier: Modifier = Modifier,

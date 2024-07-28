@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
-class CustomRippleTheme(): RippleTheme {
+internal class CustomRippleTheme(): RippleTheme {
     @Composable
     @ReadOnlyComposable
     override fun defaultColor() = LocalContentColor.current
@@ -48,7 +48,7 @@ class CustomRippleTheme(): RippleTheme {
 }
 
 @Composable
-fun CustomButtonRipple(
+internal fun CustomButtonRipple(
     containerColor: Color,
     contentColor: Color,
     pressedColor: Color,
@@ -121,7 +121,7 @@ fun CustomButtonRipple(
 }
 
 @Composable
-fun CustomButtonOutlinedRipple(
+internal fun CustomButtonOutlinedRipple(
     contentColor: Color,
     pressedColor: Color,
     rippleColor: Color,

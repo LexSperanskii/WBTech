@@ -20,7 +20,7 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun CustomFilterChip(text : String) {
+internal fun CustomFilterChip(text : String) {
     var selected by remember { mutableStateOf(false) }
 
     FilterChip(

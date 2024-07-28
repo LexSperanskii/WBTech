@@ -36,7 +36,7 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun EventCard(
+internal fun EventCard(
     eventName: String,
     isEventFinished: Boolean,
     eventDate: String,

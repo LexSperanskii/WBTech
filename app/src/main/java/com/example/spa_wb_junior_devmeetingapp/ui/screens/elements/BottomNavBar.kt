@@ -34,14 +34,14 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 
-enum class BottomNavItem(val route: String, @StringRes val title: Int, @DrawableRes val icon: Int) {
+internal enum class BottomNavItem(val route: String, @StringRes val title: Int, @DrawableRes val icon: Int) {
     Events (route = "events_tab", title = R.string.events_all, icon = R.drawable.bottom_bar_icon_meetings),
     Communities (route = "communities_tab", title = R.string.communities, icon = R.drawable.bottom_bar_icon_communities),
     Menu (route = "menu_tab", title = R.string.more, icon = R.drawable.bottom_bar_icon_more)
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+internal fun BottomNavigationBar(navController: NavController) {
 
     NavigationBar(
         tonalElevation = 0.dp,
@@ -77,7 +77,7 @@ fun BottomNavigationBar(navController: NavController) {
 }
 
 @Composable
-fun NameAndDotBottomNavBarIcon(
+internal fun NameAndDotBottomNavBarIcon(
     isSelected : Boolean,
     bottomBarItem: BottomNavItem
 ){

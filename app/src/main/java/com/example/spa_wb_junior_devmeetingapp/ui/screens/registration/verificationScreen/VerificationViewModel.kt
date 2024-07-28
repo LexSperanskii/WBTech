@@ -19,12 +19,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-data class VerificationScreenUiState(
+internal data class VerificationScreenUiState(
     val phoneNumber: PhoneNumberModelUI = PhoneNumberModelUI(),
     val pinCode: String = EMPTY_STRING,
 )
 
-class VerificationViewModel(
+internal class VerificationViewModel(
     private val getUserPhoneNumberUseCase: GetUserPhoneNumberUseCase,
     private val pinCodeVerificationUseCase: PinCodeVerificationUseCase
 ) : ViewModel() {

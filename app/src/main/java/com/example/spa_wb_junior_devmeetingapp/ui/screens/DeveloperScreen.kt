@@ -46,13 +46,13 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyIte
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyRow
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
-object DeveloperDestination : NavigationDestination {
+internal object DeveloperDestination : NavigationDestination {
     override val route = "developer"
     override val title = R.string.developer
 }
 
 @Composable
-fun DeveloperScreen() {
+internal fun DeveloperScreen() {
     val typographyList = listOf(
         TypographyItem(
             style = DevMeetingAppTheme.typography.heading1,
