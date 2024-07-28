@@ -9,6 +9,18 @@ class MockData {
         phoneNumber = PhoneNumber("",""),
         iconURL = null
     )
+    private val pinCode = "5555"
+
+    fun pinCodeVerification(pin: String) = when (pin) {
+        pinCode -> {
+            true
+        }
+
+        else -> {
+            false
+        }
+    }
+
 
     fun setUserPhoneNumber(code: String, number: String){
         user = user.copy(
@@ -43,10 +55,18 @@ class MockData {
     fun getAvailableCountries(): List<Country> = mockAvailableCountries
     fun getListOfEvents(): List<Event> = listOfEvents
     fun getEventDetail(): EventDetail = eventDetail
+    fun addUserAsParticipant(participant: RegisteredPerson) {
+        eventDetail = eventDetail.copy(
+            listOfParticipants =  listOf(participant).plus(eventDetail.listOfParticipants)
+        )
+    }
+    fun removeUserAsParticipant(participant: RegisteredPerson) {
+        eventDetail = eventDetail.copy(
+            listOfParticipants = eventDetail.listOfParticipants.minus(participant)
+        )
+    }
     fun getListOfCommunities(): List<Community> = communities
     fun getCommunity(): CommunityDetail = communityDetail
-    fun getListOfParticipants(): List<RegisteredPerson> = listOfParticipants
-    fun getListOfParticipantsSmall(): List<RegisteredPerson> = listOfParticipantsSmall
 
     private val longText = "Гай Ю́лий Це́зарь (аутентичное произношение близко к Ка́йсар[4]; лат. Gaius Iulius Caesar [ˈgaːjʊs ˈjuːliʊs ˈkae̯sar]; 12 июля 100 года до н. э.[5] — 15 марта 44 года до н. э.) — древнеримский государственный и политический деятель, полководец, писатель. Консул 59, 48, 46, 45 и 44 годов до н. э., диктатор 49, 48—47 и 46—44 годов до н. э., великий понтифик с 63 года до н. э.\n" +
             "\n" +
@@ -98,20 +118,20 @@ class MockData {
     private val listOfEvents = eventsActive.plus(eventsFinished).shuffled()
 
     private val listOfParticipants = listOf(
-        RegisteredPerson(0, IconURL2),
         RegisteredPerson(1, IconURL3),
-        RegisteredPerson(2,IconURL4),
-        RegisteredPerson(3,IconURL5),
-        RegisteredPerson(4,IconURL6),
-        RegisteredPerson(5,IconURL7)
+        RegisteredPerson(2, IconURL4),
+        RegisteredPerson(3, IconURL5),
+        RegisteredPerson(4, IconURL6),
+        RegisteredPerson(5, IconURL7),
+        RegisteredPerson(6, IconURL2)
     )
     private val listOfParticipantsSmall = listOf(
-        RegisteredPerson(0, IconURL2),
         RegisteredPerson(1, IconURL3),
-        RegisteredPerson(2,IconURL4)
+        RegisteredPerson(2, IconURL4),
+        RegisteredPerson(3, IconURL2)
     )
 
-    private val eventDetail = EventDetail(
+    private var eventDetail = EventDetail(
         id = 0,
         name = "Встреча разработчиков Kotlon",
         date = "13.09.2024",
@@ -121,7 +141,6 @@ class MockData {
         description = longText,
         listOfParticipants = listOfParticipants,
         isFinished = false,
-        isUserInParticipants = false
     )
 
     private val communities = List(20) {

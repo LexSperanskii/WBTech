@@ -10,10 +10,9 @@ data class EventDetailModelUI(
     val description : String = "",
     val listOfParticipants: List<RegisteredPersonModelUI> = listOf(),
     val isFinished: Boolean = false,
-    val isUserInParticipants: Boolean = false,
 )
 
 data class RegisteredPersonModelUI(
     val id: Int = 0,
-    val iconURL : String = ""
+    val iconURL : String? = ""
 )

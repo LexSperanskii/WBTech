@@ -1,8 +1,8 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.authenticationScreen
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.user.GetAvailableCountriesListUseCase
-import com.example.domain.usecases.user.GetAvailableCountyUseCase
 import com.example.domain.usecases.user.SetUserPhoneNumberUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCountryModelUI
@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 data class AuthenticationScreenUiState(
     val country: CountryModelUI = CountryModelUI(),
@@ -23,7 +24,6 @@ data class AuthenticationScreenUiState(
 
 class AuthenticationViewModel(
     private val getAvailableCountriesListUseCase: GetAvailableCountriesListUseCase,
-    private val getAvailableCountyUseCase: GetAvailableCountyUseCase,
     private val setUserPhoneNumberUseCase: SetUserPhoneNumberUseCase,
 ) : ViewModel() {
 
@@ -33,11 +33,20 @@ class AuthenticationViewModel(
     fun getAuthenticationScreenUiStateFlow(): StateFlow<AuthenticationScreenUiState> = uiState
 
     init {
-        _uiState.update {
-            it.copy(
-                country = getAvailableCountyUseCase.execute().toCountryModelUI() ,
-                listOfCountries = getAvailableCountriesListUseCase.execute().map { it.toCountryModelUI() },
-            )
+        getAvailableCountriesList()
+    }
+
+    private fun getAvailableCountriesList() {
+        viewModelScope.launch {
+            getAvailableCountriesListUseCase.execute()
+                .collect { availableCountriesList ->
+                    _uiState.update {
+                        it.copy(
+                            country = availableCountriesList.first().toCountryModelUI(),
+                            listOfCountries = availableCountriesList.map { it.toCountryModelUI() }
+                        )
+                    }
+                }
         }
     }
 
@@ -59,6 +68,8 @@ class AuthenticationViewModel(
 
     fun onForwardButtonClick(){
         val state = uiState.value
-        setUserPhoneNumberUseCase.execute(state.country.code, state.number)
+        viewModelScope.launch {
+            setUserPhoneNumberUseCase.execute(state.country.code, state.number)
+        }
     }
 }

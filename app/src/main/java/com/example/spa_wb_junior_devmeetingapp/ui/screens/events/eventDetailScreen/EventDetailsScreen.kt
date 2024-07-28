@@ -61,7 +61,7 @@ fun EventDetailsScreen(
             TopAppBarForEventDetails(
                 title = eventDetailScreenUiState.event.name,
                 onClickNavigateBack = {navController.popBackStack()},
-                isStatusPlanned = eventDetailScreenUiState.event.isUserInParticipants,
+                isStatusPlanned = eventDetailScreenUiState.isUserInParticipants,
                 onStatusCLick = {
                     viewModel.onGoToMeetingClick()
                 }
@@ -78,7 +78,7 @@ fun EventDetailsScreen(
             onButtonClick = {
                 viewModel.onGoToMeetingClick()
             },
-            isUserInParticipants = eventDetailScreenUiState.event.isUserInParticipants,
+            isUserInParticipants = eventDetailScreenUiState.isUserInParticipants,
             enabled = !eventDetailScreenUiState.event.isFinished,
             onMapClick = navigateToFullScreenMap,
             modifier = Modifier
