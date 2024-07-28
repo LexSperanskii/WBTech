@@ -1,6 +1,6 @@
 package com.example.domain.usecases.events
 
-import com.example.domain.stabRepositories.TestEventRepository
+import com.example.domain.stabRepositories.EventRepositoryStub
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue
@@ -12,22 +12,13 @@ class GetAllEventsUseCaseTest {
     @Test
     fun `return correct all events list`() = runTest{
 
-        val testEventRepository = TestEventRepository()
+        val eventRepositoryStub = EventRepositoryStub()
 
-        val useCase = GetAllEventsInteractor(eventRepository = testEventRepository)
+        val useCase = GetAllEventsInteractor(eventRepository = eventRepositoryStub)
 
         val eventsAll = useCase.execute().first()
 
-        assertNotNull(eventsAll)
-        eventsAll.forEach { event ->
-            assertNotNull(event.id)
-            assertNotNull(event.name)
-            assertNotNull(event.date)
-            assertNotNull(event.city)
-            assertNotNull(event.category)
-            assertTrue(event.category.isNotEmpty())
-            assertNotNull(event.isFinished)
-        }
+        assertTrue(eventsAll.distinctBy { it.id }.size == eventsAll.size) // проверяем уникальность id
     }
 
 }

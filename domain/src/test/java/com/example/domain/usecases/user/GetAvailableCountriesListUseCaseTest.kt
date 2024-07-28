@@ -1,6 +1,6 @@
 package com.example.domain.usecases.user
 
-import com.example.domain.stabRepositories.TestCountriesRepository
+import com.example.domain.stabRepositories.CountriesRepositoryStub
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -12,25 +12,12 @@ class GetAvailableCountriesListUseCaseTest {
     @Test
     fun `return correct countries list`() = runTest{
 
-        val testCountriesRepository = TestCountriesRepository()
+        val countriesRepositoryStub = CountriesRepositoryStub()
 
-        val useCase = GetAvailableCountriesListInteractor(countriesRepository = testCountriesRepository)
+        val useCase = GetAvailableCountriesListInteractor(countriesRepository = countriesRepositoryStub)
 
         val availableCountries = useCase.execute().first()
 
-        assertNotNull(availableCountries)
-        availableCountries.forEach { country ->
-            assertNotNull(country.code)
-            assertTrue(country.code.isNotEmpty())
-            assertTrue(country.code.isNotBlank())
-            assertNotNull(country.flag)
-            assertTrue(country.flag.isNotEmpty())
-            assertTrue(country.flag.isNotBlank())
-            assertNotNull(country.country)
-            assertTrue(country.country.isNotEmpty())
-            assertTrue(country.country.isNotBlank())
-        }
+        assertTrue(availableCountries.distinctBy { Triple(it.code, it.flag, it.country) }.size == availableCountries.size) //проверяем уникальность
     }
-
-
 }

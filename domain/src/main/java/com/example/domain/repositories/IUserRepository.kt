@@ -8,11 +8,11 @@ interface IUserRepository {
 
     suspend fun setUserPhoneNumber(code: String, number: String)
 
-    suspend fun getUserPhoneNumber() : PhoneNumber
+    fun getUserPhoneNumber() : Flow<PhoneNumber>
 
-    suspend fun pinCodeVerification(pinCode: String) : Boolean
+    fun pinCodeVerification(pinCode: String) : Flow<Boolean>
 
-    suspend fun getUserAvatar(): String
+    fun getUserAvatar(): Flow<String>
 
     suspend fun setUser(name: String,surname: String,avatarURL: String?)
 

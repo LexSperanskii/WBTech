@@ -1,6 +1,6 @@
 package com.example.domain.usecases.user
 
-import com.example.domain.stabRepositories.TestUserRepository
+import com.example.domain.stabRepositories.UserRepositoryStub
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -12,15 +12,12 @@ class GetUserAvatarUseCaseTest {
     @Test
     fun `return correct user avatar`() = runTest{
 
-        val testUserRepository = TestUserRepository()
+        val testUserRepository = UserRepositoryStub()
 
         val useCase = GetUserAvatarInteractor(userRepository = testUserRepository)
 
-        val userAvatar = useCase.execute()
+        val userAvatar = useCase.execute().first()
 
-        assertNotNull(userAvatar)
-        assertTrue(userAvatar.isNotEmpty())
         assertTrue(userAvatar.isNotBlank())
     }
-
 }

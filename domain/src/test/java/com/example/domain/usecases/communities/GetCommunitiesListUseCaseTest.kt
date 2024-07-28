@@ -1,6 +1,6 @@
 package com.example.domain.usecases.communities
 
-import com.example.domain.stabRepositories.TestCommunityRepository
+import com.example.domain.stabRepositories.CommunityRepositoryStub
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue
@@ -13,17 +13,12 @@ class GetCommunitiesListUseCaseTest {
     @Test
     fun `return correct communities list`() = runTest{
 
-        val testCommunityRepository = TestCommunityRepository()
+        val communityRepositoryStub = CommunityRepositoryStub()
 
-        val useCase = GetCommunitiesListInteractor(communityRepository = testCommunityRepository)
+        val useCase = GetCommunitiesListInteractor(communityRepository = communityRepositoryStub)
 
         val communities = useCase.execute().first()
 
-        assertNotNull(communities)
-        communities.forEach { community ->
-            assertNotNull(community.id)
-            assertNotNull(community.name)
-            assertTrue(community.size >= 0)
-        }
+        assertTrue(communities.distinctBy { it.id }.size == communities.size) // проверяем уникальность id
     }
 }

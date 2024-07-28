@@ -3,37 +3,42 @@ package com.example.domain.stabRepositories
 import com.example.domain.models.PhoneNumber
 import com.example.domain.models.User
 import com.example.domain.repositories.IUserRepository
+import com.example.domain.stabRepositories.StubData.phoneNumber
+import com.example.domain.stabRepositories.StubData.user
+import com.example.domain.stabRepositories.StubData.userAvatarURL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class TestUserRepository : IUserRepository {
+class UserRepositoryStub : IUserRepository {
 
-    override suspend fun getUserPhoneNumber(): PhoneNumber {
-        return PhoneNumber("+7", "0000000000")
+    override fun getUserPhoneNumber(): Flow<PhoneNumber> {
+        return flow {
+            emit(
+                phoneNumber
+            )
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getUserAvatar(): String {
-        return "sdfsdfsdfsdfsdfsdf"
+    override fun getUserAvatar(): Flow<String> {
+        return flow {
+            emit(
+                userAvatarURL
+            )
+        }.flowOn(Dispatchers.IO)
     }
 
     override fun getUser(): Flow<User> {
         return flow {
             emit(
-                User(
-                    id = 0,
-                    name = "GGG",
-                    surname = "HHH",
-                    phoneNumber = PhoneNumber("+7", "0000000000"),
-                    iconURL = null
-                )
+                user
             )
         }.flowOn(Dispatchers.IO)
     }
 
 
-    override suspend fun pinCodeVerification(pinCode: String): Boolean {
+    override fun pinCodeVerification(pinCode: String): Flow<Boolean> {
         TODO("Not yet implemented")
     }
     override suspend fun setUserPhoneNumber(code: String, number: String) {

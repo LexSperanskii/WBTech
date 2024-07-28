@@ -1,6 +1,7 @@
 package com.example.domain.usecases.user
 
-import com.example.domain.stabRepositories.TestUserRepository
+import com.example.domain.stabRepositories.UserRepositoryStub
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -11,17 +12,13 @@ class GetUserPhoneNumberUseCaseTest {
     @Test
     fun `return correct user phone number`() = runTest{
 
-        val testUserRepository = TestUserRepository()
+        val testUserRepository = UserRepositoryStub()
 
         val useCase = GetUserPhoneNumberInteractor(userRepository = testUserRepository)
 
-        val userPhoneNumber = useCase.execute()
+        val userPhoneNumber = useCase.execute().first()
 
-        assertNotNull(userPhoneNumber)
-        assertTrue(userPhoneNumber.number.isNotEmpty())
-        assertTrue(userPhoneNumber.number.isNotBlank())
-        assertTrue(userPhoneNumber.countryCode.isNotEmpty())
-        assertTrue(userPhoneNumber.countryCode.isNotBlank())
+        assertTrue(userPhoneNumber.number.isNotBlank() && userPhoneNumber.countryCode.isNotBlank())
     }
 
 }

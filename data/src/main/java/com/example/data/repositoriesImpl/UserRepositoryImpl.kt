@@ -15,16 +15,22 @@ internal class UserRepositoryImpl(private val mock: MockData): IUserRepository {
         mock.setUserPhoneNumber(code,number)
     }
 
-    override suspend fun getUserPhoneNumber(): PhoneNumber {
-        return mock.getUserPhoneNumber()
+    override fun getUserPhoneNumber(): Flow<PhoneNumber> {
+        return flow{
+            emit(mock.getUserPhoneNumber())
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun pinCodeVerification(pinCode: String) : Boolean {
-        return mock.pinCodeVerification(pinCode)
+    override fun pinCodeVerification(pinCode: String) : Flow<Boolean> {
+        return flow{
+            emit(mock.pinCodeVerification(pinCode))
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getUserAvatar(): String {
-        return mock.getUserAvatar()
+    override fun getUserAvatar(): Flow<String> {
+        return flow{
+            emit(mock.getUserAvatar())
+        }.flowOn(Dispatchers.IO)
     }
 
     override suspend fun setUser(name: String, surname: String, avatarURL: String?) {

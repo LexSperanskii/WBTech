@@ -12,6 +12,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PIN_CODE_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -37,10 +38,12 @@ class VerificationViewModel(
 
     private fun getUserPhoneNumber() {
         viewModelScope.launch {
-            _uiState.update {
-                it.copy(
-                    phoneNumber = getUserPhoneNumberUseCase.execute().toPhoneNumberModelUI()
-                )
+            getUserPhoneNumberUseCase.execute().collect(){ phoneNumber ->
+                _uiState.update {
+                    it.copy(
+                        phoneNumber = phoneNumber.toPhoneNumberModelUI()
+                    )
+                }
             }
         }
     }
@@ -56,7 +59,7 @@ class VerificationViewModel(
     fun onDoneKeyboardPressed(navigate: () -> Unit) {
         val pinCode = _uiState.value.pinCode
         viewModelScope.launch {
-            val isPinCodeValid = pinCodeVerificationUseCase.execute(pinCode)
+            val isPinCodeValid = pinCodeVerificationUseCase.execute(pinCode).first()
             when(isPinCodeValid){
                 true -> {
                     navigate()

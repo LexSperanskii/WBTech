@@ -47,18 +47,19 @@ class RegistrationProfileViewModel(
     }
     fun onAvatarEditButtonClick() {
         viewModelScope.launch {
-            _uiState.update {
-                it.copy(
-                    avatarURL = when (it.avatarURL.isNullOrBlank()) {
-                        true -> {
-                            getUserAvatarUseCase.execute()
+            getUserAvatarUseCase.execute().collect{ avatarURL ->
+                _uiState.update {
+                    it.copy(
+                        avatarURL = when (it.avatarURL.isNullOrBlank()) {
+                            true -> {
+                                avatarURL
+                            }
+                            else -> {
+                                null
+                            }
                         }
-
-                        else -> {
-                            null
-                        }
-                    }
-                )
+                    )
+                }
             }
         }
     }

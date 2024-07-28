@@ -12,78 +12,19 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.registrat
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen.SplashScreenViewModel
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.verificationScreen.VerificationViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
-
-    viewModel<AuthenticationViewModel> {
-        AuthenticationViewModel(
-            getAvailableCountriesListUseCase = get(),
-            setUserPhoneNumberUseCase = get()
-        )
-    }
-
-    viewModel<VerificationViewModel> {
-        VerificationViewModel(
-            getUserPhoneNumberUseCase = get(),
-            pinCodeVerificationUseCase = get()
-        )
-    }
-
-    viewModel<RegistrationProfileViewModel> {
-        RegistrationProfileViewModel(
-            getUserAvatarUseCase = get(),
-            setUserUseCase = get()
-        )
-    }
-
-    viewModel<EventsAllViewModel> {
-        EventsAllViewModel(
-            getAllEventsUseCase = get(),
-            getAllEventsActiveUseCase = get()
-        )
-    }
-
-    viewModel<EventsUserViewModel> {
-        EventsUserViewModel(
-            getMyEventsListUseCase = get(),
-            getMyEventsPastListUseCase = get()
-        )
-    }
-
-    viewModel<EventDetailViewModel> {
-        EventDetailViewModel(
-            getEventDetailsUseCase = get(),
-            addUserAsParticipantUseCase = get(),
-            removeUserAsParticipantUseCase = get(),
-            getUserUseCase = get(),
-        )
-    }
-
-    viewModel<CommunitiesViewModel> {
-        CommunitiesViewModel(
-            getCommunitiesListUseCase = get()
-        )
-    }
-
-    viewModel<CommunityDetailViewModel> {
-        CommunityDetailViewModel(
-            getCommunityDetailUseCase = get()
-        )
-    }
-
-    viewModel<MenuViewModel> {
-        MenuViewModel(
-            getUserUseCase = get()
-        )
-    }
-
-    viewModel<ProfileViewModel> {
-        ProfileViewModel(
-            getUserUseCase = get()
-        )
-    }
-    viewModel<SplashScreenViewModel> {
-        SplashScreenViewModel()
-    }
+    viewModelOf(::AuthenticationViewModel)
+    viewModelOf(::VerificationViewModel)
+    viewModelOf(::RegistrationProfileViewModel)
+    viewModelOf(::EventsAllViewModel)
+    viewModelOf(::EventsUserViewModel)
+    viewModelOf(::EventDetailViewModel)
+    viewModelOf(::CommunitiesViewModel)
+    viewModelOf(::CommunityDetailViewModel)
+    viewModelOf(::MenuViewModel)
+    viewModelOf(::ProfileViewModel)
+    viewModelOf(::SplashScreenViewModel)
 }
