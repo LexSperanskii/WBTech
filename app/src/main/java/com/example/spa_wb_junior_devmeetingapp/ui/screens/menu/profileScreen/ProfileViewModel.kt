@@ -9,6 +9,8 @@ import com.example.spa_wb_junior_devmeetingapp.models.mapper.toUserModelUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -23,22 +25,20 @@ class ProfileViewModel(
     private val _uiState = MutableStateFlow(ProfileScreenUiState())
     private val uiState: StateFlow<ProfileScreenUiState> = _uiState.asStateFlow()
 
-    fun getProfileScreenUiStateFlow(): StateFlow<ProfileScreenUiState> = uiState
-
     init {
         getUser()
     }
 
+    fun getProfileScreenUiStateFlow(): StateFlow<ProfileScreenUiState> = uiState
+
     private fun getUser() {
-        viewModelScope.launch {
-            getUserUseCase.execute()
-                .collect { user ->
-                    _uiState.update {
-                        it.copy(
-                            user = user.toUserModelUI()
-                        )
-                    }
+        getUserUseCase.execute()
+            .onEach { user ->
+                _uiState.update {
+                    it.copy(
+                        user = user.toUserModelUI()
+                    )
                 }
-        }
+            }.launchIn(viewModelScope)
     }
 }

@@ -9,6 +9,8 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_COMMUNIT
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -23,23 +25,20 @@ class CommunityDetailViewModel(
     private val _uiState = MutableStateFlow(CommunityDetailScreenUiState())
     private val uiState: StateFlow<CommunityDetailScreenUiState> = _uiState.asStateFlow()
 
-    fun getCommunityDetailScreenUiStateFlow(): StateFlow<CommunityDetailScreenUiState> = uiState
-
     init {
         getCommunityDetail()
     }
 
-    private fun getCommunityDetail() {
-        viewModelScope.launch {
-            getCommunityDetailUseCase.execute(DEFAULT_COMMUNITY_ID)
-                .collect { community ->
-                    _uiState.update {
-                        it.copy(
-                            communityDetail = community.toCommunityDetailModelUI()
-                        )
-                    }
-                }
-        }
-    }
+    fun getCommunityDetailScreenUiStateFlow(): StateFlow<CommunityDetailScreenUiState> = uiState
 
+    private fun getCommunityDetail() {
+        getCommunityDetailUseCase.execute(DEFAULT_COMMUNITY_ID)
+            .onEach { communityDetail ->
+                _uiState.update {
+                    it.copy(
+                        communityDetail = communityDetail.toCommunityDetailModelUI()
+                    )
+                }
+            }.launchIn(viewModelScope)
+    }
 }

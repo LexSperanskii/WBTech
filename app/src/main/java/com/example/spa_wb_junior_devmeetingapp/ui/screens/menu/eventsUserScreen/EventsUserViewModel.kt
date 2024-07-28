@@ -9,6 +9,8 @@ import com.example.spa_wb_junior_devmeetingapp.models.mapper.toEventModelUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -25,31 +27,23 @@ class EventsUserViewModel(
     private val _uiState = MutableStateFlow(EventsUserScreenUiState())
     private val uiState: StateFlow<EventsUserScreenUiState> = _uiState.asStateFlow()
 
-    fun getEventsUserScreenUiStateFlow(): StateFlow<EventsUserScreenUiState> = uiState
-
     init {
         getAllEvents()
     }
 
-    private fun getAllEvents() {
-        viewModelScope.launch {
-            getMyEventsListUseCase.execute()
-                .collect { events ->
-                    _uiState.update {
-                        it.copy(
-                            listOfMeetingsScheduled = events.map { it.toEventModelUI() }
-                        )
-                    }
-                }
+    fun getEventsUserScreenUiStateFlow(): StateFlow<EventsUserScreenUiState> = uiState
 
+    private fun getAllEvents() {
+        combine(
+            getMyEventsListUseCase.execute(),
             getMyEventsPastListUseCase.execute()
-                .collect { events ->
-                    _uiState.update {
-                        it.copy(
-                            listOfMeetingsPast = events.map { it.toEventModelUI() }
-                        )
-                    }
-                }
-        }
+        ) { eventsMy, eventsMyPast ->
+            _uiState.update {
+                it.copy(
+                    listOfMeetingsScheduled = eventsMy.map { it.toEventModelUI() },
+                    listOfMeetingsPast = eventsMyPast.map { it.toEventModelUI() }
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 }

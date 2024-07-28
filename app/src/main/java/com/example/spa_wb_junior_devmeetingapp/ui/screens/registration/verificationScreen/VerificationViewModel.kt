@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -30,11 +32,11 @@ class VerificationViewModel(
     private val _uiState = MutableStateFlow(VerificationScreenUiState())
     private val uiState: StateFlow<VerificationScreenUiState> = _uiState.asStateFlow()
 
-    fun getVerificationScreenUiStateFlow(): StateFlow<VerificationScreenUiState> = uiState
-
     init {
         getUserPhoneNumber()
     }
+
+    fun getVerificationScreenUiStateFlow(): StateFlow<VerificationScreenUiState> = uiState
 
     fun onPinCodeChange(pinCode: String) {
         _uiState.update {
@@ -46,33 +48,32 @@ class VerificationViewModel(
 
     fun onDoneKeyboardPressed(navigate: () -> Unit) {
         val pinCode = _uiState.value.pinCode
-        viewModelScope.launch {
-            val isPinCodeValid = pinCodeVerificationUseCase.execute(pinCode).first()
-            when (isPinCodeValid) {
-                true -> {
-                    navigate()
-                }
+        pinCodeVerificationUseCase.execute(pinCode)
+            .onEach { response ->
+                when (response) {
+                    true -> {
+                        navigate()
+                    }
 
-                else -> {
-                    _uiState.update {
-                        it.copy(
-                            pinCode = EMPTY_STRING
-                        )
+                    else -> {
+                        _uiState.update {
+                            it.copy(
+                                pinCode = EMPTY_STRING
+                            )
+                        }
                     }
                 }
-            }
-        }
+            }.launchIn(viewModelScope)
     }
 
     private fun getUserPhoneNumber() {
-        viewModelScope.launch {
-            getUserPhoneNumberUseCase.execute().collect() { phoneNumber ->
+        getUserPhoneNumberUseCase.execute()
+            .onEach { phoneNumber ->
                 _uiState.update {
                     it.copy(
                         phoneNumber = phoneNumber.toPhoneNumberModelUI()
                     )
                 }
-            }
-        }
+            }.launchIn(viewModelScope)
     }
 }

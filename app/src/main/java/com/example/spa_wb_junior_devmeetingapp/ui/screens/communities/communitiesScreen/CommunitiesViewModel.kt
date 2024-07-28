@@ -9,6 +9,8 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.EMPTY_STRING
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -24,11 +26,11 @@ class CommunitiesViewModel(
     private val _uiState = MutableStateFlow(CommunitiesScreenUiState())
     private val uiState: StateFlow<CommunitiesScreenUiState> = _uiState.asStateFlow()
 
-    fun getCommunitiesScreenUiStateFlow(): StateFlow<CommunitiesScreenUiState> = uiState
-
     init {
         getCommunitiesList()
     }
+
+    fun getCommunitiesScreenUiStateFlow(): StateFlow<CommunitiesScreenUiState> = uiState
 
     fun onSearchChange(search: String) {
         _uiState.update {
@@ -39,15 +41,13 @@ class CommunitiesViewModel(
     }
 
     private fun getCommunitiesList() {
-        viewModelScope.launch {
-            getCommunitiesListUseCase.execute()
-                .collect { communities ->
-                    _uiState.update {
-                        it.copy(
-                            listOfCommunities = communities.map { it.toCommunityModelUI() }
-                        )
-                    }
+        getCommunitiesListUseCase.execute()
+            .onEach { communities ->
+                _uiState.update {
+                    it.copy(
+                        listOfCommunities = communities.map { it.toCommunityModelUI() }
+                    )
                 }
-        }
+            }.launchIn(viewModelScope)
     }
 }

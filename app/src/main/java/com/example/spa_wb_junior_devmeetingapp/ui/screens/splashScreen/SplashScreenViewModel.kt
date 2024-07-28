@@ -24,12 +24,12 @@ class SplashScreenViewModel() : ViewModel() {
     private val _uiState = MutableStateFlow(SplashScreenUiState())
     private val uiState: StateFlow<SplashScreenUiState> = _uiState.asStateFlow()
 
-    fun getSplashScreenUiStateFlow(): StateFlow<SplashScreenUiState> = uiState
-
     init {
         viewModelScope.launch {
             delay(SPLASH_SCREEN_DURATION)
             _uiState.value = SplashScreenUiState(status = SplashScreenStatus.Finished)
         }
     }
+
+    fun getSplashScreenUiStateFlow(): StateFlow<SplashScreenUiState> = uiState
 }

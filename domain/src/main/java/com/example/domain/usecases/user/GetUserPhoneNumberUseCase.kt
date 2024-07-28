@@ -5,12 +5,12 @@ import com.example.domain.repositories.IUserRepository
 import kotlinx.coroutines.flow.Flow
 
 interface GetUserPhoneNumberUseCase {
-    suspend fun execute(): Flow<PhoneNumber>
+    fun execute(): Flow<PhoneNumber>
 }
 
 internal class GetUserPhoneNumberInteractor(private val userRepository: IUserRepository) :
     GetUserPhoneNumberUseCase {
-    override suspend fun execute(): Flow<PhoneNumber> {
+    override fun execute(): Flow<PhoneNumber> {
         return userRepository.getUserPhoneNumber()
     }
 }

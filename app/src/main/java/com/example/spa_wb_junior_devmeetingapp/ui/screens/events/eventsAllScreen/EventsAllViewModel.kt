@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -30,11 +32,11 @@ class EventsAllViewModel(
     private val _uiState = MutableStateFlow(EventsAllScreenUiState())
     private val uiState: StateFlow<EventsAllScreenUiState> = _uiState.asStateFlow()
 
-    fun getEventsAllScreenUiStateFlow(): StateFlow<EventsAllScreenUiState> = uiState
-
     init {
         getAllEvents()
     }
+
+    fun getEventsAllScreenUiStateFlow(): StateFlow<EventsAllScreenUiState> = uiState
 
     fun onSearchChange(search: String) {
         _uiState.update {
@@ -45,24 +47,16 @@ class EventsAllViewModel(
     }
 
     private fun getAllEvents() {
-        viewModelScope.launch {
-            getAllEventsUseCase.execute()
-                .collect { events ->
-                    _uiState.update {
-                        it.copy(
-                            listOfMeetingsAll = events.map { it.toEventModelUI() }
-                        )
-                    }
-                }
-
+        combine(
+            getAllEventsUseCase.execute(),
             getAllEventsActiveUseCase.execute()
-                .collect { events ->
-                    _uiState.update {
-                        it.copy(
-                            listOfMeetingsActive = events.map { it.toEventModelUI() }
-                        )
-                    }
-                }
-        }
+        ) { eventsAll, eventsActive ->
+            _uiState.update {
+                it.copy(
+                    listOfMeetingsAll = eventsAll.map { it.toEventModelUI() },
+                    listOfMeetingsActive = eventsActive.map { it.toEventModelUI() }
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 }

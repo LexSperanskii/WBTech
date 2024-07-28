@@ -15,6 +15,9 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_EVENT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -36,11 +39,11 @@ class EventDetailViewModel(
     private val _uiState = MutableStateFlow(EventDetailScreenUiState())
     private val uiState: StateFlow<EventDetailScreenUiState> = _uiState.asStateFlow()
 
-    fun getEventDetailScreenUiStateFlow(): StateFlow<EventDetailScreenUiState> = uiState
-
     init {
         getEventDetails()
     }
+
+    fun getEventDetailScreenUiStateFlow(): StateFlow<EventDetailScreenUiState> = uiState
 
     fun onGoToMeetingClick() {
         val state = uiState.value
@@ -60,29 +63,32 @@ class EventDetailViewModel(
                     )
                 }
             }
-            getEventDetails()
+            refreshEventDetails()
         }
     }
 
-    private fun getEventDetails() {
-        viewModelScope.launch {
-            getEventDetailsUseCase.execute(DEFAULT_EVENT_ID)
-                .collect { event ->
-                    _uiState.update {
-                        it.copy(
-                            event = event.toEventDetailModelUI()
-                        )
-                    }
+    private fun refreshEventDetails(){
+        getEventDetailsUseCase.execute(DEFAULT_EVENT_ID)
+            .onEach { event ->
+                _uiState.update {
+                    it.copy(
+                        event = event.toEventDetailModelUI()
+                    )
                 }
+            }.launchIn(viewModelScope)
+    }
 
+    private fun getEventDetails() {
+        combine(
+            getEventDetailsUseCase.execute(DEFAULT_EVENT_ID),
             getUserUseCase.execute()
-                .collect { user ->
-                    _uiState.update {
-                        it.copy(
-                            userAsRegisteredPerson = RegisteredPersonModelUI(user.id, user.iconURL)
-                        )
-                    }
-                }
-        }
+        ) { event, user ->
+            _uiState.update {
+                it.copy(
+                    event = event.toEventDetailModelUI(),
+                    userAsRegisteredPerson = RegisteredPersonModelUI(user.id, user.iconURL)
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 }

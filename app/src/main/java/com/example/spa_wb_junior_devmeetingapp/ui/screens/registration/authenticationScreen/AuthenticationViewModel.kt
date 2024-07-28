@@ -10,6 +10,8 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LEN
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -30,11 +32,11 @@ class AuthenticationViewModel(
     private val _uiState = MutableStateFlow(AuthenticationScreenUiState())
     private val uiState: StateFlow<AuthenticationScreenUiState> = _uiState.asStateFlow()
 
-    fun getAuthenticationScreenUiStateFlow(): StateFlow<AuthenticationScreenUiState> = uiState
-
     init {
         getAvailableCountriesList()
     }
+
+    fun getAuthenticationScreenUiStateFlow(): StateFlow<AuthenticationScreenUiState> = uiState
 
     fun changeNumber(number: String) {
         _uiState.update {
@@ -60,16 +62,14 @@ class AuthenticationViewModel(
     }
 
     private fun getAvailableCountriesList() {
-        viewModelScope.launch {
-            getAvailableCountriesListUseCase.execute()
-                .collect { availableCountriesList ->
-                    _uiState.update {
-                        it.copy(
-                            country = availableCountriesList.first().toCountryModelUI(),
-                            listOfCountries = availableCountriesList.map { it.toCountryModelUI() }
-                        )
-                    }
+        getAvailableCountriesListUseCase.execute()
+            .onEach { availableCountriesList ->
+                _uiState.update {
+                    it.copy(
+                        country = availableCountriesList.first().toCountryModelUI(),
+                        listOfCountries = availableCountriesList.map { it.toCountryModelUI() }
+                    )
                 }
-        }
+            }.launchIn(viewModelScope)
     }
 }
