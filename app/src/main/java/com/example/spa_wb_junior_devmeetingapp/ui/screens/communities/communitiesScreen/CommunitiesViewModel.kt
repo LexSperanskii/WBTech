@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class CommunitiesScreenUiState(
-    val search : String = EMPTY_STRING,
-    val listOfCommunities : List<CommunityModelUI> = listOf()
+    val search: String = EMPTY_STRING,
+    val listOfCommunities: List<CommunityModelUI> = listOf()
 )
 
 class CommunitiesViewModel(
@@ -30,7 +30,15 @@ class CommunitiesViewModel(
         getCommunitiesList()
     }
 
-    private fun getCommunitiesList(){
+    fun onSearchChange(search: String) {
+        _uiState.update {
+            it.copy(
+                search = search
+            )
+        }
+    }
+
+    private fun getCommunitiesList() {
         viewModelScope.launch {
             getCommunitiesListUseCase.execute()
                 .collect { communities ->
@@ -40,14 +48,6 @@ class CommunitiesViewModel(
                         )
                     }
                 }
-        }
-    }
-
-    fun onSearchChange(search: String) {
-        _uiState.update {
-            it.copy(
-                search = search
-            )
         }
     }
 }

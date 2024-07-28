@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
@@ -37,7 +38,7 @@ fun CommunityDetailsScreen(
     viewModel: CommunityDetailViewModel = koinViewModel()
 ) {
 
-    val communityDetailScreenUiState by viewModel.getCommunityDetailScreenUiStateFlow().collectAsState()
+    val communityDetailScreenUiState by viewModel.getCommunityDetailScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {

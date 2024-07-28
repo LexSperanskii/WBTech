@@ -36,19 +36,7 @@ class VerificationViewModel(
         getUserPhoneNumber()
     }
 
-    private fun getUserPhoneNumber() {
-        viewModelScope.launch {
-            getUserPhoneNumberUseCase.execute().collect(){ phoneNumber ->
-                _uiState.update {
-                    it.copy(
-                        phoneNumber = phoneNumber.toPhoneNumberModelUI()
-                    )
-                }
-            }
-        }
-    }
-
-    fun onPinCodeChange(pinCode : String) {
+    fun onPinCodeChange(pinCode: String) {
         _uiState.update {
             it.copy(
                 pinCode = pinCode
@@ -60,16 +48,29 @@ class VerificationViewModel(
         val pinCode = _uiState.value.pinCode
         viewModelScope.launch {
             val isPinCodeValid = pinCodeVerificationUseCase.execute(pinCode).first()
-            when(isPinCodeValid){
+            when (isPinCodeValid) {
                 true -> {
                     navigate()
                 }
+
                 else -> {
                     _uiState.update {
                         it.copy(
                             pinCode = EMPTY_STRING
                         )
                     }
+                }
+            }
+        }
+    }
+
+    private fun getUserPhoneNumber() {
+        viewModelScope.launch {
+            getUserPhoneNumberUseCase.execute().collect() { phoneNumber ->
+                _uiState.update {
+                    it.copy(
+                        phoneNumber = phoneNumber.toPhoneNumberModelUI()
+                    )
                 }
             }
         }

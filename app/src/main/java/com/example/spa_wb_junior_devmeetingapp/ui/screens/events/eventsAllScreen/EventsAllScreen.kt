@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
@@ -58,7 +59,7 @@ fun EventsAllScreen(
     viewModel: EventsAllViewModel = koinViewModel()
 ) {
 
-    val eventsAllScreenUiState by viewModel.getEventsAllScreenUiStateFlow().collectAsState()
+    val eventsAllScreenUiState by viewModel.getEventsAllScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {

@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CustomTextField
@@ -34,7 +35,7 @@ fun RegistrationProfileScreen(
     viewModel: RegistrationProfileViewModel = koinViewModel()
 ) {
 
-    val registrationProfileScreenUiState by viewModel.getRegistrationProfileScreenUiStateFlow().collectAsState()
+    val registrationProfileScreenUiState by viewModel.getRegistrationProfileScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {

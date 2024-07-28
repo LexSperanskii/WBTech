@@ -7,6 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dotlottie.dlplayer.Mode
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
@@ -27,7 +28,7 @@ fun SplashScreen(
     viewModel: SplashScreenViewModel = koinViewModel()
 ) {
 
-    val splashScreenUiState by viewModel.getSplashScreenUiStateFlow().collectAsState()
+    val splashScreenUiState by viewModel.getSplashScreenUiStateFlow().collectAsStateWithLifecycle()
 
     val dotLottieController = remember { DotLottieController() }
 

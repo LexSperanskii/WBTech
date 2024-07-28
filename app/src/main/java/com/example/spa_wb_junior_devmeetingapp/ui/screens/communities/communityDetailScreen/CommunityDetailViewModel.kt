@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class CommunityDetailScreenUiState(
-    val communityDetail : CommunityDetailModelUI = CommunityDetailModelUI()
+    val communityDetail: CommunityDetailModelUI = CommunityDetailModelUI()
 )
 
 class CommunityDetailViewModel(
     private val getCommunityDetailUseCase: GetCommunityDetailUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CommunityDetailScreenUiState())
     private val uiState: StateFlow<CommunityDetailScreenUiState> = _uiState.asStateFlow()

@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
@@ -46,7 +47,7 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel()
 ) {
 
-    val profileScreenUiState by viewModel.getProfileScreenUiStateFlow().collectAsState()
+    val profileScreenUiState by viewModel.getProfileScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {

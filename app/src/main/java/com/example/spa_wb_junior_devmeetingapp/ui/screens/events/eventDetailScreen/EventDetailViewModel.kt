@@ -19,10 +19,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class EventDetailScreenUiState(
-    val event : EventDetailModelUI = EventDetailModelUI(),
-    val userAsRegisteredPerson : RegisteredPersonModelUI = RegisteredPersonModelUI()
-){
-    val isUserInParticipants : Boolean
+    val event: EventDetailModelUI = EventDetailModelUI(),
+    val userAsRegisteredPerson: RegisteredPersonModelUI = RegisteredPersonModelUI()
+) {
+    val isUserInParticipants: Boolean
         get() = event.listOfParticipants.contains(userAsRegisteredPerson)
 }
 
@@ -31,7 +31,7 @@ class EventDetailViewModel(
     private val addUserAsParticipantUseCase: AddUserAsParticipantUseCase,
     private val removeUserAsParticipantUseCase: RemoveUserAsParticipantUseCase,
     private val getUserUseCase: GetUserUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(EventDetailScreenUiState())
     private val uiState: StateFlow<EventDetailScreenUiState> = _uiState.asStateFlow()
@@ -40,6 +40,28 @@ class EventDetailViewModel(
 
     init {
         getEventDetails()
+    }
+
+    fun onGoToMeetingClick() {
+        val state = uiState.value
+        viewModelScope.launch {
+            when (state.isUserInParticipants) {
+                true -> {
+                    removeUserAsParticipantUseCase.execute(
+                        DEFAULT_EVENT_ID,
+                        state.userAsRegisteredPerson.toRegisteredPerson()
+                    )
+                }
+
+                else -> {
+                    addUserAsParticipantUseCase.execute(
+                        DEFAULT_EVENT_ID,
+                        state.userAsRegisteredPerson.toRegisteredPerson()
+                    )
+                }
+            }
+            getEventDetails()
+        }
     }
 
     private fun getEventDetails() {
@@ -63,20 +85,4 @@ class EventDetailViewModel(
                 }
         }
     }
-
-    fun onGoToMeetingClick (){
-        val state = uiState.value
-        viewModelScope.launch {
-            when(state.isUserInParticipants){
-                true ->{
-                    removeUserAsParticipantUseCase.execute(DEFAULT_EVENT_ID, state.userAsRegisteredPerson.toRegisteredPerson())
-                }
-                else ->{
-                    addUserAsParticipantUseCase.execute(DEFAULT_EVENT_ID, state.userAsRegisteredPerson.toRegisteredPerson())
-                }
-            }
-            getEventDetails()
-        }
-    }
-
 }

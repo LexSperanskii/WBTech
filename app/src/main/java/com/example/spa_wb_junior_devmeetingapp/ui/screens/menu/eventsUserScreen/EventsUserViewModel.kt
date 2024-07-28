@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class EventsUserScreenUiState(
-    val listOfMeetingsScheduled : List<EventModelUI> = listOf(),
-    val listOfMeetingsPast : List<EventModelUI> = listOf(),
+    val listOfMeetingsScheduled: List<EventModelUI> = listOf(),
+    val listOfMeetingsPast: List<EventModelUI> = listOf(),
 )
 
 class EventsUserViewModel(
     private val getMyEventsListUseCase: GetMyEventsListUseCase,
     private val getMyEventsPastListUseCase: GetMyEventsPastListUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(EventsUserScreenUiState())
     private val uiState: StateFlow<EventsUserScreenUiState> = _uiState.asStateFlow()
@@ -43,7 +43,7 @@ class EventsUserViewModel(
                 }
 
             getMyEventsPastListUseCase.execute()
-                .collect{ events ->
+                .collect { events ->
                     _uiState.update {
                         it.copy(
                             listOfMeetingsPast = events.map { it.toEventModelUI() }
@@ -52,5 +52,4 @@ class EventsUserViewModel(
                 }
         }
     }
-
 }

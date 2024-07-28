@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
@@ -36,7 +37,7 @@ fun MenuScreen(
     viewModel: MenuViewModel = koinViewModel()
 ) {
 
-    val menuScreenUiState by viewModel.getMenuScreenUiStateFlow().collectAsState()
+    val menuScreenUiState by viewModel.getMenuScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {

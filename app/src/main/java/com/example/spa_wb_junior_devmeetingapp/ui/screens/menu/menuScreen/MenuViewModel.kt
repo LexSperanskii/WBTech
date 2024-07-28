@@ -12,12 +12,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class MenuScreenUiState(
-    val user : UserModelUI = UserModelUI(),
+    val user: UserModelUI = UserModelUI(),
 )
 
 class MenuViewModel(
     private val getUserUseCase: GetUserUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MenuScreenUiState())
     private val uiState: StateFlow<MenuScreenUiState> = _uiState.asStateFlow()
@@ -27,6 +27,7 @@ class MenuViewModel(
     init {
         getUser()
     }
+
     private fun getUser() {
         viewModelScope.launch {
             getUserUseCase.execute()

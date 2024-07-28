@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
@@ -37,7 +38,7 @@ fun VerificationScreen(
     viewModel: VerificationViewModel = koinViewModel()
 ) {
 
-    val verificationScreenUiState by viewModel.getVerificationScreenUiStateFlow().collectAsState()
+    val verificationScreenUiState by viewModel.getVerificationScreenUiStateFlow().collectAsStateWithLifecycle()
 
 
     Scaffold(

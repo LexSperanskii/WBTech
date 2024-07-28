@@ -34,16 +34,11 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
 
-sealed class BottomNavItem(val route: String, @StringRes val title: Int, @DrawableRes val icon: Int) {
-    data object Events : BottomNavItem("events_tab",R.string.events_all, R.drawable.bottom_bar_icon_meetings)
-    data object Communities : BottomNavItem("communities_tab", R.string.communities, R.drawable.bottom_bar_icon_communities)
-    data object Menu : BottomNavItem("menu_tab",  R.string.more, R.drawable.bottom_bar_icon_more)
+enum class BottomNavItem(val route: String, @StringRes val title: Int, @DrawableRes val icon: Int) {
+    Events (route = "events_tab", title = R.string.events_all, icon = R.drawable.bottom_bar_icon_meetings),
+    Communities (route = "communities_tab", title = R.string.communities, icon = R.drawable.bottom_bar_icon_communities),
+    Menu (route = "menu_tab", title = R.string.more, icon = R.drawable.bottom_bar_icon_more)
 }
-val items = listOf(
-    BottomNavItem.Events,
-    BottomNavItem.Communities,
-    BottomNavItem.Menu
-)
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -54,7 +49,7 @@ fun BottomNavigationBar(navController: NavController) {
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
-        items.forEach { bottomBarItem ->
+        BottomNavItem.entries.forEach { bottomBarItem ->
 
             val isSelected = currentDestination?.hierarchy?.any { it.route == bottomBarItem.route } == true
 

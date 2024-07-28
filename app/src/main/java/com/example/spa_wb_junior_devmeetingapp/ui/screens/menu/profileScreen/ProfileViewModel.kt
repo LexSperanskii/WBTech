@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class ProfileScreenUiState(
-    val user : UserModelUI = UserModelUI()
+    val user: UserModelUI = UserModelUI()
 )
 
 class ProfileViewModel(
     private val getUserUseCase: GetUserUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileScreenUiState())
     private val uiState: StateFlow<ProfileScreenUiState> = _uiState.asStateFlow()

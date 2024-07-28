@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.EventDetailModelUI
@@ -54,7 +55,7 @@ fun EventDetailsScreen(
     viewModel: EventDetailViewModel = koinViewModel()
 ) {
 
-    val eventDetailScreenUiState by viewModel.getEventDetailScreenUiStateFlow().collectAsState()
+    val eventDetailScreenUiState by viewModel.getEventDetailScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {

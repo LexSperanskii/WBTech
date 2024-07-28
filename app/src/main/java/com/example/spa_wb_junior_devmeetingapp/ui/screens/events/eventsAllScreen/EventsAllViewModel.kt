@@ -17,15 +17,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class EventsAllScreenUiState(
-    val listOfMeetingsAll : List<EventModelUI> = listOf(),
-    val listOfMeetingsActive : List<EventModelUI> = listOf(),
-    val search : String = EMPTY_STRING,
+    val listOfMeetingsAll: List<EventModelUI> = listOf(),
+    val listOfMeetingsActive: List<EventModelUI> = listOf(),
+    val search: String = EMPTY_STRING,
 )
 
 class EventsAllViewModel(
     private val getAllEventsUseCase: GetAllEventsUseCase,
     private val getAllEventsActiveUseCase: GetAllEventsActiveUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(EventsAllScreenUiState())
     private val uiState: StateFlow<EventsAllScreenUiState> = _uiState.asStateFlow()
@@ -34,6 +34,14 @@ class EventsAllViewModel(
 
     init {
         getAllEvents()
+    }
+
+    fun onSearchChange(search: String) {
+        _uiState.update {
+            it.copy(
+                search = search
+            )
+        }
     }
 
     private fun getAllEvents() {
@@ -48,21 +56,13 @@ class EventsAllViewModel(
                 }
 
             getAllEventsActiveUseCase.execute()
-                .collect{ events ->
+                .collect { events ->
                     _uiState.update {
                         it.copy(
                             listOfMeetingsActive = events.map { it.toEventModelUI() }
                         )
                     }
                 }
-        }
-    }
-
-    fun onSearchChange(search: String) {
-        _uiState.update {
-            it.copy(
-                search = search
-            )
         }
     }
 }
