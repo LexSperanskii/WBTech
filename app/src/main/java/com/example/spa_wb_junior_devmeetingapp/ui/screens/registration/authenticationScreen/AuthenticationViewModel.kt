@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.user.GetAvailableCountriesListUseCase
 import com.example.domain.usecases.user.SetUserPhoneNumberUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCountryModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +25,7 @@ internal data class AuthenticationScreenUiState(
 }
 
 internal class AuthenticationViewModel(
+    private val mapper: IMapperDomainUI,
     private val getAvailableCountriesListUseCase: GetAvailableCountriesListUseCase,
     private val setUserPhoneNumberUseCase: SetUserPhoneNumberUseCase,
 ) : ViewModel() {
@@ -66,8 +67,8 @@ internal class AuthenticationViewModel(
             .onEach { availableCountriesList ->
                 _uiState.update {
                     it.copy(
-                        country = availableCountriesList.first().toCountryModelUI(),
-                        listOfCountries = availableCountriesList.map { it.toCountryModelUI() }
+                        country = mapper.toCountryModelUI(availableCountriesList.first()),
+                        listOfCountries = availableCountriesList.map { mapper.toCountryModelUI(it) }
                     )
                 }
             }.launchIn(viewModelScope)

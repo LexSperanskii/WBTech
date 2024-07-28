@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.communities.GetCommunitiesListUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.CommunityModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCommunityModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.EMPTY_STRING
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 internal data class CommunitiesScreenUiState(
     val search: String = EMPTY_STRING,
@@ -20,7 +19,8 @@ internal data class CommunitiesScreenUiState(
 )
 
 internal class CommunitiesViewModel(
-    private val getCommunitiesListUseCase: GetCommunitiesListUseCase,
+    private val mapper: IMapperDomainUI,
+    private val getCommunitiesListUseCase: GetCommunitiesListUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CommunitiesScreenUiState())
@@ -45,7 +45,7 @@ internal class CommunitiesViewModel(
             .onEach { communities ->
                 _uiState.update {
                     it.copy(
-                        listOfCommunities = communities.map { it.toCommunityModelUI() }
+                        listOfCommunities = communities.map { mapper.toCommunityModelUI(it) }
                     )
                 }
             }.launchIn(viewModelScope)

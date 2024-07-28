@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
-enum class SplashScreenStatus {
+internal enum class SplashScreenStatus {
     Loading,
     Finished
 }

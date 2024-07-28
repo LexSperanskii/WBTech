@@ -18,76 +18,91 @@ import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.UserModelUI
 
+internal interface IMapperDomainUI{
+    fun toCommunityModelUI(community: Community): CommunityModelUI
+    fun toCommunityDetailModelUI(communityDetail: CommunityDetail): CommunityDetailModelUI
+    fun toCountryModelUI(country: Country): CountryModelUI
+    fun toEventModelUI(event: Event): EventModelUI
+    fun toEventDetailModelUI(eventDetail: EventDetail): EventDetailModelUI
+    fun toRegisteredPersonModelUI(registeredPerson: RegisteredPerson): RegisteredPersonModelUI
+    fun toRegisteredPerson(registeredPersonModelUI: RegisteredPersonModelUI): RegisteredPerson
+    fun toPhoneNumberModelUI(phoneNumber: PhoneNumber): PhoneNumberModelUI
+    fun toUserModelUI(user: User): UserModelUI
+}
 
-internal fun Community.toCommunityModelUI(): CommunityModelUI =
-    CommunityModelUI(
-        id = this.id,
-        name = this.name,
-        size = this.size,
-        iconURL = this.iconURL,
-    )
+internal class MapperDomainUI() : IMapperDomainUI{
 
-internal fun CommunityDetail.toCommunityDetailModelUI(): CommunityDetailModelUI =
-    CommunityDetailModelUI(
-        id = this.id,
-        name = this.name,
-        description = this.description,
-        events = this.events.map { it.toEventModelUI() },
-    )
+    override fun toCommunityModelUI(community: Community): CommunityModelUI =
+        CommunityModelUI(
+            id = community.id,
+            name = community.name,
+            size = community.size,
+            iconURL = community.iconURL,
+        )
 
-internal fun Country.toCountryModelUI(): CountryModelUI =
-    CountryModelUI(
-        country = this.country,
-        code = this.code,
-        flag = this.flag,
-    )
+    override fun toCommunityDetailModelUI(communityDetail: CommunityDetail): CommunityDetailModelUI =
+        CommunityDetailModelUI(
+            id = communityDetail.id,
+            name = communityDetail.name,
+            description = communityDetail.description,
+            events = communityDetail.events.map { toEventModelUI(it) },
+        )
 
-internal fun Event.toEventModelUI(): EventModelUI =
-    EventModelUI(
-        id = this.id,
-        name = this.name,
-        date = this.date,
-        city = this.city,
-        category = this.category,
-        iconURL = this.iconURL,
-        isFinished = this.isFinished
-    )
+    override fun toCountryModelUI(country: Country): CountryModelUI =
+        CountryModelUI(
+            country = country.country,
+            code = country.code,
+            flag = country.flag,
+        )
 
-internal fun EventDetail.toEventDetailModelUI(): EventDetailModelUI =
-    EventDetailModelUI(
-        id = this.id,
-        name = this.name,
-        date = this.date,
-        address = this.address.toAddressString(),
-        category = this.category,
-        locationCoordinates= this.locationCoordinates,
-        description = this.description,
-        listOfParticipants = this.listOfParticipants.map { it.toRegisteredPersonModelUI() },
-        isFinished = this.isFinished,
-    )
+    override fun toEventModelUI(event: Event): EventModelUI =
+        EventModelUI(
+            id = event.id,
+            name = event.name,
+            date = event.date,
+            city = event.city,
+            category = event.category,
+            iconURL = event.iconURL,
+            isFinished = event.isFinished
+        )
 
-internal fun RegisteredPerson.toRegisteredPersonModelUI(): RegisteredPersonModelUI =
-    RegisteredPersonModelUI(
-        id = this.id,
-        iconURL = this.iconURL,
-    )
-internal fun RegisteredPersonModelUI.toRegisteredPerson(): RegisteredPerson =
-    RegisteredPerson(
-        id = this.id,
-        iconURL = this.iconURL,
-    )
+    override fun toEventDetailModelUI(eventDetail: EventDetail): EventDetailModelUI =
+        EventDetailModelUI(
+            id = eventDetail.id,
+            name = eventDetail.name,
+            date = eventDetail.date,
+            address = eventDetail.address.toAddressString(),
+            category = eventDetail.category,
+            locationCoordinates = eventDetail.locationCoordinates,
+            description = eventDetail.description,
+            listOfParticipants = eventDetail.listOfParticipants.map { toRegisteredPersonModelUI(it) },
+            isFinished = eventDetail.isFinished,
+        )
 
-internal fun PhoneNumber.toPhoneNumberModelUI(): PhoneNumberModelUI =
-    PhoneNumberModelUI(
-        countryCode = this.countryCode,
-        number = this.number,
-    )
+    override fun toRegisteredPersonModelUI(registeredPerson: RegisteredPerson): RegisteredPersonModelUI =
+        RegisteredPersonModelUI(
+            id = registeredPerson.id,
+            iconURL = registeredPerson.iconURL,
+        )
 
-internal fun User.toUserModelUI(): UserModelUI =
-    UserModelUI(
-        id = this.id,
-        name = this.name,
-        surname = this.surname,
-        phoneNumberModelUI = this.phoneNumber.toPhoneNumberModelUI(),
-        iconURL = this.iconURL
-    )
+    override fun toRegisteredPerson(registeredPersonModelUI: RegisteredPersonModelUI): RegisteredPerson =
+        RegisteredPerson(
+            id = registeredPersonModelUI.id,
+            iconURL = registeredPersonModelUI.iconURL,
+        )
+
+    override fun toPhoneNumberModelUI(phoneNumber: PhoneNumber): PhoneNumberModelUI =
+        PhoneNumberModelUI(
+            countryCode = phoneNumber.countryCode,
+            number = phoneNumber.number,
+        )
+
+    override fun toUserModelUI(user: User): UserModelUI =
+        UserModelUI(
+            id = user.id,
+            name = user.name,
+            surname = user.surname,
+            phoneNumberModelUI = toPhoneNumberModelUI(user.phoneNumber),
+            iconURL = user.iconURL
+        )
+}

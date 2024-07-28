@@ -42,7 +42,7 @@ internal fun FullScreenMapScreen(
 }
 
 @Composable
-fun FullScreenMapBody(
+internal fun FullScreenMapBody(
     modifier: Modifier = Modifier
 ){
     Column(

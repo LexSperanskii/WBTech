@@ -419,7 +419,7 @@ internal fun DeveloperScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun FirstScreenPreview() {
+internal fun FirstScreenPreview() {
     DevMeetingAppTheme {
         Surface() {
             DeveloperScreen()

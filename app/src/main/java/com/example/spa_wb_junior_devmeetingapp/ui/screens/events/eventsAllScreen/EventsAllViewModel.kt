@@ -5,18 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.events.GetAllEventsActiveUseCase
 import com.example.domain.usecases.events.GetAllEventsUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCommunityDetailModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toEventModelUI
-import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_COMMUNITY_ID
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.EMPTY_STRING
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 internal data class EventsAllScreenUiState(
     val listOfMeetingsAll: List<EventModelUI> = listOf(),
@@ -25,6 +21,7 @@ internal data class EventsAllScreenUiState(
 )
 
 internal class EventsAllViewModel(
+    private val mapper: IMapperDomainUI,
     private val getAllEventsUseCase: GetAllEventsUseCase,
     private val getAllEventsActiveUseCase: GetAllEventsActiveUseCase,
 ) : ViewModel() {
@@ -53,8 +50,8 @@ internal class EventsAllViewModel(
         ) { eventsAll, eventsActive ->
             _uiState.update {
                 it.copy(
-                    listOfMeetingsAll = eventsAll.map { it.toEventModelUI() },
-                    listOfMeetingsActive = eventsActive.map { it.toEventModelUI() }
+                    listOfMeetingsAll = eventsAll.map { mapper.toEventModelUI(it) },
+                    listOfMeetingsActive = eventsActive.map { mapper.toEventModelUI(it) }
                 )
             }
         }.launchIn(viewModelScope)

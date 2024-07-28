@@ -5,14 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.events.GetMyEventsListUseCase
 import com.example.domain.usecases.events.GetMyEventsPastListUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toEventModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 internal data class EventsUserScreenUiState(
     val listOfMeetingsScheduled: List<EventModelUI> = listOf(),
@@ -20,6 +19,7 @@ internal data class EventsUserScreenUiState(
 )
 
 internal class EventsUserViewModel(
+    private val mapper: IMapperDomainUI,
     private val getMyEventsListUseCase: GetMyEventsListUseCase,
     private val getMyEventsPastListUseCase: GetMyEventsPastListUseCase,
 ) : ViewModel() {
@@ -40,8 +40,8 @@ internal class EventsUserViewModel(
         ) { eventsMy, eventsMyPast ->
             _uiState.update {
                 it.copy(
-                    listOfMeetingsScheduled = eventsMy.map { it.toEventModelUI() },
-                    listOfMeetingsPast = eventsMyPast.map { it.toEventModelUI() }
+                    listOfMeetingsScheduled = eventsMy.map { mapper.toEventModelUI(it) },
+                    listOfMeetingsPast = eventsMyPast.map { mapper.toEventModelUI(it) }
                 )
             }
         }.launchIn(viewModelScope)

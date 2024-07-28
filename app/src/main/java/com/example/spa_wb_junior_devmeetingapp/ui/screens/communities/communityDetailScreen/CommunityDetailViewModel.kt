@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.communities.GetCommunityDetailUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.CommunityDetailModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCommunityDetailModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_COMMUNITY_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +18,8 @@ internal data class CommunityDetailScreenUiState(
 )
 
 internal class CommunityDetailViewModel(
-    private val getCommunityDetailUseCase: GetCommunityDetailUseCase,
+    private val mapper: IMapperDomainUI,
+    private val getCommunityDetailUseCase: GetCommunityDetailUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CommunityDetailScreenUiState())
@@ -35,7 +36,7 @@ internal class CommunityDetailViewModel(
             .onEach { communityDetail ->
                 _uiState.update {
                     it.copy(
-                        communityDetail = communityDetail.toCommunityDetailModelUI()
+                        communityDetail = mapper.toCommunityDetailModelUI(communityDetail)
                     )
                 }
             }.launchIn(viewModelScope)

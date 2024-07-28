@@ -4,12 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.user.GetUserAvatarUseCase
 import com.example.domain.usecases.user.SetUserUseCase
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.EMPTY_STRING
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update

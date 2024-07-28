@@ -8,9 +8,7 @@ import com.example.domain.usecases.events.RemoveUserAsParticipantUseCase
 import com.example.domain.usecases.user.GetUserUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventDetailModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toEventDetailModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toRegisteredPerson
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toUserModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_EVENT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,6 +28,7 @@ internal data class EventDetailScreenUiState(
 }
 
 internal class EventDetailViewModel(
+    private val mapper: IMapperDomainUI,
     private val getEventDetailsUseCase: GetEventDetailsUseCase,
     private val addUserAsParticipantUseCase: AddUserAsParticipantUseCase,
     private val removeUserAsParticipantUseCase: RemoveUserAsParticipantUseCase,
@@ -51,15 +50,15 @@ internal class EventDetailViewModel(
             when (state.isUserInParticipants) {
                 true -> {
                     removeUserAsParticipantUseCase.execute(
-                        DEFAULT_EVENT_ID,
-                        state.userAsRegisteredPerson.toRegisteredPerson()
+                        eventId = DEFAULT_EVENT_ID,
+                        participant = mapper.toRegisteredPerson(state.userAsRegisteredPerson)
                     )
                 }
 
                 else -> {
                     addUserAsParticipantUseCase.execute(
-                        DEFAULT_EVENT_ID,
-                        state.userAsRegisteredPerson.toRegisteredPerson()
+                        eventId = DEFAULT_EVENT_ID,
+                        participant = mapper.toRegisteredPerson(state.userAsRegisteredPerson)
                     )
                 }
             }
@@ -72,7 +71,7 @@ internal class EventDetailViewModel(
             .onEach { event ->
                 _uiState.update {
                     it.copy(
-                        event = event.toEventDetailModelUI()
+                        event = mapper.toEventDetailModelUI(event)
                     )
                 }
             }.launchIn(viewModelScope)
@@ -85,7 +84,7 @@ internal class EventDetailViewModel(
         ) { event, user ->
             _uiState.update {
                 it.copy(
-                    event = event.toEventDetailModelUI(),
+                    event = mapper.toEventDetailModelUI(event),
                     userAsRegisteredPerson = RegisteredPersonModelUI(user.id, user.iconURL)
                 )
             }

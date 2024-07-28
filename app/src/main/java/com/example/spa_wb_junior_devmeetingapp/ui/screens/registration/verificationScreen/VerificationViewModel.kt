@@ -5,18 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.user.GetUserPhoneNumberUseCase
 import com.example.domain.usecases.user.PinCodeVerificationUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toCountryModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.mapper.toPhoneNumberModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.EMPTY_STRING
-import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PIN_CODE_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 
 internal data class VerificationScreenUiState(
@@ -25,6 +21,7 @@ internal data class VerificationScreenUiState(
 )
 
 internal class VerificationViewModel(
+    private val mapper: IMapperDomainUI,
     private val getUserPhoneNumberUseCase: GetUserPhoneNumberUseCase,
     private val pinCodeVerificationUseCase: PinCodeVerificationUseCase
 ) : ViewModel() {
@@ -71,7 +68,7 @@ internal class VerificationViewModel(
             .onEach { phoneNumber ->
                 _uiState.update {
                     it.copy(
-                        phoneNumber = phoneNumber.toPhoneNumberModelUI()
+                        phoneNumber = mapper.toPhoneNumberModelUI(phoneNumber)
                     )
                 }
             }.launchIn(viewModelScope)
