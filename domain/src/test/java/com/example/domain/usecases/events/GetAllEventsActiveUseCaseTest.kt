@@ -1,22 +1,40 @@
 package com.example.domain.usecases.events
 
+import com.example.domain.models.Event
 import com.example.domain.stabRepositories.EventRepositoryStub
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertNotNull
 
 class GetAllEventsActiveUseCaseTest {
+
+    private lateinit var eventRepositoryStub: EventRepositoryStub
+    private lateinit var useCase: GetAllEventsActiveInteractor
+    private lateinit var eventsAllActive: List<Event>
+
+    @Before
+    fun setUp() = runTest {
+        eventRepositoryStub = EventRepositoryStub()
+        useCase = GetAllEventsActiveInteractor(eventRepository = eventRepositoryStub)
+        eventsAllActive = useCase.execute().first()
+    }
+
     @Test
-    fun `return correct events active list`() = runTest{
+    fun `events id are unique`() {
+        assertTrue(eventsAllActive.distinctBy { it.id }.size == eventsAllActive.size)
+    }
 
-        val eventRepositoryStub = EventRepositoryStub()
+    @Test
+    fun `all events have not blank names`() {
+        eventsAllActive.forEach { event ->
+            assertTrue(event.name.isNotBlank())
+        }
+    }
 
-        val useCase = GetAllEventsActiveInteractor(eventRepository = eventRepositoryStub)
-
-        val eventsAllActive = useCase.execute().first()
-
+    @Test
+    fun `all events are Active`() {
         eventsAllActive.forEach { event ->
             assertTrue(!event.isFinished)
         }

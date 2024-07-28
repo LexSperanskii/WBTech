@@ -1,35 +1,42 @@
 package com.example.domain.usecases.user
 
+import com.example.domain.models.PhoneNumber
+import com.example.domain.models.User
 import com.example.domain.stabRepositories.UserRepositoryStub
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 
 class GetUserUseCaseTest {
 
+    private lateinit var testUserRepository: UserRepositoryStub
+    private lateinit var useCase: GetUserInteractor
+    private lateinit var user: User
+
+    @Before
+    fun setUp() = runTest {
+        testUserRepository = UserRepositoryStub()
+        useCase = GetUserInteractor(userRepository = testUserRepository)
+        user = useCase.execute().first()
+    }
+
     @Test
-    fun `return correct user name`() = runTest{
-
-        val testUserRepository = UserRepositoryStub()
-
-        val useCase = GetUserInteractor(userRepository = testUserRepository)
-
-        val user = useCase.execute().first()
-
+    fun `user name is not blank`() {
         assertTrue(user.name.isNotBlank())
     }
 
     @Test
-    fun `return correct user phone number`() = runTest{
+    fun `user phone number country code is not blank`() {
+        assertTrue(user.phoneNumber.countryCode.isNotBlank())
 
-        val testUserRepository = UserRepositoryStub()
+    }
 
-        val useCase = GetUserInteractor(userRepository = testUserRepository)
+    @Test
+    fun `user phone number is not blank`() {
+        assertTrue(user.phoneNumber.number.isNotBlank())
 
-        val user = useCase.execute().first()
-
-        assertTrue(user.phoneNumber.number.isNotBlank() && user.phoneNumber.countryCode.isNotBlank())
     }
 }

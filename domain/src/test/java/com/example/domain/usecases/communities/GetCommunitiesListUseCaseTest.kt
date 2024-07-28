@@ -1,24 +1,36 @@
 package com.example.domain.usecases.communities
 
+import com.example.domain.models.Community
 import com.example.domain.stabRepositories.CommunityRepositoryStub
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertNotNull
 
 
 class GetCommunitiesListUseCaseTest {
 
+    private lateinit var communityRepositoryStub: CommunityRepositoryStub
+    private lateinit var useCase: GetCommunitiesListInteractor
+    private lateinit var communities: List<Community>
+
+    @Before
+    fun setUp() = runTest {
+        communityRepositoryStub = CommunityRepositoryStub()
+        useCase = GetCommunitiesListInteractor(communityRepository = communityRepositoryStub)
+        communities = useCase.execute().first()
+    }
+
     @Test
-    fun `return correct communities list`() = runTest{
+    fun `communities id are unique`() {
+        assertTrue(communities.distinctBy { it.id }.size == communities.size)
+    }
 
-        val communityRepositoryStub = CommunityRepositoryStub()
-
-        val useCase = GetCommunitiesListInteractor(communityRepository = communityRepositoryStub)
-
-        val communities = useCase.execute().first()
-
-        assertTrue(communities.distinctBy { it.id }.size == communities.size) // проверяем уникальность id
+    @Test
+    fun `communities have not blank names`() {
+        communities.forEach { community ->
+            assertTrue(community.name.isNotBlank())
+        }
     }
 }
