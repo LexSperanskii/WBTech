@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.CommunityModelUI
@@ -23,19 +24,19 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import org.koin.androidx.compose.koinViewModel
 
-object CommunitiesDestination : NavigationDestination {
+internal object CommunitiesDestination : NavigationDestination {
     override val route = "communities"
     override val title = R.string.communities
 }
 
 @Composable
-fun CommunityScreen(
+internal fun CommunityScreen(
     navController: NavHostController,
     navigateToCommunityDetailItem: () -> Unit,
     viewModel: CommunitiesViewModel = koinViewModel()
 ){
 
-    val communitiesScreenUiState by viewModel.getCommunitiesScreenUiStateFlow().collectAsState()
+    val communitiesScreenUiState by viewModel.getCommunitiesScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -73,7 +74,7 @@ fun CommunityScreen(
 }
 
 @Composable
-fun CommunityBody(
+internal fun CommunityBody(
     listOfCommunities: List<CommunityModelUI>,
     onCommunityItemClick: () -> Unit,
     searchField : String,

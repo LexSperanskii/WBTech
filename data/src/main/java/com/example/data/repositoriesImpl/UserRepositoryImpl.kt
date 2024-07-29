@@ -4,35 +4,45 @@ import com.example.domain.models.MockData
 import com.example.domain.models.PhoneNumber
 import com.example.domain.models.User
 import com.example.domain.repositories.IUserRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 internal class UserRepositoryImpl(private val mock: MockData): IUserRepository {
 
-    override fun setUserPhoneNumber(code: String, number: String) {
+    override suspend fun setUserPhoneNumber(code: String, number: String) {
         mock.setUserPhoneNumber(code,number)
     }
 
-    override fun getUserAvatar(): String {
-        return mock.getUserAvatar()
+    override fun getUserPhoneNumber(): Flow<PhoneNumber> {
+        return flow{
+            emit(mock.getUserPhoneNumber())
+        }.flowOn(Dispatchers.IO)
     }
 
-    override fun setUserName(name: String) {
+    override fun pinCodeVerification(pinCode: String) : Flow<Boolean> {
+        return flow{
+            emit(mock.pinCodeVerification(pinCode))
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getUserAvatar(): Flow<String> {
+        return flow{
+            emit(mock.getUserAvatar())
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun setUser(name: String, surname: String, avatarURL: String?) {
         mock.setUserName(name)
-    }
-
-    override fun setUserSurname(surname: String) {
         mock.setUserSurname(surname)
-    }
-
-    override fun setUserAvatar(avatarURL: String?) {
         mock.setUserAvatar(avatarURL)
     }
 
-    override fun getUserPhoneNumber(): PhoneNumber {
-        return mock.getUserPhoneNumber()
-    }
-
-    override fun getUser(): User {
-        return mock.getUser()
+    override fun getUser(): Flow<User> {
+        return flow {
+            emit(mock.getUser())
+        }.flowOn(Dispatchers.IO)
     }
 
 }

@@ -28,7 +28,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.replaceFirstChar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun CustomTextField(
+internal fun CustomTextField(
     value: String,
     placeholder: String,
     onValueChange : (String) -> Unit,

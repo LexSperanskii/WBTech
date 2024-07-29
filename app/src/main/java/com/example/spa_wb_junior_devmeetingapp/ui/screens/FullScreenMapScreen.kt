@@ -16,13 +16,13 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 
-object MapDestination : NavigationDestination {
+internal object MapDestination : NavigationDestination {
     override val route = "map"
     override val title = R.string.map
 }
 
 @Composable
-fun FullScreenMapScreen(
+internal fun FullScreenMapScreen(
     navController: NavHostController,
 ) {
     Scaffold(
@@ -42,7 +42,7 @@ fun FullScreenMapScreen(
 }
 
 @Composable
-fun FullScreenMapBody(
+internal fun FullScreenMapBody(
     modifier: Modifier = Modifier
 ){
     Column(

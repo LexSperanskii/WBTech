@@ -74,7 +74,7 @@ private val typography = DevMeetingsAppTypography(
 )
 
 @Composable
-fun DevMeetingAppTheme(
+internal fun DevMeetingAppTheme(
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
@@ -91,7 +91,7 @@ fun DevMeetingAppTheme(
     }
 }
 
-object DevMeetingAppTheme {
+internal object DevMeetingAppTheme {
     val colors: DevMeetingsAppColorScheme
         @Composable get() = LocalColorScheme.current
     val typography: DevMeetingsAppTypography

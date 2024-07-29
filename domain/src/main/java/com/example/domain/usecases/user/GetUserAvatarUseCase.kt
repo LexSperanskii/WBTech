@@ -1,15 +1,16 @@
 package com.example.domain.usecases.user
 
 import com.example.domain.repositories.IUserRepository
+import kotlinx.coroutines.flow.Flow
 
 interface GetUserAvatarUseCase {
-    fun execute(): String
+    fun execute(): Flow<String>
 }
 
-internal class GetUserAvatarInteractor(private val userRepository: IUserRepository) :
+internal class GetUserAvatarUseCaseImpl(private val userRepository: IUserRepository) :
     GetUserAvatarUseCase {
 
-    override fun execute(): String {
+    override fun execute(): Flow<String> {
         return userRepository.getUserAvatar()
     }
 }

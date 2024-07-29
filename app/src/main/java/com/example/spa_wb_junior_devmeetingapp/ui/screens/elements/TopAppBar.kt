@@ -22,7 +22,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarBackNameAction(
+internal fun TopAppBarBackNameAction(
     title: String,
     modifier: Modifier = Modifier,
     onClickNavigateBack: () -> Unit = {},
@@ -69,7 +69,7 @@ fun TopAppBarBackNameAction(
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarForProfile(
+internal fun TopAppBarForProfile(
     title: String,
     onClickNavigateBack: () -> Unit,
     onEditClick: () -> Unit,
@@ -110,7 +110,7 @@ fun TopAppBarForProfile(
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarForEventDetails(
+internal fun TopAppBarForEventDetails(
     title: String,
     onClickNavigateBack: () -> Unit,
     isStatusPlanned: Boolean,

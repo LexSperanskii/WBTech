@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.EventModelUI
@@ -25,19 +26,19 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBack
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-object CommunityDetailsDestination : NavigationDestination {
+internal object CommunityDetailsDestination : NavigationDestination {
     override val route = "community_details"
     override val title = R.string.community_details
 }
 
 @Composable
-fun CommunityDetailsScreen(
+internal fun CommunityDetailsScreen(
     navController: NavHostController,
     navigateToEventDetailItem : () -> Unit,
     viewModel: CommunityDetailViewModel = koinViewModel()
 ) {
 
-    val communityDetailScreenUiState by viewModel.getCommunityDetailScreenUiStateFlow().collectAsState()
+    val communityDetailScreenUiState by viewModel.getCommunityDetailScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -67,7 +68,7 @@ fun CommunityDetailsScreen(
 }
 
 @Composable
-fun CommunityDetailsBody(
+internal fun CommunityDetailsBody(
     navigateToEventDetailItem : () -> Unit,
     description: String,
     communityEventsList : List<EventModelUI>,

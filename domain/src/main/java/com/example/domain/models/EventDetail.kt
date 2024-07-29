@@ -10,7 +10,6 @@ data class EventDetail(
     val description : String,
     val listOfParticipants: List<RegisteredPerson>,
     val isFinished: Boolean = false,
-    val isUserInParticipants: Boolean = false,
 )
 
 data class EventAddress(
@@ -24,5 +23,5 @@ fun EventAddress.toAddressString(): String{
 
 data class RegisteredPerson(
     val id: Int,
-    val iconURL : String
+    val iconURL : String?
 )

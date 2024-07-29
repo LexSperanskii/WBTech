@@ -1,6 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.models
 
-data class EventModelUI(
+internal data class EventModelUI(
     val id: Int = 0,
     val name: String = "",
     val date: String = "",

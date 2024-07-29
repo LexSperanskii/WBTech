@@ -30,7 +30,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import java.util.Locale
 
 @Composable
-fun CommunityCard(
+internal fun CommunityCard(
     communityName: String,
     communitySize: Int,
     communityIconURL: String,

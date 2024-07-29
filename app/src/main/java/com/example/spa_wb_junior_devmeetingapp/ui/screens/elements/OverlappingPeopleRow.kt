@@ -1,24 +1,29 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.elements
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -29,7 +34,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPP
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_PERCENTAGE
 
 @Composable
-fun OverlappingPeopleRow(
+internal fun OverlappingPeopleRow(
     participantsList: List<RegisteredPersonModelUI>,
     modifier: Modifier = Modifier,
     reverse: Boolean = false,
@@ -48,19 +53,9 @@ fun OverlappingPeopleRow(
                     modifier = Modifier.padding(4.dp)
                 ) {
                     participantsList.forEach { participant ->
-                        AsyncImage(
-                            model = ImageRequest.Builder(context = LocalContext.current)
-                                .data(participant.iconURL)
-                                .crossfade(true)
-                                .build(),
-                            contentScale = ContentScale.Crop,
-                            error = painterResource(R.drawable.ic_broken_image),
-                            placeholder = painterResource(R.drawable.loading_img),
-                            contentDescription = stringResource(R.string.profile_icon_in_row),
-                            modifier = Modifier
-                                .size(48.dp)
-                                .clip(RoundedCornerShape(16.dp))
-                                .border(2.dp, DevMeetingAppTheme.colors.purpleForGroupedPeople, RoundedCornerShape(16.dp)),
+                        ParticipantIcon(
+                            size = 48.dp,
+                            participant = participant
                         )
                     }
                 }
@@ -75,19 +70,9 @@ fun OverlappingPeopleRow(
                         overlappingPercentage = overlappingPercentage
                     ) {
                         participantsList.take(accountsInOverlappingRow).forEach { participant ->
-                            AsyncImage(
-                                model = ImageRequest.Builder(context = LocalContext.current)
-                                    .data(participant.iconURL)
-                                    .crossfade(true)
-                                    .build(),
-                                contentScale = ContentScale.Crop,
-                                error = painterResource(R.drawable.ic_broken_image),
-                                placeholder = painterResource(R.drawable.loading_img),
-                                contentDescription = stringResource(R.string.profile_icon_in_row),
-                                modifier = Modifier
-                                    .size(48.dp)
-                                    .clip(RoundedCornerShape(16.dp))
-                                    .border(2.dp, DevMeetingAppTheme.colors.purpleForGroupedPeople, RoundedCornerShape(16.dp)),
+                            ParticipantIcon(
+                                size = 48.dp,
+                                participant = participant
                             )
                         }
                     }
@@ -101,8 +86,55 @@ fun OverlappingPeopleRow(
         }
     }
 }
+
 @Composable
-fun OverlappingRow(
+internal fun ParticipantIcon(
+    size: Dp,
+    participant: RegisteredPersonModelUI
+) {
+    val iconScale = size.value / 100
+    participant.iconURL?.let { avatarURL ->
+        AsyncImage(
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(avatarURL)
+                .crossfade(true)
+                .build(),
+            contentScale = ContentScale.Crop,
+            error = painterResource(R.drawable.ic_broken_image),
+            placeholder = painterResource(R.drawable.loading_img),
+            contentDescription = stringResource(R.string.profile_icon_in_row),
+            modifier = Modifier
+                .size(size)
+                .clip(RoundedCornerShape(16.dp))
+                .border(
+                    2.dp,
+                    DevMeetingAppTheme.colors.purpleForGroupedPeople,
+                    RoundedCornerShape(16.dp)
+                ),
+        )
+    } ?: Box(
+        modifier = Modifier
+            .size(size)
+            .clip(RoundedCornerShape(16.dp))
+            .border(
+                2.dp,
+                DevMeetingAppTheme.colors.purpleForGroupedPeople,
+                RoundedCornerShape(16.dp)
+            )
+            .background(DevMeetingAppTheme.colors.extraLightGray)
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.icon_avatar_person),
+            contentDescription = stringResource(R.string.profile_icon_in_row),
+            modifier = Modifier
+                .align(Alignment.Center)
+                .scale(iconScale)
+        )
+    }
+}
+
+@Composable
+internal fun OverlappingRow(
     overlappingPercentage: Float,
     reverse: Boolean,
     modifier: Modifier = Modifier,

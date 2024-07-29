@@ -3,7 +3,7 @@ package com.example.spa_wb_junior_devmeetingapp.ui.theme
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 
-data class DevMeetingsAppTypography(
+internal data class DevMeetingsAppTypography(
     val heading1: TextStyle,
     val heading2: TextStyle,
     val subheading1: TextStyle,
@@ -15,7 +15,7 @@ data class DevMeetingsAppTypography(
     val metadata3: TextStyle,
 )
 
-val LocalTypography = staticCompositionLocalOf {
+internal val LocalTypography = staticCompositionLocalOf {
     DevMeetingsAppTypography(
         heading1 = TextStyle.Default,
         heading2 = TextStyle.Default,

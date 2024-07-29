@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun CustomButton(
+internal fun CustomButton(
     pressedColor: Color,
     containerColor: Color,
     onClick: () -> Unit,
@@ -62,7 +62,7 @@ fun CustomButton(
 }
 
 @Composable
-fun CustomButtonOutlined(
+internal fun CustomButtonOutlined(
     pressedColor: Color,
     contentColor: Color,
     onClick: () -> Unit,
@@ -117,7 +117,7 @@ fun CustomButtonOutlined(
 }
 
 @Composable
-fun CustomButtonText(
+internal fun CustomButtonText(
     pressedColor: Color,
     contentColor: Color,
     onClick: () -> Unit,

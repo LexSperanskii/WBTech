@@ -24,7 +24,7 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun MenuItem(
+internal fun MenuItem(
     onMenuItemClick: () -> Unit,
     menuItemIcon: Painter,
     menuItemName: String,
@@ -64,7 +64,7 @@ fun MenuItem(
     }
 }
 @Composable
-fun MenuItemForMyEvents(
+internal fun MenuItemForMyEvents(
     onMenuItemClick: () -> Unit,
     menuItemIcon: Painter,
     menuItemName: String,

@@ -36,7 +36,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavItem
 
 
 @Composable
-fun NavHost(
+internal fun NavHost(
     navController: NavHostController
 ) {
     NavHost(

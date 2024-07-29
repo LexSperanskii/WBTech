@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
@@ -25,19 +26,19 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.Custo
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-object AuthenticationDestination : NavigationDestination {
+internal object AuthenticationDestination : NavigationDestination {
     override val route = "authentication"
     override val title = R.string.authentication
 }
 
 @Composable
-fun AuthenticationScreen(
+internal fun AuthenticationScreen(
     navigateToVerificationScreen: () -> Unit,
     onClickNavigateBack: () -> Unit,
     viewModel: AuthenticationViewModel = koinViewModel(),
     ) {
 
-    val authenticationUiState by viewModel.getAuthenticationScreenUiStateFlow().collectAsState()
+    val authenticationUiState by viewModel.getAuthenticationScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -66,7 +67,7 @@ fun AuthenticationScreen(
 }
 
 @Composable
-fun AuthenticationBody(
+internal fun AuthenticationBody(
     number: String,
     onNumberChange: (String) -> Unit,
     countryCode: CountryModelUI,

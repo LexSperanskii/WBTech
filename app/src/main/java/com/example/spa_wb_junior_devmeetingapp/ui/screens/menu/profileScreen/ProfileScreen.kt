@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
@@ -28,12 +29,12 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileN
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-object ProfileDestination : NavigationDestination {
+internal object ProfileDestination : NavigationDestination {
     override val route = "profile"
     override val title = R.string.profile
 }
 
-enum class SocialMedia(val icon: Int) {
+internal enum class SocialMedia(val icon: Int) {
     Twitter(R.drawable.label_twitter),
     Instagram(R.drawable.label_instagram),
     LinkedIn(R.drawable.label_linkedin),
@@ -41,12 +42,12 @@ enum class SocialMedia(val icon: Int) {
 }
 
 @Composable
-fun ProfileScreen(
+internal fun ProfileScreen(
     navController: NavHostController,
     viewModel: ProfileViewModel = koinViewModel()
 ) {
 
-    val profileScreenUiState by viewModel.getProfileScreenUiStateFlow().collectAsState()
+    val profileScreenUiState by viewModel.getProfileScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -76,7 +77,7 @@ fun ProfileScreen(
 }
 
 @Composable
-fun ProfileBody(
+internal fun ProfileBody(
     name: String,
     surname: String,
     mobileNumber: PhoneNumberModelUI,

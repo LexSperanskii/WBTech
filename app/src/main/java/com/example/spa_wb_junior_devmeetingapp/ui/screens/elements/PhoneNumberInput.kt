@@ -35,7 +35,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @Composable
-fun PhoneNumberInput(
+internal fun PhoneNumberInput(
     number: String,
     onNumberChange: (String) -> Unit,
     countryCode:  CountryModelUI,
@@ -106,7 +106,7 @@ fun PhoneNumberInput(
         )
     }
 }
-class PhoneVisualTransformation : VisualTransformation {
+internal class PhoneVisualTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         val formattedText = StringBuilder()
         text.forEachIndexed{index, char ->

@@ -26,7 +26,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileN
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun MenuItemProfile(
+internal fun MenuItemProfile(
     onProfileClick: () -> Unit,
     profileName: String,
     profileSurname: String,

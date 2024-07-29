@@ -34,7 +34,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.replaceFirstChar
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun MySearchBar(
+internal fun MySearchBar(
     value : String,
     onValueChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,

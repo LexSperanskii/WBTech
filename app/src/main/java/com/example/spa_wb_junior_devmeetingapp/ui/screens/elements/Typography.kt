@@ -15,14 +15,14 @@ import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.SFProDisplay
 
-data class TypographyItem(
+internal data class TypographyItem(
     val style : TextStyle,
     val title: String,
     val subTitle: String
 )
 
 @Composable
-fun TypographyRow(
+internal fun TypographyRow(
     title: String,
     subTitle: String,
     style : TextStyle,

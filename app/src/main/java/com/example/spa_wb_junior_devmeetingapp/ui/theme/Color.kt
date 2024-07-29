@@ -3,7 +3,7 @@ package com.example.spa_wb_junior_devmeetingapp.ui.theme
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-data class DevMeetingsAppColorScheme(
+internal data class DevMeetingsAppColorScheme(
     val purple: Color,
     val darkPurple: Color,
     val lightGray: Color,
@@ -19,7 +19,7 @@ data class DevMeetingsAppColorScheme(
     val dividerColor: Color
 )
 
-val LocalColorScheme = staticCompositionLocalOf{
+internal val LocalColorScheme = staticCompositionLocalOf{
     DevMeetingsAppColorScheme(
         purple = Color.Unspecified,
         darkPurple = Color.Unspecified,

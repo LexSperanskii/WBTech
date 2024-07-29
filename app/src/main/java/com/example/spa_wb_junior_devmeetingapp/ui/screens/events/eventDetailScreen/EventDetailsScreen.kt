@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.EventDetailModelUI
@@ -42,26 +43,26 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.Custo
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-object EventDetailsDestination : NavigationDestination {
+internal object EventDetailsDestination : NavigationDestination {
     override val route = "event_details"
     override val title = R.string.events_details
 }
 
 @Composable
-fun EventDetailsScreen(
+internal fun EventDetailsScreen(
     navController: NavHostController,
     navigateToFullScreenMap : () -> Unit,
     viewModel: EventDetailViewModel = koinViewModel()
 ) {
 
-    val eventDetailScreenUiState by viewModel.getEventDetailScreenUiStateFlow().collectAsState()
+    val eventDetailScreenUiState by viewModel.getEventDetailScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
             TopAppBarForEventDetails(
                 title = eventDetailScreenUiState.event.name,
                 onClickNavigateBack = {navController.popBackStack()},
-                isStatusPlanned = eventDetailScreenUiState.event.isUserInParticipants,
+                isStatusPlanned = eventDetailScreenUiState.isUserInParticipants,
                 onStatusCLick = {
                     viewModel.onGoToMeetingClick()
                 }
@@ -78,7 +79,7 @@ fun EventDetailsScreen(
             onButtonClick = {
                 viewModel.onGoToMeetingClick()
             },
-            isUserInParticipants = eventDetailScreenUiState.event.isUserInParticipants,
+            isUserInParticipants = eventDetailScreenUiState.isUserInParticipants,
             enabled = !eventDetailScreenUiState.event.isFinished,
             onMapClick = navigateToFullScreenMap,
             modifier = Modifier
@@ -92,7 +93,7 @@ fun EventDetailsScreen(
 }
 
 @Composable
-fun EventDetailsBody(
+internal fun EventDetailsBody(
     event : EventDetailModelUI,
     participantsList: List<RegisteredPersonModelUI>,
     onButtonClick : ()-> Unit,

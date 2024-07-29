@@ -1,6 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.models
 
-data class EventDetailModelUI(
+internal data class EventDetailModelUI(
     val id : Int = 0,
     val name : String = "",
     val date : String = "",
@@ -10,10 +10,9 @@ data class EventDetailModelUI(
     val description : String = "",
     val listOfParticipants: List<RegisteredPersonModelUI> = listOf(),
     val isFinished: Boolean = false,
-    val isUserInParticipants: Boolean = false,
 )
 
-data class RegisteredPersonModelUI(
+internal data class RegisteredPersonModelUI(
     val id: Int = 0,
-    val iconURL : String = ""
+    val iconURL : String? = ""
 )
