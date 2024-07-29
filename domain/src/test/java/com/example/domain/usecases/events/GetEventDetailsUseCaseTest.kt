@@ -17,19 +17,25 @@ class GetEventDetailsUseCaseTest {
     private lateinit var eventDetail: EventDetail
 
     @Before
-    fun setUp() = runTest {
+    fun setUp() {
         eventRepositoryStub = EventRepositoryStub()
         useCase = GetEventDetailsUseCaseImpl(eventRepository = eventRepositoryStub)
+    }
+
+    @Test
+    fun `received correct event by id`() = runTest {
         eventDetail = useCase.execute(EVENT_ID).first()
+        val result = eventDetail.id
+        val expectedResult = EVENT_ID
+
+        assertEquals(result, expectedResult)
     }
 
     @Test
-    fun `received correct event by id`() {
-        assertEquals(eventDetail.id, EVENT_ID)
-    }
+    fun `event name is not blank`() = runTest {
+        eventDetail = useCase.execute(EVENT_ID).first()
+        val result = eventDetail.name
 
-    @Test
-    fun `event name is not blank`() {
-        assertTrue(eventDetail.name.isNotBlank())
+        assertTrue(result.isNotBlank())
     }
 }

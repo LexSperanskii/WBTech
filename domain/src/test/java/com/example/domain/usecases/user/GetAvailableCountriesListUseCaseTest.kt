@@ -16,28 +16,37 @@ class GetAvailableCountriesListUseCaseTest {
     private lateinit var availableCountries: List<Country>
 
     @Before
-    fun setUp() = runTest {
+    fun setUp() {
         countriesRepositoryStub = CountriesRepositoryStub()
         useCase =
             GetAvailableCountriesListUseCaseImpl(countriesRepository = countriesRepositoryStub)
+    }
+
+    @Test
+    fun `countries are unique`() = runTest {
         availableCountries = useCase.execute().first()
+        val result = availableCountries.distinctBy { Triple(it.code, it.flag, it.country) }.size
+        val expectedResult = availableCountries.size
+
+        assertTrue(result == expectedResult) //проверяем уникальность
     }
 
     @Test
-    fun `countries are unique`() {
-        assertTrue(availableCountries.distinctBy { Triple(it.code, it.flag, it.country) }.size == availableCountries.size) //проверяем уникальность
-    }
-
-    @Test
-    fun `countries have not blank code`() {
+    fun `countries have not blank code`() = runTest {
+        availableCountries = useCase.execute().first()
         availableCountries.forEach { country ->
-            Assert.assertTrue(country.code.isNotBlank())
+            val result = country.code
+
+            Assert.assertTrue(result.isNotBlank())
         }
     }
 
     @Test
-    fun `countries have not blank name`() {
+    fun `countries have not blank name`() = runTest {
+        availableCountries = useCase.execute().first()
         availableCountries.forEach { country ->
+            val result = country.country
+
             Assert.assertTrue(country.country.isNotBlank())
         }
     }

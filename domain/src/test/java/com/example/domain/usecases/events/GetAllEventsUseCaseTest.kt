@@ -15,21 +15,27 @@ class GetAllEventsUseCaseTest {
     private lateinit var eventsAll: List<Event>
 
     @Before
-    fun setUp() = runTest {
+    fun setUp() {
         eventRepositoryStub = EventRepositoryStub()
         useCase = GetAllEventsUseCaseImpl(eventRepository = eventRepositoryStub)
+    }
+
+    @Test
+    fun `events id are unique`() = runTest {
         eventsAll = useCase.execute().first()
+        val result = eventsAll.distinctBy { it.id }.size
+        val expectedResult = eventsAll.size
+
+        assertTrue(result == expectedResult)
     }
 
     @Test
-    fun `events id are unique`() {
-        assertTrue(eventsAll.distinctBy { it.id }.size == eventsAll.size)
-    }
-
-    @Test
-    fun `all events have not blank names`() {
+    fun `all events have not blank names`() = runTest {
+        eventsAll = useCase.execute().first()
         eventsAll.forEach { event ->
-            assertTrue(event.name.isNotBlank())
+            val result = event.name
+
+            assertTrue(result.isNotBlank())
         }
     }
 }

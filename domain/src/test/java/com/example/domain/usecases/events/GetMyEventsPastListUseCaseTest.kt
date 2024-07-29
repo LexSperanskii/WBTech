@@ -15,28 +15,37 @@ class GetMyEventsPastListUseCaseTest {
     private lateinit var eventsMyPast: List<Event>
 
     @Before
-    fun setUp() = runTest {
+    fun setUp() {
         eventRepositoryStub = EventRepositoryStub()
         useCase = GetMyEventsPastListUseCaseImpl(eventRepository = eventRepositoryStub)
+    }
+
+    @Test
+    fun `my events past id are unique`() = runTest {
         eventsMyPast = useCase.execute().first()
+        val result = eventsMyPast.distinctBy { it.id }.size
+        val expectedResult = eventsMyPast.size
+
+        assertTrue(result == expectedResult)
     }
 
     @Test
-    fun `my events past id are unique`() {
-        assertTrue(eventsMyPast.distinctBy { it.id }.size == eventsMyPast.size)
-    }
-
-    @Test
-    fun `all my events have not blank names`() {
+    fun `all my events have not blank names`() = runTest {
+        eventsMyPast = useCase.execute().first()
         eventsMyPast.forEach { event ->
-            assertTrue(event.name.isNotBlank())
+            val result = event.name
+
+            assertTrue(result.isNotBlank())
         }
     }
 
     @Test
-    fun `all my events Past`() {
+    fun `all my events Past`() = runTest {
+        eventsMyPast = useCase.execute().first()
         eventsMyPast.forEach { event ->
-            assertTrue(event.isFinished)
+            val result = event.isFinished
+
+            assertTrue(result)
         }
     }
 }

@@ -17,19 +17,25 @@ class GetCommunityDetailUseCaseTest {
     private lateinit var communityDetail: CommunityDetail
 
     @Before
-    fun setUp() = runTest {
+    fun setUp() {
         communityRepositoryStub = CommunityRepositoryStub()
         useCase = GetCommunityDetailUseCaseImpl(communityRepository = communityRepositoryStub)
+    }
+
+    @Test
+    fun `received correct community by id`() = runTest {
         communityDetail = useCase.execute(COMMUNITY_ID).first()
+        val result = communityDetail.id
+        val expectedResult = COMMUNITY_ID
+
+        assertEquals(result, expectedResult)
     }
 
     @Test
-    fun `received correct community by id`() {
-        assertEquals(communityDetail.id, COMMUNITY_ID)
-    }
+    fun `community have not blank name`() = runTest {
+        communityDetail = useCase.execute(COMMUNITY_ID).first()
+        val result = communityDetail.name
 
-    @Test
-    fun `community have not blank name`() {
-        Assert.assertTrue(communityDetail.name.isNotBlank())
+        Assert.assertTrue(result.isNotBlank())
     }
 }

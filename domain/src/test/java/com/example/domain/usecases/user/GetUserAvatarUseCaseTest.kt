@@ -14,19 +14,22 @@ class GetUserAvatarUseCaseTest {
     private lateinit var userAvatar: String
 
     @Before
-    fun setUp() = runTest {
+    fun setUp() {
         testUserRepository = UserRepositoryStub()
         useCase = GetUserAvatarUseCaseImpl(userRepository = testUserRepository)
-        userAvatar = useCase.execute().first()
     }
 
     @Test
-    fun `user avatar is not blank`() {
+    fun `user avatar is not blank`() = runTest {
+        userAvatar = useCase.execute().first()
+
         assertTrue(userAvatar.isNotBlank())
     }
 
     @Test
-    fun `user avatar is not empty`() {
+    fun `user avatar is not empty`() = runTest {
+        userAvatar = useCase.execute().first()
+
         assertTrue(userAvatar.isNotEmpty())
     }
 }

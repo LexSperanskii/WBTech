@@ -16,21 +16,27 @@ class GetCommunitiesListUseCaseTest {
     private lateinit var communities: List<Community>
 
     @Before
-    fun setUp() = runTest {
+    fun setUp() {
         communityRepositoryStub = CommunityRepositoryStub()
         useCase = GetCommunitiesListUseCaseImpl(communityRepository = communityRepositoryStub)
+    }
+
+    @Test
+    fun `communities id are unique`() = runTest {
         communities = useCase.execute().first()
+        val result = communities.distinctBy { it.id }.size
+        val expectedResult = communities.size
+
+        assertTrue(result == expectedResult)
     }
 
     @Test
-    fun `communities id are unique`() {
-        assertTrue(communities.distinctBy { it.id }.size == communities.size)
-    }
-
-    @Test
-    fun `communities have not blank names`() {
+    fun `communities have not blank names`() = runTest {
+        communities = useCase.execute().first()
         communities.forEach { community ->
-            assertTrue(community.name.isNotBlank())
+            val result = community.name
+
+            assertTrue(result.isNotBlank())
         }
     }
 }

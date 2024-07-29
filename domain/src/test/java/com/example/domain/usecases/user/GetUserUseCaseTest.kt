@@ -15,26 +15,32 @@ class GetUserUseCaseTest {
     private lateinit var user: User
 
     @Before
-    fun setUp() = runTest {
+    fun setUp() {
         testUserRepository = UserRepositoryStub()
         useCase = GetUserUseCaseImpl(userRepository = testUserRepository)
+    }
+
+    @Test
+    fun `user name is not blank`() = runTest {
         user = useCase.execute().first()
+        val result = user.name
+
+        assertTrue(result.isNotBlank())
     }
 
     @Test
-    fun `user name is not blank`() {
-        assertTrue(user.name.isNotBlank())
+    fun `user phone number country code is not blank`() = runTest {
+        user = useCase.execute().first()
+        val result = user.phoneNumber.countryCode
+
+        assertTrue(result.isNotBlank())
     }
 
     @Test
-    fun `user phone number country code is not blank`() {
-        assertTrue(user.phoneNumber.countryCode.isNotBlank())
+    fun `user phone number is not blank`() = runTest {
+        user = useCase.execute().first()
+        val result = user.phoneNumber.number
 
-    }
-
-    @Test
-    fun `user phone number is not blank`() {
-        assertTrue(user.phoneNumber.number.isNotBlank())
-
+        assertTrue(result.isNotBlank())
     }
 }
