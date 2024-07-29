@@ -91,42 +91,45 @@ internal fun OverlappingPeopleRow(
 internal fun ParticipantIcon(
     size: Dp,
     participant: RegisteredPersonModelUI
-){
-    val iconScale = size.value/ 100
-    when (participant.iconURL){
-        null ->{
-            Box(
-                modifier = Modifier
-                    .size(size)
-                    .clip(RoundedCornerShape(16.dp))
-                    .border(2.dp, DevMeetingAppTheme.colors.purpleForGroupedPeople, RoundedCornerShape(16.dp))
-                    .background(DevMeetingAppTheme.colors.extraLightGray)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.icon_avatar_person),
-                    contentDescription = stringResource(R.string.profile_icon_in_row),
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .scale(iconScale)
-                )
-            }
-        }
-        else -> {
-            AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(participant.iconURL)
-                    .crossfade(true)
-                    .build(),
-                contentScale = ContentScale.Crop,
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_img),
-                contentDescription = stringResource(R.string.profile_icon_in_row),
-                modifier = Modifier
-                    .size(size)
-                    .clip(RoundedCornerShape(16.dp))
-                    .border(2.dp, DevMeetingAppTheme.colors.purpleForGroupedPeople, RoundedCornerShape(16.dp)),
+) {
+    val iconScale = size.value / 100
+    participant.iconURL?.let { avatarURL ->
+        AsyncImage(
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(avatarURL)
+                .crossfade(true)
+                .build(),
+            contentScale = ContentScale.Crop,
+            error = painterResource(R.drawable.ic_broken_image),
+            placeholder = painterResource(R.drawable.loading_img),
+            contentDescription = stringResource(R.string.profile_icon_in_row),
+            modifier = Modifier
+                .size(size)
+                .clip(RoundedCornerShape(16.dp))
+                .border(
+                    2.dp,
+                    DevMeetingAppTheme.colors.purpleForGroupedPeople,
+                    RoundedCornerShape(16.dp)
+                ),
+        )
+    } ?: Box(
+        modifier = Modifier
+            .size(size)
+            .clip(RoundedCornerShape(16.dp))
+            .border(
+                2.dp,
+                DevMeetingAppTheme.colors.purpleForGroupedPeople,
+                RoundedCornerShape(16.dp)
             )
-        }
+            .background(DevMeetingAppTheme.colors.extraLightGray)
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.icon_avatar_person),
+            contentDescription = stringResource(R.string.profile_icon_in_row),
+            modifier = Modifier
+                .align(Alignment.Center)
+                .scale(iconScale)
+        )
     }
 }
 

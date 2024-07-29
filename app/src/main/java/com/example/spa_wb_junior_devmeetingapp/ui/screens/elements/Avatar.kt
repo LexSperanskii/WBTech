@@ -39,40 +39,34 @@ internal fun PersonAvatar(
     val iconScale = size.value / 100 // Коэффициент масштабирования иконки
 
     Box(modifier = modifier) {
-        when (imageURL) {
-            null -> {
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(size)
-                        .background(backgroundColor)
-                ) {
-                    Icon(
-                        painter = defaultIcon,
-                        contentDescription = "avatar person",
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .scale(iconScale)
-                    )
-                }
-            }
-
-            else -> {
-                AsyncImage(
-                    model = ImageRequest.Builder(context = LocalContext.current)
-                        .data(imageURL)
-                        .crossfade(true)
-                        .build(),
-                    contentScale = ContentScale.Crop,
-                    error = painterResource(R.drawable.ic_broken_image),
-                    placeholder = painterResource(R.drawable.loading_img),
-                    contentDescription = stringResource(R.string.profile_icon),
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(size)
-                        .clip(CircleShape)
-                )
-            }
+        imageURL?.let { avatarURL ->
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(avatarURL)
+                    .crossfade(true)
+                    .build(),
+                contentScale = ContentScale.Crop,
+                error = painterResource(R.drawable.ic_broken_image),
+                placeholder = painterResource(R.drawable.loading_img),
+                contentDescription = stringResource(R.string.profile_icon),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(size)
+                    .clip(CircleShape)
+            )
+        } ?: Box(
+            modifier = Modifier
+                .clip(CircleShape)
+                .size(size)
+                .background(backgroundColor)
+        ) {
+            Icon(
+                painter = defaultIcon,
+                contentDescription = "avatar person",
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .scale(iconScale)
+            )
         }
         if (isEdit) {
             IconButton(
