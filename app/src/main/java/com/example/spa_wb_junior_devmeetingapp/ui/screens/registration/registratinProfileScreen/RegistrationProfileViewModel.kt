@@ -49,22 +49,27 @@ internal class RegistrationProfileViewModel(
     }
 
     fun onAvatarEditButtonClick() {
-        getUserAvatarUseCase.execute()
-            .onEach { avatarURL ->
+        val avatarURL = _uiState.value.avatarURL
+        when {
+            avatarURL.isNullOrBlank() -> {
+                getUserAvatarUseCase.execute()
+                    .onEach { avatarURL ->
+                        _uiState.update {
+                            it.copy(
+                                avatarURL = avatarURL
+                            )
+                        }
+                    }.launchIn(viewModelScope)
+            }
+
+            else -> {
                 _uiState.update {
                     it.copy(
-                        avatarURL = when (it.avatarURL.isNullOrBlank()) {
-                            true -> {
-                                avatarURL
-                            }
-
-                            else -> {
-                                null
-                            }
-                        }
+                        avatarURL = null
                     )
                 }
-            }.launchIn(viewModelScope)
+            }
+        }
     }
 
     fun inButtonSaveClick(){

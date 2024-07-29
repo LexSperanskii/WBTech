@@ -11,16 +11,7 @@ class MockData {
     )
     private val pinCode = "5555"
 
-    fun pinCodeVerification(pin: String) = when (pin) {
-        pinCode -> {
-            true
-        }
-
-        else -> {
-            false
-        }
-    }
-
+    fun pinCodeVerification(pin: String) = pin == pinCode
 
     fun setUserPhoneNumber(code: String, number: String){
         user = user.copy(
