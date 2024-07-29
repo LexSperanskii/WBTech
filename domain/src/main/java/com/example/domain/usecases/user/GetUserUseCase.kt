@@ -9,7 +9,7 @@ interface GetUserUseCase {
     fun execute(): Flow<User>
 }
 
-internal class GetUserInteractor(private val userRepository: IUserRepository) :
+internal class GetUserUseCaseImpl(private val userRepository: IUserRepository) :
     GetUserUseCase {
     override fun execute(): Flow<User> {
         return userRepository.getUser()

@@ -8,7 +8,7 @@ interface GetEventDetailsUseCase {
     fun execute(eventId: Int): Flow<EventDetail>
 }
 
-internal class GetEventDetailsInteractor(private val eventRepository: IEventRepository) :
+internal class GetEventDetailsUseCaseImpl(private val eventRepository: IEventRepository) :
     GetEventDetailsUseCase {
 
     override fun execute(eventId: Int): Flow<EventDetail>{

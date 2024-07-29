@@ -9,7 +9,7 @@ interface GetCommunityDetailUseCase {
     fun execute(communityId: Int): Flow<CommunityDetail>
 }
 
-internal class GetCommunityDetailInteractor(private val communityRepository: ICommunityRepository) :
+internal class GetCommunityDetailUseCaseImpl(private val communityRepository: ICommunityRepository) :
     GetCommunityDetailUseCase {
 
     override fun execute(communityId: Int): Flow<CommunityDetail> {

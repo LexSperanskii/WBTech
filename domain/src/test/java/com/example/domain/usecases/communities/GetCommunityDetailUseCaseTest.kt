@@ -13,13 +13,13 @@ import org.junit.jupiter.api.Assertions.assertEquals
 class GetCommunityDetailUseCaseTest {
 
     private lateinit var communityRepositoryStub: CommunityRepositoryStub
-    private lateinit var useCase: GetCommunityDetailInteractor
+    private lateinit var useCase: GetCommunityDetailUseCaseImpl
     private lateinit var communityDetail: CommunityDetail
 
     @Before
     fun setUp() = runTest {
         communityRepositoryStub = CommunityRepositoryStub()
-        useCase = GetCommunityDetailInteractor(communityRepository = communityRepositoryStub)
+        useCase = GetCommunityDetailUseCaseImpl(communityRepository = communityRepositoryStub)
         communityDetail = useCase.execute(COMMUNITY_ID).first()
     }
 

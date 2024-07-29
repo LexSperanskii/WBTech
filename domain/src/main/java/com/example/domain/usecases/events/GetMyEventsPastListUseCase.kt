@@ -10,7 +10,7 @@ interface GetMyEventsPastListUseCase {
     fun execute(): Flow<List<Event>>
 }
 
-internal class GetMyEventsPastListInteractor(private val eventRepository: IEventRepository) :
+internal class GetMyEventsPastListUseCaseImpl(private val eventRepository: IEventRepository) :
     GetMyEventsPastListUseCase {
 
     override fun execute(): Flow<List<Event>>{

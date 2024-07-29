@@ -6,19 +6,18 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 
 class GetUserPhoneNumberUseCaseTest {
 
     private lateinit var testUserRepository: UserRepositoryStub
-    private lateinit var useCase: GetUserPhoneNumberInteractor
+    private lateinit var useCase: GetUserPhoneNumberUseCaseImpl
     private lateinit var userPhoneNumber: PhoneNumber
 
     @Before
     fun setUp() = runTest {
         testUserRepository = UserRepositoryStub()
-        useCase = GetUserPhoneNumberInteractor(userRepository = testUserRepository)
+        useCase = GetUserPhoneNumberUseCaseImpl(userRepository = testUserRepository)
         userPhoneNumber = useCase.execute().first()
     }
 

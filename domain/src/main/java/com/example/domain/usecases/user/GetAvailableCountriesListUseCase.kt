@@ -8,7 +8,7 @@ interface GetAvailableCountriesListUseCase {
     fun execute(): Flow<List<Country>>
 }
 
-internal class GetAvailableCountriesListInteractor(private val countriesRepository: ICountriesRepository) :
+internal class GetAvailableCountriesListUseCaseImpl(private val countriesRepository: ICountriesRepository) :
     GetAvailableCountriesListUseCase {
 
     override fun execute(): Flow<List<Country>>{

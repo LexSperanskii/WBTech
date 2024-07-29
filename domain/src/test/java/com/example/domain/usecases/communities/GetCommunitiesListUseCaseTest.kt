@@ -12,13 +12,13 @@ import org.junit.Test
 class GetCommunitiesListUseCaseTest {
 
     private lateinit var communityRepositoryStub: CommunityRepositoryStub
-    private lateinit var useCase: GetCommunitiesListInteractor
+    private lateinit var useCase: GetCommunitiesListUseCaseImpl
     private lateinit var communities: List<Community>
 
     @Before
     fun setUp() = runTest {
         communityRepositoryStub = CommunityRepositoryStub()
-        useCase = GetCommunitiesListInteractor(communityRepository = communityRepositoryStub)
+        useCase = GetCommunitiesListUseCaseImpl(communityRepository = communityRepositoryStub)
         communities = useCase.execute().first()
     }
 

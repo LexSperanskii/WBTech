@@ -9,7 +9,7 @@ interface GetMyEventsListUseCase {
     fun execute(): Flow<List<Event>>
 }
 
-internal class GetMyEventsListInteractor(private val eventRepository: IEventRepository) :
+internal class GetMyEventsListUseCaseImpl(private val eventRepository: IEventRepository) :
     GetMyEventsListUseCase {
 
     override fun execute(): Flow<List<Event>>{

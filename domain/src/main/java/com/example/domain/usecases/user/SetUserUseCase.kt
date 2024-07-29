@@ -6,7 +6,7 @@ interface SetUserUseCase {
     suspend fun execute(name: String,surname: String,avatarURL: String?)
 }
 
-internal class SetUserInteractor(private val userRepository: IUserRepository) :
+internal class SetUserUseCaseImpl(private val userRepository: IUserRepository) :
     SetUserUseCase {
 
     override suspend fun execute(name: String,surname: String,avatarURL: String?) {

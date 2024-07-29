@@ -8,7 +8,7 @@ interface AddUserAsParticipantUseCase {
     suspend fun execute(eventId: Int, participant: RegisteredPerson)
 }
 
-internal class AddUserAsParticipantInteractor(private val eventRepository: IEventRepository) :
+internal class AddUserAsParticipantUseCaseImpl(private val eventRepository: IEventRepository) :
     AddUserAsParticipantUseCase {
 
     override suspend fun execute(eventId: Int, participant: RegisteredPerson) {

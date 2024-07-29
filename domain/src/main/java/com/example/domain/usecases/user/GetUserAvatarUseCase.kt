@@ -7,7 +7,7 @@ interface GetUserAvatarUseCase {
     fun execute(): Flow<String>
 }
 
-internal class GetUserAvatarInteractor(private val userRepository: IUserRepository) :
+internal class GetUserAvatarUseCaseImpl(private val userRepository: IUserRepository) :
     GetUserAvatarUseCase {
 
     override fun execute(): Flow<String> {

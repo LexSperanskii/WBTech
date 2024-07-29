@@ -7,18 +7,17 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertNotNull
 
 class GetMyEventsPastListUseCaseTest {
 
     private lateinit var eventRepositoryStub: EventRepositoryStub
-    private lateinit var useCase: GetMyEventsPastListInteractor
+    private lateinit var useCase: GetMyEventsPastListUseCaseImpl
     private lateinit var eventsMyPast: List<Event>
 
     @Before
     fun setUp() = runTest {
         eventRepositoryStub = EventRepositoryStub()
-        useCase = GetMyEventsPastListInteractor(eventRepository = eventRepositoryStub)
+        useCase = GetMyEventsPastListUseCaseImpl(eventRepository = eventRepositoryStub)
         eventsMyPast = useCase.execute().first()
     }
 

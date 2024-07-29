@@ -11,13 +11,13 @@ import org.junit.Test
 class GetAllEventsActiveUseCaseTest {
 
     private lateinit var eventRepositoryStub: EventRepositoryStub
-    private lateinit var useCase: GetAllEventsActiveInteractor
+    private lateinit var useCase: GetAllEventsActiveUseCaseImpl
     private lateinit var eventsAllActive: List<Event>
 
     @Before
     fun setUp() = runTest {
         eventRepositoryStub = EventRepositoryStub()
-        useCase = GetAllEventsActiveInteractor(eventRepository = eventRepositoryStub)
+        useCase = GetAllEventsActiveUseCaseImpl(eventRepository = eventRepositoryStub)
         eventsAllActive = useCase.execute().first()
     }
 

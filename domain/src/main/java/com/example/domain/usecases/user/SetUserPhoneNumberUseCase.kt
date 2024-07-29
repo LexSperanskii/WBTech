@@ -7,7 +7,8 @@ interface SetUserPhoneNumberUseCase {
     suspend fun execute(code: String, number: String)
 }
 
-internal class SetUserPhoneNumberInteractor(private val userRepository: IUserRepository) : SetUserPhoneNumberUseCase {
+internal class SetUserPhoneNumberUseCaseImpl(private val userRepository: IUserRepository) :
+    SetUserPhoneNumberUseCase {
 
     override suspend fun execute(code: String, number: String) {
         userRepository.setUserPhoneNumber(code,number)

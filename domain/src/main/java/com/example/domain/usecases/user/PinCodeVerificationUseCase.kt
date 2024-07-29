@@ -7,7 +7,7 @@ interface PinCodeVerificationUseCase {
     fun execute(pinCode: String): Flow<Boolean>
 }
 
-internal class PinCodeVerificationInteractor(private val userRepository: IUserRepository) :
+internal class PinCodeVerificationUseCaseImpl(private val userRepository: IUserRepository) :
     PinCodeVerificationUseCase {
 
     override fun execute(pinCode: String): Flow<Boolean> {
