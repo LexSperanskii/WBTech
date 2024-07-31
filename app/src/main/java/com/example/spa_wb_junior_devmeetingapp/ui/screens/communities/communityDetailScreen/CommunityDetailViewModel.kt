@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.communities.GetCommunityDetailUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.CommunityDetailModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,8 +24,12 @@ internal class CommunityDetailViewModel(
     private val getCommunityDetailUseCase: GetCommunityDetailUseCase
 ) : ViewModel() {
 
-    private val communityId: Int =
+    private val communityId: Int = try {
         checkNotNull(savedStateHandle[CommunityDetailsDestination.itemIdArg])
+    } catch (e: IllegalStateException) {
+        // TODO: do state with error
+        DEFAULT_ID
+    }
 
     private val _uiState = MutableStateFlow(CommunityDetailScreenUiState())
     private val uiState: StateFlow<CommunityDetailScreenUiState> = _uiState.asStateFlow()

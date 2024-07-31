@@ -10,6 +10,7 @@ import com.example.domain.usecases.user.GetUserUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventDetailModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -36,7 +37,12 @@ internal class EventDetailViewModel(
     private val getUserUseCase: GetUserUseCase
 ) : ViewModel() {
 
-    private val eventId: Int = checkNotNull(savedStateHandle[EventDetailsDestination.itemIdArg])
+    private val eventId: Int = try {
+        checkNotNull(savedStateHandle[EventDetailsDestination.itemIdArg])
+    } catch (e: IllegalStateException) {
+        // TODO: do state with error
+        DEFAULT_ID
+    }
 
     private val _uiState = MutableStateFlow(EventDetailScreenUiState())
     private val uiState: StateFlow<EventDetailScreenUiState> = _uiState.asStateFlow()
