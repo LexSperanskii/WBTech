@@ -19,7 +19,7 @@ internal class CommunityRepositoryImpl(private val mock: MockData) : ICommunityR
 
     override fun getCommunityDetail(communityId: Int): Flow<CommunityDetail> {
         return flow{
-            emit(mock.getCommunity())
+            emit(mock.getCommunity(communityId))
         }.flowOn(Dispatchers.IO)
     }
 }

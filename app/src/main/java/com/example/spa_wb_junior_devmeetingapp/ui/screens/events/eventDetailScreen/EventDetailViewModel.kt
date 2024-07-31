@@ -1,5 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventDetailScreen
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.events.AddUserAsParticipantUseCase
@@ -9,7 +10,7 @@ import com.example.domain.usecases.user.GetUserUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.EventDetailModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
-import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_EVENT_ID
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,12 +29,20 @@ internal data class EventDetailScreenUiState(
 }
 
 internal class EventDetailViewModel(
+    savedStateHandle: SavedStateHandle,
     private val mapper: IMapperDomainUI,
     private val getEventDetailsUseCase: GetEventDetailsUseCase,
     private val addUserAsParticipantUseCase: AddUserAsParticipantUseCase,
     private val removeUserAsParticipantUseCase: RemoveUserAsParticipantUseCase,
     private val getUserUseCase: GetUserUseCase
 ) : ViewModel() {
+
+    private val eventId: Int = try {
+        checkNotNull(savedStateHandle[EventDetailsDestination.itemIdArg])
+    } catch (e: IllegalStateException) {
+        // TODO: do state with error
+        DEFAULT_ID
+    }
 
     private val _uiState = MutableStateFlow(EventDetailScreenUiState())
     private val uiState: StateFlow<EventDetailScreenUiState> = _uiState.asStateFlow()
@@ -50,14 +59,14 @@ internal class EventDetailViewModel(
             when (state.isUserInParticipants) {
                 true -> {
                     removeUserAsParticipantUseCase.execute(
-                        eventId = DEFAULT_EVENT_ID,
+                        eventId = state.event.id,
                         participant = mapper.toRegisteredPerson(state.userAsRegisteredPerson)
                     )
                 }
 
                 else -> {
                     addUserAsParticipantUseCase.execute(
-                        eventId = DEFAULT_EVENT_ID,
+                        eventId = state.event.id,
                         participant = mapper.toRegisteredPerson(state.userAsRegisteredPerson)
                     )
                 }
@@ -67,7 +76,8 @@ internal class EventDetailViewModel(
     }
 
     private fun refreshEventDetails(){
-        getEventDetailsUseCase.execute(DEFAULT_EVENT_ID)
+        val state = uiState.value
+        getEventDetailsUseCase.execute(state.event.id)
             .onEach { event ->
                 _uiState.update {
                     it.copy(
@@ -79,7 +89,7 @@ internal class EventDetailViewModel(
 
     private fun getEventDetails() {
         combine(
-            getEventDetailsUseCase.execute(DEFAULT_EVENT_ID),
+            getEventDetailsUseCase.execute(eventId),
             getUserUseCase.execute()
         ) { event, user ->
             _uiState.update {

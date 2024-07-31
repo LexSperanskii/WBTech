@@ -17,7 +17,6 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -54,7 +53,7 @@ internal enum class EventsAllTabs(val text: String){
 @Composable
 internal fun EventsAllScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : () -> Unit,
+    navigateToEventDetailItem: (Int) -> Unit,
     navigateToDeveloperScreen : () -> Unit,
     viewModel: EventsAllViewModel = koinViewModel()
 ) {
@@ -99,7 +98,7 @@ internal fun EventsAllScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun EventsBody(
-    navigateToEventDetailItem : () -> Unit,
+    navigateToEventDetailItem: (Int) -> Unit,
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
@@ -179,7 +178,7 @@ internal fun EventsBody(
 @Composable
 internal fun Events(
     listOfMeetings : List<EventModelUI>,
-    onEventItemClick : () -> Unit,
+    onEventItemClick: (Int) -> Unit,
     modifier : Modifier = Modifier
 ){
     LazyColumn(
@@ -194,7 +193,7 @@ internal fun Events(
                 eventCity = event.city,
                 eventCategories = event.category,
                 eventIconURL = event.iconURL,
-                onEventItemClick  = onEventItemClick,
+                onEventItemClick = { onEventItemClick(event.id) },
                 modifier = Modifier
             )
         }
