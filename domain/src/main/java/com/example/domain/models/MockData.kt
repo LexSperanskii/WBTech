@@ -45,7 +45,16 @@ class MockData {
     }
     fun getAvailableCountries(): List<Country> = mockAvailableCountries
     fun getListOfEvents(): List<Event> = listOfEvents
-    fun getEventDetail(): EventDetail = eventDetail
+    fun getEventDetail(eventId: Int): EventDetail =
+        when (eventId % 2 == 0) {
+            true -> {
+                eventDetail
+            }
+
+            else -> {
+                eventDetail2
+            }
+        }
     fun addUserAsParticipant(participant: RegisteredPerson) {
         eventDetail = eventDetail.copy(
             listOfParticipants =  listOf(participant).plus(eventDetail.listOfParticipants)
@@ -57,7 +66,16 @@ class MockData {
         )
     }
     fun getListOfCommunities(): List<Community> = communities
-    fun getCommunity(): CommunityDetail = communityDetail
+    fun getCommunity(communityId: Int): CommunityDetail =
+        when (communityId % 2 == 0) {
+            true -> {
+                communityDetail
+            }
+
+            else -> {
+                communityDetail2
+            }
+        }
 
     private val longText = "Гай Ю́лий Це́зарь (аутентичное произношение близко к Ка́йсар[4]; лат. Gaius Iulius Caesar [ˈgaːjʊs ˈjuːliʊs ˈkae̯sar]; 12 июля 100 года до н. э.[5] — 15 марта 44 года до н. э.) — древнеримский государственный и политический деятель, полководец, писатель. Консул 59, 48, 46, 45 и 44 годов до н. э., диктатор 49, 48—47 и 46—44 годов до н. э., великий понтифик с 63 года до н. э.\n" +
             "\n" +
@@ -124,7 +142,7 @@ class MockData {
 
     private var eventDetail = EventDetail(
         id = 0,
-        name = "Встреча разработчиков Kotlon",
+        name = "Встреча разработчиков Kotlon 1",
         date = "13.09.2024",
         address = EventAddress("Москва","ул. Громова", "4"),
         category = listOf("Python", "Junior", "Moscow"),
@@ -132,6 +150,17 @@ class MockData {
         description = longText,
         listOfParticipants = listOfParticipants,
         isFinished = false,
+    )
+    private var eventDetail2 = EventDetail(
+        id = 0,
+        name = "Встреча разработчиков Kotlon 2",
+        date = "13.09.2024",
+        address = EventAddress("Москва", "ул. Громова", "4"),
+        category = listOf("Python", "Junior", "Moscow"),
+        locationCoordinates = "115.22455 , 5554.15651",
+        description = longText,
+        listOfParticipants = listOfParticipants,
+        isFinished = true,
     )
 
     private val communities = List(20) {
@@ -145,8 +174,14 @@ class MockData {
 
     private val communityDetail = CommunityDetail(
         id = 0,
-        name = "Имя сообщества",
+        name = "Имя сообщества 1",
         description = longText,
         events = listOfEvents.take(7)
+    )
+    private val communityDetail2 = CommunityDetail(
+        id = 0,
+        name = "Имя сообщества 2",
+        description = longText,
+        events = listOfEvents.take(2)
     )
 }

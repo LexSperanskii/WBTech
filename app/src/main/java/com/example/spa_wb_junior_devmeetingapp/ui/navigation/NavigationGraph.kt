@@ -3,36 +3,38 @@ package com.example.spa_wb_junior_devmeetingapp.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.FullScreenMapScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.MapDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communitiesScreen.CommunitiesDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communitiesScreen.CommunityScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communityDetailScreen.CommunityDetailsDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communityDetailScreen.CommunityDetailsScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.communities.communitiesScreen.CommunityScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventDetailScreen.EventDetailsDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventDetailScreen.EventDetailsScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventsAllScreen.EventsAllDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventsAllScreen.EventsAllScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.menu.eventsUserScreen.EventsUserDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.menu.eventsUserScreen.EventsUserScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.FullScreenMapScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.MapDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.authenticationScreen.AuthenticationDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.authenticationScreen.AuthenticationScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.DeveloperScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.menu.menuScreen.MenuDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.menu.menuScreen.MenuScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.menu.profileScreen.ProfileDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.menu.profileScreen.ProfileScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.authenticationScreen.AuthenticationDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.authenticationScreen.AuthenticationScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.registratinProfileScreen.RegistrationProfileDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.registratinProfileScreen.RegistrationProfileScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen.SplashScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen.SplashScreenDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.verificationScreen.VerificationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.verificationScreen.VerificationScreen
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavItem
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen.SplashScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.splashScreen.SplashScreenDestination
 
 
 @Composable
@@ -46,8 +48,8 @@ internal fun NavHost(
     ) {
         composable(route = SplashScreenDestination.route) {
             SplashScreen(navigateToStartScreen = {
-                navController.navigate("registration_tab"){
-                    popUpTo(SplashScreenDestination.route){
+                navController.navigate("registration_tab") {
+                    popUpTo(SplashScreenDestination.route) {
                         inclusive = true
                     }
                 }
@@ -97,13 +99,16 @@ internal fun NavHost(
                 EventsAllScreen(
                     navController = navController,
                     navigateToEventDetailItem = {
-                        navController.navigate("${BottomNavItem.Events.route}/${EventDetailsDestination.route}")
+                        navController.navigate("${BottomNavItem.Events.route}/${EventDetailsDestination.route}/${it}")
                     },
                     navigateToDeveloperScreen = {navController.navigate(DeveloperDestination.route)}
                 )
             }
             composable(
-                route = "${BottomNavItem.Events.route}/${EventDetailsDestination.route}"
+                route = "${BottomNavItem.Events.route}/${EventDetailsDestination.routeWithArgs}",
+                arguments = listOf(navArgument(EventDetailsDestination.itemIdArg) {
+                    type = NavType.IntType
+                })
             ) {
                 EventDetailsScreen(
                     navController = navController,
@@ -126,22 +131,28 @@ internal fun NavHost(
                 CommunityScreen(
                     navController = navController,
                     navigateToCommunityDetailItem = {
-                        navController.navigate(CommunityDetailsDestination.route)
+                        navController.navigate("${CommunityDetailsDestination.route}/${it}")
                     }
                 )
             }
             composable(
-                route = CommunityDetailsDestination.route
+                route = CommunityDetailsDestination.routeWithArgs,
+                arguments = listOf(navArgument(CommunityDetailsDestination.itemIdArg) {
+                    type = NavType.IntType
+                })
             ) {
                 CommunityDetailsScreen(
                     navController = navController,
                     navigateToEventDetailItem = {
-                        navController.navigate("${BottomNavItem.Communities.route}/${EventDetailsDestination.route}")
+                        navController.navigate("${BottomNavItem.Communities.route}/${EventDetailsDestination.route}/${it}")
                     }
                 )
             }
             composable(
-                route = "${BottomNavItem.Communities.route}/${EventDetailsDestination.route}"
+                route = "${BottomNavItem.Communities.route}/${EventDetailsDestination.routeWithArgs}",
+                arguments = listOf(navArgument(EventDetailsDestination.itemIdArg) {
+                    type = NavType.IntType
+                })
             ) {
                 EventDetailsScreen(
                     navController = navController,
@@ -172,12 +183,15 @@ internal fun NavHost(
                 EventsUserScreen(
                     navController = navController,
                     navigateToEventDetailItem = {
-                        navController.navigate("${BottomNavItem.Menu.route}/${EventDetailsDestination.route}")
+                        navController.navigate("${BottomNavItem.Menu.route}/${EventDetailsDestination.route}/${it}")
                     }
                 )
             }
             composable(
-                route = "${BottomNavItem.Menu.route}/${EventDetailsDestination.route}"
+                route = "${BottomNavItem.Menu.route}/${EventDetailsDestination.routeWithArgs}",
+                arguments = listOf(navArgument(EventDetailsDestination.itemIdArg) {
+                    type = NavType.IntType
+                })
             ) {
                 EventDetailsScreen(
                     navController = navController,

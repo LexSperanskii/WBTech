@@ -20,7 +20,7 @@ internal class EventRepositoryImpl(private val mock: MockData) : IEventRepositor
 
     override fun getEventDetail(eventId: Int): Flow<EventDetail> {
         return flow{
-            emit(mock.getEventDetail())
+            emit(mock.getEventDetail(eventId))
         }.flowOn(Dispatchers.IO)
     }
 
