@@ -24,6 +24,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_DIVIDER
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.ICON_OFFSET_X
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.ICON_OFFSET_Y
 
 @Composable
 internal fun PersonAvatar(
@@ -36,7 +39,7 @@ internal fun PersonAvatar(
     backgroundColor: Color = DevMeetingAppTheme.colors.extraLightGray
 ) {
 
-    val iconScale = size.value / 100 // Коэффициент масштабирования иконки
+    val iconScale = size.value / DEFAULT_DIVIDER // Коэффициент масштабирования иконки
 
     Box(modifier = modifier) {
         imageURL?.let { avatarURL ->
@@ -62,7 +65,7 @@ internal fun PersonAvatar(
         ) {
             Icon(
                 painter = defaultIcon,
-                contentDescription = "avatar person",
+                contentDescription = stringResource(id = R.string.icon),
                 modifier = Modifier
                     .align(Alignment.Center)
                     .scale(iconScale)
@@ -74,11 +77,11 @@ internal fun PersonAvatar(
                 modifier = Modifier
                     .size(20.dp)
                     .align(Alignment.BottomEnd)
-                    .offset((-5).dp, (-1).dp),
+                    .offset(ICON_OFFSET_X.dp, ICON_OFFSET_Y.dp),
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.icon_avatar_plus_sign),
-                    contentDescription = "plus sign",
+                    contentDescription = stringResource(id = R.string.icon),
                     modifier = Modifier
 
                 )

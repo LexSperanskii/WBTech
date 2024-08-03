@@ -15,8 +15,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
@@ -24,7 +26,7 @@ internal fun CustomButton(
     pressedColor: Color,
     containerColor: Color,
     onClick: () -> Unit,
-    text: String = "Button",
+    text: String = stringResource(id = R.string.button),
     modifier: Modifier = Modifier,
     contentColor: Color = Color.White,
     enabled: Boolean = true,
@@ -66,7 +68,7 @@ internal fun CustomButtonOutlined(
     pressedColor: Color,
     contentColor: Color,
     onClick: () -> Unit,
-    text: String = "Button",
+    text: String = stringResource(id = R.string.button),
     modifier: Modifier = Modifier,
     containerColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(30.dp),
@@ -121,7 +123,7 @@ internal fun CustomButtonText(
     pressedColor: Color,
     contentColor: Color,
     onClick: () -> Unit,
-    text: String = "Button",
+    text: String = stringResource(id = R.string.button),
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(30.dp),
     enabled: Boolean = true,
