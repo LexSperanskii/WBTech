@@ -65,7 +65,7 @@ internal fun PersonAvatar(
         ) {
             Icon(
                 painter = defaultIcon,
-                contentDescription = "avatar person",
+                contentDescription = stringResource(id = R.string.icon),
                 modifier = Modifier
                     .align(Alignment.Center)
                     .scale(iconScale)
@@ -81,7 +81,7 @@ internal fun PersonAvatar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.icon_avatar_plus_sign),
-                    contentDescription = "plus sign",
+                    contentDescription = stringResource(id = R.string.icon),
                     modifier = Modifier
 
                 )

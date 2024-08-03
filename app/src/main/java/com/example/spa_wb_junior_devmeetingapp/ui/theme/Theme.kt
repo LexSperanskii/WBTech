@@ -71,12 +71,9 @@ private val typography = DevMeetingsAppTypography(
         fontFamily = SFProDisplay,
         fontWeight = FontWeight.SemiBold,
         fontSize = 10.sp
-    ),
+    )
 )
 private val dimensions = DevMeetingsAppDimensions(
-    small = 16.dp,
-    medium = 24.dp,
-    large = 32.dp,
     avatarS = 50.dp,
     avatarM = 100.dp,
     avatarL = 200.dp,

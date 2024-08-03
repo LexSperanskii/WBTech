@@ -4,9 +4,6 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 
 internal data class DevMeetingsAppDimensions(
-    val small: Dp,
-    val medium: Dp,
-    val large: Dp,
     val avatarS: Dp,
     val avatarM: Dp,
     val avatarL: Dp,
@@ -14,9 +11,6 @@ internal data class DevMeetingsAppDimensions(
 
 internal val LocalDimensionsScheme = staticCompositionLocalOf {
     DevMeetingsAppDimensions(
-        small = Dp.Unspecified,
-        medium = Dp.Unspecified,
-        large = Dp.Unspecified,
         avatarS = Dp.Unspecified,
         avatarM = Dp.Unspecified,
         avatarL = Dp.Unspecified,
