@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -88,7 +87,7 @@ internal fun RegistrationProfileScreenBody(
             .padding(24.dp)
     ) {
         PersonAvatar(
-            size = 100.dp,
+            size = DevMeetingAppTheme.dimensions.avatarM,
             isEdit = true,
             imageURL = avatarURL,
             onEditClick = onEditAvatarClick,

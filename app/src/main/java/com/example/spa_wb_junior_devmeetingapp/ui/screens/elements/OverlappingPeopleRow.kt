@@ -30,6 +30,7 @@ import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_DIVIDER
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_PEOPLE_COUNT
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.DEFAULT_OVERLAPPING_PERCENTAGE
 
@@ -92,7 +93,7 @@ internal fun ParticipantIcon(
     size: Dp,
     participant: RegisteredPersonModelUI
 ) {
-    val iconScale = size.value / 100
+    val iconScale = size.value / DEFAULT_DIVIDER
     participant.iconURL?.let { avatarURL ->
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)

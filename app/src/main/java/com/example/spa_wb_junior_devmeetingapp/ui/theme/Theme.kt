@@ -7,6 +7,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 private val ColorScheme = DevMeetingsAppColorScheme(
@@ -72,6 +73,14 @@ private val typography = DevMeetingsAppTypography(
         fontSize = 10.sp
     ),
 )
+private val dimensions = DevMeetingsAppDimensions(
+    small = 16.dp,
+    medium = 24.dp,
+    large = 32.dp,
+    avatarS = 50.dp,
+    avatarM = 100.dp,
+    avatarL = 200.dp,
+)
 
 @Composable
 internal fun DevMeetingAppTheme(
@@ -80,6 +89,7 @@ internal fun DevMeetingAppTheme(
     CompositionLocalProvider(
         LocalColorScheme provides ColorScheme,
         LocalTypography provides typography,
+        LocalDimensionsScheme provides dimensions
     ){
         MaterialTheme(
             colorScheme = lightColorScheme(
@@ -96,4 +106,6 @@ internal object DevMeetingAppTheme {
         @Composable get() = LocalColorScheme.current
     val typography: DevMeetingsAppTypography
         @Composable get() = LocalTypography.current
+    val dimensions: DevMeetingsAppDimensions
+        @Composable get() = LocalDimensionsScheme.current
 }
