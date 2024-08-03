@@ -22,8 +22,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
-import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileNumber
 
 @Composable
 internal fun MenuItemProfile(
@@ -46,7 +46,7 @@ internal fun MenuItemProfile(
                 .fillMaxWidth()
         ){
             PersonAvatar(
-                size = 50.dp,
+                size = DevMeetingAppTheme.dimensions.avatarS,
                 isEdit = false,
                 imageURL = avatarURL
             )

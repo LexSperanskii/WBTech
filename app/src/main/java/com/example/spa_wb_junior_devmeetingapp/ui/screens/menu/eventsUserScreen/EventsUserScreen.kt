@@ -14,7 +14,6 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -33,7 +32,6 @@ import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestinati
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigationBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarBackNameAction
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventsAllScreen.Events
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.events.eventsAllScreen.EventsAllTabs
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -51,7 +49,7 @@ internal enum class EventsUserTabs(val text: String){
 @Composable
 internal fun EventsUserScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : () -> Unit,
+    navigateToEventDetailItem: (Int) -> Unit,
     viewModel: EventsUserViewModel = koinViewModel()
 ) {
 
@@ -90,7 +88,7 @@ internal fun EventsUserScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun EventsUserBody(
-    navigateToEventDetailItem : () -> Unit,
+    navigateToEventDetailItem: (Int) -> Unit,
     listOfMeetingsScheduled: List<EventModelUI>,
     listOfMeetingsPast: List<EventModelUI>,
     modifier: Modifier = Modifier

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,8 +24,8 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.BottomNavigat
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TopAppBarForProfile
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomSocialMedeaButtonOutlined
-import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileNumber
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
+import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.formattedMobileNumber
 import org.koin.androidx.compose.koinViewModel
 
 internal object ProfileDestination : NavigationDestination {
@@ -90,7 +89,7 @@ internal fun ProfileBody(
         modifier = modifier
     ) {
         PersonAvatar(
-            size = 200.dp,
+            size = DevMeetingAppTheme.dimensions.avatarL,
             imageURL = avatarURL,
             isEdit = false,
             modifier = Modifier. padding(top = 136.dp)

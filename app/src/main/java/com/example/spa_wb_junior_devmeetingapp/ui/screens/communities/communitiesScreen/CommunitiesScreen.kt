@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -32,7 +31,7 @@ internal object CommunitiesDestination : NavigationDestination {
 @Composable
 internal fun CommunityScreen(
     navController: NavHostController,
-    navigateToCommunityDetailItem: () -> Unit,
+    navigateToCommunityDetailItem: (Int) -> Unit,
     viewModel: CommunitiesViewModel = koinViewModel()
 ){
 
@@ -76,7 +75,7 @@ internal fun CommunityScreen(
 @Composable
 internal fun CommunityBody(
     listOfCommunities: List<CommunityModelUI>,
-    onCommunityItemClick: () -> Unit,
+    onCommunityItemClick: (Int) -> Unit,
     searchField : String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
@@ -100,7 +99,7 @@ internal fun CommunityBody(
                     communityName = communityModelUI.name,
                     communitySize = communityModelUI.size,
                     communityIconURL = communityModelUI.iconURL,
-                    onCommunityItemClick = onCommunityItemClick
+                    onCommunityItemClick = { onCommunityItemClick(communityModelUI.id) }
                 )
             }
         }

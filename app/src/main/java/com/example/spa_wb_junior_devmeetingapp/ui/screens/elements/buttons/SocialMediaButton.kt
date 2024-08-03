@@ -15,7 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.spa_wb_junior_devmeetingapp.R
 
 @Composable
 internal fun CustomSocialMedeaButtonOutlined(
@@ -66,7 +68,7 @@ internal fun CustomSocialMedeaButtonOutlined(
     ) {
         Icon(
             painter = icon,
-            contentDescription = "social media icon",
+            contentDescription = stringResource(id = R.string.icon),
             modifier = Modifier
                 .size(20.dp)
         )

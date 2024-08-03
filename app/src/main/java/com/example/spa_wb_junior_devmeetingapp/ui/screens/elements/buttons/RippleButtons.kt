@@ -25,14 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
-internal class CustomRippleTheme(): RippleTheme {
+internal class CustomRippleTheme : RippleTheme {
     @Composable
     @ReadOnlyComposable
     override fun defaultColor() = LocalContentColor.current
@@ -54,7 +54,7 @@ internal fun CustomButtonRipple(
     pressedColor: Color,
     rippleColor: Color,
     onClick: () -> Unit,
-    text: String = "Button",
+    text: String = stringResource(id = R.string.button),
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(30.dp),
     rippleSize: Dp = 8.dp,
@@ -126,7 +126,7 @@ internal fun CustomButtonOutlinedRipple(
     pressedColor: Color,
     rippleColor: Color,
     onClick: () -> Unit,
-    text: String = "Button",
+    text: String = stringResource(id = R.string.button),
     modifier: Modifier = Modifier,
     containerColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(30.dp),
@@ -181,9 +181,11 @@ internal fun CustomButtonOutlinedRipple(
                                         !enabled -> {
                                             contentColor.copy(alpha = 0.5f)
                                         }
+
                                         isPressed -> {
                                             pressedColor
                                         }
+
                                         else -> {
                                             contentColor
                                         }

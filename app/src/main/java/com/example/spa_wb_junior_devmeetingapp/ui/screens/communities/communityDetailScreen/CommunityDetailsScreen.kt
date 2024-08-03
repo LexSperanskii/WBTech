@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -29,12 +28,14 @@ import org.koin.androidx.compose.koinViewModel
 internal object CommunityDetailsDestination : NavigationDestination {
     override val route = "community_details"
     override val title = R.string.community_details
+    const val itemIdArg = "itemId"
+    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable
 internal fun CommunityDetailsScreen(
     navController: NavHostController,
-    navigateToEventDetailItem : () -> Unit,
+    navigateToEventDetailItem: (Int) -> Unit,
     viewModel: CommunityDetailViewModel = koinViewModel()
 ) {
 
@@ -69,7 +70,7 @@ internal fun CommunityDetailsScreen(
 
 @Composable
 internal fun CommunityDetailsBody(
-    navigateToEventDetailItem : () -> Unit,
+    navigateToEventDetailItem: (Int) -> Unit,
     description: String,
     communityEventsList : List<EventModelUI>,
     modifier: Modifier = Modifier
@@ -104,7 +105,7 @@ internal fun CommunityDetailsBody(
                 eventCity = event.city,
                 eventCategories = event.category,
                 eventIconURL = event.iconURL,
-                onEventItemClick  = navigateToEventDetailItem,
+                onEventItemClick = { navigateToEventDetailItem(event.id) },
                 modifier = Modifier
             )
         }
