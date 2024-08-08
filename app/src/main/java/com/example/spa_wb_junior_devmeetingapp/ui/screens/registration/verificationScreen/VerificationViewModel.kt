@@ -65,7 +65,7 @@ internal class VerificationViewModel(
                         }
                     }
             } catch (e: Exception) {
-                //todo Обработать ошибки
+                // TODO: handle
             }
         }
     }
