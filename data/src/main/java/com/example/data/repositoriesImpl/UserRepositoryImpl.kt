@@ -5,7 +5,6 @@ import com.example.domain.models.PhoneNumber
 import com.example.domain.models.User
 import com.example.domain.repositories.IUserRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -23,7 +22,6 @@ internal class UserRepositoryImpl(private val mock: MockData): IUserRepository {
     }
 
     override suspend fun setUserPinCode(pinCode: String) {
-        delay(1000)
         mock.setUserPinCode(pinCode)
     }
 

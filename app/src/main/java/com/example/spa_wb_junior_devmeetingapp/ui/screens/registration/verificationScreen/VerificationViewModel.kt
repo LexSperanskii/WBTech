@@ -49,20 +49,24 @@ internal class VerificationViewModel(
     fun onDoneKeyboardPressed(navigate: () -> Unit) {
         val pinCode = uiState.value.pinCode
         viewModelScope.launch {
-            setUserPinCodeUseCase.execute(pinCode)
-            getPinCodeVerificationUseCase.execute()
-                .collect { response ->
-                    when (response) {
-                        true -> {
-                            navigate()
-                            _uiState.update { it.copy(pinCode = EMPTY_STRING) }
-                        }
+            try {
+                setUserPinCodeUseCase.execute(pinCode)
+                getPinCodeVerificationUseCase.execute()
+                    .collect { response ->
+                        when (response) {
+                            true -> {
+                                navigate()
+                                _uiState.update { it.copy(pinCode = EMPTY_STRING) }
+                            }
 
-                        else -> {
-                            _uiState.update { it.copy(pinCode = EMPTY_STRING) }
+                            else -> {
+                                _uiState.update { it.copy(pinCode = EMPTY_STRING) }
+                            }
                         }
                     }
-                }
+            } catch (e: Exception) {
+                //todo Обработать ошибки
+            }
         }
     }
 
