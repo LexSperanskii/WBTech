@@ -2,8 +2,9 @@ package com.example.spa_wb_junior_devmeetingapp.ui.screens.registration.verifica
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.usecases.user.GetPinCodeVerificationUseCase
 import com.example.domain.usecases.user.GetUserPhoneNumberUseCase
-import com.example.domain.usecases.user.PinCodeVerificationUseCase
+import com.example.domain.usecases.user.SetUserPinCodeUseCase
 import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.mapper.IMapperDomainUI
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.EMPTY_STRING
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 
 internal data class VerificationScreenUiState(
@@ -23,7 +25,8 @@ internal data class VerificationScreenUiState(
 internal class VerificationViewModel(
     private val mapper: IMapperDomainUI,
     private val getUserPhoneNumberUseCase: GetUserPhoneNumberUseCase,
-    private val pinCodeVerificationUseCase: PinCodeVerificationUseCase
+    private val setUserPinCodeUseCase: SetUserPinCodeUseCase,
+    private val getPinCodeVerificationUseCase: GetPinCodeVerificationUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(VerificationScreenUiState())
@@ -44,23 +47,23 @@ internal class VerificationViewModel(
     }
 
     fun onDoneKeyboardPressed(navigate: () -> Unit) {
-        val pinCode = _uiState.value.pinCode
-        pinCodeVerificationUseCase.execute(pinCode)
-            .onEach { response ->
-                when (response) {
-                    true -> {
-                        navigate()
-                    }
+        val pinCode = uiState.value.pinCode
+        viewModelScope.launch {
+            setUserPinCodeUseCase.execute(pinCode)
+            getPinCodeVerificationUseCase.execute()
+                .collect { response ->
+                    when (response) {
+                        true -> {
+                            navigate()
+                            _uiState.update { it.copy(pinCode = EMPTY_STRING) }
+                        }
 
-                    else -> {
-                        _uiState.update {
-                            it.copy(
-                                pinCode = EMPTY_STRING
-                            )
+                        else -> {
+                            _uiState.update { it.copy(pinCode = EMPTY_STRING) }
                         }
                     }
                 }
-            }.launchIn(viewModelScope)
+        }
     }
 
     private fun getUserPhoneNumber() {
