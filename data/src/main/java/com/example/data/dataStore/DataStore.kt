@@ -9,8 +9,10 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+const val USER_PREFERENCES = "user_preferences"
+const val USER_SEARCH = "user_search"
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCES)
 
 interface IUserPreferences {
     suspend fun saveUserSearch(search: String)
@@ -20,7 +22,7 @@ interface IUserPreferences {
 class UserPreferencesImpl(private val context: Context) : IUserPreferences {
 
     companion object {
-        val USER_SEARCH_KEY = stringPreferencesKey("user_search")
+        val USER_SEARCH_KEY = stringPreferencesKey(USER_SEARCH)
     }
 
     override suspend fun saveUserSearch(search: String) {
