@@ -1,5 +1,7 @@
 package com.example.data.di
 
+import com.example.data.dataStore.IUserPreferences
+import com.example.data.dataStore.UserPreferencesImpl
 import com.example.data.repositoriesImpl.CommunityRepositoryImpl
 import com.example.data.repositoriesImpl.CountriesRepositoryImpl
 import com.example.data.repositoriesImpl.EventRepositoryImpl
@@ -33,6 +35,12 @@ val dataModule = module {
     single<ICommunityRepository> {
         CommunityRepositoryImpl(
             mock = get()
+        )
+    }
+
+    single<IUserPreferences> {
+        UserPreferencesImpl(
+            context = get()
         )
     }
 }
