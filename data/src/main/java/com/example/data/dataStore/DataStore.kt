@@ -6,11 +6,9 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.data.dataStore.UserPreferencesImpl.Companion.USER_PREFERENCES
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-
-const val USER_PREFERENCES = "user_preferences"
-const val USER_SEARCH = "user_search"
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCES)
 
@@ -22,6 +20,8 @@ interface IUserPreferences {
 class UserPreferencesImpl(private val context: Context) : IUserPreferences {
 
     companion object {
+        const val USER_PREFERENCES = "user_preferences"
+        private const val USER_SEARCH = "user_search"
         val USER_SEARCH_KEY = stringPreferencesKey(USER_SEARCH)
     }
 
