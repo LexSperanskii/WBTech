@@ -42,4 +42,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.koin.core)
+
+    ///DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }

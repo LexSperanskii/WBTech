@@ -10,8 +10,13 @@ class MockData {
         iconURL = null
     )
     private val pinCode = "5555"
+    private var userPinCode = ""
 
-    fun pinCodeVerification(pin: String) = pin == pinCode
+    fun setUserPinCode(pin: String) {
+        userPinCode = pin
+    }
+
+    fun pinCodeVerification() = userPinCode == pinCode
 
     fun setUserPhoneNumber(code: String, number: String){
         user = user.copy(

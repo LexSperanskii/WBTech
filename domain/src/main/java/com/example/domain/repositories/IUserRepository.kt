@@ -10,7 +10,9 @@ interface IUserRepository {
 
     fun getUserPhoneNumber() : Flow<PhoneNumber>
 
-    fun pinCodeVerification(pinCode: String) : Flow<Boolean>
+    suspend fun setUserPinCode(pinCode: String)
+
+    fun getPinCodeVerification(): Flow<Boolean>
 
     fun getUserAvatar(): Flow<String>
 

@@ -21,9 +21,13 @@ internal class UserRepositoryImpl(private val mock: MockData): IUserRepository {
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun pinCodeVerification(pinCode: String) : Flow<Boolean> {
+    override suspend fun setUserPinCode(pinCode: String) {
+        mock.setUserPinCode(pinCode)
+    }
+
+    override fun getPinCodeVerification(): Flow<Boolean> {
         return flow{
-            emit(mock.pinCodeVerification(pinCode))
+            emit(mock.pinCodeVerification())
         }.flowOn(Dispatchers.IO)
     }
 
