@@ -27,23 +27,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonRipple
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlinedRipple
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CustomFilterChip
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CustomFilterChip
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyRow
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlinedRipple
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonRipple
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonStatus
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonWithStatus
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NameSurnameTextField
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewPhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 internal object DeveloperDestination : NavigationDestination {
@@ -131,15 +136,74 @@ internal fun DeveloperScreen() {
     var phoneNumber by remember { mutableStateOf("") }
 
     var searchField by remember { mutableStateOf("") }
+    var nameSurnameField by remember { mutableStateOf("") }
+
+    val availableCountries = listOf(
+        NewCountryModelUI("Россия", "+7", R.drawable.flag_ru),
+        NewCountryModelUI("Казахстан", "+7", R.drawable.flag_kz),
+        NewCountryModelUI("Белоруссия", "+375", R.drawable.flag_by),
+        NewCountryModelUI("Киргизия", "+996", R.drawable.flag_kg),
+        NewCountryModelUI("Азербайджан", "+994", R.drawable.flag_az)
+    )
+    var countryCode2 by remember { mutableStateOf(availableCountries[0]) }
 
 
-    Scaffold(
-    ) { innerPadding ->
+    Scaffold { innerPadding ->
         LazyColumn(
             modifier = Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                NewPhoneNumberInput(
+                    number = phoneNumber,
+                    onNumberChange = { phoneNumber = it },
+                    countryCode = countryCode2,
+                    onCountryCodeChange = { countryCode2 = it },
+                    listOfCountriesCodes = availableCountries
+                )
+            }
+            item {
+                NameSurnameTextField(
+                    value = nameSurnameField,
+                    isValid = true,
+                    onValueChange = {
+                        nameSurnameField = it
+                    }
+                )
+            }
+            item {
+                ButtonWithStatus(
+                    text = "Оплатить",
+                    enabled = true,
+                    onClick = {},
+                    buttonStatus = ButtonStatus.NotPressed
+                )
+            }
+            item {
+                ButtonWithStatus(
+                    text = "Оплатить",
+                    enabled = false,
+                    onClick = {},
+                    buttonStatus = ButtonStatus.NotPressed
+                )
+            }
+            item {
+                ButtonWithStatus(
+                    text = "Оплатить",
+                    enabled = true,
+                    onClick = {},
+                    buttonStatus = ButtonStatus.Loading
+                )
+            }
+            item {
+                ButtonWithStatus(
+                    text = "Оплачено",
+                    enabled = true,
+                    onClick = {},
+                    buttonStatus = ButtonStatus.Pressed
+                )
+            }
             item {
                 Row(
                     horizontalArrangement = Arrangement.Center,
@@ -421,7 +485,7 @@ internal fun DeveloperScreen() {
 @Composable
 internal fun FirstScreenPreview() {
     DevMeetingAppTheme {
-        Surface() {
+        Surface {
             DeveloperScreen()
         }
     }

@@ -4,6 +4,8 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 internal data class DevMeetingsAppColorScheme(
+    val white: Color,
+    val black: Color,
     val purple: Color,
     val darkPurple: Color,
     val lightGray: Color,
@@ -16,11 +18,17 @@ internal data class DevMeetingsAppColorScheme(
     val grayForTabs: Color,
     val extraDarkPurpleForBottomBar: Color,
     val deepBlueForBottomBar: Color,
-    val dividerColor: Color
+    val dividerColor: Color,
+
+    val disabledButtonGray: Color,
+    val disabledButtonTextGray: Color,
+    val buttonTextPurple: Color
 )
 
 internal val LocalColorScheme = staticCompositionLocalOf{
     DevMeetingsAppColorScheme(
+        white = Color.Unspecified,
+        black = Color.Unspecified,
         purple = Color.Unspecified,
         darkPurple = Color.Unspecified,
         lightGray = Color.Unspecified,
@@ -33,6 +41,10 @@ internal val LocalColorScheme = staticCompositionLocalOf{
         grayForTabs = Color.Unspecified,
         extraDarkPurpleForBottomBar = Color.Unspecified,
         deepBlueForBottomBar = Color.Unspecified,
-        dividerColor = Color.Unspecified
+        dividerColor = Color.Unspecified,
+
+        disabledButtonGray = Color.Unspecified,
+        disabledButtonTextGray = Color.Unspecified,
+        buttonTextPurple = Color.Unspecified,
     )
 }

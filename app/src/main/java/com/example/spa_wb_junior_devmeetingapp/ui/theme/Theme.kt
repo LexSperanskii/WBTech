@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 private val ColorScheme = DevMeetingsAppColorScheme(
+    white = Color(0xFFFFFFFF),
+    black = Color(0xFF000000),
     purple = Color(0xFF9A41FE),
     darkPurple = Color(0xFF660EC8),
     lightGray = Color(0xFFEDEDED),
@@ -23,7 +25,11 @@ private val ColorScheme = DevMeetingsAppColorScheme(
     grayForTabs = Color(0xFF666666),
     extraDarkPurpleForBottomBar = Color(0xFF29183B),
     deepBlueForBottomBar = Color(0xFF2E3A59),
-    dividerColor = Color(0xFFEDEDED)
+    dividerColor = Color(0xFFEDEDED),
+
+    disabledButtonGray = Color(0xFFF6F6FA),
+    disabledButtonTextGray = Color(0xFF9797AF),
+    buttonTextPurple = Color(0xFF9A10F0),
 )
 
 private val typography = DevMeetingsAppTypography(
