@@ -49,6 +49,9 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonS
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonWithStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NameSurnameTextField
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewPhoneNumberInput
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.PersonCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagBig
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagSmall
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 internal object DeveloperDestination : NavigationDestination {
@@ -147,6 +150,9 @@ internal fun DeveloperScreen() {
     )
     var countryCode2 by remember { mutableStateOf(availableCountries[0]) }
 
+    var tagBig by remember { mutableStateOf(false) }
+    var tagSmall by remember { mutableStateOf(false) }
+    var tagPersonCard by remember { mutableStateOf(false) }
 
     Scaffold { innerPadding ->
         LazyColumn(
@@ -154,6 +160,30 @@ internal fun DeveloperScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                PersonCard(
+                    avatarURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg",
+                    personName = "Маша",
+                    tagText = "Тестирование",
+                    isTagClicked = tagPersonCard,
+                    onPersonCardClick = {},
+                    onTagClick = { tagPersonCard = !tagPersonCard }
+                )
+            }
+            item {
+                TagBig(
+                    tagText = "Тестирование",
+                    onTagClick = { tagBig = !tagBig },
+                    isClicked = tagBig,
+                )
+            }
+            item {
+                TagSmall(
+                    tagText = "Тестирование",
+                    onTagClick = { tagSmall = !tagSmall },
+                    isClicked = tagSmall,
+                )
+            }
             item {
                 NewPhoneNumberInput(
                     number = phoneNumber,

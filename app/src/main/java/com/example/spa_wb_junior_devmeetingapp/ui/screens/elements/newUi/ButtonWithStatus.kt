@@ -77,7 +77,7 @@ internal fun ButtonWithStatus(
             disabledContentColor = DevMeetingAppTheme.colors.disabledButtonTextGray
         ),
     ) {
-        ContentForButton(
+        ButtonContent(
             text = text,
             buttonStatus = buttonStatus
         )
@@ -85,9 +85,9 @@ internal fun ButtonWithStatus(
 }
 
 @Composable
-internal fun ContentForButton(
+internal fun ButtonContent(
     text: String,
-    buttonStatus: ButtonStatus
+    buttonStatus: ButtonStatus,
 ) {
     when (buttonStatus) {
         ButtonStatus.NotPressed, ButtonStatus.Pressed -> {
@@ -99,9 +99,9 @@ internal fun ContentForButton(
 
         ButtonStatus.Loading -> {
             CircularProgressIndicator(
-                modifier = Modifier.size(20.dp),
                 strokeWidth = 2.dp,
-                color = DevMeetingAppTheme.colors.white
+                color = DevMeetingAppTheme.colors.white,
+                modifier = Modifier.size(20.dp)
             )
         }
     }
