@@ -15,6 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -48,10 +49,13 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.Custo
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonWithStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NameSurnameTextField
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewCommunityCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewEventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewPhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.PersonCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagBig
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagSmall
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.Toggle
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 internal object DeveloperDestination : NavigationDestination {
@@ -153,6 +157,10 @@ internal fun DeveloperScreen() {
     var tagBig by remember { mutableStateOf(false) }
     var tagSmall by remember { mutableStateOf(false) }
     var tagPersonCard by remember { mutableStateOf(false) }
+    var communityButton by remember { mutableStateOf(false) }
+    var toggle by remember { mutableStateOf(false) }
+    val listOfChosenTags = remember { mutableStateListOf<String>() }
+    val listOfChosenTagsSmall = remember { mutableStateListOf<String>() }
 
     Scaffold { innerPadding ->
         LazyColumn(
@@ -160,6 +168,70 @@ internal fun DeveloperScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                NewEventCard(
+                    eventURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
+                    eventName = "Python days",
+                    day = 10,
+                    month = "августа",
+                    street = "Кожевенная линияzz",
+                    building = 40,
+                    listOfTags = listOf("Тестирование", "Котлин", "Go", "Пудж", "Java", "Варенье"),
+                    listOfChosenTags = listOfChosenTagsSmall,
+                    onTagClick = {
+                        when (listOfChosenTagsSmall.contains(it)) {
+                            true -> {
+                                listOfChosenTagsSmall.remove(it)
+                            }
+
+                            else -> {
+                                listOfChosenTagsSmall.add(it)
+                            }
+                        }
+                    },
+                    onEventCardClick = {},
+                    eventCardWidth = 212.dp
+                )
+            }
+            item {
+                NewEventCard(
+                    eventURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
+                    eventName = "Python days",
+                    day = 10,
+                    month = "августа",
+                    street = "Кожевенная линия",
+                    building = 40,
+                    listOfTags = listOf("Тестирование", "Котлин", "Go", "Пудж", "Java", "Варенье"),
+                    listOfChosenTags = listOfChosenTags,
+                    onTagClick = {
+                        when (listOfChosenTags.contains(it)) {
+                            true -> {
+                                listOfChosenTags.remove(it)
+                            }
+
+                            else -> {
+                                listOfChosenTags.add(it)
+                            }
+                        }
+                    },
+                    onEventCardClick = {}
+                )
+            }
+            item {
+                Toggle(
+                    checked = toggle,
+                    onCheckedChange = { toggle = it }
+                )
+            }
+            item {
+                NewCommunityCard(
+                    communityURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg",
+                    communityName = "Супер тестировщики",
+                    isClicked = communityButton,
+                    onCommunityButtonClick = { communityButton = !communityButton },
+                    onCommunityClick = {}
+                )
+            }
             item {
                 PersonCard(
                     avatarURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg",

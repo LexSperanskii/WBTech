@@ -30,6 +30,8 @@ private val ColorScheme = DevMeetingsAppColorScheme(
     disabledButtonGray = Color(0xFFF6F6FA),
     disabledButtonTextGray = Color(0xFF9797AF),
     buttonTextPurple = Color(0xFF9A10F0),
+    toggleColor = Color(0xFFEFEFEF),
+    eventCardText = Color(0xFF76778E)
 )
 
 private val typography = DevMeetingsAppTypography(

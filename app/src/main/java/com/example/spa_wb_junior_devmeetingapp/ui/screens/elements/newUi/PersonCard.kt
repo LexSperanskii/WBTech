@@ -8,7 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
@@ -30,6 +32,7 @@ fun PersonCard(
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
         ),
+        shape = RectangleShape,
         modifier = modifier
     ) {
         PersonAvatar(
@@ -45,6 +48,8 @@ fun PersonCard(
             fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
             fontWeight = FontWeight.Medium,
             lineHeight = 22.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(vertical = 4.dp)
         )
         TagSmall(

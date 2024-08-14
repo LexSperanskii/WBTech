@@ -23,7 +23,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
@@ -53,9 +52,7 @@ internal fun NewCountryCodeDropDownMenu(
         DropdownMenu(
             expanded = isExpanded,
             onDismissRequest = { isExpanded = !isExpanded },
-            offset = DpOffset(0.dp, 8.dp),
             modifier = Modifier
-                .clip(RoundedCornerShape(29.dp))
                 .background(DevMeetingAppTheme.colors.disabledButtonGray)
         ) {
             listOfCountries.forEach {

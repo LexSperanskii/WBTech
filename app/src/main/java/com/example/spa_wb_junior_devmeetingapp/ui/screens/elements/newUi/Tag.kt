@@ -26,8 +26,8 @@ fun TagBig(
 ) {
     Box(
         modifier = modifier
-            .clickable { onTagClick() }
             .clip(RoundedCornerShape(8.dp))
+            .clickable { onTagClick() }
             .background(
                 color = when (isClicked) {
                     true -> {
@@ -69,8 +69,8 @@ fun TagSmall(
 ) {
     Box(
         modifier = modifier
-            .clickable { onTagClick() }
             .clip(RoundedCornerShape(8.dp))
+            .clickable { onTagClick() }
             .background(
                 color = when (isClicked) {
                     true -> {
