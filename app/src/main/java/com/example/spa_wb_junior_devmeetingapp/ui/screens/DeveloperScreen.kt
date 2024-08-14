@@ -49,6 +49,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.Custo
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonWithStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NameSurnameTextField
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NetworkIcon
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewCommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewEventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewPhoneNumberInput
@@ -168,6 +169,24 @@ internal fun DeveloperScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                NetworkIcon(
+                    networkIcon = R.drawable.label_instagram,
+                    onNetworkIconClick = {}
+                )
+            }
+            item {
+                NetworkIcon(
+                    networkIcon = R.drawable.label_random_social_network,
+                    onNetworkIconClick = {}
+                )
+            }
+            item {
+                NetworkIcon(
+                    networkIcon = R.drawable.label_telegramm,
+                    onNetworkIconClick = {}
+                )
+            }
             item {
                 NewEventCard(
                     eventURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
