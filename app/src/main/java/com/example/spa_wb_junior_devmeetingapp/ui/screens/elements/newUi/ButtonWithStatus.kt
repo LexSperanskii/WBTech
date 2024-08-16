@@ -85,7 +85,7 @@ internal fun ButtonWithStatus(
 }
 
 @Composable
-internal fun ButtonContent(
+private fun ButtonContent(
     text: String,
     buttonStatus: ButtonStatus,
 ) {
