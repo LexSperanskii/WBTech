@@ -48,6 +48,8 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.Custo
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonWithStatus
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ClassicSwitch
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.CustomSwitch
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NameSurnameTextField
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NetworkIcon
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewCommunityCard
@@ -56,7 +58,6 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewPhon
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.PersonCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagBig
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagSmall
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.Toggle
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 internal object DeveloperDestination : NavigationDestination {
@@ -170,6 +171,18 @@ internal fun DeveloperScreen() {
             contentPadding = PaddingValues(24.dp)
         ) {
             item {
+                CustomSwitch(
+                    checked = toggle,
+                    onCheckedChange = { toggle = it }
+                )
+            }
+            item {
+                ClassicSwitch(
+                    checked = toggle,
+                    onCheckedChange = { toggle = it }
+                )
+            }
+            item {
                 NetworkIcon(
                     networkIcon = R.drawable.label_instagram,
                     onNetworkIconClick = {}
@@ -234,12 +247,6 @@ internal fun DeveloperScreen() {
                         }
                     },
                     onEventCardClick = {}
-                )
-            }
-            item {
-                Toggle(
-                    checked = toggle,
-                    onCheckedChange = { toggle = it }
                 )
             }
             item {
