@@ -48,6 +48,8 @@
     <string name="finished">Finished</string>
     <string name="name_surname">%1$s %2$s</string>
     <string name="chip">chip</string>
+    <string name="placeholder_name_surname">Name and Surname</string>
+    <string name="date_address">%1$d %2$s · %3$s, %4$d</string>
 
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>

@@ -15,6 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -27,23 +28,36 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonRipple
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlinedRipple
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CustomFilterChip
-import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CommunityCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.CustomFilterChip
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.EventCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.MySearchBar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.OverlappingPeopleRow
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PersonAvatar
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.PinCodeInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyItem
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.TypographyRow
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButton
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlined
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonOutlinedRipple
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonRipple
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.buttons.CustomButtonText
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonStatus
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonWithStatus
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ClassicSwitch
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.CustomSwitch
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NameSurnameTextField
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NetworkIcon
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewCommunityCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewEventCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewPhoneNumberInput
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.PersonCard
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagBig
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagSmall
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 internal object DeveloperDestination : NavigationDestination {
@@ -131,15 +145,193 @@ internal fun DeveloperScreen() {
     var phoneNumber by remember { mutableStateOf("") }
 
     var searchField by remember { mutableStateOf("") }
+    var nameSurnameField by remember { mutableStateOf("") }
 
+    val availableCountries = listOf(
+        NewCountryModelUI("Россия", "+7", R.drawable.flag_ru),
+        NewCountryModelUI("Казахстан", "+7", R.drawable.flag_kz),
+        NewCountryModelUI("Белоруссия", "+375", R.drawable.flag_by),
+        NewCountryModelUI("Киргизия", "+996", R.drawable.flag_kg),
+        NewCountryModelUI("Азербайджан", "+994", R.drawable.flag_az)
+    )
+    var countryCode2 by remember { mutableStateOf(availableCountries[0]) }
 
-    Scaffold(
-    ) { innerPadding ->
+    var tagBig by remember { mutableStateOf(false) }
+    var tagSmall by remember { mutableStateOf(false) }
+    var tagPersonCard by remember { mutableStateOf(false) }
+    var communityButton by remember { mutableStateOf(false) }
+    var toggle by remember { mutableStateOf(false) }
+    val listOfChosenTags = remember { mutableStateListOf<String>() }
+    val listOfChosenTagsSmall = remember { mutableStateListOf<String>() }
+
+    Scaffold { innerPadding ->
         LazyColumn(
             modifier = Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                CustomSwitch(
+                    checked = toggle,
+                    onCheckedChange = { toggle = it }
+                )
+            }
+            item {
+                ClassicSwitch(
+                    checked = toggle,
+                    onCheckedChange = { toggle = it }
+                )
+            }
+            item {
+                NetworkIcon(
+                    networkIcon = R.drawable.label_instagram,
+                    onNetworkIconClick = {}
+                )
+            }
+            item {
+                NetworkIcon(
+                    networkIcon = R.drawable.label_random_social_network,
+                    onNetworkIconClick = {}
+                )
+            }
+            item {
+                NetworkIcon(
+                    networkIcon = R.drawable.label_telegramm,
+                    onNetworkIconClick = {}
+                )
+            }
+            item {
+                NewEventCard(
+                    eventURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
+                    eventName = "Python days",
+                    day = 10,
+                    month = "августа",
+                    street = "Кожевенная линияzz",
+                    building = 40,
+                    listOfTags = listOf("Тестирование", "Котлин", "Go", "Пудж", "Java", "Варенье"),
+                    listOfChosenTags = listOfChosenTagsSmall,
+                    onTagClick = {
+                        when (listOfChosenTagsSmall.contains(it)) {
+                            true -> {
+                                listOfChosenTagsSmall.remove(it)
+                            }
+
+                            else -> {
+                                listOfChosenTagsSmall.add(it)
+                            }
+                        }
+                    },
+                    onEventCardClick = {},
+                    eventCardWidth = 212.dp
+                )
+            }
+            item {
+                NewEventCard(
+                    eventURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
+                    eventName = "Python days",
+                    day = 10,
+                    month = "августа",
+                    street = "Кожевенная линия",
+                    building = 40,
+                    listOfTags = listOf("Тестирование", "Котлин", "Go", "Пудж", "Java", "Варенье"),
+                    listOfChosenTags = listOfChosenTags,
+                    onTagClick = {
+                        when (listOfChosenTags.contains(it)) {
+                            true -> {
+                                listOfChosenTags.remove(it)
+                            }
+
+                            else -> {
+                                listOfChosenTags.add(it)
+                            }
+                        }
+                    },
+                    onEventCardClick = {}
+                )
+            }
+            item {
+                NewCommunityCard(
+                    communityURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg",
+                    communityName = "Супер тестировщики",
+                    isClicked = communityButton,
+                    onCommunityButtonClick = { communityButton = !communityButton },
+                    onCommunityClick = {}
+                )
+            }
+            item {
+                PersonCard(
+                    avatarURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg",
+                    personName = "Маша",
+                    tagText = "Тестирование",
+                    isTagClicked = tagPersonCard,
+                    onPersonCardClick = {},
+                    onTagClick = { tagPersonCard = !tagPersonCard }
+                )
+            }
+            item {
+                TagBig(
+                    tagText = "Тестирование",
+                    onTagClick = { tagBig = !tagBig },
+                    isClicked = tagBig,
+                )
+            }
+            item {
+                TagSmall(
+                    tagText = "Тестирование",
+                    onTagClick = { tagSmall = !tagSmall },
+                    isClicked = tagSmall,
+                )
+            }
+            item {
+                NewPhoneNumberInput(
+                    number = phoneNumber,
+                    onNumberChange = { phoneNumber = it },
+                    countryCode = countryCode2,
+                    onCountryCodeChange = { countryCode2 = it },
+                    listOfCountriesCodes = availableCountries
+                )
+            }
+            item {
+                NameSurnameTextField(
+                    value = nameSurnameField,
+                    isValid = true,
+                    onValueChange = {
+                        nameSurnameField = it
+                    }
+                )
+            }
+            item {
+                ButtonWithStatus(
+                    text = "Оплатить",
+                    enabled = true,
+                    onClick = {},
+                    buttonStatus = ButtonStatus.NotPressed
+                )
+            }
+            item {
+                ButtonWithStatus(
+                    text = "Оплатить",
+                    enabled = false,
+                    onClick = {},
+                    buttonStatus = ButtonStatus.NotPressed
+                )
+            }
+            item {
+                ButtonWithStatus(
+                    text = "Оплатить",
+                    enabled = true,
+                    onClick = {},
+                    buttonStatus = ButtonStatus.Loading
+                )
+            }
+            item {
+                ButtonWithStatus(
+                    text = "Оплачено",
+                    enabled = true,
+                    onClick = {},
+                    buttonStatus = ButtonStatus.Pressed
+                )
+            }
             item {
                 Row(
                     horizontalArrangement = Arrangement.Center,
@@ -421,7 +613,7 @@ internal fun DeveloperScreen() {
 @Composable
 internal fun FirstScreenPreview() {
     DevMeetingAppTheme {
-        Surface() {
+        Surface {
             DeveloperScreen()
         }
     }
