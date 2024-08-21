@@ -11,23 +11,9 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
-
-internal val buttonGradientPrimary = Brush.horizontalGradient(
-    listOf(
-        Color(0xFFED3CCA), Color(0xFFDF34D2), Color(0xFFD02BD9), Color(0xFFBF22E1),
-        Color(0xFFAE1AE8), Color(0xFF9A10F0), Color(0xFF8306F7), Color(0xFF6600FF)
-    )
-)
-internal val buttonGradientSecondary = Brush.horizontalGradient(
-    listOf(
-        Color(0xFFFEF1FB), Color(0xFFFDF1FC), Color(0xFFFCF0FC), Color(0xFFFBF0FD),
-        Color(0xFFF9EFFD), Color(0xFFF8EEFE), Color(0xFFF6EEFE), Color(0xFFF4EDFF)
-    )
-)
 
 internal enum class ButtonStatus {
     NotPressed,
@@ -46,18 +32,18 @@ internal fun ButtonWithStatus(
     Button(
         onClick = onClick,
         enabled = enabled,
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium),
         modifier = modifier
             .fillMaxWidth()
             .heightIn(56.dp)
             .background(
                 brush = when (buttonStatus) {
                     ButtonStatus.NotPressed, ButtonStatus.Loading -> {
-                        buttonGradientPrimary
+                        DevMeetingAppTheme.brush.buttonGradientPrimary
                     }
 
                     ButtonStatus.Pressed -> {
-                        buttonGradientSecondary
+                        DevMeetingAppTheme.brush.buttonGradientSecondary
                     }
                 },
                 shape = RoundedCornerShape(16.dp)
@@ -93,7 +79,7 @@ private fun ButtonContent(
         ButtonStatus.NotPressed, ButtonStatus.Pressed -> {
             Text(
                 text = text,
-                style = DevMeetingAppTheme.typography.subheading1
+                style = DevMeetingAppTheme.typography.Newsubheading2
             )
         }
 

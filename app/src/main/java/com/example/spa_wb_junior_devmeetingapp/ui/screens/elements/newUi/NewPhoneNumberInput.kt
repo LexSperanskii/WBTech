@@ -22,14 +22,12 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
 import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
@@ -62,7 +60,7 @@ internal fun NewPhoneNumberInput(
             modifier = Modifier
                 .weight(1f)
                 .heightIn(56.dp)
-                .clip(RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
                 .background(color = DevMeetingAppTheme.colors.disabledButtonGray)
                 .onFocusChanged { focusState = it.isFocused }
                 .padding(start = 16.dp),
@@ -80,10 +78,10 @@ internal fun NewPhoneNumberInput(
             maxLines = 1,
             textStyle = TextStyle(
                 color = DevMeetingAppTheme.colors.black,
-                fontSize = DevMeetingAppTheme.typography.subheading1.fontSize,
-                fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
-                fontWeight = FontWeight.Medium,
-                lineHeight = 22.sp
+                fontSize = DevMeetingAppTheme.typography.NewbodyText1.fontSize,
+                fontFamily = DevMeetingAppTheme.typography.NewbodyText1.fontFamily,
+                fontWeight = DevMeetingAppTheme.typography.NewbodyText1.fontWeight,
+                lineHeight = DevMeetingAppTheme.typography.NewbodyText1.lineHeight
             ),
             decorationBox = { innerTextField ->
                 Row(
@@ -95,10 +93,7 @@ internal fun NewPhoneNumberInput(
                             Text(
                                 text = placeholder,
                                 color = DevMeetingAppTheme.colors.grayForCommunityCard,
-                                fontSize = DevMeetingAppTheme.typography.subheading1.fontSize,
-                                fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
-                                fontWeight = FontWeight.Medium,
-                                lineHeight = 22.sp
+                                style = DevMeetingAppTheme.typography.NewbodyText1
                             )
                         }
 

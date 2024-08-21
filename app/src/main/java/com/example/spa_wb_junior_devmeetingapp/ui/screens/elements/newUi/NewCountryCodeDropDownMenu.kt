@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
@@ -68,14 +67,12 @@ internal fun NewCountryCodeDropDownMenu(
                                 contentDescription = stringResource(id = R.string.country_code),
                                 modifier = Modifier
                                     .size(16.dp)
-                                    .clip(RoundedCornerShape(4.dp))
+                                    .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeXSmall))
                             )
                             Text(
                                 text = it.code,
                                 color = DevMeetingAppTheme.colors.black,
-                                fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
-                                fontSize = DevMeetingAppTheme.typography.subheading1.fontSize,
-                                fontWeight = FontWeight.Medium,
+                                style = DevMeetingAppTheme.typography.NewbodyText1,
                                 maxLines = 1,
                                 modifier = Modifier
                             )
@@ -101,7 +98,7 @@ internal fun CountryCodeDropdownMenuDefaultItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
             .background(color = DevMeetingAppTheme.colors.disabledButtonGray)
             .padding(vertical = 16.dp, horizontal = 20.dp)
     ) {
@@ -110,14 +107,12 @@ internal fun CountryCodeDropdownMenuDefaultItem(
             contentDescription = stringResource(id = R.string.country_code),
             modifier = Modifier
                 .size(16.dp)
-                .clip(RoundedCornerShape(4.dp))
+                .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeXSmall))
         )
         Text(
             text = country.code,
             color = DevMeetingAppTheme.colors.black,
-            fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
-            fontSize = DevMeetingAppTheme.typography.subheading1.fontSize,
-            fontWeight = FontWeight.Medium,
+            style = DevMeetingAppTheme.typography.NewbodyText1,
             modifier = Modifier
         )
     }

@@ -20,10 +20,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
@@ -66,23 +64,18 @@ fun NewEventCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(180.dp)
-                .clip(RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
         )
         Text(
             text = eventName,
             color = DevMeetingAppTheme.colors.black,
-            fontSize = 34.sp,
-            fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
-            fontWeight = FontWeight.Bold,
-            lineHeight = 34.sp,
+            style = DevMeetingAppTheme.typography.Newheading1,
             modifier = Modifier.padding(top = 8.dp)
         )
         Text(
             text = stringResource(id = R.string.date_address, day, month, street, building),
             color = DevMeetingAppTheme.colors.eventCardText,
-            fontSize = 14.sp,
-            fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
-            fontWeight = FontWeight.Medium,
+            style = DevMeetingAppTheme.typography.Newmetadata1,
             modifier = Modifier.padding(top = 2.dp)
         )
         FlowRow(

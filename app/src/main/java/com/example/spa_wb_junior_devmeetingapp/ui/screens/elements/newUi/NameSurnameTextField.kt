@@ -20,28 +20,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.replaceFirstCharToCapitalCase
-
-internal val textFieldGradientNormal = Brush.horizontalGradient(
-    listOf(
-        Color(0xFFFFFFFF), Color(0xFFF6F6FA)
-    )
-)
-internal val textFieldGradientError = Brush.horizontalGradient(
-    listOf(
-        Color(0xFFFFEEF4), Color(0xFFFFFFFF), Color(0x1AF0114C)
-    )
-)
 
 @Composable
 internal fun NameSurnameTextField(
@@ -58,15 +45,15 @@ internal fun NameSurnameTextField(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(56.dp)
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
             .background(
                 brush = when (isValid) {
                     true -> {
-                        textFieldGradientNormal
+                        DevMeetingAppTheme.brush.textFieldGradientNormal
                     }
 
                     else -> {
-                        textFieldGradientError
+                        DevMeetingAppTheme.brush.textFieldGradientError
                     }
                 }
             )
@@ -97,10 +84,10 @@ internal fun NameSurnameTextField(
         }),
         textStyle = TextStyle(
             color = DevMeetingAppTheme.colors.black,
-            fontSize = DevMeetingAppTheme.typography.subheading1.fontSize,
-            fontWeight = DevMeetingAppTheme.typography.bodyText2.fontWeight,
-            fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
-            lineHeight = 24.sp
+            fontSize = DevMeetingAppTheme.typography.Newsubheading1.fontSize,
+            fontWeight = DevMeetingAppTheme.typography.Newsubheading1.fontWeight,
+            fontFamily = DevMeetingAppTheme.typography.Newsubheading1.fontFamily,
+            lineHeight = DevMeetingAppTheme.typography.Newsubheading1.lineHeight
         ),
         decorationBox = { innerTextField ->
             Row(
@@ -112,10 +99,7 @@ internal fun NameSurnameTextField(
                         Text(
                             text = placeholder,
                             color = DevMeetingAppTheme.colors.grayForCommunityCard,
-                            fontSize = DevMeetingAppTheme.typography.subheading1.fontSize,
-                            fontWeight = DevMeetingAppTheme.typography.bodyText2.fontWeight,
-                            fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
-                            lineHeight = 24.sp
+                            style = DevMeetingAppTheme.typography.Newsubheading1
                         )
                     }
 

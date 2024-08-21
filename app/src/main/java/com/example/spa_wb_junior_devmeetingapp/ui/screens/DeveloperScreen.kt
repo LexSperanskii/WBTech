@@ -50,6 +50,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonS
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ButtonWithStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.ClassicSwitch
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.CustomSwitch
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.MorePeople
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NameSurnameTextField
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NetworkIcon
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewCommunityCard
@@ -57,6 +58,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewEven
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.NewPhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.PersonCard
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagBig
+import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagMedium
 import com.example.spa_wb_junior_devmeetingapp.ui.screens.elements.newUi.TagSmall
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
@@ -157,6 +159,7 @@ internal fun DeveloperScreen() {
     var countryCode2 by remember { mutableStateOf(availableCountries[0]) }
 
     var tagBig by remember { mutableStateOf(false) }
+    var tagMedium by remember { mutableStateOf(false) }
     var tagSmall by remember { mutableStateOf(false) }
     var tagPersonCard by remember { mutableStateOf(false) }
     var communityButton by remember { mutableStateOf(false) }
@@ -170,6 +173,11 @@ internal fun DeveloperScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                MorePeople(
+                    quantity = 48
+                )
+            }
             item {
                 CustomSwitch(
                     checked = toggle,
@@ -206,7 +214,7 @@ internal fun DeveloperScreen() {
                     eventName = "Python days",
                     day = 10,
                     month = "августа",
-                    street = "Кожевенная линияzz",
+                    street = "Кожевенная линия",
                     building = 40,
                     listOfTags = listOf("Тестирование", "Котлин", "Go", "Пудж", "Java", "Варенье"),
                     listOfChosenTags = listOfChosenTagsSmall,
@@ -273,6 +281,13 @@ internal fun DeveloperScreen() {
                     tagText = "Тестирование",
                     onTagClick = { tagBig = !tagBig },
                     isClicked = tagBig,
+                )
+            }
+            item {
+                TagMedium(
+                    tagText = "Тестирование",
+                    onTagClick = { tagMedium = !tagMedium },
+                    isClicked = tagMedium,
                 )
             }
             item {

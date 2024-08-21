@@ -26,7 +26,7 @@ fun NetworkIcon(
 ) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMediumSmall))
             .size(52.dp)
             .clickable { onNetworkIconClick() }
             .background(DevMeetingAppTheme.colors.buttonTextPurple)
