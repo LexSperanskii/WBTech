@@ -50,7 +50,7 @@ fun TagBig(
                     DevMeetingAppTheme.colors.buttonTextPurple
                 }
             },
-            style = DevMeetingAppTheme.typography.Newheading2,
+            style = DevMeetingAppTheme.typography.newHeading2,
             modifier = Modifier
         )
     }
@@ -91,7 +91,7 @@ fun TagMedium(
                     DevMeetingAppTheme.colors.buttonTextPurple
                 }
             },
-            style = DevMeetingAppTheme.typography.NewbodyText2,
+            style = DevMeetingAppTheme.typography.newBodyText2,
             modifier = Modifier
         )
     }
@@ -132,7 +132,7 @@ fun TagSmall(
                     DevMeetingAppTheme.colors.buttonTextPurple
                 }
             },
-            style = DevMeetingAppTheme.typography.Newmetadata1,
+            style = DevMeetingAppTheme.typography.newMetadata1,
             modifier = Modifier
         )
     }

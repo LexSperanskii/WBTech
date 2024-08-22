@@ -113,54 +113,60 @@ private val typography = DevMeetingsAppTypography(
         fontSize = 10.sp
     ),
 
-    Newheading1 = TextStyle(
+    newHeading1 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.Bold,
         lineHeight = 34.sp,
         fontSize = 34.sp
     ),
-    Newheading2 = TextStyle(
+    newHeading2 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.Medium,
         lineHeight = 26.sp,
         fontSize = 22.sp
     ),
-    Newsubheading1 = TextStyle(
+    newSubheading1 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.Normal,
         lineHeight = 22.sp,
         fontSize = 20.sp
     ),
-    Newsubheading2 = TextStyle(
+    newSubheading2 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.SemiBold,
         lineHeight = 22.sp,
         fontSize = 18.sp
     ),
-    NewbodyText1 = TextStyle(
+    newBodyText1 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.Medium,
         lineHeight = 22.sp,
         fontSize = 18.sp
     ),
-    NewbodyText2 = TextStyle(
+    newBodyText2 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.Medium,
         lineHeight = 20.sp,
         fontSize = 16.sp
     ),
-    Newmetadata1 = TextStyle(
+    newMetadata1 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.Medium,
         lineHeight = 16.sp,
         fontSize = 14.sp
     ),
-    Newmetadata2 = TextStyle(
+    newMetadata2 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.SemiBold,
         lineHeight = 16.sp,
         fontSize = 14.sp
-    )
+    ),
+    customH1 = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 44.sp,
+        fontSize = 50.sp
+    ),
 )
 private val dimensions = DevMeetingsAppDimensions(
     avatarS = 50.dp,

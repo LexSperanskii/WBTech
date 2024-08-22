@@ -64,7 +64,7 @@ fun NewCommunityCard(
         Text(
             text = communityName,
             color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.Newmetadata2,
+            style = DevMeetingAppTheme.typography.newMetadata2,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
             modifier = Modifier

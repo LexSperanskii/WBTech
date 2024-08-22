@@ -72,7 +72,7 @@ internal fun NewCountryCodeDropDownMenu(
                             Text(
                                 text = it.code,
                                 color = DevMeetingAppTheme.colors.black,
-                                style = DevMeetingAppTheme.typography.NewbodyText1,
+                                style = DevMeetingAppTheme.typography.newBodyText1,
                                 maxLines = 1,
                                 modifier = Modifier
                             )
@@ -112,7 +112,7 @@ internal fun CountryCodeDropdownMenuDefaultItem(
         Text(
             text = country.code,
             color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.NewbodyText1,
+            style = DevMeetingAppTheme.typography.newBodyText1,
             modifier = Modifier
         )
     }

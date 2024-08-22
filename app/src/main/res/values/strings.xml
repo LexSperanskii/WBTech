@@ -41,7 +41,6 @@
     <string name="request_code_again">Request code again</string>
     <string name="name_required">Name (required)</string>
     <string name="surname_optional">Surname (optional)</string>
-    <string name="safe">Safe</string>
     <string name="authentication">Authentication</string>
     <string name="verification">Verification</string>
     <string name="search">Search</string>
@@ -50,6 +49,12 @@
     <string name="chip">chip</string>
     <string name="placeholder_name_surname">Name and Surname</string>
     <string name="date_address">%1$d %2$s · %3$s, %4$d</string>
+    <!-- Те что были, но нужны -->
+    <string name="safe">Safe</string>
+    <!-- Новые -->
+    <string name="interests">Interests</string>
+    <string name="interests_description">Select your interests so we can recommend useful events</string>
+    <string name="interests_button_tell_later">I will tell you later</string>
 
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>

@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.newUi
+package com.example.spa_wb_junior_devmeetingapp.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -318,7 +318,7 @@ internal fun DeveloperScreen() {
             item {
                 ButtonWithStatus(
                     text = "Оплатить",
-                    enabled = true,
+                    isEnabled = true,
                     onClick = {},
                     buttonStatus = ButtonStatus.NotPressed
                 )
@@ -326,7 +326,7 @@ internal fun DeveloperScreen() {
             item {
                 ButtonWithStatus(
                     text = "Оплатить",
-                    enabled = false,
+                    isEnabled = false,
                     onClick = {},
                     buttonStatus = ButtonStatus.NotPressed
                 )
@@ -334,7 +334,7 @@ internal fun DeveloperScreen() {
             item {
                 ButtonWithStatus(
                     text = "Оплатить",
-                    enabled = true,
+                    isEnabled = true,
                     onClick = {},
                     buttonStatus = ButtonStatus.Loading
                 )
@@ -342,7 +342,7 @@ internal fun DeveloperScreen() {
             item {
                 ButtonWithStatus(
                     text = "Оплачено",
-                    enabled = true,
+                    isEnabled = true,
                     onClick = {},
                     buttonStatus = ButtonStatus.Pressed
                 )

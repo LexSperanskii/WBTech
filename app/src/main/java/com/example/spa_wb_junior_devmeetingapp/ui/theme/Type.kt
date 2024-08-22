@@ -14,14 +14,15 @@ internal data class DevMeetingsAppTypography(
     val metadata2: TextStyle,
     val metadata3: TextStyle,
 
-    val Newheading1: TextStyle,
-    val Newheading2: TextStyle,
-    val Newsubheading1: TextStyle,
-    val Newsubheading2: TextStyle,
-    val NewbodyText1: TextStyle,
-    val NewbodyText2: TextStyle,
-    val Newmetadata1: TextStyle,
-    val Newmetadata2: TextStyle,
+    val newHeading1: TextStyle,
+    val newHeading2: TextStyle,
+    val newSubheading1: TextStyle,
+    val newSubheading2: TextStyle,
+    val newBodyText1: TextStyle,
+    val newBodyText2: TextStyle,
+    val newMetadata1: TextStyle,
+    val newMetadata2: TextStyle,
+    val customH1: TextStyle,
 )
 
 internal val LocalTypography = staticCompositionLocalOf {
@@ -36,13 +37,14 @@ internal val LocalTypography = staticCompositionLocalOf {
         metadata2 = TextStyle.Default,
         metadata3 = TextStyle.Default,
 
-        Newheading1 = TextStyle.Default,
-        Newheading2 = TextStyle.Default,
-        Newsubheading1 = TextStyle.Default,
-        Newsubheading2 = TextStyle.Default,
-        NewbodyText1 = TextStyle.Default,
-        NewbodyText2 = TextStyle.Default,
-        Newmetadata1 = TextStyle.Default,
-        Newmetadata2 = TextStyle.Default,
+        newHeading1 = TextStyle.Default,
+        newHeading2 = TextStyle.Default,
+        newSubheading1 = TextStyle.Default,
+        newSubheading2 = TextStyle.Default,
+        newBodyText1 = TextStyle.Default,
+        newBodyText2 = TextStyle.Default,
+        newMetadata1 = TextStyle.Default,
+        newMetadata2 = TextStyle.Default,
+        customH1 = TextStyle.Default,
     )
 }

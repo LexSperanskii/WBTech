@@ -69,13 +69,13 @@ fun NewEventCard(
         Text(
             text = eventName,
             color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.Newheading1,
+            style = DevMeetingAppTheme.typography.newHeading1,
             modifier = Modifier.padding(top = 8.dp)
         )
         Text(
             text = stringResource(id = R.string.date_address, day, month, street, building),
             color = DevMeetingAppTheme.colors.eventCardText,
-            style = DevMeetingAppTheme.typography.Newmetadata1,
+            style = DevMeetingAppTheme.typography.newMetadata1,
             modifier = Modifier.padding(top = 2.dp)
         )
         FlowRow(

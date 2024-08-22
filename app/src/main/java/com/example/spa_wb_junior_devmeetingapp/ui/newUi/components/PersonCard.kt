@@ -40,7 +40,7 @@ fun PersonCard(
         Text(
             text = personName,
             color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.NewbodyText1,
+            style = DevMeetingAppTheme.typography.newBodyText1,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(vertical = 4.dp)

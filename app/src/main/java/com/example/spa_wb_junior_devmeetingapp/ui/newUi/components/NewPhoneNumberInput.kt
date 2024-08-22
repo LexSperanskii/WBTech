@@ -78,10 +78,10 @@ internal fun NewPhoneNumberInput(
             maxLines = 1,
             textStyle = TextStyle(
                 color = DevMeetingAppTheme.colors.black,
-                fontSize = DevMeetingAppTheme.typography.NewbodyText1.fontSize,
-                fontFamily = DevMeetingAppTheme.typography.NewbodyText1.fontFamily,
-                fontWeight = DevMeetingAppTheme.typography.NewbodyText1.fontWeight,
-                lineHeight = DevMeetingAppTheme.typography.NewbodyText1.lineHeight
+                fontSize = DevMeetingAppTheme.typography.newBodyText1.fontSize,
+                fontFamily = DevMeetingAppTheme.typography.newBodyText1.fontFamily,
+                fontWeight = DevMeetingAppTheme.typography.newBodyText1.fontWeight,
+                lineHeight = DevMeetingAppTheme.typography.newBodyText1.lineHeight
             ),
             decorationBox = { innerTextField ->
                 Row(
@@ -93,7 +93,7 @@ internal fun NewPhoneNumberInput(
                             Text(
                                 text = placeholder,
                                 color = DevMeetingAppTheme.colors.grayForCommunityCard,
-                                style = DevMeetingAppTheme.typography.NewbodyText1
+                                style = DevMeetingAppTheme.typography.newBodyText1
                             )
                         }
 

@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.spa_wb_junior_devmeetingapp.ui.newUi.DeveloperDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.DeveloperDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.communities.communitiesScreen.CommunitiesDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.communities.communitiesScreen.CommunityScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.communities.communityDetailScreen.CommunityDetailsDestination
@@ -34,18 +34,29 @@ import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.registration.registratin
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.registration.registratinProfileScreen.RegistrationProfileScreen
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.registration.verificationScreen.VerificationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.registration.verificationScreen.VerificationScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.splashScreen.SplashScreen
+import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.splashScreen.SplashScreenDestination
 
 
 @Composable
-fun OldDesignNavHost(
-    startDestination: String = "registration_tab",
-) {
+fun OldDesignNavHost() {
+
     val navController = rememberNavController()
+
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = SplashScreenDestination.route,
         modifier = Modifier
     ) {
+        composable(route = SplashScreenDestination.route) {
+            SplashScreen(navigateToStartScreen = {
+                navController.navigate("registration_tab") {
+                    popUpTo(SplashScreenDestination.route) {
+                        inclusive = true
+                    }
+                }
+            })
+        }
         registrationNav(navController = navController)
         eventsNav(navController = navController)
         communitiesNav(navController = navController)

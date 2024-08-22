@@ -26,7 +26,7 @@ fun MorePeople(
     ) {
         Text(
             text = stringResource(id = R.string.number_of_people, quantity),
-            style = DevMeetingAppTheme.typography.Newmetadata1,
+            style = DevMeetingAppTheme.typography.newMetadata1,
             color = DevMeetingAppTheme.colors.buttonTextPurple,
             modifier = Modifier.align(Alignment.Center)
         )

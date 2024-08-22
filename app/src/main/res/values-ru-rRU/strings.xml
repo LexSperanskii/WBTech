@@ -42,7 +42,6 @@
     <string name="request_code_again">Запросить код повторно</string>
     <string name="name_required">Имя (обязательно)</string>
     <string name="surname_optional">Фамилия (опционально)</string>
-    <string name="safe">Сохранить</string>
     <string name="authentication">Authentication</string>
     <string name="verification">Verification</string>
     <string name="search">Search</string>
@@ -51,6 +50,13 @@
     <string name="chip">chip</string>
     <string name="placeholder_name_surname">Имя и Фамилия</string>
     <string name="date_address">%1$d %2$s · %3$s, %4$d</string>
+    <!-- Те что были, но нужны -->
+    <string name="safe">Сохранить</string>
+    <!-- Новые -->
+    <string name="interests">Интересы</string>
+    <string name="interests_description">Выберите интересы, чтобы мы рекомендовали полезные встречи</string>
+    <string name="interests_button_tell_later">Расскажу позже</string>
+
 
     <plurals name="community_people_count">
         <item quantity="one">%s человек</item>

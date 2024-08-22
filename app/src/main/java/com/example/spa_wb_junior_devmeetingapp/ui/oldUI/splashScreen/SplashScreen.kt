@@ -1,4 +1,4 @@
-package com.example.spa_wb_junior_devmeetingapp.ui.newUi.splashScreen
+package com.example.spa_wb_junior_devmeetingapp.ui.oldUI.splashScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable

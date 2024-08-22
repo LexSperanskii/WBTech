@@ -24,14 +24,14 @@ internal enum class ButtonStatus {
 @Composable
 internal fun ButtonWithStatus(
     text: String,
-    enabled: Boolean,
+    isEnabled: Boolean,
     onClick: () -> Unit,
     buttonStatus: ButtonStatus,
     modifier: Modifier = Modifier,
 ) {
     Button(
         onClick = onClick,
-        enabled = enabled,
+        enabled = isEnabled,
         shape = RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium),
         modifier = modifier
             .fillMaxWidth()
@@ -79,7 +79,7 @@ private fun ButtonContent(
         ButtonStatus.NotPressed, ButtonStatus.Pressed -> {
             Text(
                 text = text,
-                style = DevMeetingAppTheme.typography.Newsubheading2
+                style = DevMeetingAppTheme.typography.newSubheading2
             )
         }
 

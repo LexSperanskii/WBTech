@@ -84,10 +84,10 @@ internal fun NameSurnameTextField(
         }),
         textStyle = TextStyle(
             color = DevMeetingAppTheme.colors.black,
-            fontSize = DevMeetingAppTheme.typography.Newsubheading1.fontSize,
-            fontWeight = DevMeetingAppTheme.typography.Newsubheading1.fontWeight,
-            fontFamily = DevMeetingAppTheme.typography.Newsubheading1.fontFamily,
-            lineHeight = DevMeetingAppTheme.typography.Newsubheading1.lineHeight
+            fontSize = DevMeetingAppTheme.typography.newSubheading1.fontSize,
+            fontWeight = DevMeetingAppTheme.typography.newSubheading1.fontWeight,
+            fontFamily = DevMeetingAppTheme.typography.newSubheading1.fontFamily,
+            lineHeight = DevMeetingAppTheme.typography.newSubheading1.lineHeight
         ),
         decorationBox = { innerTextField ->
             Row(
@@ -99,7 +99,7 @@ internal fun NameSurnameTextField(
                         Text(
                             text = placeholder,
                             color = DevMeetingAppTheme.colors.grayForCommunityCard,
-                            style = DevMeetingAppTheme.typography.Newsubheading1
+                            style = DevMeetingAppTheme.typography.newSubheading1
                         )
                     }
 
