@@ -20,7 +20,7 @@ internal fun NavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NewSplashScreenDestination.route,
+        startDestination = DeveloperDestination.route,
         modifier = Modifier
     ) {
         composable(route = DeveloperDestination.route) {

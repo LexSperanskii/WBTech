@@ -31,6 +31,7 @@ import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.Banner
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ButtonStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ButtonWithStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ClassicSwitch
@@ -173,6 +174,13 @@ internal fun DeveloperScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                Banner(
+                    bannerText = "Расскажите о своих интересах, чтобы мы рекомендовали полезные встречи",
+                    tagText = "Выбрать интересы",
+                    onBannerTagClick = { /*TODO*/ }
+                )
+            }
             item {
                 MorePeople(
                     quantity = 48

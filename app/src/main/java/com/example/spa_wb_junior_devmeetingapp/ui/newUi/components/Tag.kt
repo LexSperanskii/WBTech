@@ -137,3 +137,28 @@ fun TagSmall(
         )
     }
 }
+
+@Composable
+fun BannerTag(
+    tagText: String,
+    onBannerTagClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeSmall))
+            .clickable { onBannerTagClick() }
+            .background(brush = DevMeetingAppTheme.brush.buttonGradientSecondary)
+            .padding(
+                horizontal = 12.dp,
+                vertical = 8.dp
+            )
+    ) {
+        Text(
+            text = tagText,
+            color = DevMeetingAppTheme.colors.buttonTextPurple,
+            style = DevMeetingAppTheme.typography.newBodyText2,
+            modifier = Modifier
+        )
+    }
+}
