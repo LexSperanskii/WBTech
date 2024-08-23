@@ -31,7 +31,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @Composable
-fun NewCommunityCard(
+internal fun NewCommunityCard(
     communityURL: String,
     communityName: String,
     isClicked: Boolean,
@@ -78,7 +78,7 @@ fun NewCommunityCard(
 }
 
 @Composable
-fun ButtonForCommunityCard(
+internal fun ButtonForCommunityCard(
     isClicked: Boolean,
     onCommunityButtonClick: () -> Unit,
     modifier: Modifier = Modifier,

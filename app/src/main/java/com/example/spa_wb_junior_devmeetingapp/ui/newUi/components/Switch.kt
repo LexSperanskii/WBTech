@@ -25,7 +25,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @Composable
-fun CustomSwitch(
+internal fun CustomSwitch(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -86,7 +86,7 @@ private fun calculateThumbOffset(
 
 
 @Composable
-fun ClassicSwitch(
+internal fun ClassicSwitch(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,

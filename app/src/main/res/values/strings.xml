@@ -55,6 +55,8 @@
     <string name="interests">Interests</string>
     <string name="interests_description">Select your interests so we can recommend useful events</string>
     <string name="interests_button_tell_later">I will tell you later</string>
+    <string name="search_placeholder">Find meetups and communities</string>
+    <string name="cancel">Cancel</string>
 
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>

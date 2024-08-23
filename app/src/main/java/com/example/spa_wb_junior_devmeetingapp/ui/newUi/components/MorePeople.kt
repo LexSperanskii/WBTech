@@ -15,7 +15,7 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun MorePeople(
+internal fun MorePeople(
     quantity: Int,
 ) {
     Box(

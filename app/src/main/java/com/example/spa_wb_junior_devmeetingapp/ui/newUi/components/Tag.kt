@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun TagBig(
+internal fun TagBig(
     tagText: String,
     onTagClick: () -> Unit,
     isClicked: Boolean,
@@ -57,7 +57,7 @@ fun TagBig(
 }
 
 @Composable
-fun TagMedium(
+internal fun TagMedium(
     tagText: String,
     onTagClick: () -> Unit,
     isClicked: Boolean,
@@ -98,7 +98,7 @@ fun TagMedium(
 }
 
 @Composable
-fun TagSmall(
+internal fun TagSmall(
     tagText: String,
     onTagClick: () -> Unit,
     isClicked: Boolean,
@@ -139,7 +139,7 @@ fun TagSmall(
 }
 
 @Composable
-fun BannerTag(
+internal fun BannerTag(
     tagText: String,
     onBannerTagClick: () -> Unit,
     modifier: Modifier = Modifier,

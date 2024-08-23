@@ -15,14 +15,14 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @Composable
-fun PersonCard(
+internal fun PersonCard(
     avatarURL: String,
     personName: String,
     tagText: String,
     isTagClicked: Boolean,
     onPersonCardClick: () -> Unit,
     onTagClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         onClick = onPersonCardClick,

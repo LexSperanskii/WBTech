@@ -43,6 +43,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.NewCommunityC
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.NewEventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.NewPhoneNumberInput
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.PersonCard
+import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.SearchFieldBar
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.TagBig
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.TagMedium
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.TagSmall
@@ -159,6 +160,7 @@ internal fun DeveloperScreen() {
     )
     var countryCode2 by remember { mutableStateOf(availableCountries[0]) }
 
+    var search by remember { mutableStateOf("") }
     var tagBig by remember { mutableStateOf(false) }
     var tagMedium by remember { mutableStateOf(false) }
     var tagSmall by remember { mutableStateOf(false) }
@@ -174,6 +176,15 @@ internal fun DeveloperScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                SearchFieldBar(
+                    searchField = search,
+                    onSearchFieldChange = { search = it },
+                    onClearIconClick = { search = "" },
+                    onUserIconClick = {},
+                    onCancelClick = {}
+                )
+            }
             item {
                 Banner(
                     bannerText = "Расскажите о своих интересах, чтобы мы рекомендовали полезные встречи",

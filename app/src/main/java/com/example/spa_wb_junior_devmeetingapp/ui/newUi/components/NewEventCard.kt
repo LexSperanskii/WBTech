@@ -29,7 +29,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun NewEventCard(
+internal fun NewEventCard(
     eventURL: String,
     eventName: String,
     day: Int,

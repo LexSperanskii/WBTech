@@ -18,7 +18,7 @@ import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun NetworkIcon(
+internal fun NetworkIcon(
     @DrawableRes
     networkIcon: Int,
     onNetworkIconClick: () -> Unit,

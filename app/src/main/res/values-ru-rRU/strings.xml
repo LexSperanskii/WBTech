@@ -56,7 +56,8 @@
     <string name="interests">Интересы</string>
     <string name="interests_description">Выберите интересы, чтобы мы рекомендовали полезные встречи</string>
     <string name="interests_button_tell_later">Расскажу позже</string>
-
+    <string name="search_placeholder">Найти встречи и сообщества</string>
+    <string name="cancel">Отмена</string>
 
     <plurals name="community_people_count">
         <item quantity="one">%s человек</item>
