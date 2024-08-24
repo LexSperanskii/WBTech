@@ -49,14 +49,14 @@ internal fun Banner(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.arrow_left),
+                    painter = painterResource(id = R.drawable.banner_arrow_left),
                     contentDescription = stringResource(id = R.string.icon),
                     tint = Color.Unspecified,
                     modifier = Modifier
                         .offset(x = 16.dp)
                 )
                 Icon(
-                    painter = painterResource(id = R.drawable.arrow_right),
+                    painter = painterResource(id = R.drawable.banner_arrow_right),
                     contentDescription = stringResource(id = R.string.icon),
                     tint = Color.Unspecified,
                     modifier = Modifier

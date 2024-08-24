@@ -31,6 +31,8 @@ import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
+import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.BackBar
+import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.BackShareBar
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.Banner
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ButtonStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ButtonWithStatus
@@ -176,6 +178,25 @@ internal fun DeveloperScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                BackBar(
+                    barText = "Пойдут на встречу",
+                    onArrowClick = {}
+                )
+            }
+            item {
+                BackBar(
+                    barText = "Как повышать грейд. Лекция о чем то то так и там длинный текст называния чтобы было перекрытие",
+                    onArrowClick = {}
+                )
+            }
+            item {
+                BackShareBar(
+                    barText = "Как повышать грейд. Лекция о чем то то так и там длинный текст называния чтобы было перекрытие",
+                    onArrowClick = {},
+                    onShareClick = {}
+                )
+            }
             item {
                 SearchFieldBar(
                     searchField = search,
