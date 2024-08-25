@@ -11,17 +11,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.spa_wb_junior_devmeetingapp.models.NewUserModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @Composable
 internal fun PersonCard(
-    avatarURL: String,
-    personName: String,
-    tagText: String,
-    isTagClicked: Boolean,
+    person: NewUserModelUI,
     onPersonCardClick: () -> Unit,
-    onTagClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -34,11 +31,11 @@ internal fun PersonCard(
     ) {
         NewPersonAvatar(
             size = 104.dp,
-            imageURL = avatarURL,
+            imageURL = person.imageURL,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Text(
-            text = personName,
+            text = person.name,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.newBodyText1,
             maxLines = 1,
@@ -46,9 +43,9 @@ internal fun PersonCard(
             modifier = Modifier.padding(vertical = 4.dp)
         )
         TagSmall(
-            tagText = tagText,
-            onTagClick = onTagClick,
-            isClicked = isTagClicked
+            tagText = person.tag,
+            onTagClick = {},
+            isClicked = false
         )
     }
 }

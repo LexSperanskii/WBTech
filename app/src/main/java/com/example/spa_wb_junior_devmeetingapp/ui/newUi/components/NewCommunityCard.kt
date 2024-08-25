@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -27,14 +26,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.models.NewCommunityModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @Composable
 internal fun NewCommunityCard(
-    communityURL: String,
-    communityName: String,
-    isClicked: Boolean,
+    community: NewCommunityModelUI,
+    isCommunityButtonClicked: Boolean,
     onCommunityButtonClick: () -> Unit,
     onCommunityClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -44,13 +43,13 @@ internal fun NewCommunityCard(
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
         ),
-        shape = RectangleShape,
+        shape = RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMediumSmall),
         modifier = modifier
             .width(104.dp)
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
-                .data(communityURL)
+                .data(community.imageURL)
                 .crossfade(true)
                 .build(),
             contentScale = ContentScale.Crop,
@@ -62,7 +61,7 @@ internal fun NewCommunityCard(
                 .size(104.dp)
         )
         Text(
-            text = communityName,
+            text = community.name,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.newMetadata2,
             overflow = TextOverflow.Ellipsis,
@@ -71,7 +70,7 @@ internal fun NewCommunityCard(
                 .padding(vertical = 4.dp)
         )
         ButtonForCommunityCard(
-            isClicked = isClicked,
+            isClicked = isCommunityButtonClicked,
             onCommunityButtonClick = onCommunityButtonClick,
         )
     }

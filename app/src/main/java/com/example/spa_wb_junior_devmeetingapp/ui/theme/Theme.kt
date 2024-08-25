@@ -167,6 +167,12 @@ private val typography = DevMeetingsAppTypography(
         lineHeight = 44.sp,
         fontSize = 50.sp
     ),
+    customH2 = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 26.sp,
+        fontSize = 24.sp
+    ),
 )
 private val dimensions = DevMeetingsAppDimensions(
     avatarS = 50.dp,

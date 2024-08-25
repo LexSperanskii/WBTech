@@ -48,8 +48,8 @@
     <string name="name_surname">%1$s %2$s</string>
     <string name="chip">chip</string>
     <string name="placeholder_name_surname">Name and Surname</string>
-    <string name="date_address">%1$d %2$s · %3$s, %4$d</string>
     <!-- Те что были, но нужны -->
+    <string name="date_address">%1$d %2$s · %3$s, %4$s</string>
     <string name="safe">Safe</string>
     <!-- Новые -->
     <string name="interests">Interests</string>
@@ -57,6 +57,7 @@
     <string name="interests_button_tell_later">I will tell you later</string>
     <string name="search_placeholder">Find meetups and communities</string>
     <string name="cancel">Cancel</string>
+    <string name="upcoming_meetings">Upcoming meetings</string>
 
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>

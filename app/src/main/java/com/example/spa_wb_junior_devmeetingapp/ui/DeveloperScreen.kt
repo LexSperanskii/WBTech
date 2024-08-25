@@ -28,7 +28,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
 import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.NewCommunityModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.NewEventModelUI
+import com.example.spa_wb_junior_devmeetingapp.models.NewUserModelUI
 import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.BackBar
@@ -37,18 +40,23 @@ import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.Banner
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ButtonStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ButtonWithStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ClassicSwitch
+import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.CommunitiesCarousel
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.CustomSwitch
+import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.EvensCarousel
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.MorePeople
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.NameSurnameTextField
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.NetworkIcon
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.NewCommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.NewEventCard
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.NewPhoneNumberInput
+import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.PeopleCarousel
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.PersonCard
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.SearchFieldBar
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.TagBig
+import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.TagBlock
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.TagMedium
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.TagSmall
+import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.UpcomingEvensCarousel
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.elements.CommunityCard
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.elements.CustomFilterChip
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.elements.EventCard
@@ -145,6 +153,201 @@ internal fun DeveloperScreen() {
         CountryModelUI("China", "+86", "https://i.pinimg.com/564x/51/08/62/510862488ad2a8037423567218afe069.jpg"),
         CountryModelUI("Germany", "+49", "https://i.pinimg.com/564x/4c/b7/8b/4cb78bce83b82a83382d18d207423f48.jpg")
     )
+    val listOfEvents = listOf(
+        NewEventModelUI(
+            id = 0,
+            name = "Python days",
+            day = 10,
+            month = "августа",
+            year = 2024,
+            city = "Москва",
+            street = "Кожевенная линия",
+            building = "40",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
+            listOfTags = listOf(
+                "Тестирование",
+                "Котлин",
+                "Go",
+                "Пудж",
+                "Java",
+                "Варенье"
+            )
+        ),
+        NewEventModelUI(
+            id = 1,
+            name = "Python days",
+            day = 10,
+            month = "августа",
+            year = 2024,
+            city = "Москва",
+            street = "Кожевенная линия",
+            building = "40",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
+            listOfTags = listOf(
+                "Тестирование",
+                "Котлин",
+                "Go",
+                "Пудж",
+                "Java",
+                "Варенье"
+            )
+        ),
+        NewEventModelUI(
+            id = 2,
+            name = "Python days",
+            day = 10,
+            month = "августа",
+            year = 2024,
+            city = "Москва",
+            street = "Кожевенная линия",
+            building = "40",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
+            listOfTags = listOf(
+                "Тестирование",
+                "Котлин",
+                "Go",
+                "Пудж",
+                "Java",
+                "Варенье"
+            )
+        ),
+        NewEventModelUI(
+            id = 3,
+            name = "Python days",
+            day = 10,
+            month = "августа",
+            year = 2024,
+            city = "Москва",
+            street = "Кожевенная линия",
+            building = "40",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
+            listOfTags = listOf(
+                "Тестирование",
+                "Котлин",
+                "Go",
+                "Пудж",
+                "Java",
+                "Варенье"
+            )
+        ),
+        NewEventModelUI(
+            id = 4,
+            name = "Python days",
+            day = 10,
+            month = "августа",
+            year = 2024,
+            city = "Москва",
+            street = "Кожевенная линия",
+            building = "40",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
+            listOfTags = listOf(
+                "Тестирование",
+                "Котлин",
+                "Go",
+                "Пудж",
+                "Java",
+                "Варенье"
+            )
+        )
+    )
+    val communitiesList = listOf(
+        NewCommunityModelUI(
+            id = 0,
+            name = "Супер тестировщики",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
+        ),
+        NewCommunityModelUI(
+            id = 1,
+            name = "Супер программисты",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
+        ),
+        NewCommunityModelUI(
+            id = 2,
+            name = "Катающие на пудже",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
+        ), NewCommunityModelUI(
+            id = 3,
+            name = "Чел",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
+        ), NewCommunityModelUI(
+            id = 4,
+            name = "Бомбящие пуканы",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
+        ),
+        NewCommunityModelUI(
+            id = 5,
+            name = "Вкусно и точка",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
+        ),
+        NewCommunityModelUI(
+            id = 6,
+            name = "IT Crew",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
+        ),
+        NewCommunityModelUI(
+            id = 7,
+            name = "Отчаянные домохозйки",
+            imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
+        )
+    )
+
+    val listOfPeople = listOf(
+        NewUserModelUI(
+            id = 0,
+            name = "Маша",
+            tag = "Разработка",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ),
+        NewUserModelUI(
+            id = 1,
+            name = "Коля",
+            tag = "Менеджмент",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ),
+        NewUserModelUI(
+            id = 2,
+            name = "Миша",
+            tag = "Тестирование",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ),
+        NewUserModelUI(
+            id = 3,
+            name = "Женя",
+            tag = "Разработка",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ),
+        NewUserModelUI(
+            id = 4,
+            name = "Даша",
+            tag = "Менеджмент",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ), NewUserModelUI(
+            id = 5,
+            name = "Витя",
+            tag = "Тестирование",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ), NewUserModelUI(
+            id = 6,
+            name = "Саша",
+            tag = "Разработка",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ), NewUserModelUI(
+            id = 7,
+            name = "Сережа",
+            tag = "Менеджмент",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ), NewUserModelUI(
+            id = 8,
+            name = "Федя",
+            tag = "Тестирование",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ), NewUserModelUI(
+            id = 9,
+            name = "Валя",
+            tag = "Разработка",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        )
+    )
 
     var pinCode by remember { mutableStateOf("") }
     var countryCode by remember { mutableStateOf(mockAvailableCountriesForDevScreen[0]) }
@@ -166,11 +369,10 @@ internal fun DeveloperScreen() {
     var tagBig by remember { mutableStateOf(false) }
     var tagMedium by remember { mutableStateOf(false) }
     var tagSmall by remember { mutableStateOf(false) }
-    var tagPersonCard by remember { mutableStateOf(false) }
     var communityButton by remember { mutableStateOf(false) }
     var toggle by remember { mutableStateOf(false) }
     val listOfChosenTags = remember { mutableStateListOf<String>() }
-    val listOfChosenTagsSmall = remember { mutableStateListOf<String>() }
+
 
     Scaffold { innerPadding ->
         LazyColumn(
@@ -178,6 +380,60 @@ internal fun DeveloperScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                PeopleCarousel(
+                    blockText = "Вы можете их знать",
+                    listOfPeople = listOfPeople,
+                    onPersonCardClick = {}
+                )
+            }
+            item {
+                TagBlock(
+                    blockText = "Другие встречи",
+                    listOfTags = listOf(
+                        "Дизайн",
+                        "Разработка", "Backend",
+                        "Продакт Менеджмент", "Mobile",
+                        "Проджект менеджмент",
+                        "Frontend",
+                        "Тестирование", "Продажи", "Бизнес",
+                        "Безопасность", "Web", "Девопс", "Маркетинг", "Аналитика"
+                    ),
+                    listOfChosenTags = listOfChosenTags,
+                    onTagClick = {
+                        when (listOfChosenTags.contains(it)) {
+                            true -> {
+                                listOfChosenTags.remove(it)
+                            }
+
+                            else -> {
+                                listOfChosenTags.add(it)
+                            }
+                        }
+                    }
+                )
+            }
+            item {
+                CommunitiesCarousel(
+                    blockText = "Сообщества для тестировщиков",
+                    communitiesList = communitiesList,
+                    isCommunityButtonClicked = communityButton,
+                    onCommunityButtonClick = { communityButton = !communityButton },
+                    onCommunityClick = {}
+                )
+            }
+            item {
+                UpcomingEvensCarousel(
+                    eventsList = listOfEvents,
+                    onEventCardClick = {},
+                )
+            }
+            item {
+                EvensCarousel(
+                    eventsList = listOfEvents,
+                    onEventCardClick = {},
+                )
+            }
             item {
                 BackBar(
                     barText = "Пойдут на встречу",
@@ -250,70 +506,29 @@ internal fun DeveloperScreen() {
             }
             item {
                 NewEventCard(
-                    eventURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
-                    eventName = "Python days",
-                    day = 10,
-                    month = "августа",
-                    street = "Кожевенная линия",
-                    building = 40,
-                    listOfTags = listOf("Тестирование", "Котлин", "Go", "Пудж", "Java", "Варенье"),
-                    listOfChosenTags = listOfChosenTagsSmall,
-                    onTagClick = {
-                        when (listOfChosenTagsSmall.contains(it)) {
-                            true -> {
-                                listOfChosenTagsSmall.remove(it)
-                            }
-
-                            else -> {
-                                listOfChosenTagsSmall.add(it)
-                            }
-                        }
-                    },
+                    event = listOfEvents[0],
                     onEventCardClick = {},
                     eventCardWidth = 212.dp
                 )
             }
             item {
                 NewEventCard(
-                    eventURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg",
-                    eventName = "Python days",
-                    day = 10,
-                    month = "августа",
-                    street = "Кожевенная линия",
-                    building = 40,
-                    listOfTags = listOf("Тестирование", "Котлин", "Go", "Пудж", "Java", "Варенье"),
-                    listOfChosenTags = listOfChosenTags,
-                    onTagClick = {
-                        when (listOfChosenTags.contains(it)) {
-                            true -> {
-                                listOfChosenTags.remove(it)
-                            }
-
-                            else -> {
-                                listOfChosenTags.add(it)
-                            }
-                        }
-                    },
-                    onEventCardClick = {}
+                    event = listOfEvents[0],
+                    onEventCardClick = {},
                 )
             }
             item {
                 NewCommunityCard(
-                    communityURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg",
-                    communityName = "Супер тестировщики",
-                    isClicked = communityButton,
+                    community = communitiesList[0],
+                    isCommunityButtonClicked = communityButton,
                     onCommunityButtonClick = { communityButton = !communityButton },
                     onCommunityClick = {}
                 )
             }
             item {
                 PersonCard(
-                    avatarURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg",
-                    personName = "Маша",
-                    tagText = "Тестирование",
-                    isTagClicked = tagPersonCard,
+                    person = listOfPeople[0],
                     onPersonCardClick = {},
-                    onTagClick = { tagPersonCard = !tagPersonCard }
                 )
             }
             item {

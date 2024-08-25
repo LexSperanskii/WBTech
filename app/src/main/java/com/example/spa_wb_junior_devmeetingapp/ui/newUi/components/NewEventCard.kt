@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -25,20 +24,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
+import com.example.spa_wb_junior_devmeetingapp.models.NewEventModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun NewEventCard(
-    eventURL: String,
-    eventName: String,
-    day: Int,
-    month: String,
-    street: String,
-    building: Int,
-    listOfTags: List<String>,
-    listOfChosenTags: List<String>,
-    onTagClick: (String) -> Unit,
+    event: NewEventModelUI,
     onEventCardClick: () -> Unit,
     modifier: Modifier = Modifier,
     eventCardWidth: Dp = 320.dp,
@@ -48,13 +40,13 @@ internal fun NewEventCard(
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
         ),
-        shape = RectangleShape,
+        shape = RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeSmall),
         modifier = modifier
             .width(eventCardWidth)
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
-                .data(eventURL)
+                .data(event.imageURL)
                 .crossfade(true)
                 .build(),
             contentScale = ContentScale.Crop,
@@ -67,13 +59,19 @@ internal fun NewEventCard(
                 .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
         )
         Text(
-            text = eventName,
+            text = event.name,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.newHeading1,
             modifier = Modifier.padding(top = 8.dp)
         )
         Text(
-            text = stringResource(id = R.string.date_address, day, month, street, building),
+            text = stringResource(
+                id = R.string.date_address,
+                event.day,
+                event.month,
+                event.street,
+                event.building
+            ),
             color = DevMeetingAppTheme.colors.eventCardText,
             style = DevMeetingAppTheme.typography.newMetadata1,
             modifier = Modifier.padding(top = 2.dp)
@@ -85,11 +83,11 @@ internal fun NewEventCard(
                 .fillMaxWidth()
                 .padding(top = 8.dp)
         ) {
-            listOfTags.forEach {
+            event.listOfTags.forEach {
                 TagSmall(
                     tagText = it,
-                    onTagClick = { onTagClick(it) },
-                    isClicked = listOfChosenTags.contains(it)
+                    onTagClick = {},
+                    isClicked = false
                 )
             }
         }

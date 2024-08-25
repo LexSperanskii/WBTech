@@ -54,8 +54,8 @@ internal fun CustomButtonRipple(
     pressedColor: Color,
     rippleColor: Color,
     onClick: () -> Unit,
-    text: String = stringResource(id = R.string.button),
     modifier: Modifier = Modifier,
+    text: String = stringResource(id = R.string.button),
     shape: Shape = RoundedCornerShape(30.dp),
     rippleSize: Dp = 8.dp,
     enabled:Boolean = true,
@@ -126,13 +126,13 @@ internal fun CustomButtonOutlinedRipple(
     pressedColor: Color,
     rippleColor: Color,
     onClick: () -> Unit,
-    text: String = stringResource(id = R.string.button),
     modifier: Modifier = Modifier,
+    text: String = stringResource(id = R.string.button),
     containerColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(30.dp),
     rippleSize: Dp = 8.dp,
     enabled: Boolean = true,
-    border: Boolean = false
+    border: Boolean = false,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
