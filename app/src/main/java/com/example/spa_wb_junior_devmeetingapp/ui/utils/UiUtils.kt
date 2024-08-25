@@ -9,7 +9,7 @@ internal object UiUtils {
     const val EMPTY_STRING = ""
     const val DEFAULT_OVERLAPPING_PERCENTAGE = 0.20f
     const val DEFAULT_OVERLAPPING_PEOPLE_COUNT = 5
-    const val SPLASH_SCREEN_DURATION = 3000L
+    const val SPLASH_SCREEN_DURATION = 1000L
     const val DEFAULT_ID = 0
     const val ICON_OFFSET_X = -5
     const val ICON_OFFSET_Y = -1

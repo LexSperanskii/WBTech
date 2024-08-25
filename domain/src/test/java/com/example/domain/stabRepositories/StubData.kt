@@ -30,8 +30,10 @@ object StubData {
     private const val DEFAULT_TAG = "Kotlin"
     private const val DEFAULT_COUNTRY_CODE = "+7"
     private const val DEFAULT_PHONE_NUMBER = "1234567890"
+    private const val DEFAULT_PIC_CODE = "1234567890"
 
     const val userAvatarURL = DEFAULT_URL
+    const val userPicCode = DEFAULT_URL
 
     val communitiesList = listOf(
         Community(DEFAULT_ID_0, DEFAULT_NAME_ONE, DEFAULT_SIZE_1, DEFAULT_URL),
