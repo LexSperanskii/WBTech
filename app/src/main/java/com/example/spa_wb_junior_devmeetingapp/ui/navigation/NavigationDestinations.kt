@@ -1,5 +1,8 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.navigation
 
+internal interface NewNavigationDestination {
+    val route: String
+}
 
 internal interface NavigationDestination {
     //Unique name to define the path for a composable

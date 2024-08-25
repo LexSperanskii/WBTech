@@ -37,8 +37,11 @@ class UserRepositoryStub : IUserRepository {
         }.flowOn(Dispatchers.IO)
     }
 
+    override suspend fun setUserPinCode(pinCode: String) {
+        TODO("Not yet implemented")
+    }
 
-    override fun pinCodeVerification(pinCode: String): Flow<Boolean> {
+    override fun getPinCodeVerification(): Flow<Boolean> {
         TODO("Not yet implemented")
     }
     override suspend fun setUserPhoneNumber(code: String, number: String) {

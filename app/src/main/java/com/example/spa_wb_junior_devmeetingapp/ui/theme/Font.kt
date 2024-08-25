@@ -9,6 +9,12 @@ internal val SFProDisplay = FontFamily(
     Font(R.font.sf_pro_display_regular, FontWeight.Normal),
     Font(R.font.sf_pro_display_semibold, FontWeight.SemiBold),
     Font(R.font.sf_pro_display_bold, FontWeight.Bold),
+
+    Font(R.font.inter_regular)
+)
+
+internal val Inter = FontFamily(
+    Font(R.font.inter_regular)
 )
 
 
