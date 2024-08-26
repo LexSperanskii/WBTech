@@ -11,13 +11,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.spa_wb_junior_devmeetingapp.models.NewUserModelUI
+import com.example.ui_v2.models.NewUserModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @Composable
 internal fun PersonCard(
-    person: NewUserModelUI,
+    person: com.example.ui_v2.models.NewUserModelUI,
     onPersonCardClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

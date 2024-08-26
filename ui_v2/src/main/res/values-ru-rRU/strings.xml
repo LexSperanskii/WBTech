@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SpA_WB_Junior_DevMeetingApp</string>
+    <string name="event_date_place">%1$s — %2$s</string>
+    <string name="number_of_people">+%s</string>
+    <string name="event_icon">Иконка мероприятния</string>
+    <string name="community_icon">Иконка сообщества</string>
+    <string name="community_events">Встречи сообщества</string>
+    <string name="profile">Профиль</string>
+    <string name="events_user">Мои встречи</string>
+    <string name="events_all">Встречи</string>
+    <string name="developer">Экран разработчика</string>
+    <string name="communities">Сообщества</string>
+    <string name="community_details">Детали сообщества</string>
+    <string name="more">Еще</string>
+    <string name="events_details">Детали встречи</string>
+    <string name="map">Карта</string>
+    <string name="profile_icon_in_row">Иконка</string>
+    <string name="profile_icon">Иконка профиля</string>
+    <string name="i_will_go_to_the_event">Пойду на встречу!</string>
+    <string name="i_will_go_next_time">Схожу в другой раз</string>
+    <string name="splash_screen">"Экран загрузки"</string>
+    <string name="country_code">Код страны</string>
+    <string name="back_button">Назад</string>
+    <string name="button">Кнопка</string>
+    <string name="top_bar_action">Знак верхнего бара</string>
+    <string name="forward">Вперед</string>
+    <string name="menu_icon">Иконка меню</string>
+    <string name="icon">Иконка</string>
+    <string name="my_events">Мои встречи</string>
+    <string name="my_theme">Тема</string>
+    <string name="my_notifications">Уведомления</string>
+    <string name="my_security">Безопасность</string>
+    <string name="my_storage">Память и ресурсы</string>
+    <string name="my_help">Помощь</string>
+    <string name="my_invite">Пригласи друга</string>
+    <string name="enter_your_number">Введите номер телефона</string>
+    <string name="we_will_send_you_verification_code">Мы вышлем код подтверждения\nна указанный номер</string>
+    <string name="forward_button">Продолжить</string>
+    <string name="enter_your_code">Введите код</string>
+    <string name="sent_you_verification_code">Отправили код на номер\n%s</string>
+    <string name="request_code_again">Запросить код повторно</string>
+    <string name="name_required">Имя (обязательно)</string>
+    <string name="surname_optional">Фамилия (опционально)</string>
+    <string name="authentication">Authentication</string>
+    <string name="verification">Verification</string>
+    <string name="search">Search</string>
+    <string name="finished">Завершено</string>
+    <string name="name_surname">%1$s %2$s</string>
+    <string name="chip">chip</string>
+    <string name="placeholder_name_surname">Имя и Фамилия</string>
+    <!-- Те что были, но нужны -->
+    <string name="date_address">%1$d %2$s · %3$s, %4$s</string>
+    <string name="safe">Сохранить</string>
+    <!-- Новые -->
+    <string name="interests">Интересы</string>
+    <string name="interests_description">Выберите интересы, чтобы мы рекомендовали полезные встречи</string>
+    <string name="interests_button_tell_later">Расскажу позже</string>
+    <string name="search_placeholder">Найти встречи и сообщества</string>
+    <string name="cancel">Отмена</string>
+    <string name="upcoming_meetings">Ближайшие встречи</string>
+
+    <plurals name="community_people_count">
+        <item quantity="one">%s человек</item>
+        <item quantity="few">%s человека</item>
+        <item quantity="many">%s человек</item>
+        <item quantity="other">%s человек</item>
+    </plurals>
+</resources>

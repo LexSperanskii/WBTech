@@ -1,6 +1,6 @@
 package com.example.spa_wb_junior_devmeetingapp.ui.utils
 
-import com.example.spa_wb_junior_devmeetingapp.models.PhoneNumberModelUI
+import com.example.ui_v2.models.PhoneNumberModelUI
 
 
 internal object UiUtils {
@@ -20,7 +20,7 @@ internal object UiUtils {
     private const val FIRST_DASH_POSITION = 6
     private const val SECOND_DASH_POSITION = 8
 
-    fun formattedMobileNumber(mobileNumber: PhoneNumberModelUI): String {
+    fun formattedMobileNumber(mobileNumber: com.example.ui_v2.models.PhoneNumberModelUI): String {
         return when (mobileNumber.number.length) {
             PHONE_NUMBER_LENGTH -> buildString {
                 append(mobileNumber.countryCode)

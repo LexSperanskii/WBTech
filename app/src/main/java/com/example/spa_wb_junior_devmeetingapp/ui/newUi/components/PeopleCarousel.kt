@@ -9,14 +9,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.spa_wb_junior_devmeetingapp.models.NewUserModelUI
+import com.example.ui_v2.models.NewUserModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
 internal fun PeopleCarousel(
     blockText: String,
-    listOfPeople: List<NewUserModelUI>,
-    onPersonCardClick: (NewUserModelUI) -> Unit,
+    listOfPeople: List<com.example.ui_v2.models.NewUserModelUI>,
+    onPersonCardClick: (com.example.ui_v2.models.NewUserModelUI) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(

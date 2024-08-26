@@ -24,13 +24,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.models.NewEventModelUI
+import com.example.ui_v2.models.NewEventModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun NewEventCard(
-    event: NewEventModelUI,
+    event: com.example.ui_v2.models.NewEventModelUI,
     onEventCardClick: () -> Unit,
     modifier: Modifier = Modifier,
     eventCardWidth: Dp = 320.dp,

@@ -17,10 +17,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NewNavigationDestination
+import com.example.ui_v2.ui.navigation.NewNavigationDestination
 import org.koin.androidx.compose.koinViewModel
 
-internal object NewSplashScreenDestination : NewNavigationDestination {
+internal object NewSplashScreenDestination :
+    com.example.ui_v2.ui.navigation.NewNavigationDestination {
     override val route = "new_splash_screen"
 }
 

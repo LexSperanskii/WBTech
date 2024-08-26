@@ -24,17 +24,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
+import com.example.ui_v2.models.NewCountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun NewCountryCodeDropDownMenu(
-    country: NewCountryModelUI,
-    listOfCountries: List<NewCountryModelUI>,
-    onDropdownMenuItemClick: (NewCountryModelUI) -> Unit,
-    modifier: Modifier = Modifier
+    country: com.example.ui_v2.models.NewCountryModelUI,
+    listOfCountries: List<com.example.ui_v2.models.NewCountryModelUI>,
+    onDropdownMenuItemClick: (com.example.ui_v2.models.NewCountryModelUI) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
@@ -91,8 +91,8 @@ internal fun NewCountryCodeDropDownMenu(
 
 @Composable
 internal fun CountryCodeDropdownMenuDefaultItem(
-    country: NewCountryModelUI,
-    modifier: Modifier = Modifier
+    country: com.example.ui_v2.models.NewCountryModelUI,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

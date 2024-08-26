@@ -27,13 +27,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.models.CountryModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.NewCommunityModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.NewEventModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.NewUserModelUI
-import com.example.spa_wb_junior_devmeetingapp.models.RegisteredPersonModelUI
-import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NavigationDestination
+import com.example.ui_v2.models.CountryModelUI
+import com.example.ui_v2.models.NewCommunityModelUI
+import com.example.ui_v2.models.NewCountryModelUI
+import com.example.ui_v2.models.NewEventModelUI
+import com.example.ui_v2.models.NewUserModelUI
+import com.example.ui_v2.models.RegisteredPersonModelUI
+import com.example.ui_v2.ui.navigation.NavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.BackBar
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.BackShareBar
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.Banner
@@ -74,7 +74,7 @@ import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.elements.buttons.CustomB
 import com.example.spa_wb_junior_devmeetingapp.ui.oldUI.elements.buttons.CustomButtonText
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
-internal object DeveloperDestination : NavigationDestination {
+internal object DeveloperDestination : com.example.ui_v2.ui.navigation.NavigationDestination {
     override val route = "developer"
     override val title = R.string.developer
 }
@@ -134,27 +134,74 @@ internal fun DeveloperScreen() {
         "Moscow"
     )
     val listOfParticipantsForDevScreen = listOf(
-        RegisteredPersonModelUI(0, "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"),
-        RegisteredPersonModelUI(1, "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg"),
-        RegisteredPersonModelUI(2,"https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg"),
-        RegisteredPersonModelUI(3,"https://i.pinimg.com/564x/f4/e0/c8/f4e0c8655494b4ed5fb490df336c5dcb.jpg"),
-        RegisteredPersonModelUI(4,"https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg"),
-        RegisteredPersonModelUI(5,"https://i.pinimg.com/564x/07/1e/f4/071ef43b8a3e3a3e32eba626da61faa9.jpg")
+        com.example.ui_v2.models.RegisteredPersonModelUI(
+            0,
+            "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ),
+        com.example.ui_v2.models.RegisteredPersonModelUI(
+            1,
+            "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg"
+        ),
+        com.example.ui_v2.models.RegisteredPersonModelUI(
+            2,
+            "https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg"
+        ),
+        com.example.ui_v2.models.RegisteredPersonModelUI(
+            3,
+            "https://i.pinimg.com/564x/f4/e0/c8/f4e0c8655494b4ed5fb490df336c5dcb.jpg"
+        ),
+        com.example.ui_v2.models.RegisteredPersonModelUI(
+            4,
+            "https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg"
+        ),
+        com.example.ui_v2.models.RegisteredPersonModelUI(
+            5,
+            "https://i.pinimg.com/564x/07/1e/f4/071ef43b8a3e3a3e32eba626da61faa9.jpg"
+        )
     )
     val listOfParticipantsSmallForDevScreen = listOf(
-        RegisteredPersonModelUI(0, "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"),
-        RegisteredPersonModelUI(1, "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg"),
-        RegisteredPersonModelUI(2,"https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg")
+        com.example.ui_v2.models.RegisteredPersonModelUI(
+            0,
+            "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ),
+        com.example.ui_v2.models.RegisteredPersonModelUI(
+            1,
+            "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg"
+        ),
+        com.example.ui_v2.models.RegisteredPersonModelUI(
+            2,
+            "https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg"
+        )
     )
     val mockAvailableCountriesForDevScreen = listOf(
-        CountryModelUI("Russia", "+7", "https://i.pinimg.com/564x/42/8d/91/428d9169accc5277fc03a0c41394eb10.jpg"),
-        CountryModelUI("Kazakhstan", "+7", "https://i.pinimg.com/564x/12/d9/f9/12d9f9633023c5f053a654da6035af7f.jpg"),
-        CountryModelUI("UK", "+44","https://i.pinimg.com/564x/aa/7d/c8/aa7dc8130b972fdd4837c19a189717fc.jpg"),
-        CountryModelUI("China", "+86", "https://i.pinimg.com/564x/51/08/62/510862488ad2a8037423567218afe069.jpg"),
-        CountryModelUI("Germany", "+49", "https://i.pinimg.com/564x/4c/b7/8b/4cb78bce83b82a83382d18d207423f48.jpg")
+        com.example.ui_v2.models.CountryModelUI(
+            "Russia",
+            "+7",
+            "https://i.pinimg.com/564x/42/8d/91/428d9169accc5277fc03a0c41394eb10.jpg"
+        ),
+        com.example.ui_v2.models.CountryModelUI(
+            "Kazakhstan",
+            "+7",
+            "https://i.pinimg.com/564x/12/d9/f9/12d9f9633023c5f053a654da6035af7f.jpg"
+        ),
+        com.example.ui_v2.models.CountryModelUI(
+            "UK",
+            "+44",
+            "https://i.pinimg.com/564x/aa/7d/c8/aa7dc8130b972fdd4837c19a189717fc.jpg"
+        ),
+        com.example.ui_v2.models.CountryModelUI(
+            "China",
+            "+86",
+            "https://i.pinimg.com/564x/51/08/62/510862488ad2a8037423567218afe069.jpg"
+        ),
+        com.example.ui_v2.models.CountryModelUI(
+            "Germany",
+            "+49",
+            "https://i.pinimg.com/564x/4c/b7/8b/4cb78bce83b82a83382d18d207423f48.jpg"
+        )
     )
     val listOfEvents = listOf(
-        NewEventModelUI(
+        com.example.ui_v2.models.NewEventModelUI(
             id = 0,
             name = "Python days",
             day = 10,
@@ -173,7 +220,7 @@ internal fun DeveloperScreen() {
                 "Варенье"
             )
         ),
-        NewEventModelUI(
+        com.example.ui_v2.models.NewEventModelUI(
             id = 1,
             name = "Python days",
             day = 10,
@@ -192,7 +239,7 @@ internal fun DeveloperScreen() {
                 "Варенье"
             )
         ),
-        NewEventModelUI(
+        com.example.ui_v2.models.NewEventModelUI(
             id = 2,
             name = "Python days",
             day = 10,
@@ -211,7 +258,7 @@ internal fun DeveloperScreen() {
                 "Варенье"
             )
         ),
-        NewEventModelUI(
+        com.example.ui_v2.models.NewEventModelUI(
             id = 3,
             name = "Python days",
             day = 10,
@@ -230,7 +277,7 @@ internal fun DeveloperScreen() {
                 "Варенье"
             )
         ),
-        NewEventModelUI(
+        com.example.ui_v2.models.NewEventModelUI(
             id = 4,
             name = "Python days",
             day = 10,
@@ -251,40 +298,40 @@ internal fun DeveloperScreen() {
         )
     )
     val communitiesList = listOf(
-        NewCommunityModelUI(
+        com.example.ui_v2.models.NewCommunityModelUI(
             id = 0,
             name = "Супер тестировщики",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
-        NewCommunityModelUI(
+        com.example.ui_v2.models.NewCommunityModelUI(
             id = 1,
             name = "Супер программисты",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
-        NewCommunityModelUI(
+        com.example.ui_v2.models.NewCommunityModelUI(
             id = 2,
             name = "Катающие на пудже",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
-        ), NewCommunityModelUI(
+        ), com.example.ui_v2.models.NewCommunityModelUI(
             id = 3,
             name = "Чел",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
-        ), NewCommunityModelUI(
+        ), com.example.ui_v2.models.NewCommunityModelUI(
             id = 4,
             name = "Бомбящие пуканы",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
-        NewCommunityModelUI(
+        com.example.ui_v2.models.NewCommunityModelUI(
             id = 5,
             name = "Вкусно и точка",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
-        NewCommunityModelUI(
+        com.example.ui_v2.models.NewCommunityModelUI(
             id = 6,
             name = "IT Crew",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
-        NewCommunityModelUI(
+        com.example.ui_v2.models.NewCommunityModelUI(
             id = 7,
             name = "Отчаянные домохозйки",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
@@ -292,56 +339,56 @@ internal fun DeveloperScreen() {
     )
 
     val listOfPeople = listOf(
-        NewUserModelUI(
+        com.example.ui_v2.models.NewUserModelUI(
             id = 0,
             name = "Маша",
             tag = "Разработка",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
-        NewUserModelUI(
+        com.example.ui_v2.models.NewUserModelUI(
             id = 1,
             name = "Коля",
             tag = "Менеджмент",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
-        NewUserModelUI(
+        com.example.ui_v2.models.NewUserModelUI(
             id = 2,
             name = "Миша",
             tag = "Тестирование",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
-        NewUserModelUI(
+        com.example.ui_v2.models.NewUserModelUI(
             id = 3,
             name = "Женя",
             tag = "Разработка",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
-        NewUserModelUI(
+        com.example.ui_v2.models.NewUserModelUI(
             id = 4,
             name = "Даша",
             tag = "Менеджмент",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
-        ), NewUserModelUI(
+        ), com.example.ui_v2.models.NewUserModelUI(
             id = 5,
             name = "Витя",
             tag = "Тестирование",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
-        ), NewUserModelUI(
+        ), com.example.ui_v2.models.NewUserModelUI(
             id = 6,
             name = "Саша",
             tag = "Разработка",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
-        ), NewUserModelUI(
+        ), com.example.ui_v2.models.NewUserModelUI(
             id = 7,
             name = "Сережа",
             tag = "Менеджмент",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
-        ), NewUserModelUI(
+        ), com.example.ui_v2.models.NewUserModelUI(
             id = 8,
             name = "Федя",
             tag = "Тестирование",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
-        ), NewUserModelUI(
+        ), com.example.ui_v2.models.NewUserModelUI(
             id = 9,
             name = "Валя",
             tag = "Разработка",
@@ -357,11 +404,11 @@ internal fun DeveloperScreen() {
     var nameSurnameField by remember { mutableStateOf("") }
 
     val availableCountries = listOf(
-        NewCountryModelUI("Россия", "+7", R.drawable.flag_ru),
-        NewCountryModelUI("Казахстан", "+7", R.drawable.flag_kz),
-        NewCountryModelUI("Белоруссия", "+375", R.drawable.flag_by),
-        NewCountryModelUI("Киргизия", "+996", R.drawable.flag_kg),
-        NewCountryModelUI("Азербайджан", "+994", R.drawable.flag_az)
+        com.example.ui_v2.models.NewCountryModelUI("Россия", "+7", R.drawable.flag_ru),
+        com.example.ui_v2.models.NewCountryModelUI("Казахстан", "+7", R.drawable.flag_kz),
+        com.example.ui_v2.models.NewCountryModelUI("Белоруссия", "+375", R.drawable.flag_by),
+        com.example.ui_v2.models.NewCountryModelUI("Киргизия", "+996", R.drawable.flag_kg),
+        com.example.ui_v2.models.NewCountryModelUI("Азербайджан", "+994", R.drawable.flag_az)
     )
     var countryCode2 by remember { mutableStateOf(availableCountries[0]) }
 

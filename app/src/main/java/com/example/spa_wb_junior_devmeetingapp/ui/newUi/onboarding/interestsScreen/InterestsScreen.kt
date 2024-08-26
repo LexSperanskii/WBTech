@@ -20,14 +20,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.ui.navigation.NewNavigationDestination
+import com.example.ui_v2.ui.navigation.NewNavigationDestination
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ButtonStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.ButtonWithStatus
 import com.example.spa_wb_junior_devmeetingapp.ui.newUi.components.TagBig
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-internal object InterestsScreenDestination : NewNavigationDestination {
+internal object InterestsScreenDestination :
+    com.example.ui_v2.ui.navigation.NewNavigationDestination {
     override val route = "interests_screen"
 }
 

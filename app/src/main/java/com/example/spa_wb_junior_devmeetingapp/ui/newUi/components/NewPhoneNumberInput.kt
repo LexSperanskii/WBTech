@@ -29,7 +29,7 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
-import com.example.spa_wb_junior_devmeetingapp.models.NewCountryModelUI
+import com.example.ui_v2.models.NewCountryModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 
@@ -37,11 +37,11 @@ import com.example.spa_wb_junior_devmeetingapp.ui.utils.UiUtils.PHONE_NUMBER_LEN
 internal fun NewPhoneNumberInput(
     number: String,
     onNumberChange: (String) -> Unit,
-    countryCode: NewCountryModelUI,
-    onCountryCodeChange: (NewCountryModelUI) -> Unit,
-    listOfCountriesCodes: List<NewCountryModelUI>,
+    countryCode: com.example.ui_v2.models.NewCountryModelUI,
+    onCountryCodeChange: (com.example.ui_v2.models.NewCountryModelUI) -> Unit,
+    listOfCountriesCodes: List<com.example.ui_v2.models.NewCountryModelUI>,
     modifier: Modifier = Modifier,
-    placeholder: String = "000 000-00-00"
+    placeholder: String = "000 000-00-00",
 ) {
     val focusManager = LocalFocusManager.current
     var focusState by remember { mutableStateOf(false) }

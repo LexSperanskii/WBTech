@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.models.NewCommunityModelUI
+import com.example.ui_v2.models.NewCommunityModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 
 @Composable
 internal fun NewCommunityCard(
-    community: NewCommunityModelUI,
+    community: com.example.ui_v2.models.NewCommunityModelUI,
     isCommunityButtonClicked: Boolean,
     onCommunityButtonClick: () -> Unit,
     onCommunityClick: () -> Unit,

@@ -11,13 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.spa_wb_junior_devmeetingapp.R
-import com.example.spa_wb_junior_devmeetingapp.models.NewEventModelUI
+import com.example.ui_v2.models.NewEventModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
 internal fun EvensCarousel(
-    eventsList: List<NewEventModelUI>,
-    onEventCardClick: (NewEventModelUI) -> Unit,
+    eventsList: List<com.example.ui_v2.models.NewEventModelUI>,
+    onEventCardClick: (com.example.ui_v2.models.NewEventModelUI) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
@@ -36,8 +36,8 @@ internal fun EvensCarousel(
 
 @Composable
 internal fun UpcomingEvensCarousel(
-    eventsList: List<NewEventModelUI>,
-    onEventCardClick: (NewEventModelUI) -> Unit,
+    eventsList: List<com.example.ui_v2.models.NewEventModelUI>,
+    onEventCardClick: (com.example.ui_v2.models.NewEventModelUI) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(

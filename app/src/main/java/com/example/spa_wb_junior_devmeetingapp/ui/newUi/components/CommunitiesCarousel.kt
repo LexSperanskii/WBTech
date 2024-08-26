@@ -9,16 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.spa_wb_junior_devmeetingapp.models.NewCommunityModelUI
+import com.example.ui_v2.models.NewCommunityModelUI
 import com.example.spa_wb_junior_devmeetingapp.ui.theme.DevMeetingAppTheme
 
 @Composable
 internal fun CommunitiesCarousel(
     blockText: String,
-    communitiesList: List<NewCommunityModelUI>,
+    communitiesList: List<com.example.ui_v2.models.NewCommunityModelUI>,
     isCommunityButtonClicked: Boolean,
-    onCommunityButtonClick: (NewCommunityModelUI) -> Unit,
-    onCommunityClick: (NewCommunityModelUI) -> Unit,
+    onCommunityButtonClick: (com.example.ui_v2.models.NewCommunityModelUI) -> Unit,
+    onCommunityClick: (com.example.ui_v2.models.NewCommunityModelUI) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
