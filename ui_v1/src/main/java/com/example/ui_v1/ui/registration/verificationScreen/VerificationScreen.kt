@@ -16,16 +16,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v1.R
-import com.example.ui_v1.models.PhoneNumberModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1PhoneNumberModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.PinCodeInput
 import com.example.ui_v1.ui.elements.TopAppBarBackNameAction
 import com.example.ui_v1.ui.elements.buttons.CustomButtonText
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
-import com.example.ui_v1.utils.UiUtils.formattedMobileNumber
+import com.example.ui_v1.utils.UIv1UiUtils.formattedMobileNumber
 import org.koin.androidx.compose.koinViewModel
 
-internal object VerificationDestination : NavigationDestination {
+internal object VerificationDestinationUIv1 : UIv1NavigationDestination {
     override val route = "verification"
     override val title = R.string.verification
 }
@@ -68,7 +68,7 @@ internal fun VerificationScreen(
 
 @Composable
 internal fun VerificationBody(
-    phoneNumber: PhoneNumberModelUI,
+    phoneNumber: UIv1PhoneNumberModelUI,
     picCode: String,
     onPinCodeChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,

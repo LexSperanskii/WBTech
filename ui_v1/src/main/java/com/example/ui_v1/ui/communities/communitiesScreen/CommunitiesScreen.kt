@@ -15,15 +15,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.ui_v1.R
-import com.example.ui_v1.models.CommunityModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1CommunityModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.BottomNavigationBar
 import com.example.ui_v1.ui.elements.CommunityCard
 import com.example.ui_v1.ui.elements.MySearchBar
 import com.example.ui_v1.ui.elements.TopAppBarBackNameAction
 import org.koin.androidx.compose.koinViewModel
 
-internal object CommunitiesDestination : NavigationDestination {
+internal object CommunitiesDestinationUIv1 : UIv1NavigationDestination {
     override val route = "communities"
     override val title = R.string.communities
 }
@@ -40,7 +40,7 @@ internal fun CommunityScreen(
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = stringResource(id = CommunitiesDestination.title),
+                title = stringResource(id = CommunitiesDestinationUIv1.title),
                 isNavigateBack = false,
                 isAddCapable = false
             )
@@ -74,12 +74,12 @@ internal fun CommunityScreen(
 
 @Composable
 internal fun CommunityBody(
-    listOfCommunities: List<CommunityModelUI>,
+    listOfCommunities: List<UIv1CommunityModelUI>,
     onCommunityItemClick: (Int) -> Unit,
-    searchField : String,
+    searchField: String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ){
     Column(
         modifier = modifier

@@ -1,6 +1,6 @@
 package com.example.ui_v1.navigation
 
-internal interface NavigationDestination {
+internal interface UIv1NavigationDestination {
     //Unique name to define the path for a composable
     val route: String
 

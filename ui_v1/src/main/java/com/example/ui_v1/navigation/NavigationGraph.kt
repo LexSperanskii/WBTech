@@ -9,33 +9,33 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.ui_v1.ui.DeveloperDestination
+import com.example.ui_v1.ui.DeveloperDestinationUIv1
 import com.example.ui_v1.ui.DeveloperScreen
-import com.example.ui_v1.ui.communities.communitiesScreen.CommunitiesDestination
+import com.example.ui_v1.ui.communities.communitiesScreen.CommunitiesDestinationUIv1
 import com.example.ui_v1.ui.communities.communitiesScreen.CommunityScreen
-import com.example.ui_v1.ui.communities.communityDetailScreen.CommunityDetailsDestination
+import com.example.ui_v1.ui.communities.communityDetailScreen.CommunityDetailsDestinationUIv1
 import com.example.ui_v1.ui.communities.communityDetailScreen.CommunityDetailsScreen
 import com.example.ui_v1.ui.elements.BottomNavItem
-import com.example.ui_v1.ui.events.eventDetailScreen.EventDetailsDestination
+import com.example.ui_v1.ui.events.eventDetailScreen.EventDetailsDestinationUIv1
 import com.example.ui_v1.ui.events.eventDetailScreen.EventDetailsScreen
 import com.example.ui_v1.ui.events.eventDetailScreen.FullScreenMapScreen
-import com.example.ui_v1.ui.events.eventDetailScreen.MapDestination
-import com.example.ui_v1.ui.events.eventsAllScreen.EventsAllDestination
+import com.example.ui_v1.ui.events.eventDetailScreen.MapDestinationUIv1
+import com.example.ui_v1.ui.events.eventsAllScreen.EventsAllDestinationUIv1
 import com.example.ui_v1.ui.events.eventsAllScreen.EventsAllScreen
-import com.example.ui_v1.ui.menu.eventsUserScreen.EventsUserDestination
+import com.example.ui_v1.ui.menu.eventsUserScreen.EventsUserDestinationUIv1
 import com.example.ui_v1.ui.menu.eventsUserScreen.EventsUserScreen
-import com.example.ui_v1.ui.menu.menuScreen.MenuDestination
+import com.example.ui_v1.ui.menu.menuScreen.MenuDestinationUIv1
 import com.example.ui_v1.ui.menu.menuScreen.MenuScreen
-import com.example.ui_v1.ui.menu.profileScreen.ProfileDestination
+import com.example.ui_v1.ui.menu.profileScreen.ProfileDestinationUIv1
 import com.example.ui_v1.ui.menu.profileScreen.ProfileScreen
-import com.example.ui_v1.ui.registration.authenticationScreen.AuthenticationDestination
+import com.example.ui_v1.ui.registration.authenticationScreen.AuthenticationDestinationUIv1
 import com.example.ui_v1.ui.registration.authenticationScreen.AuthenticationScreen
-import com.example.ui_v1.ui.registration.registratinProfileScreen.RegistrationProfileDestination
+import com.example.ui_v1.ui.registration.registratinProfileScreen.RegistrationProfileDestinationUIv1
 import com.example.ui_v1.ui.registration.registratinProfileScreen.RegistrationProfileScreen
-import com.example.ui_v1.ui.registration.verificationScreen.VerificationDestination
+import com.example.ui_v1.ui.registration.verificationScreen.VerificationDestinationUIv1
 import com.example.ui_v1.ui.registration.verificationScreen.VerificationScreen
 import com.example.ui_v1.ui.splashScreen.SplashScreen
-import com.example.ui_v1.ui.splashScreen.SplashScreenDestination
+import com.example.ui_v1.ui.splashScreen.SplashScreenDestinationUIv1
 
 
 @Composable
@@ -44,16 +44,16 @@ fun NavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SplashScreenDestination.route,
+        startDestination = SplashScreenDestinationUIv1.route,
         modifier = Modifier
     ) {
-        composable(route = DeveloperDestination.route) {
+        composable(route = DeveloperDestinationUIv1.route) {
             DeveloperScreen()
         }
-        composable(route = SplashScreenDestination.route) {
+        composable(route = SplashScreenDestinationUIv1.route) {
             SplashScreen(navigateToStartScreen = {
                 navController.navigate("registration_tab") {
-                    popUpTo(SplashScreenDestination.route) {
+                    popUpTo(SplashScreenDestinationUIv1.route) {
                         inclusive = true
                     }
                 }
@@ -68,26 +68,26 @@ fun NavHost(
 
 internal fun NavGraphBuilder.registrationNav(navController: NavHostController) {
     navigation(
-        startDestination = AuthenticationDestination.route,
+        startDestination = AuthenticationDestinationUIv1.route,
         route = "registration_tab"
     ) {
-        composable(route = AuthenticationDestination.route) {
+        composable(route = AuthenticationDestinationUIv1.route) {
             AuthenticationScreen(
                 navigateToVerificationScreen = {
-                    navController.navigate(VerificationDestination.route)
+                    navController.navigate(VerificationDestinationUIv1.route)
                 },
                 onClickNavigateBack = { navController.popBackStack() }
             )
         }
-        composable(route = VerificationDestination.route) {
+        composable(route = VerificationDestinationUIv1.route) {
             VerificationScreen(
                 onClickNavigateBack = { navController.popBackStack() },
                 navigateToRegistrationProfile = {
-                    navController.navigate(RegistrationProfileDestination.route)
+                    navController.navigate(RegistrationProfileDestinationUIv1.route)
                 }
             )
         }
-        composable(route = RegistrationProfileDestination.route) {
+        composable(route = RegistrationProfileDestinationUIv1.route) {
             RegistrationProfileScreen(
                 onClickNavigateBack = { navController.popBackStack() },
                 navigateToEventsAllScreen = {
@@ -104,33 +104,33 @@ internal fun NavGraphBuilder.registrationNav(navController: NavHostController) {
 
 internal fun NavGraphBuilder.eventsNav(navController: NavHostController) {
     navigation(
-        startDestination = EventsAllDestination.route,
+        startDestination = EventsAllDestinationUIv1.route,
         route = BottomNavItem.Events.route
     ) {
-        composable(route = EventsAllDestination.route) {
+        composable(route = EventsAllDestinationUIv1.route) {
             EventsAllScreen(
                 navController = navController,
                 navigateToEventDetailItem = {
-                    navController.navigate("${BottomNavItem.Events.route}/${EventDetailsDestination.route}/${it}")
+                    navController.navigate("${BottomNavItem.Events.route}/${EventDetailsDestinationUIv1.route}/${it}")
                 },
                 navigateToDeveloperScreen = { }//navController.navigate(DeveloperDestination.route) }
             )
         }
         composable(
-            route = "${BottomNavItem.Events.route}/${EventDetailsDestination.routeWithArgs}",
-            arguments = listOf(navArgument(EventDetailsDestination.itemIdArg) {
+            route = "${BottomNavItem.Events.route}/${EventDetailsDestinationUIv1.routeWithArgs}",
+            arguments = listOf(navArgument(EventDetailsDestinationUIv1.itemIdArg) {
                 type = NavType.IntType
             })
         ) {
             EventDetailsScreen(
                 navController = navController,
                 navigateToFullScreenMap = {
-                    navController.navigate("${BottomNavItem.Events.route}/${MapDestination.route}")
+                    navController.navigate("${BottomNavItem.Events.route}/${MapDestinationUIv1.route}")
                 }
             )
         }
         composable(
-            route = "${BottomNavItem.Events.route}/${MapDestination.route}"
+            route = "${BottomNavItem.Events.route}/${MapDestinationUIv1.route}"
         )
         {
             FullScreenMapScreen(navController = navController)
@@ -140,44 +140,44 @@ internal fun NavGraphBuilder.eventsNav(navController: NavHostController) {
 
 internal fun NavGraphBuilder.communitiesNav(navController: NavHostController) {
     navigation(
-        startDestination = CommunitiesDestination.route,
+        startDestination = CommunitiesDestinationUIv1.route,
         route = BottomNavItem.Communities.route
     ) {
-        composable(route = CommunitiesDestination.route) {
+        composable(route = CommunitiesDestinationUIv1.route) {
             CommunityScreen(
                 navController = navController,
                 navigateToCommunityDetailItem = {
-                    navController.navigate("${CommunityDetailsDestination.route}/${it}")
+                    navController.navigate("${CommunityDetailsDestinationUIv1.route}/${it}")
                 }
             )
         }
         composable(
-            route = CommunityDetailsDestination.routeWithArgs,
-            arguments = listOf(navArgument(CommunityDetailsDestination.itemIdArg) {
+            route = CommunityDetailsDestinationUIv1.routeWithArgs,
+            arguments = listOf(navArgument(CommunityDetailsDestinationUIv1.itemIdArg) {
                 type = NavType.IntType
             })
         ) {
             CommunityDetailsScreen(
                 navController = navController,
                 navigateToEventDetailItem = {
-                    navController.navigate("${BottomNavItem.Communities.route}/${EventDetailsDestination.route}/${it}")
+                    navController.navigate("${BottomNavItem.Communities.route}/${EventDetailsDestinationUIv1.route}/${it}")
                 }
             )
         }
         composable(
-            route = "${BottomNavItem.Communities.route}/${EventDetailsDestination.routeWithArgs}",
-            arguments = listOf(navArgument(EventDetailsDestination.itemIdArg) {
+            route = "${BottomNavItem.Communities.route}/${EventDetailsDestinationUIv1.routeWithArgs}",
+            arguments = listOf(navArgument(EventDetailsDestinationUIv1.itemIdArg) {
                 type = NavType.IntType
             })
         ) {
             EventDetailsScreen(
                 navController = navController,
                 navigateToFullScreenMap = {
-                    navController.navigate("${BottomNavItem.Communities.route}/${MapDestination.route}")
+                    navController.navigate("${BottomNavItem.Communities.route}/${MapDestinationUIv1.route}")
                 }
             )
         }
-        composable(route = "${BottomNavItem.Communities.route}/${MapDestination.route}") {
+        composable(route = "${BottomNavItem.Communities.route}/${MapDestinationUIv1.route}") {
             FullScreenMapScreen(navController = navController)
         }
     }
@@ -185,41 +185,41 @@ internal fun NavGraphBuilder.communitiesNav(navController: NavHostController) {
 
 internal fun NavGraphBuilder.menuNav(navController: NavHostController) {
     navigation(
-        startDestination = MenuDestination.route,
+        startDestination = MenuDestinationUIv1.route,
         route = BottomNavItem.Menu.route
     ) {
-        composable(route = MenuDestination.route) {
+        composable(route = MenuDestinationUIv1.route) {
             MenuScreen(
                 navController = navController,
-                navigateToProfile = { navController.navigate(ProfileDestination.route) },
-                navigateToUserEvents = { navController.navigate(EventsUserDestination.route) }
+                navigateToProfile = { navController.navigate(ProfileDestinationUIv1.route) },
+                navigateToUserEvents = { navController.navigate(EventsUserDestinationUIv1.route) }
             )
         }
-        composable(route = ProfileDestination.route) {
+        composable(route = ProfileDestinationUIv1.route) {
             ProfileScreen(navController = navController)
         }
-        composable(route = EventsUserDestination.route) {
+        composable(route = EventsUserDestinationUIv1.route) {
             EventsUserScreen(
                 navController = navController,
                 navigateToEventDetailItem = {
-                    navController.navigate("${BottomNavItem.Menu.route}/${EventDetailsDestination.route}/${it}")
+                    navController.navigate("${BottomNavItem.Menu.route}/${EventDetailsDestinationUIv1.route}/${it}")
                 }
             )
         }
         composable(
-            route = "${BottomNavItem.Menu.route}/${EventDetailsDestination.routeWithArgs}",
-            arguments = listOf(navArgument(EventDetailsDestination.itemIdArg) {
+            route = "${BottomNavItem.Menu.route}/${EventDetailsDestinationUIv1.routeWithArgs}",
+            arguments = listOf(navArgument(EventDetailsDestinationUIv1.itemIdArg) {
                 type = NavType.IntType
             })
         ) {
             EventDetailsScreen(
                 navController = navController,
                 navigateToFullScreenMap = {
-                    navController.navigate("${BottomNavItem.Menu.route}/${MapDestination.route}")
+                    navController.navigate("${BottomNavItem.Menu.route}/${MapDestinationUIv1.route}")
                 }
             )
         }
-        composable(route = "${BottomNavItem.Menu.route}/${MapDestination.route}") {
+        composable(route = "${BottomNavItem.Menu.route}/${MapDestinationUIv1.route}") {
             FullScreenMapScreen(navController = navController)
         }
     }

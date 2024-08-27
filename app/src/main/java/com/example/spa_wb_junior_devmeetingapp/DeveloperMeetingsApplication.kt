@@ -18,7 +18,7 @@ class DeveloperMeetingsApplication : Application() {
         startKoin{
             androidLogger(Level.DEBUG)
 //            androidContext(this@App) //контекст если нужен
-            modules(listOf(uiModule, ui_v1Module, mockModule, dataModule, domainModule))
+            modules(listOf(uiModule, mockModule, dataModule, domainModule, ui_v1Module))
         }
     }
 }

@@ -13,10 +13,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.ui_v1.R
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.BottomNavigationBar
 
-internal object MapDestination : NavigationDestination {
+internal object MapDestinationUIv1 : UIv1NavigationDestination {
     override val route = "map"
     override val title = R.string.map
 }

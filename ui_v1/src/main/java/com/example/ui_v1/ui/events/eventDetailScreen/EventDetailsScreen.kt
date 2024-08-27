@@ -29,9 +29,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.ui_v1.R
-import com.example.ui_v1.models.EventDetailModelUI
-import com.example.ui_v1.models.RegisteredPersonModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1EventDetailModelUI
+import com.example.ui_v1.models.UIv1RegisteredPersonModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.BottomNavigationBar
 import com.example.ui_v1.ui.elements.OverlappingPeopleRow
 import com.example.ui_v1.ui.elements.TopAppBarForEventDetails
@@ -39,7 +39,7 @@ import com.example.ui_v1.ui.elements.buttons.CustomButtonForEvent
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-internal object EventDetailsDestination : NavigationDestination {
+internal object EventDetailsDestinationUIv1 : UIv1NavigationDestination {
     override val route = "event_details"
     override val title = R.string.events_details
     const val itemIdArg = "itemId"
@@ -92,13 +92,13 @@ internal fun EventDetailsScreen(
 
 @Composable
 internal fun EventDetailsBody(
-    event : EventDetailModelUI,
-    participantsList: List<RegisteredPersonModelUI>,
-    onButtonClick : ()-> Unit,
-    onMapClick : ()-> Unit,
+    event: UIv1EventDetailModelUI,
+    participantsList: List<UIv1RegisteredPersonModelUI>,
+    onButtonClick: () -> Unit,
+    onMapClick: () -> Unit,
     isUserInParticipants: Boolean,
     enabled: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier

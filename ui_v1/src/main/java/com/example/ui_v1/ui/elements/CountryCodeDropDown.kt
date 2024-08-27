@@ -27,16 +27,16 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.ui_v1.R
-import com.example.ui_v1.models.CountryModelUI
+import com.example.ui_v1.models.UIv1CountryModelUI
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CountryCodeDropDown(
-    country: CountryModelUI,
-    listOfCountries : List<CountryModelUI>,
-    onDropdownMenuItemClick: (CountryModelUI)->Unit,
-    modifier: Modifier = Modifier
+    country: UIv1CountryModelUI,
+    listOfCountries: List<UIv1CountryModelUI>,
+    onDropdownMenuItemClick: (UIv1CountryModelUI) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
@@ -99,8 +99,8 @@ internal fun CountryCodeDropDown(
 
 @Composable
 internal fun DropdownMenuDefaultItem(
-    country: CountryModelUI,
-    modifier: Modifier = Modifier
+    country: UIv1CountryModelUI,
+    modifier: Modifier = Modifier,
 ){
     Row(
         modifier = modifier

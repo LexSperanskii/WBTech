@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.ui_v1.R
-import com.example.ui_v1.models.EventModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1EventModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.BottomNavigationBar
 import com.example.ui_v1.ui.elements.TopAppBarBackNameAction
 import com.example.ui_v1.ui.events.eventsAllScreen.Events
@@ -36,7 +36,7 @@ import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
-internal object EventsUserDestination : NavigationDestination {
+internal object EventsUserDestinationUIv1 : UIv1NavigationDestination {
     override val route = "events_user"
     override val title = R.string.events_user
 }
@@ -58,7 +58,7 @@ internal fun EventsUserScreen(
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = stringResource(id = EventsUserDestination.title),
+                title = stringResource(id = EventsUserDestinationUIv1.title),
                 isAddCapable = false,
                 onClickNavigateBack = {navController.popBackStack()}
             )
@@ -89,9 +89,9 @@ internal fun EventsUserScreen(
 @Composable
 internal fun EventsUserBody(
     navigateToEventDetailItem: (Int) -> Unit,
-    listOfMeetingsScheduled: List<EventModelUI>,
-    listOfMeetingsPast: List<EventModelUI>,
-    modifier: Modifier = Modifier
+    listOfMeetingsScheduled: List<UIv1EventModelUI>,
+    listOfMeetingsPast: List<UIv1EventModelUI>,
+    modifier: Modifier = Modifier,
 ){
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { EventsUserTabs.entries.size})

@@ -2,7 +2,7 @@ package com.example.ui_v1.ui.splashScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ui_v1.utils.UiUtils.SPLASH_SCREEN_DURATION
+import com.example.ui_v1.utils.UIv1UiUtils.SPLASH_SCREEN_DURATION
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,7 +1,7 @@
 package com.example.ui_v1.di
 
-import com.example.ui_v1.models.mapper.IMapperDomainUI
-import com.example.ui_v1.models.mapper.MapperDomainUI
+import com.example.ui_v1.models.mapper.UIv1IMapperDomainUI
+import com.example.ui_v1.models.mapper.UIv1MapperDomainUI
 import com.example.ui_v1.ui.communities.communitiesScreen.CommunitiesViewModel
 import com.example.ui_v1.ui.communities.communityDetailScreen.CommunityDetailViewModel
 import com.example.ui_v1.ui.events.eventDetailScreen.EventDetailViewModel
@@ -17,8 +17,8 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 internal val uiv1UIModule = module {
-    single<IMapperDomainUI> {
-        MapperDomainUI()
+    single<UIv1IMapperDomainUI> {
+        UIv1MapperDomainUI()
     }
     viewModelOf(::AuthenticationViewModel)
     viewModelOf(::VerificationViewModel)

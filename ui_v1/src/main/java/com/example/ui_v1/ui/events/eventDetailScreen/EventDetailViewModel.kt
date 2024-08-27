@@ -7,10 +7,10 @@ import com.example.domain.usecases.events.Uiv1AddUserAsParticipantUseCase
 import com.example.domain.usecases.events.Uiv1GetEventDetailsUseCase
 import com.example.domain.usecases.events.Uiv1RemoveUserAsParticipantUseCase
 import com.example.domain.usecases.user.Uiv1GetUserUseCase
-import com.example.ui_v1.models.EventDetailModelUI
-import com.example.ui_v1.models.RegisteredPersonModelUI
-import com.example.ui_v1.models.mapper.IMapperDomainUI
-import com.example.ui_v1.utils.UiUtils.DEFAULT_ID
+import com.example.ui_v1.models.UIv1EventDetailModelUI
+import com.example.ui_v1.models.UIv1RegisteredPersonModelUI
+import com.example.ui_v1.models.mapper.UIv1IMapperDomainUI
+import com.example.ui_v1.utils.UIv1UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,8 +21,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal data class EventDetailScreenUiState(
-    val event: EventDetailModelUI = EventDetailModelUI(),
-    val userAsRegisteredPerson: RegisteredPersonModelUI = RegisteredPersonModelUI()
+    val event: UIv1EventDetailModelUI = UIv1EventDetailModelUI(),
+    val userAsRegisteredPerson: UIv1RegisteredPersonModelUI = UIv1RegisteredPersonModelUI(),
 ) {
     val isUserInParticipants: Boolean
         get() = event.listOfParticipants.contains(userAsRegisteredPerson)
@@ -30,7 +30,7 @@ internal data class EventDetailScreenUiState(
 
 internal class EventDetailViewModel(
     savedStateHandle: SavedStateHandle,
-    private val mapper: IMapperDomainUI,
+    private val mapper: UIv1IMapperDomainUI,
     private val uiv1GetEventDetailsUseCase: Uiv1GetEventDetailsUseCase,
     private val uiv1AddUserAsParticipantUseCase: Uiv1AddUserAsParticipantUseCase,
     private val uiv1RemoveUserAsParticipantUseCase: Uiv1RemoveUserAsParticipantUseCase,
@@ -38,7 +38,7 @@ internal class EventDetailViewModel(
 ) : ViewModel() {
 
     private val eventId: Int = try {
-        checkNotNull(savedStateHandle[EventDetailsDestination.itemIdArg])
+        checkNotNull(savedStateHandle[EventDetailsDestinationUIv1.itemIdArg])
     } catch (e: IllegalStateException) {
         // TODO: do state with error
         DEFAULT_ID
@@ -95,7 +95,7 @@ internal class EventDetailViewModel(
             _uiState.update {
                 it.copy(
                     event = mapper.toEventDetailModelUI(event),
-                    userAsRegisteredPerson = RegisteredPersonModelUI(user.id, user.iconURL)
+                    userAsRegisteredPerson = UIv1RegisteredPersonModelUI(user.id, user.iconURL)
                 )
             }
         }.launchIn(viewModelScope)

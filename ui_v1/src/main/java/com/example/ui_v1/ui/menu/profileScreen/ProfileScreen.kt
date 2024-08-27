@@ -18,17 +18,17 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.ui_v1.R
-import com.example.ui_v1.models.PhoneNumberModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1PhoneNumberModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.BottomNavigationBar
 import com.example.ui_v1.ui.elements.PersonAvatar
 import com.example.ui_v1.ui.elements.TopAppBarForProfile
 import com.example.ui_v1.ui.elements.buttons.CustomSocialMedeaButtonOutlined
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
-import com.example.ui_v1.utils.UiUtils.formattedMobileNumber
+import com.example.ui_v1.utils.UIv1UiUtils.formattedMobileNumber
 import org.koin.androidx.compose.koinViewModel
 
-internal object ProfileDestination : NavigationDestination {
+internal object ProfileDestinationUIv1 : UIv1NavigationDestination {
     override val route = "profile"
     override val title = R.string.profile
 }
@@ -51,7 +51,7 @@ internal fun ProfileScreen(
     Scaffold(
         topBar = {
             TopAppBarForProfile(
-                title = stringResource(id = ProfileDestination.title),
+                title = stringResource(id = ProfileDestinationUIv1.title),
                 onClickNavigateBack = { navController.popBackStack() },
                 onEditClick = {}
             )
@@ -65,7 +65,7 @@ internal fun ProfileScreen(
         ProfileBody(
             name = profileScreenUiState.user.name,
             surname = profileScreenUiState.user.surname,
-            mobileNumber = profileScreenUiState.user.phoneNumberModelUI,
+            mobileNumber = profileScreenUiState.user.uiv1PhoneNumberModelUI,
             avatarURL = profileScreenUiState.user.iconURL,
             onSocialMedeaButtonClick = {},
             modifier = Modifier
@@ -79,10 +79,10 @@ internal fun ProfileScreen(
 internal fun ProfileBody(
     name: String,
     surname: String,
-    mobileNumber: PhoneNumberModelUI,
-    avatarURL : String?,
-    onSocialMedeaButtonClick: (SocialMedia)->Unit,
-    modifier: Modifier = Modifier
+    mobileNumber: UIv1PhoneNumberModelUI,
+    avatarURL: String?,
+    onSocialMedeaButtonClick: (SocialMedia) -> Unit,
+    modifier: Modifier = Modifier,
 ){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

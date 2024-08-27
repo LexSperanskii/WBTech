@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v1.R
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.CustomTextField
 import com.example.ui_v1.ui.elements.PersonAvatar
 import com.example.ui_v1.ui.elements.TopAppBarBackNameAction
@@ -22,7 +22,7 @@ import com.example.ui_v1.ui.elements.buttons.CustomButton
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-internal object RegistrationProfileDestination : NavigationDestination {
+internal object RegistrationProfileDestinationUIv1 : UIv1NavigationDestination {
     override val route = "registration_profile"
     override val title = R.string.profile
 }
@@ -39,7 +39,7 @@ internal fun RegistrationProfileScreen(
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = stringResource(id = RegistrationProfileDestination.title),
+                title = stringResource(id = RegistrationProfileDestinationUIv1.title),
                 isNavigateBack = true,
                 onClickNavigateBack = onClickNavigateBack,
                 isAddCapable = false

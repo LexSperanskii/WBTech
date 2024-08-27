@@ -21,19 +21,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.ui_v1.R
-import com.example.ui_v1.models.PhoneNumberModelUI
+import com.example.ui_v1.models.UIv1PhoneNumberModelUI
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
-import com.example.ui_v1.utils.UiUtils.formattedMobileNumber
+import com.example.ui_v1.utils.UIv1UiUtils.formattedMobileNumber
 
 @Composable
 internal fun MenuItemProfile(
     onProfileClick: () -> Unit,
     profileName: String,
     profileSurname: String,
-    mobileNumber: PhoneNumberModelUI,
+    mobileNumber: UIv1PhoneNumberModelUI,
     avatarURL: String?,
-    modifier: Modifier = Modifier
-    ) {
+    modifier: Modifier = Modifier,
+) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier

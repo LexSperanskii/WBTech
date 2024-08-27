@@ -16,15 +16,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v1.R
-import com.example.ui_v1.models.CountryModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1CountryModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.PhoneNumberInput
 import com.example.ui_v1.ui.elements.TopAppBarBackNameAction
 import com.example.ui_v1.ui.elements.buttons.CustomButton
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-internal object AuthenticationDestination : NavigationDestination {
+internal object AuthenticationDestinationUIv1 : UIv1NavigationDestination {
     override val route = "authentication"
     override val title = R.string.authentication
 }
@@ -68,13 +68,13 @@ internal fun AuthenticationScreen(
 internal fun AuthenticationBody(
     number: String,
     onNumberChange: (String) -> Unit,
-    countryCode: CountryModelUI,
-    onCountryCodeChange: (CountryModelUI) -> Unit,
+    countryCode: UIv1CountryModelUI,
+    onCountryCodeChange: (UIv1CountryModelUI) -> Unit,
     onForwardButtonClick: () -> Unit,
-    isForwardButtonEnabled:Boolean,
-    listOfCountriesCodes:  List<CountryModelUI>,
-    modifier: Modifier = Modifier
-    ) {
+    isForwardButtonEnabled: Boolean,
+    listOfCountriesCodes: List<UIv1CountryModelUI>,
+    modifier: Modifier = Modifier,
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier

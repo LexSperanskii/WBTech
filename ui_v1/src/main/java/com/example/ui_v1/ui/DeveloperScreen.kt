@@ -26,9 +26,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ui_v1.R
-import com.example.ui_v1.models.CountryModelUI
-import com.example.ui_v1.models.RegisteredPersonModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1CountryModelUI
+import com.example.ui_v1.models.UIv1RegisteredPersonModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.CommunityCard
 import com.example.ui_v1.ui.elements.CustomFilterChip
 import com.example.ui_v1.ui.elements.EventCard
@@ -46,7 +46,7 @@ import com.example.ui_v1.ui.elements.buttons.CustomButtonRipple
 import com.example.ui_v1.ui.elements.buttons.CustomButtonText
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 
-internal object DeveloperDestination : NavigationDestination {
+internal object DeveloperDestinationUIv1 : UIv1NavigationDestination {
     override val route = "developer"
     override val title = R.string.developer
 }
@@ -106,67 +106,67 @@ internal fun DeveloperScreen() {
         "Moscow"
     )
     val listOfParticipantsForDevScreen = listOf(
-        RegisteredPersonModelUI(
+        UIv1RegisteredPersonModelUI(
             0,
             "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
-        RegisteredPersonModelUI(
+        UIv1RegisteredPersonModelUI(
             1,
             "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg"
         ),
-        RegisteredPersonModelUI(
+        UIv1RegisteredPersonModelUI(
             2,
             "https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg"
         ),
-        RegisteredPersonModelUI(
+        UIv1RegisteredPersonModelUI(
             3,
             "https://i.pinimg.com/564x/f4/e0/c8/f4e0c8655494b4ed5fb490df336c5dcb.jpg"
         ),
-        RegisteredPersonModelUI(
+        UIv1RegisteredPersonModelUI(
             4,
             "https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg"
         ),
-        RegisteredPersonModelUI(
+        UIv1RegisteredPersonModelUI(
             5,
             "https://i.pinimg.com/564x/07/1e/f4/071ef43b8a3e3a3e32eba626da61faa9.jpg"
         )
     )
     val listOfParticipantsSmallForDevScreen = listOf(
-        RegisteredPersonModelUI(
+        UIv1RegisteredPersonModelUI(
             0,
             "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
-        RegisteredPersonModelUI(
+        UIv1RegisteredPersonModelUI(
             1,
             "https://i.pinimg.com/564x/df/eb/ab/dfebab351d764bc388c05a5f866b46d4.jpg"
         ),
-        RegisteredPersonModelUI(
+        UIv1RegisteredPersonModelUI(
             2,
             "https://i.pinimg.com/736x/62/e5/50/62e550bc4e1bcc5bfd75b26127e63b6a.jpg"
         )
     )
     val mockAvailableCountriesForDevScreen = listOf(
-        CountryModelUI(
+        UIv1CountryModelUI(
             "Russia",
             "+7",
             "https://i.pinimg.com/564x/42/8d/91/428d9169accc5277fc03a0c41394eb10.jpg"
         ),
-        CountryModelUI(
+        UIv1CountryModelUI(
             "Kazakhstan",
             "+7",
             "https://i.pinimg.com/564x/12/d9/f9/12d9f9633023c5f053a654da6035af7f.jpg"
         ),
-        CountryModelUI(
+        UIv1CountryModelUI(
             "UK",
             "+44",
             "https://i.pinimg.com/564x/aa/7d/c8/aa7dc8130b972fdd4837c19a189717fc.jpg"
         ),
-        CountryModelUI(
+        UIv1CountryModelUI(
             "China",
             "+86",
             "https://i.pinimg.com/564x/51/08/62/510862488ad2a8037423567218afe069.jpg"
         ),
-        CountryModelUI(
+        UIv1CountryModelUI(
             "Germany",
             "+49",
             "https://i.pinimg.com/564x/4c/b7/8b/4cb78bce83b82a83382d18d207423f48.jpg"

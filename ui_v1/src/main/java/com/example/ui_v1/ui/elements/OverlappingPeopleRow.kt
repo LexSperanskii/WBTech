@@ -28,19 +28,19 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.ui_v1.R
-import com.example.ui_v1.models.RegisteredPersonModelUI
+import com.example.ui_v1.models.UIv1RegisteredPersonModelUI
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
-import com.example.ui_v1.utils.UiUtils.DEFAULT_DIVIDER
-import com.example.ui_v1.utils.UiUtils.DEFAULT_OVERLAPPING_PEOPLE_COUNT
-import com.example.ui_v1.utils.UiUtils.DEFAULT_OVERLAPPING_PERCENTAGE
+import com.example.ui_v1.utils.UIv1UiUtils.DEFAULT_DIVIDER
+import com.example.ui_v1.utils.UIv1UiUtils.DEFAULT_OVERLAPPING_PEOPLE_COUNT
+import com.example.ui_v1.utils.UIv1UiUtils.DEFAULT_OVERLAPPING_PERCENTAGE
 
 @Composable
 internal fun OverlappingPeopleRow(
-    participantsList: List<RegisteredPersonModelUI>,
+    participantsList: List<UIv1RegisteredPersonModelUI>,
     modifier: Modifier = Modifier,
     reverse: Boolean = false,
     overlappingPercentage: Float = DEFAULT_OVERLAPPING_PERCENTAGE,
-    accountsInOverlappingRow: Int = DEFAULT_OVERLAPPING_PEOPLE_COUNT
+    accountsInOverlappingRow: Int = DEFAULT_OVERLAPPING_PEOPLE_COUNT,
 ){
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -91,7 +91,7 @@ internal fun OverlappingPeopleRow(
 @Composable
 internal fun ParticipantIcon(
     size: Dp,
-    participant: RegisteredPersonModelUI
+    participant: UIv1RegisteredPersonModelUI,
 ) {
     val iconScale = size.value / DEFAULT_DIVIDER
     participant.iconURL?.let { avatarURL ->

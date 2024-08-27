@@ -23,7 +23,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
-import com.example.ui_v1.utils.UiUtils.PIN_CODE_LENGTH
+import com.example.ui_v1.utils.UIv1UiUtils.PIN_CODE_LENGTH
 
 
 @Composable

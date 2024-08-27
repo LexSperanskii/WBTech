@@ -24,9 +24,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.ui_v1.R
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
-import com.example.ui_v1.utils.UiUtils.DEFAULT_DIVIDER
-import com.example.ui_v1.utils.UiUtils.ICON_OFFSET_X
-import com.example.ui_v1.utils.UiUtils.ICON_OFFSET_Y
+import com.example.ui_v1.utils.UIv1UiUtils.DEFAULT_DIVIDER
+import com.example.ui_v1.utils.UIv1UiUtils.ICON_OFFSET_X
+import com.example.ui_v1.utils.UIv1UiUtils.ICON_OFFSET_Y
 
 @Composable
 internal fun PersonAvatar(

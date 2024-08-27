@@ -9,14 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dotlottie.dlplayer.Mode
 import com.example.ui_v1.R
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 import com.lottiefiles.dotlottie.core.compose.runtime.DotLottieController
 import com.lottiefiles.dotlottie.core.compose.ui.DotLottieAnimation
 import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import org.koin.androidx.compose.koinViewModel
 
-internal object SplashScreenDestination : NavigationDestination {
+internal object SplashScreenDestinationUIv1 : UIv1NavigationDestination {
     override val route = "splash_screen"
     override val title = R.string.splash_screen
 }

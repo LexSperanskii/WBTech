@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.ui_v1.R
-import com.example.ui_v1.models.PhoneNumberModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1PhoneNumberModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.BottomNavigationBar
 import com.example.ui_v1.ui.elements.MenuItem
 import com.example.ui_v1.ui.elements.MenuItemForMyEvents
@@ -23,7 +23,7 @@ import com.example.ui_v1.ui.elements.TopAppBarBackNameAction
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-internal object MenuDestination : NavigationDestination {
+internal object MenuDestinationUIv1 : UIv1NavigationDestination {
     override val route = "menu"
     override val title = R.string.more
 }
@@ -41,7 +41,7 @@ internal fun MenuScreen(
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = stringResource(id = MenuDestination.title),
+                title = stringResource(id = MenuDestinationUIv1.title),
                 isNavigateBack = false,
                 isAddCapable = false
             )
@@ -56,7 +56,7 @@ internal fun MenuScreen(
             avatarURL = menuScreenUiState.user.iconURL,
             profileName = menuScreenUiState.user.name,
             profileSurname = menuScreenUiState.user.surname,
-            profilePhoneNumber = menuScreenUiState.user.phoneNumberModelUI,
+            profilePhoneNumber = menuScreenUiState.user.uiv1PhoneNumberModelUI,
             onProfileClick = navigateToProfile,
             onMyEventsClick = navigateToUserEvents,
             onThemeClick = {},
@@ -72,11 +72,11 @@ internal fun MenuScreen(
 
 @Composable
 internal fun MenuBody(
-    onProfileClick : ()->Unit,
-    profileName : String,
-    profileSurname : String,
-    profilePhoneNumber: PhoneNumberModelUI,
-    avatarURL : String?,
+    onProfileClick: () -> Unit,
+    profileName: String,
+    profileSurname: String,
+    profilePhoneNumber: UIv1PhoneNumberModelUI,
+    avatarURL: String?,
     onMyEventsClick: () -> Unit,
     onThemeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
@@ -84,8 +84,8 @@ internal fun MenuBody(
     onStorageAndAssetsClick: () -> Unit,
     onHelpClick: () -> Unit,
     onInviteFriendClick: () -> Unit,
-    modifier: Modifier = Modifier
-    ){
+    modifier: Modifier = Modifier,
+){
     LazyColumn(
         modifier = modifier
     ) {

@@ -1,6 +1,6 @@
 package com.example.ui_v1.models
 
-internal data class EventModelUI(
+internal data class UIv1EventModelUI(
     val id: Int = 0,
     val name: String = "",
     val date: String = "",

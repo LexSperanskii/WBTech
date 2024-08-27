@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui_v1.R
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
-import com.example.ui_v1.utils.UiUtils.replaceFirstCharToCapitalCase
+import com.example.ui_v1.utils.UIv1UiUtils.replaceFirstCharToCapitalCase
 
 @Composable
 internal fun MySearchBar(

@@ -17,15 +17,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.ui_v1.R
-import com.example.ui_v1.models.EventModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1EventModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.BottomNavigationBar
 import com.example.ui_v1.ui.elements.EventCard
 import com.example.ui_v1.ui.elements.TopAppBarBackNameAction
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
-internal object CommunityDetailsDestination : NavigationDestination {
+internal object CommunityDetailsDestinationUIv1 : UIv1NavigationDestination {
     override val route = "community_details"
     override val title = R.string.community_details
     const val itemIdArg = "itemId"
@@ -72,8 +72,8 @@ internal fun CommunityDetailsScreen(
 internal fun CommunityDetailsBody(
     navigateToEventDetailItem: (Int) -> Unit,
     description: String,
-    communityEventsList : List<EventModelUI>,
-    modifier: Modifier = Modifier
+    communityEventsList: List<UIv1EventModelUI>,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier,

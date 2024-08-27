@@ -29,18 +29,18 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
-import com.example.ui_v1.models.CountryModelUI
+import com.example.ui_v1.models.UIv1CountryModelUI
 import com.example.ui_v1.ui.theme.DevMeetingAppTheme
-import com.example.ui_v1.utils.UiUtils.PHONE_NUMBER_LENGTH
+import com.example.ui_v1.utils.UIv1UiUtils.PHONE_NUMBER_LENGTH
 
 
 @Composable
 internal fun PhoneNumberInput(
     number: String,
     onNumberChange: (String) -> Unit,
-    countryCode: CountryModelUI,
-    onCountryCodeChange: (CountryModelUI) -> Unit,
-    listOfCountriesCodes: List<CountryModelUI>,
+    countryCode: UIv1CountryModelUI,
+    onCountryCodeChange: (UIv1CountryModelUI) -> Unit,
+    listOfCountriesCodes: List<UIv1CountryModelUI>,
     modifier: Modifier = Modifier,
     placeholder: String = "000 000-00-00",
 ) {

@@ -1,6 +1,6 @@
 package com.example.ui_v1.models
 
-internal data class EventDetailModelUI(
+internal data class UIv1EventDetailModelUI(
     val id : Int = 0,
     val name : String = "",
     val date : String = "",
@@ -8,11 +8,11 @@ internal data class EventDetailModelUI(
     val category : List<String> = listOf(),
     val locationCoordinates: String = "",
     val description : String = "",
-    val listOfParticipants: List<RegisteredPersonModelUI> = listOf(),
+    val listOfParticipants: List<UIv1RegisteredPersonModelUI> = listOf(),
     val isFinished: Boolean = false,
 )
 
-internal data class RegisteredPersonModelUI(
+internal data class UIv1RegisteredPersonModelUI(
     val id: Int = 0,
-    val iconURL : String? = ""
+    val iconURL: String? = "",
 )

@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.ui_v1.R
-import com.example.ui_v1.models.EventModelUI
-import com.example.ui_v1.navigation.NavigationDestination
+import com.example.ui_v1.models.UIv1EventModelUI
+import com.example.ui_v1.navigation.UIv1NavigationDestination
 import com.example.ui_v1.ui.elements.BottomNavigationBar
 import com.example.ui_v1.ui.elements.EventCard
 import com.example.ui_v1.ui.elements.MySearchBar
@@ -40,7 +40,7 @@ import com.example.ui_v1.ui.theme.DevMeetingAppTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
-internal object EventsAllDestination : NavigationDestination {
+internal object EventsAllDestinationUIv1 : UIv1NavigationDestination {
     override val route = "events_all"
     override val title = R.string.events_all
 }
@@ -63,7 +63,7 @@ internal fun EventsAllScreen(
     Scaffold(
         topBar = {
             TopAppBarBackNameAction(
-                title = stringResource(id = EventsAllDestination.title),
+                title = stringResource(id = EventsAllDestinationUIv1.title),
                 isNavigateBack = false,
                 onAddCLick = navigateToDeveloperScreen
             )
@@ -99,12 +99,12 @@ internal fun EventsAllScreen(
 @Composable
 internal fun EventsBody(
     navigateToEventDetailItem: (Int) -> Unit,
-    searchField : String,
+    searchField: String,
     onSearchFieldChange: (String) -> Unit,
     onDoneKeyboardPressed: () -> Unit,
-    listOfMeetingsAll: List<EventModelUI>,
-    listOfMeetingsActive: List<EventModelUI>,
-    modifier: Modifier = Modifier
+    listOfMeetingsAll: List<UIv1EventModelUI>,
+    listOfMeetingsActive: List<UIv1EventModelUI>,
+    modifier: Modifier = Modifier,
 ){
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { EventsAllTabs.entries.size})
@@ -177,9 +177,9 @@ internal fun EventsBody(
 
 @Composable
 internal fun Events(
-    listOfMeetings : List<EventModelUI>,
+    listOfMeetings: List<UIv1EventModelUI>,
     onEventItemClick: (Int) -> Unit,
-    modifier : Modifier = Modifier
+    modifier: Modifier = Modifier,
 ){
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),

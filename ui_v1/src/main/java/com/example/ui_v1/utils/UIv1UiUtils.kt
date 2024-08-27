@@ -1,9 +1,9 @@
 package com.example.ui_v1.utils
 
-import com.example.ui_v1.models.PhoneNumberModelUI
+import com.example.ui_v1.models.UIv1PhoneNumberModelUI
 
 
-internal object UiUtils {
+internal object UIv1UiUtils {
     const val PHONE_NUMBER_LENGTH = 10
     const val PIN_CODE_LENGTH = 4
     const val EMPTY_STRING = ""
@@ -20,7 +20,7 @@ internal object UiUtils {
     private const val FIRST_DASH_POSITION = 6
     private const val SECOND_DASH_POSITION = 8
 
-    fun formattedMobileNumber(mobileNumber: PhoneNumberModelUI): String {
+    fun formattedMobileNumber(mobileNumber: UIv1PhoneNumberModelUI): String {
         return when (mobileNumber.number.length) {
             PHONE_NUMBER_LENGTH -> buildString {
                 append(mobileNumber.countryCode)

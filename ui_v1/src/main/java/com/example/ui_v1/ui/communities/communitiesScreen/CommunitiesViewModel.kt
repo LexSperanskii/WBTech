@@ -3,9 +3,9 @@ package com.example.ui_v1.ui.communities.communitiesScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.communities.Uiv1GetCommunitiesListUseCase
-import com.example.ui_v1.models.CommunityModelUI
-import com.example.ui_v1.models.mapper.IMapperDomainUI
-import com.example.ui_v1.utils.UiUtils.EMPTY_STRING
+import com.example.ui_v1.models.UIv1CommunityModelUI
+import com.example.ui_v1.models.mapper.UIv1IMapperDomainUI
+import com.example.ui_v1.utils.UIv1UiUtils.EMPTY_STRING
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,11 +15,11 @@ import kotlinx.coroutines.flow.update
 
 internal data class CommunitiesScreenUiState(
     val search: String = EMPTY_STRING,
-    val listOfCommunities: List<CommunityModelUI> = listOf()
+    val listOfCommunities: List<UIv1CommunityModelUI> = listOf(),
 )
 
 internal class CommunitiesViewModel(
-    private val mapper: IMapperDomainUI,
+    private val mapper: UIv1IMapperDomainUI,
     private val uiv1GetCommunitiesListUseCase: Uiv1GetCommunitiesListUseCase,
 ) : ViewModel() {
 
