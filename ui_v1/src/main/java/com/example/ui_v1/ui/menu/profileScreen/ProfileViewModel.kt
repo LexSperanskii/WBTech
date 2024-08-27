@@ -2,7 +2,7 @@ package com.example.ui_v1.ui.menu.profileScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.user.GetUserUseCase
+import com.example.domain.usecases.user.Uiv1GetUserUseCase
 import com.example.ui_v1.models.UserModelUI
 import com.example.ui_v1.models.mapper.IMapperDomainUI
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +18,7 @@ internal data class ProfileScreenUiState(
 
 internal class ProfileViewModel(
     private val mapper: IMapperDomainUI,
-    private val getUserUseCase: GetUserUseCase,
+    private val uiv1GetUserUseCase: Uiv1GetUserUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileScreenUiState())
@@ -31,7 +31,7 @@ internal class ProfileViewModel(
     fun getProfileScreenUiStateFlow(): StateFlow<ProfileScreenUiState> = uiState
 
     private fun getUser() {
-        getUserUseCase.execute()
+        uiv1GetUserUseCase.execute()
             .onEach { user ->
                 _uiState.update {
                     it.copy(

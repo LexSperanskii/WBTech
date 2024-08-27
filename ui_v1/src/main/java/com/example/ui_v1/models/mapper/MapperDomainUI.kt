@@ -1,13 +1,13 @@
 package com.example.ui_v1.models.mapper
 
-import com.example.domain.models.Community
-import com.example.domain.models.CommunityDetail
-import com.example.domain.models.Country
-import com.example.domain.models.Event
-import com.example.domain.models.EventDetail
-import com.example.domain.models.PhoneNumber
-import com.example.domain.models.RegisteredPerson
-import com.example.domain.models.User
+import com.example.domain.models.Uiv1Community
+import com.example.domain.models.Uiv1CommunityDetail
+import com.example.domain.models.Uiv1Country
+import com.example.domain.models.Uiv1Event
+import com.example.domain.models.Uiv1EventDetail
+import com.example.domain.models.Uiv1PhoneNumber
+import com.example.domain.models.Uiv1RegisteredPerson
+import com.example.domain.models.Uiv1User
 import com.example.domain.models.toAddressString
 import com.example.ui_v1.models.CommunityDetailModelUI
 import com.example.ui_v1.models.CommunityModelUI
@@ -19,90 +19,94 @@ import com.example.ui_v1.models.RegisteredPersonModelUI
 import com.example.ui_v1.models.UserModelUI
 
 internal interface IMapperDomainUI{
-    fun toCommunityModelUI(community: Community): CommunityModelUI
-    fun toCommunityDetailModelUI(communityDetail: CommunityDetail): CommunityDetailModelUI
-    fun toCountryModelUI(country: Country): CountryModelUI
-    fun toEventModelUI(event: Event): EventModelUI
-    fun toEventDetailModelUI(eventDetail: EventDetail): EventDetailModelUI
-    fun toRegisteredPersonModelUI(registeredPerson: RegisteredPerson): RegisteredPersonModelUI
-    fun toRegisteredPerson(registeredPersonModelUI: RegisteredPersonModelUI): RegisteredPerson
-    fun toPhoneNumberModelUI(phoneNumber: PhoneNumber): PhoneNumberModelUI
-    fun toUserModelUI(user: User): UserModelUI
+    fun toCommunityModelUI(uiv1Community: Uiv1Community): CommunityModelUI
+    fun toCommunityDetailModelUI(uiv1CommunityDetail: Uiv1CommunityDetail): CommunityDetailModelUI
+    fun toCountryModelUI(uiv1Country: Uiv1Country): CountryModelUI
+    fun toEventModelUI(uiv1Event: Uiv1Event): EventModelUI
+    fun toEventDetailModelUI(uiv1EventDetail: Uiv1EventDetail): EventDetailModelUI
+    fun toRegisteredPersonModelUI(uiv1RegisteredPerson: Uiv1RegisteredPerson): RegisteredPersonModelUI
+    fun toRegisteredPerson(registeredPersonModelUI: RegisteredPersonModelUI): Uiv1RegisteredPerson
+    fun toPhoneNumberModelUI(uiv1PhoneNumber: Uiv1PhoneNumber): PhoneNumberModelUI
+    fun toUserModelUI(uiv1User: Uiv1User): UserModelUI
 }
 
-internal class MapperDomainUI() : IMapperDomainUI{
+internal class MapperDomainUI : IMapperDomainUI{
 
-    override fun toCommunityModelUI(community: Community): CommunityModelUI =
+    override fun toCommunityModelUI(uiv1Community: Uiv1Community): CommunityModelUI =
         CommunityModelUI(
-            id = community.id,
-            name = community.name,
-            size = community.size,
-            iconURL = community.iconURL,
+            id = uiv1Community.id,
+            name = uiv1Community.name,
+            size = uiv1Community.size,
+            iconURL = uiv1Community.iconURL,
         )
 
-    override fun toCommunityDetailModelUI(communityDetail: CommunityDetail): CommunityDetailModelUI =
+    override fun toCommunityDetailModelUI(uiv1CommunityDetail: Uiv1CommunityDetail): CommunityDetailModelUI =
         CommunityDetailModelUI(
-            id = communityDetail.id,
-            name = communityDetail.name,
-            description = communityDetail.description,
-            events = communityDetail.events.map { toEventModelUI(it) },
+            id = uiv1CommunityDetail.id,
+            name = uiv1CommunityDetail.name,
+            description = uiv1CommunityDetail.description,
+            events = uiv1CommunityDetail.uiv1Events.map { toEventModelUI(it) },
         )
 
-    override fun toCountryModelUI(country: Country): CountryModelUI =
+    override fun toCountryModelUI(uiv1Country: Uiv1Country): CountryModelUI =
         CountryModelUI(
-            country = country.country,
-            code = country.code,
-            flag = country.flag,
+            country = uiv1Country.country,
+            code = uiv1Country.code,
+            flag = uiv1Country.flag,
         )
 
-    override fun toEventModelUI(event: Event): EventModelUI =
+    override fun toEventModelUI(uiv1Event: Uiv1Event): EventModelUI =
         EventModelUI(
-            id = event.id,
-            name = event.name,
-            date = event.date,
-            city = event.city,
-            category = event.category,
-            iconURL = event.iconURL,
-            isFinished = event.isFinished
+            id = uiv1Event.id,
+            name = uiv1Event.name,
+            date = uiv1Event.date,
+            city = uiv1Event.city,
+            category = uiv1Event.category,
+            iconURL = uiv1Event.iconURL,
+            isFinished = uiv1Event.isFinished
         )
 
-    override fun toEventDetailModelUI(eventDetail: EventDetail): EventDetailModelUI =
+    override fun toEventDetailModelUI(uiv1EventDetail: Uiv1EventDetail): EventDetailModelUI =
         EventDetailModelUI(
-            id = eventDetail.id,
-            name = eventDetail.name,
-            date = eventDetail.date,
-            address = eventDetail.address.toAddressString(),
-            category = eventDetail.category,
-            locationCoordinates = eventDetail.locationCoordinates,
-            description = eventDetail.description,
-            listOfParticipants = eventDetail.listOfParticipants.map { toRegisteredPersonModelUI(it) },
-            isFinished = eventDetail.isFinished,
+            id = uiv1EventDetail.id,
+            name = uiv1EventDetail.name,
+            date = uiv1EventDetail.date,
+            address = uiv1EventDetail.address.toAddressString(),
+            category = uiv1EventDetail.category,
+            locationCoordinates = uiv1EventDetail.locationCoordinates,
+            description = uiv1EventDetail.description,
+            listOfParticipants = uiv1EventDetail.listOfParticipants.map {
+                toRegisteredPersonModelUI(
+                    it
+                )
+            },
+            isFinished = uiv1EventDetail.isFinished,
         )
 
-    override fun toRegisteredPersonModelUI(registeredPerson: RegisteredPerson): RegisteredPersonModelUI =
+    override fun toRegisteredPersonModelUI(uiv1RegisteredPerson: Uiv1RegisteredPerson): RegisteredPersonModelUI =
         RegisteredPersonModelUI(
-            id = registeredPerson.id,
-            iconURL = registeredPerson.iconURL,
+            id = uiv1RegisteredPerson.id,
+            iconURL = uiv1RegisteredPerson.iconURL,
         )
 
-    override fun toRegisteredPerson(registeredPersonModelUI: RegisteredPersonModelUI): RegisteredPerson =
-        RegisteredPerson(
+    override fun toRegisteredPerson(registeredPersonModelUI: RegisteredPersonModelUI): Uiv1RegisteredPerson =
+        Uiv1RegisteredPerson(
             id = registeredPersonModelUI.id,
             iconURL = registeredPersonModelUI.iconURL,
         )
 
-    override fun toPhoneNumberModelUI(phoneNumber: PhoneNumber): PhoneNumberModelUI =
+    override fun toPhoneNumberModelUI(uiv1PhoneNumber: Uiv1PhoneNumber): PhoneNumberModelUI =
         PhoneNumberModelUI(
-            countryCode = phoneNumber.countryCode,
-            number = phoneNumber.number,
+            countryCode = uiv1PhoneNumber.countryCode,
+            number = uiv1PhoneNumber.number,
         )
 
-    override fun toUserModelUI(user: User): UserModelUI =
+    override fun toUserModelUI(uiv1User: Uiv1User): UserModelUI =
         UserModelUI(
-            id = user.id,
-            name = user.name,
-            surname = user.surname,
-            phoneNumberModelUI = toPhoneNumberModelUI(user.phoneNumber),
-            iconURL = user.iconURL
+            id = uiv1User.id,
+            name = uiv1User.name,
+            surname = uiv1User.surname,
+            phoneNumberModelUI = toPhoneNumberModelUI(uiv1User.uiv1PhoneNumber),
+            iconURL = uiv1User.iconURL
         )
 }

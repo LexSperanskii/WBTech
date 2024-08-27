@@ -2,9 +2,9 @@ package com.example.ui_v1.ui.registration.verificationScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.user.GetPinCodeVerificationUseCase
-import com.example.domain.usecases.user.GetUserPhoneNumberUseCase
-import com.example.domain.usecases.user.SetUserPinCodeUseCase
+import com.example.domain.usecases.user.Uiv1GetPinCodeVerificationUseCase
+import com.example.domain.usecases.user.Uiv1GetUserPhoneNumberUseCase
+import com.example.domain.usecases.user.Uiv1SetUserPinCodeUseCase
 import com.example.ui_v1.models.PhoneNumberModelUI
 import com.example.ui_v1.models.mapper.IMapperDomainUI
 import com.example.ui_v1.utils.UiUtils.EMPTY_STRING
@@ -24,9 +24,9 @@ internal data class VerificationScreenUiState(
 
 internal class VerificationViewModel(
     private val mapper: IMapperDomainUI,
-    private val getUserPhoneNumberUseCase: GetUserPhoneNumberUseCase,
-    private val setUserPinCodeUseCase: SetUserPinCodeUseCase,
-    private val getPinCodeVerificationUseCase: GetPinCodeVerificationUseCase
+    private val uiv1GetUserPhoneNumberUseCase: Uiv1GetUserPhoneNumberUseCase,
+    private val uiv1SetUserPinCodeUseCase: Uiv1SetUserPinCodeUseCase,
+    private val uiv1GetPinCodeVerificationUseCase: Uiv1GetPinCodeVerificationUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(VerificationScreenUiState())
@@ -50,8 +50,8 @@ internal class VerificationViewModel(
         val pinCode = uiState.value.pinCode
         viewModelScope.launch {
             try {
-                setUserPinCodeUseCase.execute(pinCode)
-                getPinCodeVerificationUseCase.execute()
+                uiv1SetUserPinCodeUseCase.execute(pinCode)
+                uiv1GetPinCodeVerificationUseCase.execute()
                     .collect { response ->
                         when (response) {
                             true -> {
@@ -71,7 +71,7 @@ internal class VerificationViewModel(
     }
 
     private fun getUserPhoneNumber() {
-        getUserPhoneNumberUseCase.execute()
+        uiv1GetUserPhoneNumberUseCase.execute()
             .onEach { phoneNumber ->
                 _uiState.update {
                     it.copy(

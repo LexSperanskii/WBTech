@@ -2,8 +2,8 @@ package com.example.ui_v1.ui.menu.eventsUserScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.events.GetMyEventsListUseCase
-import com.example.domain.usecases.events.GetMyEventsPastListUseCase
+import com.example.domain.usecases.events.Uiv1GetMyEventsListUseCase
+import com.example.domain.usecases.events.Uiv1GetMyEventsPastListUseCase
 import com.example.ui_v1.models.EventModelUI
 import com.example.ui_v1.models.mapper.IMapperDomainUI
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,8 +20,8 @@ internal data class EventsUserScreenUiState(
 
 internal class EventsUserViewModel(
     private val mapper: IMapperDomainUI,
-    private val getMyEventsListUseCase: GetMyEventsListUseCase,
-    private val getMyEventsPastListUseCase: GetMyEventsPastListUseCase,
+    private val uiv1GetMyEventsListUseCase: Uiv1GetMyEventsListUseCase,
+    private val uiv1GetMyEventsPastListUseCase: Uiv1GetMyEventsPastListUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(EventsUserScreenUiState())
@@ -35,8 +35,8 @@ internal class EventsUserViewModel(
 
     private fun getAllEvents() {
         combine(
-            getMyEventsListUseCase.execute(),
-            getMyEventsPastListUseCase.execute()
+            uiv1GetMyEventsListUseCase.execute(),
+            uiv1GetMyEventsPastListUseCase.execute()
         ) { eventsMy, eventsMyPast ->
             _uiState.update {
                 it.copy(

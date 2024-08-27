@@ -3,7 +3,7 @@ package com.example.ui_v1.ui.communities.communityDetailScreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.communities.GetCommunityDetailUseCase
+import com.example.domain.usecases.communities.Uiv1GetCommunityDetailUseCase
 import com.example.ui_v1.models.CommunityDetailModelUI
 import com.example.ui_v1.models.mapper.IMapperDomainUI
 import com.example.ui_v1.utils.UiUtils.DEFAULT_ID
@@ -21,7 +21,7 @@ internal data class CommunityDetailScreenUiState(
 internal class CommunityDetailViewModel(
     savedStateHandle: SavedStateHandle,
     private val mapper: IMapperDomainUI,
-    private val getCommunityDetailUseCase: GetCommunityDetailUseCase
+    private val uiv1GetCommunityDetailUseCase: Uiv1GetCommunityDetailUseCase,
 ) : ViewModel() {
 
     private val communityId: Int = try {
@@ -41,7 +41,7 @@ internal class CommunityDetailViewModel(
     fun getCommunityDetailScreenUiStateFlow(): StateFlow<CommunityDetailScreenUiState> = uiState
 
     private fun getCommunityDetail() {
-        getCommunityDetailUseCase.execute(communityId)
+        uiv1GetCommunityDetailUseCase.execute(communityId)
             .onEach { communityDetail ->
                 _uiState.update {
                     it.copy(

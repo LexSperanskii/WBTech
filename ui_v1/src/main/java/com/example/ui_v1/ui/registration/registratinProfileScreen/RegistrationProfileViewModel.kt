@@ -2,8 +2,8 @@ package com.example.ui_v1.ui.registration.registratinProfileScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.user.GetUserAvatarUseCase
-import com.example.domain.usecases.user.SetUserUseCase
+import com.example.domain.usecases.user.Uiv1GetUserAvatarUseCase
+import com.example.domain.usecases.user.Uiv1SetUserUseCase
 import com.example.ui_v1.utils.UiUtils.EMPTY_STRING
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,8 +24,8 @@ internal data class RegistrationProfileScreenUiState(
 }
 
 internal class RegistrationProfileViewModel(
-    private val getUserAvatarUseCase : GetUserAvatarUseCase,
-    private val setUserUseCase : SetUserUseCase
+    private val uiv1GetUserAvatarUseCase: Uiv1GetUserAvatarUseCase,
+    private val uiv1SetUserUseCase: Uiv1SetUserUseCase,
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(RegistrationProfileScreenUiState())
@@ -52,7 +52,7 @@ internal class RegistrationProfileViewModel(
         val avatarURL = _uiState.value.avatarURL
         when {
             avatarURL.isNullOrBlank() -> {
-                getUserAvatarUseCase.execute()
+                uiv1GetUserAvatarUseCase.execute()
                     .onEach { avatarURL ->
                         _uiState.update {
                             it.copy(
@@ -75,7 +75,7 @@ internal class RegistrationProfileViewModel(
     fun inButtonSaveClick(){
         val state = _uiState.value
         viewModelScope.launch {
-            setUserUseCase.execute(state.name, state.surname, state.avatarURL)
+            uiv1SetUserUseCase.execute(state.name, state.surname, state.avatarURL)
         }
     }
 }

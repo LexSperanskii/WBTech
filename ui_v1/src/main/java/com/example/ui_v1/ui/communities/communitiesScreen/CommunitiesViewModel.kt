@@ -2,7 +2,7 @@ package com.example.ui_v1.ui.communities.communitiesScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.communities.GetCommunitiesListUseCase
+import com.example.domain.usecases.communities.Uiv1GetCommunitiesListUseCase
 import com.example.ui_v1.models.CommunityModelUI
 import com.example.ui_v1.models.mapper.IMapperDomainUI
 import com.example.ui_v1.utils.UiUtils.EMPTY_STRING
@@ -20,7 +20,7 @@ internal data class CommunitiesScreenUiState(
 
 internal class CommunitiesViewModel(
     private val mapper: IMapperDomainUI,
-    private val getCommunitiesListUseCase: GetCommunitiesListUseCase
+    private val uiv1GetCommunitiesListUseCase: Uiv1GetCommunitiesListUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CommunitiesScreenUiState())
@@ -41,7 +41,7 @@ internal class CommunitiesViewModel(
     }
 
     private fun getCommunitiesList() {
-        getCommunitiesListUseCase.execute()
+        uiv1GetCommunitiesListUseCase.execute()
             .onEach { communities ->
                 _uiState.update {
                     it.copy(

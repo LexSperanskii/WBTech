@@ -2,8 +2,8 @@ package com.example.ui_v1.ui.events.eventsAllScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.events.GetAllEventsActiveUseCase
-import com.example.domain.usecases.events.GetAllEventsUseCase
+import com.example.domain.usecases.events.Uiv1GetAllEventsActiveUseCase
+import com.example.domain.usecases.events.Uiv1GetAllEventsUseCase
 import com.example.ui_v1.models.EventModelUI
 import com.example.ui_v1.models.mapper.IMapperDomainUI
 import com.example.ui_v1.utils.UiUtils.EMPTY_STRING
@@ -22,8 +22,8 @@ internal data class EventsAllScreenUiState(
 
 internal class EventsAllViewModel(
     private val mapper: IMapperDomainUI,
-    private val getAllEventsUseCase: GetAllEventsUseCase,
-    private val getAllEventsActiveUseCase: GetAllEventsActiveUseCase,
+    private val uiv1GetAllEventsUseCase: Uiv1GetAllEventsUseCase,
+    private val uiv1GetAllEventsActiveUseCase: Uiv1GetAllEventsActiveUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(EventsAllScreenUiState())
@@ -45,8 +45,8 @@ internal class EventsAllViewModel(
 
     private fun getAllEvents() {
         combine(
-            getAllEventsUseCase.execute(),
-            getAllEventsActiveUseCase.execute()
+            uiv1GetAllEventsUseCase.execute(),
+            uiv1GetAllEventsActiveUseCase.execute()
         ) { eventsAll, eventsActive ->
             _uiState.update {
                 it.copy(

@@ -2,8 +2,8 @@ package com.example.ui_v1.ui.registration.authenticationScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.user.GetAvailableCountriesListUseCase
-import com.example.domain.usecases.user.SetUserPhoneNumberUseCase
+import com.example.domain.usecases.user.Uiv1GetAvailableCountriesListUseCase
+import com.example.domain.usecases.user.Uiv1SetUserPhoneNumberUseCase
 import com.example.ui_v1.models.CountryModelUI
 import com.example.ui_v1.models.mapper.IMapperDomainUI
 import com.example.ui_v1.utils.UiUtils.PHONE_NUMBER_LENGTH
@@ -26,8 +26,8 @@ internal data class AuthenticationScreenUiState(
 
 internal class AuthenticationViewModel(
     private val mapper: IMapperDomainUI,
-    private val getAvailableCountriesListUseCase: GetAvailableCountriesListUseCase,
-    private val setUserPhoneNumberUseCase: SetUserPhoneNumberUseCase,
+    private val uiv1GetAvailableCountriesListUseCase: Uiv1GetAvailableCountriesListUseCase,
+    private val uiv1SetUserPhoneNumberUseCase: Uiv1SetUserPhoneNumberUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AuthenticationScreenUiState())
@@ -58,12 +58,12 @@ internal class AuthenticationViewModel(
     fun onForwardButtonClick() {
         val state = uiState.value
         viewModelScope.launch {
-            setUserPhoneNumberUseCase.execute(state.country.code, state.number)
+            uiv1SetUserPhoneNumberUseCase.execute(state.country.code, state.number)
         }
     }
 
     private fun getAvailableCountriesList() {
-        getAvailableCountriesListUseCase.execute()
+        uiv1GetAvailableCountriesListUseCase.execute()
             .onEach { availableCountriesList ->
                 _uiState.update {
                     it.copy(

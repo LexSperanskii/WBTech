@@ -113,7 +113,7 @@ internal fun NavGraphBuilder.eventsNav(navController: NavHostController) {
                 navigateToEventDetailItem = {
                     navController.navigate("${BottomNavItem.Events.route}/${EventDetailsDestination.route}/${it}")
                 },
-                navigateToDeveloperScreen = { navController.navigate(DeveloperDestination.route) }
+                navigateToDeveloperScreen = { }//navController.navigate(DeveloperDestination.route) }
             )
         }
         composable(

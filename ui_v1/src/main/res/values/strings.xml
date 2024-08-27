@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">SpA_WB_Junior_DevMeetingApp</string>
     <string name="event_date_place">%1$s — %2$s</string>
     <string name="number_of_people">+%s</string>
     <string name="event_icon">Event Icon</string>
