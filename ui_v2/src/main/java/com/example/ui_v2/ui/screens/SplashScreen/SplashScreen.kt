@@ -1,4 +1,4 @@
-package com.example.ui_v2.ui.SplashScreen
+package com.example.ui_v2.ui.screens.SplashScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

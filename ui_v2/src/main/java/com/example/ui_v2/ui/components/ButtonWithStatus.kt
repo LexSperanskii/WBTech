@@ -14,12 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
-
-internal enum class ButtonStatus {
-    NotPressed,
-    Loading,
-    Pressed
-}
+import com.example.ui_v2.ui.utils.ButtonStatus
 
 @Composable
 internal fun ButtonWithStatus(

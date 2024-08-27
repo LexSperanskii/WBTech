@@ -1,4 +1,4 @@
-package com.example.ui_v2.ui.onboarding.locationScreen
+package com.example.ui_v2.ui.screens.onboarding.locationScreen
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

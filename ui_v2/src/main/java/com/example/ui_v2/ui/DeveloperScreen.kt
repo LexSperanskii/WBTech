@@ -24,7 +24,6 @@ import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.BackBar
 import com.example.ui_v2.ui.components.BackShareBar
 import com.example.ui_v2.ui.components.Banner
-import com.example.ui_v2.ui.components.ButtonStatus
 import com.example.ui_v2.ui.components.ButtonWithStatus
 import com.example.ui_v2.ui.components.ClassicSwitch
 import com.example.ui_v2.ui.components.CommunitiesCarousel
@@ -45,6 +44,7 @@ import com.example.ui_v2.ui.components.TagMedium
 import com.example.ui_v2.ui.components.TagSmall
 import com.example.ui_v2.ui.components.UpcomingEvensCarousel
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
+import com.example.ui_v2.ui.utils.ButtonStatus
 
 internal object DeveloperDestination : NavigationDestination {
     override val route = "developer"

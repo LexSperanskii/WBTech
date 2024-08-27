@@ -1,4 +1,4 @@
-package com.example.ui_v2.ui.mainScreen
+package com.example.ui_v2.ui.screens.mainScreen
 
 import androidx.compose.runtime.Composable
 

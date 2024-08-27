@@ -1,5 +1,11 @@
 package com.example.ui_v2.ui.utils
 
+internal enum class ButtonStatus {
+    NotPressed,
+    Loading,
+    Pressed
+}
+
 internal object UiUtils {
     const val PHONE_NUMBER_LENGTH = 10
     const val SPLASH_SCREEN_DURATION = 1000L

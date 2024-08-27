@@ -1,4 +1,4 @@
-package com.example.ui_v2.ui.onboarding.interestsScreen
+package com.example.ui_v2.ui.screens.onboarding.interestsScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
 import com.example.ui_v2.navigation.NavigationDestination
-import com.example.ui_v2.ui.components.ButtonStatus
 import com.example.ui_v2.ui.components.ButtonWithStatus
 import com.example.ui_v2.ui.components.TagBig
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
+import com.example.ui_v2.ui.utils.ButtonStatus
 import org.koin.androidx.compose.koinViewModel
 
 internal object InterestsScreenDestination : NavigationDestination {

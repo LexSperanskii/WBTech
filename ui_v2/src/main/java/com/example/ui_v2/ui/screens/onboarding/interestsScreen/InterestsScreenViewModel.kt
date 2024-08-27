@@ -1,7 +1,7 @@
-package com.example.ui_v2.ui.onboarding.interestsScreen
+package com.example.ui_v2.ui.screens.onboarding.interestsScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.ui_v2.ui.components.ButtonStatus
+import com.example.ui_v2.ui.utils.ButtonStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

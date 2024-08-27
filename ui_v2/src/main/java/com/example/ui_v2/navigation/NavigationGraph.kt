@@ -7,12 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.ui_v2.ui.DeveloperDestination
 import com.example.ui_v2.ui.DeveloperScreen
-import com.example.ui_v2.ui.SplashScreen.SplashScreen
-import com.example.ui_v2.ui.SplashScreen.SplashScreenDestination
-import com.example.ui_v2.ui.onboarding.interestsScreen.InterestsScreen
-import com.example.ui_v2.ui.onboarding.interestsScreen.InterestsScreenDestination
-import com.example.ui_v2.ui.onboarding.locationScreen.LocationScreen
-import com.example.ui_v2.ui.onboarding.locationScreen.LocationScreenDestination
+import com.example.ui_v2.ui.screens.SplashScreen.SplashScreen
+import com.example.ui_v2.ui.screens.SplashScreen.SplashScreenDestination
+import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreen
+import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreenDestination
+import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreen
+import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreenDestination
 
 
 @Composable
