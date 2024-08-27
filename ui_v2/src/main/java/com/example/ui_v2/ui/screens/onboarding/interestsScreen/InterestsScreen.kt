@@ -36,21 +36,21 @@ internal fun InterestsScreen(
     navigateToLocationScreen: () -> Unit,
     viewModel: InterestsScreenViewModel = koinViewModel(),
 ) {
-    val splashScreenUiState by viewModel.getInterestsScreenUiStateFlow()
+    val interestsScreenUiState by viewModel.getInterestsScreenUiStateFlow()
         .collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
         InterestsScreenBody(
-            listOfTags = splashScreenUiState.listOfTags,
-            listOfChosenTags = splashScreenUiState.listOfChosenTags,
+            listOfTags = interestsScreenUiState.listOfTags,
+            listOfChosenTags = interestsScreenUiState.listOfChosenTags,
             onTagClick = {
                 viewModel.onTagClick(it)
             },
-            isButtonEnabled = splashScreenUiState.isButtonEnabled,
+            isButtonEnabled = interestsScreenUiState.isButtonEnabled,
             onButtonClick = {
                 navigateToLocationScreen()
             },
-            buttonStatus = splashScreenUiState.buttonStatus,
+            buttonStatus = interestsScreenUiState.buttonStatus,
             onTellLaterClick = { /*TODO*/ },
             modifier = Modifier.padding(innerPadding)
         )

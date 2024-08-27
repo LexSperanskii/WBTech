@@ -42,6 +42,8 @@ internal fun LocationScreen(
     Scaffold { innerPadding ->
         LocationScreenBody(
             onButtonClick = navigateToMainScreen,
+            latitude = locationScreenUiState.latitude,
+            longitude = locationScreenUiState.longitude,
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -51,9 +53,9 @@ internal fun LocationScreen(
 @Composable
 internal fun LocationScreenBody(
     onButtonClick: () -> Unit,
+    latitude: Double,
+    longitude: Double,
     modifier: Modifier = Modifier,
-    latitude: Double = 59.934997,
-    longitude: Double = 30.330624,
 ) {
     Box(
         modifier = modifier.fillMaxSize()

@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.update
 
 
 internal data class LocationScreenUiState(
-    val location: String = "",
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0,
 )
 
 internal class LocationScreenViewModel : ViewModel() {
@@ -19,7 +20,8 @@ internal class LocationScreenViewModel : ViewModel() {
     init {
         _uiState.update {
             it.copy(
-                location = "111111.266,121651.5165"
+                latitude = 59.934997,
+                longitude = 30.330624
             )
         }
     }
