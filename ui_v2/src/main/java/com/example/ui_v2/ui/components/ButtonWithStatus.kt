@@ -46,7 +46,7 @@ internal fun ButtonWithStatus(
                         DevMeetingAppTheme.brush.buttonGradientSecondary
                     }
                 },
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium)
             ),
         colors = ButtonDefaults.buttonColors(
             contentColor = when (buttonStatus) {

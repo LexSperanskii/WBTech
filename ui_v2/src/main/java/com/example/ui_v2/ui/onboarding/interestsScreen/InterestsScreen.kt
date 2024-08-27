@@ -47,7 +47,9 @@ internal fun InterestsScreen(
                 viewModel.onTagClick(it)
             },
             isButtonEnabled = splashScreenUiState.isButtonEnabled,
-            onButtonClick = { /*TODO*/ },
+            onButtonClick = {
+                navigateToLocationScreen()
+            },
             buttonStatus = splashScreenUiState.buttonStatus,
             onTellLaterClick = { /*TODO*/ },
             modifier = Modifier.padding(innerPadding)

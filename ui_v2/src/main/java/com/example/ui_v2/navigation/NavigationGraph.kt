@@ -11,6 +11,8 @@ import com.example.ui_v2.ui.SplashScreen.SplashScreen
 import com.example.ui_v2.ui.SplashScreen.SplashScreenDestination
 import com.example.ui_v2.ui.onboarding.interestsScreen.InterestsScreen
 import com.example.ui_v2.ui.onboarding.interestsScreen.InterestsScreenDestination
+import com.example.ui_v2.ui.onboarding.locationScreen.LocationScreen
+import com.example.ui_v2.ui.onboarding.locationScreen.LocationScreenDestination
 
 
 @Composable
@@ -19,7 +21,7 @@ fun NavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = DeveloperDestination.route,
+        startDestination = SplashScreenDestination.route,
         modifier = Modifier
     ) {
         composable(route = DeveloperDestination.route) {
@@ -36,7 +38,14 @@ fun NavHost(
         }
         composable(route = InterestsScreenDestination.route) {
             InterestsScreen(
-                navigateToLocationScreen = {}
+                navigateToLocationScreen = {
+                    navController.navigate(LocationScreenDestination.route)
+                }
+            )
+        }
+        composable(route = LocationScreenDestination.route) {
+            LocationScreen(
+                navigateToMainScreen = {}
             )
         }
     }
