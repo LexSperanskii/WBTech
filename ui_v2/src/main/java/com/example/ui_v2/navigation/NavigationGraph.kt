@@ -9,6 +9,8 @@ import com.example.ui_v2.ui.DeveloperDestination
 import com.example.ui_v2.ui.DeveloperScreen
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreen
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreenDestination
+import com.example.ui_v2.ui.screens.mainScreen.MainScreen
+import com.example.ui_v2.ui.screens.mainScreen.MainScreenDestination
 import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreen
 import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreenDestination
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreen
@@ -45,7 +47,18 @@ fun NavHost(
         }
         composable(route = LocationScreenDestination.route) {
             LocationScreen(
-                navigateToMainScreen = {}
+                navigateToMainScreen = {
+                    navController.navigate(MainScreenDestination.route) {
+                        popUpTo(InterestsScreenDestination.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
+        }
+        composable(route = MainScreenDestination.route) {
+            MainScreen(
+                navigateTo = {}
             )
         }
     }

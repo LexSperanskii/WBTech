@@ -136,7 +136,9 @@ private val dimensions = DevMeetingsAppDimensions(
     cornerShapeXSmall = 4.dp,
     cornerShapeSmall = 8.dp,
     cornerShapeMediumSmall = 12.dp,
-    cornerShapeMedium = 16.dp
+    cornerShapeMedium = 16.dp,
+
+    paddingMedium = 16.dp,
 )
 
 @Composable

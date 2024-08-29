@@ -27,10 +27,10 @@ import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 
 @Composable
 internal fun Banner(
-    bannerText: String,
-    tagText: String,
     onBannerTagClick: () -> Unit,
     modifier: Modifier = Modifier,
+    bannerText: String = stringResource(id = R.string.tell_about_interests),
+    tagText: String = stringResource(id = R.string.select_interests),
 ) {
     Card(
         shape = RectangleShape,

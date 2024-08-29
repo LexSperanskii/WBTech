@@ -36,16 +36,17 @@ internal fun EvensCarousel(
 
 @Composable
 internal fun UpcomingEvensCarousel(
-    eventsList: List<EventModelUI>,
-    onEventCardClick: (EventModelUI) -> Unit,
+    upcomingEventsList: List<EventModelUI>,
+    onUpcomingEventCardClick: (EventModelUI) -> Unit,
     modifier: Modifier = Modifier,
+    blockText: String = stringResource(id = R.string.upcoming_events),
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
     ) {
         Text(
-            text = stringResource(id = R.string.upcoming_meetings),
+            text = blockText,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.customH2
         )
@@ -54,10 +55,10 @@ internal fun UpcomingEvensCarousel(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            items(eventsList) { event ->
+            items(upcomingEventsList) { event ->
                 EventCard(
                     event = event,
-                    onEventCardClick = { onEventCardClick(event) },
+                    onEventCardClick = { onUpcomingEventCardClick(event) },
                     eventCardWidth = 212.dp
                 )
             }

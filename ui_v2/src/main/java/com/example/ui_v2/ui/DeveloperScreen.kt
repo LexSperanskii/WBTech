@@ -316,8 +316,8 @@ internal fun DeveloperScreen() {
             }
             item {
                 UpcomingEvensCarousel(
-                    eventsList = listOfEvents,
-                    onEventCardClick = {},
+                    upcomingEventsList = listOfEvents,
+                    onUpcomingEventCardClick = {},
                 )
             }
             item {

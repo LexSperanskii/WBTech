@@ -12,6 +12,8 @@ internal data class DevMeetingsAppDimensions(
     val cornerShapeSmall: Dp,
     val cornerShapeMediumSmall: Dp,
     val cornerShapeMedium: Dp,
+
+    val paddingMedium: Dp,
 )
 
 internal val LocalDimensionsScheme = staticCompositionLocalOf {
@@ -24,5 +26,7 @@ internal val LocalDimensionsScheme = staticCompositionLocalOf {
         cornerShapeSmall = Dp.Unspecified,
         cornerShapeMediumSmall = Dp.Unspecified,
         cornerShapeMedium = Dp.Unspecified,
+
+        paddingMedium = Dp.Unspecified,
     )
 }

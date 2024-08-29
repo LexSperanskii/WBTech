@@ -56,7 +56,11 @@
     <string name="interests_button_tell_later">I will tell you later</string>
     <string name="search_placeholder">Find meetups and communities</string>
     <string name="cancel">Cancel</string>
-    <string name="upcoming_meetings">Upcoming meetings</string>
+    <string name="upcoming_events">Upcoming meetings</string>
+    <string name="tell_about_interests">Tell us about your interests so that we can recommend useful meetings</string>
+    <string name="select_interests">Select interests</string>
+    <string name="block_people">You may know them</string>
+    <string name="block_tag">Other meetings</string>
 
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>

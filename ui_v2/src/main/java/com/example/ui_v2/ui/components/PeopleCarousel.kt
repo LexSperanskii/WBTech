@@ -8,16 +8,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.ui_v2.R
 import com.example.ui_v2.models.UserModelUI
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 
 @Composable
 internal fun PeopleCarousel(
-    blockText: String,
     listOfPeople: List<UserModelUI>,
     onPersonCardClick: (UserModelUI) -> Unit,
     modifier: Modifier = Modifier,
+    blockText: String = stringResource(id = R.string.block_people),
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
