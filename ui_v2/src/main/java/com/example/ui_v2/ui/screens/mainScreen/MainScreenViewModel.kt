@@ -53,4 +53,55 @@ internal class MainScreenViewModel(
 
     fun getMainScreenUiStateFlow(): StateFlow<MainScreenUiState> = uiState
 
+    fun onSearchFieldChange(search: String) {
+        _uiState.update {
+            it.copy(
+                searchField = search,
+            )
+        }
+    }
+
+    fun onClearIconClick() {
+        _uiState.update {
+            it.copy(
+                searchField = "",
+            )
+        }
+    }
+
+    fun onCommunityButtonClick(community: CommunityModelUI) {
+        val newMyCommunities = uiState.value.myCommunitiesList.toMutableList()
+        when (newMyCommunities.contains(community)) {
+            true -> {
+                newMyCommunities.remove(community)
+            }
+
+            else -> {
+                newMyCommunities.add(community)
+            }
+        }
+        _uiState.update {
+            it.copy(
+                myCommunitiesList = newMyCommunities
+            )
+        }
+    }
+
+    fun onTagClick(tag: String) {
+        val newMyTags = uiState.value.listOfChosenTags.toMutableList()
+        when (newMyTags.contains(tag)) {
+            true -> {
+                newMyTags.remove(tag)
+            }
+
+            else -> {
+                newMyTags.add(tag)
+            }
+        }
+        _uiState.update {
+            it.copy(
+                listOfChosenTags = newMyTags
+            )
+        }
+    }
 }

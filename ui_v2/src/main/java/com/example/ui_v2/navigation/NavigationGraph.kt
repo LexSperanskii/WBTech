@@ -58,7 +58,11 @@ fun NavHost(
         }
         composable(route = MainScreenDestination.route) {
             MainScreen(
-                navigateTo = {}
+                navigateToOtherUserScreen = {},
+                navigateToCommunityScreen = {},
+                navigateToEventScreen = {},
+                navigateToBannerScreen = {},
+                navigateToProfileScreen = {},
             )
         }
     }

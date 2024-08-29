@@ -1,6 +1,5 @@
 package com.example.ui_v2.ui.screens.mainScreen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -36,7 +35,11 @@ internal object MainScreenDestination : NavigationDestination {
 
 @Composable
 internal fun MainScreen(
-    navigateTo: () -> Unit,
+    navigateToOtherUserScreen: (userId: String) -> Unit,
+    navigateToCommunityScreen: (communityId: String) -> Unit,
+    navigateToEventScreen: (eventId: String) -> Unit,
+    navigateToBannerScreen: () -> Unit,
+    navigateToProfileScreen: () -> Unit,
     viewModel: MainScreenViewModel = koinViewModel(),
 ) {
     val mainScreenUiState by viewModel.getMainScreenUiStateFlow().collectAsStateWithLifecycle()
@@ -44,33 +47,32 @@ internal fun MainScreen(
     Scaffold { innerPadding ->
         MainScreenBody(
             searchField = mainScreenUiState.searchField,
-            onSearchFieldChange = { },
-            onClearIconClick = { },
-            onUserIconClick = { },
+            onSearchFieldChange = { viewModel.onSearchFieldChange(it) },
+            onClearIconClick = { viewModel.onClearIconClick() },
+            onUserIconClick = navigateToProfileScreen,
             onCancelClick = { },
             myEventsList = mainScreenUiState.myEventsList,
-            onEventCardClick = { },
+            onEventCardClick = { navigateToEventScreen(it.id) },
             upcomingEventsList = mainScreenUiState.upcomingEventsList,
+            infiniteEventsList = mainScreenUiState.infiniteEventsList,
             firstCommunitiesBlockText = mainScreenUiState.communitiesBlockText,
             firstCommunitiesBlockList = mainScreenUiState.communitiesList,
             myCommunitiesList = mainScreenUiState.myCommunitiesList,
-            onCommunityButtonClick = { },
-            onCommunityClick = { },
-            listOfTags = mainScreenUiState.listOfTags,
-            listOfChosenTags = mainScreenUiState.listOfChosenTags,
-            onTagClick = { },
-            onBannerTagClick = { },
-            listOfPeople = mainScreenUiState.listOfPeople,
-            onPersonCardClick = { },
+            onCommunityButtonClick = { viewModel.onCommunityButtonClick(it) },
+            onCommunityClick = { navigateToCommunityScreen(it.id) },
             secondCommunitiesBlockText = mainScreenUiState.popularCommunitiesBlockText,
             secondCommunitiesBlockList = mainScreenUiState.popularCommunitiesList,
-            infiniteEventsList = mainScreenUiState.infiniteEventsList,
+            listOfTags = mainScreenUiState.listOfTags,
+            listOfChosenTags = mainScreenUiState.listOfChosenTags,
+            onTagClick = { viewModel.onTagClick(it) },
+            onBannerTagClick = navigateToBannerScreen,
+            listOfPeople = mainScreenUiState.listOfPeople,
+            onPersonCardClick = { navigateToOtherUserScreen(it.id) },
             modifier = Modifier.padding(innerPadding)
         )
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun MainScreenBody(
     searchField: String,
