@@ -54,7 +54,7 @@ internal object DeveloperDestination : NavigationDestination {
 internal fun DeveloperScreen() {
     val listOfEvents = listOf(
         EventModelUI(
-            id = 0,
+            id = "0",
             name = "Python days",
             day = 10,
             month = "августа",
@@ -73,7 +73,7 @@ internal fun DeveloperScreen() {
             )
         ),
         EventModelUI(
-            id = 1,
+            id = "1",
             name = "Python days",
             day = 10,
             month = "августа",
@@ -92,7 +92,7 @@ internal fun DeveloperScreen() {
             )
         ),
         EventModelUI(
-            id = 2,
+            id = "2",
             name = "Python days",
             day = 10,
             month = "августа",
@@ -111,7 +111,7 @@ internal fun DeveloperScreen() {
             )
         ),
         EventModelUI(
-            id = 3,
+            id = "3",
             name = "Python days",
             day = 10,
             month = "августа",
@@ -130,7 +130,7 @@ internal fun DeveloperScreen() {
             )
         ),
         EventModelUI(
-            id = 4,
+            id = "4",
             name = "Python days",
             day = 10,
             month = "августа",
@@ -151,40 +151,40 @@ internal fun DeveloperScreen() {
     )
     val communitiesList = listOf(
         CommunityModelUI(
-            id = 0,
+            id = "0",
             name = "Супер тестировщики",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
         CommunityModelUI(
-            id = 1,
+            id = "1",
             name = "Супер программисты",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
         CommunityModelUI(
-            id = 2,
+            id = "2",
             name = "Катающие на пудже",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ), CommunityModelUI(
-            id = 3,
+            id = "3",
             name = "Чел",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ), CommunityModelUI(
-            id = 4,
+            id = "4",
             name = "Бомбящие пуканы",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
         CommunityModelUI(
-            id = 5,
+            id = "5",
             name = "Вкусно и точка",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
         CommunityModelUI(
-            id = 6,
+            id = "6",
             name = "IT Crew",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         ),
         CommunityModelUI(
-            id = 7,
+            id = "7",
             name = "Отчаянные домохозйки",
             imageURL = "https://i.pinimg.com/564x/2b/03/46/2b03464cf3499a819d8533f88bcb3275.jpg"
         )
@@ -192,56 +192,56 @@ internal fun DeveloperScreen() {
 
     val listOfPeople = listOf(
         UserModelUI(
-            id = 0,
+            id = "0",
             name = "Маша",
             tag = "Разработка",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
-            id = 1,
+            id = "1",
             name = "Коля",
             tag = "Менеджмент",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
-            id = 2,
+            id = "2",
             name = "Миша",
             tag = "Тестирование",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
-            id = 3,
+            id = "3",
             name = "Женя",
             tag = "Разработка",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
-            id = 4,
+            id = "4",
             name = "Даша",
             tag = "Менеджмент",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
-            id = 5,
+            id = "5",
             name = "Витя",
             tag = "Тестирование",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
-            id = 6,
+            id = "6",
             name = "Саша",
             tag = "Разработка",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
-            id = 7,
+            id = "7",
             name = "Сережа",
             tag = "Менеджмент",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
-            id = 8,
+            id = "8",
             name = "Федя",
             tag = "Тестирование",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
-            id = 9,
+            id = "9",
             name = "Валя",
             tag = "Разработка",
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
@@ -309,13 +309,14 @@ internal fun DeveloperScreen() {
                 CommunitiesCarousel(
                     blockText = "Сообщества для тестировщиков",
                     communitiesList = communitiesList,
-                    isCommunityButtonClicked = communityButton,
+                    myCommunitiesList = listOf(),
                     onCommunityButtonClick = { communityButton = !communityButton },
                     onCommunityClick = {}
                 )
             }
             item {
                 UpcomingEvensCarousel(
+                    blockText = "Ближайшие встречи",
                     upcomingEventsList = listOfEvents,
                     onUpcomingEventCardClick = {},
                 )

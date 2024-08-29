@@ -1,6 +1,7 @@
 package com.example.ui_v2.ui.components
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -28,6 +29,7 @@ internal fun PersonCard(
         ),
         shape = RectangleShape,
         modifier = modifier
+            .width(104.dp)
     ) {
         PersonAvatar(
             size = 104.dp,

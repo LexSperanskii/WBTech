@@ -5,6 +5,7 @@ import com.example.data.di.dataModule
 import com.example.domain.di.domainModule
 import com.example.domain.di.mockModule
 import com.example.generalDI.ui_v1Module
+import com.example.ui_v2.di.newUIMockDataModule
 import com.example.ui_v2.di.uiModule
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -18,7 +19,16 @@ class DeveloperMeetingsApplication : Application() {
         startKoin{
             androidLogger(Level.DEBUG)
 //            androidContext(this@App) //контекст если нужен
-            modules(listOf(uiModule, mockModule, dataModule, domainModule, ui_v1Module))
+            modules(
+                listOf(
+                    uiModule,
+                    newUIMockDataModule,
+                    mockModule,
+                    dataModule,
+                    domainModule,
+                    ui_v1Module
+                )
+            )
         }
     }
 }

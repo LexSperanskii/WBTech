@@ -2,7 +2,9 @@ package com.example.ui_v2.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -16,10 +18,11 @@ import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 internal fun CommunitiesCarousel(
     blockText: String,
     communitiesList: List<CommunityModelUI>,
-    isCommunityButtonClicked: Boolean,
+    myCommunitiesList: List<CommunityModelUI>,
     onCommunityButtonClick: (CommunityModelUI) -> Unit,
     onCommunityClick: (CommunityModelUI) -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -28,9 +31,12 @@ internal fun CommunitiesCarousel(
         Text(
             text = blockText,
             color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.customH2
+            style = DevMeetingAppTheme.typography.customH2,
+            modifier = Modifier
+                .padding(contentPadding)
         )
         LazyRow(
+            contentPadding = contentPadding,
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -38,7 +44,7 @@ internal fun CommunitiesCarousel(
             items(communitiesList) { community ->
                 CommunityCard(
                     community = community,
-                    isCommunityButtonClicked = isCommunityButtonClicked,
+                    isCommunityButtonClicked = myCommunitiesList.contains(community),
                     onCommunityButtonClick = { onCommunityButtonClick(community) },
                     onCommunityClick = { onCommunityClick(community) })
             }

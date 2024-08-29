@@ -1,6 +1,8 @@
 package com.example.ui_v2.ui.screens.mainScreen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -8,8 +10,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.ui_v2.R
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.UserModelUI
@@ -35,38 +39,32 @@ internal fun MainScreen(
     navigateTo: () -> Unit,
     viewModel: MainScreenViewModel = koinViewModel(),
 ) {
-    val mainScreenUiState by viewModel.getMainScreenUiStateFlow()
-        .collectAsStateWithLifecycle()
+    val mainScreenUiState by viewModel.getMainScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
         MainScreenBody(
-            searchField =,
+            searchField = mainScreenUiState.searchField,
             onSearchFieldChange = { },
             onClearIconClick = { },
             onUserIconClick = { },
             onCancelClick = { },
-            myEventsList =,
-            onMyEventCardClick = { },
-            upcomingEventsList =,
-            onUpcomingEventCardClick = { },
-            communitiesBlockText =,
-            communitiesList =,
-            isCommunityButtonClicked =,
+            myEventsList = mainScreenUiState.myEventsList,
+            onEventCardClick = { },
+            upcomingEventsList = mainScreenUiState.upcomingEventsList,
+            firstCommunitiesBlockText = mainScreenUiState.communitiesBlockText,
+            firstCommunitiesBlockList = mainScreenUiState.communitiesList,
+            myCommunitiesList = mainScreenUiState.myCommunitiesList,
             onCommunityButtonClick = { },
             onCommunityClick = { },
-            listOfTags =,
-            listOfChosenTags =,
+            listOfTags = mainScreenUiState.listOfTags,
+            listOfChosenTags = mainScreenUiState.listOfChosenTags,
             onTagClick = { },
             onBannerTagClick = { },
-            listOfPeople =,
+            listOfPeople = mainScreenUiState.listOfPeople,
             onPersonCardClick = { },
-            popularCommunitiesBlockText =,
-            popularCommunitiesList =,
-            isPopularCommunityButtonClicked =,
-            onPopularCommunityButtonClick = { },
-            onPopularCommunityClick = { },
-            infiniteEventsList =,
-            onInfiniteEventCardClick = { },
+            secondCommunitiesBlockText = mainScreenUiState.popularCommunitiesBlockText,
+            secondCommunitiesBlockList = mainScreenUiState.popularCommunitiesList,
+            infiniteEventsList = mainScreenUiState.infiniteEventsList,
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -81,33 +79,29 @@ internal fun MainScreenBody(
     onUserIconClick: () -> Unit,
     onCancelClick: () -> Unit,
     myEventsList: List<EventModelUI>,
-    onMyEventCardClick: (EventModelUI) -> Unit,
+    onEventCardClick: (EventModelUI) -> Unit,
     upcomingEventsList: List<EventModelUI>,
-    onUpcomingEventCardClick: (EventModelUI) -> Unit,
-    communitiesBlockText: String,
-    communitiesList: List<CommunityModelUI>,
-    isCommunityButtonClicked: Boolean,
+    infiniteEventsList: List<EventModelUI>,
+    firstCommunitiesBlockText: String,
+    firstCommunitiesBlockList: List<CommunityModelUI>,
+    myCommunitiesList: List<CommunityModelUI>,
     onCommunityButtonClick: (CommunityModelUI) -> Unit,
     onCommunityClick: (CommunityModelUI) -> Unit,
+    secondCommunitiesBlockText: String,
+    secondCommunitiesBlockList: List<CommunityModelUI>,
     listOfTags: List<String>,
     listOfChosenTags: List<String>,
     onTagClick: (String) -> Unit,
     onBannerTagClick: () -> Unit,
     listOfPeople: List<UserModelUI>,
     onPersonCardClick: (UserModelUI) -> Unit,
-    popularCommunitiesBlockText: String,
-    popularCommunitiesList: List<CommunityModelUI>,
-    isPopularCommunityButtonClicked: Boolean,
-    onPopularCommunityButtonClick: (CommunityModelUI) -> Unit,
-    onPopularCommunityClick: (CommunityModelUI) -> Unit,
-    infiniteEventsList: List<EventModelUI>,
-    onInfiniteEventCardClick: (EventModelUI) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
+        contentPadding = PaddingValues(vertical = 12.dp),
         modifier = modifier
     ) {
-        stickyHeader {
+        item {
             SearchFieldBar(
                 searchField = searchField,
                 onSearchFieldChange = onSearchFieldChange,
@@ -115,47 +109,51 @@ internal fun MainScreenBody(
                 onUserIconClick = onUserIconClick,
                 onCancelClick = onCancelClick,
                 modifier = Modifier
-                    .padding(horizontal = DevMeetingAppTheme.dimensions.paddingMedium)
+                    .padding(
+                        horizontal = DevMeetingAppTheme.dimensions.paddingMedium
+                    )
             )
         }
         item {
             EvensCarousel(
                 eventsList = myEventsList,
-                onEventCardClick = onMyEventCardClick,
+                onEventCardClick = onEventCardClick,
+                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                 modifier = Modifier
                     .padding(
-                        start = DevMeetingAppTheme.dimensions.paddingMedium,
                         top = 20.dp
                     )
             )
         }
         item {
             UpcomingEvensCarousel(
+                blockText = stringResource(id = R.string.upcoming_events),
                 upcomingEventsList = upcomingEventsList,
-                onUpcomingEventCardClick = onUpcomingEventCardClick,
+                onUpcomingEventCardClick = onEventCardClick,
+                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                 modifier = Modifier
                     .padding(
-                        start = DevMeetingAppTheme.dimensions.paddingMedium,
                         top = 40.dp
                     )
             )
         }
         item {
             CommunitiesCarousel(
-                blockText = communitiesBlockText,
-                communitiesList = communitiesList,
-                isCommunityButtonClicked = isCommunityButtonClicked,
+                blockText = firstCommunitiesBlockText,
+                communitiesList = firstCommunitiesBlockList,
+                myCommunitiesList = myCommunitiesList,
                 onCommunityButtonClick = onCommunityButtonClick,
                 onCommunityClick = onCommunityClick,
+                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                 modifier = Modifier
                     .padding(
-                        start = DevMeetingAppTheme.dimensions.paddingMedium,
                         top = 40.dp
                     )
             )
         }
         item {
             TagBlock(
+                blockText = stringResource(id = R.string.block_tag),
                 listOfTags = listOfTags,
                 listOfChosenTags = listOfChosenTags,
                 onTagClick = onTagClick,
@@ -170,13 +168,14 @@ internal fun MainScreenBody(
         itemsIndexed(infiniteEventsList) { index, event ->
             EventCard(
                 event = event,
-                onEventCardClick = { onInfiniteEventCardClick(event) },
+                onEventCardClick = { onEventCardClick(event) },
                 modifier = Modifier
                     .padding(
                         start = DevMeetingAppTheme.dimensions.paddingMedium,
                         end = DevMeetingAppTheme.dimensions.paddingMedium,
                         top = 40.dp
                     )
+                    .fillMaxWidth()
             )
             when (index) {
                 2 -> {
@@ -193,11 +192,12 @@ internal fun MainScreenBody(
 
                 5 -> {
                     PeopleCarousel(
+                        blockText = stringResource(id = R.string.block_people),
                         listOfPeople = listOfPeople,
                         onPersonCardClick = onPersonCardClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
                             .padding(
-                                start = DevMeetingAppTheme.dimensions.paddingMedium,
                                 top = 40.dp
                             )
                     )
@@ -205,14 +205,14 @@ internal fun MainScreenBody(
 
                 8 -> {
                     CommunitiesCarousel(
-                        blockText = popularCommunitiesBlockText,
-                        communitiesList = popularCommunitiesList,
-                        isCommunityButtonClicked = isPopularCommunityButtonClicked,
-                        onCommunityButtonClick = onPopularCommunityButtonClick,
-                        onCommunityClick = onPopularCommunityClick,
+                        blockText = secondCommunitiesBlockText,
+                        communitiesList = secondCommunitiesBlockList,
+                        myCommunitiesList = myCommunitiesList,
+                        onCommunityButtonClick = onCommunityButtonClick,
+                        onCommunityClick = onCommunityClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
                             .padding(
-                                start = DevMeetingAppTheme.dimensions.paddingMedium,
                                 top = 40.dp
                             )
                     )
@@ -234,25 +234,26 @@ internal fun MainScreenBody(
                 }
                 item {
                     PeopleCarousel(
+                        blockText = stringResource(id = R.string.block_people),
                         listOfPeople = listOfPeople,
                         onPersonCardClick = onPersonCardClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
                             .padding(
-                                start = DevMeetingAppTheme.dimensions.paddingMedium,
                                 top = 40.dp
                             )
                     )
                 }
                 item {
                     CommunitiesCarousel(
-                        blockText = popularCommunitiesBlockText,
-                        communitiesList = popularCommunitiesList,
-                        isCommunityButtonClicked = isPopularCommunityButtonClicked,
-                        onCommunityButtonClick = onPopularCommunityButtonClick,
-                        onCommunityClick = onPopularCommunityClick,
+                        blockText = secondCommunitiesBlockText,
+                        communitiesList = secondCommunitiesBlockList,
+                        myCommunitiesList = myCommunitiesList,
+                        onCommunityButtonClick = onCommunityButtonClick,
+                        onCommunityClick = onCommunityClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
                             .padding(
-                                start = DevMeetingAppTheme.dimensions.paddingMedium,
                                 top = 40.dp
                             )
                     )
@@ -262,25 +263,26 @@ internal fun MainScreenBody(
             in 3..5 -> {
                 item {
                     PeopleCarousel(
+                        blockText = stringResource(id = R.string.block_people),
                         listOfPeople = listOfPeople,
                         onPersonCardClick = onPersonCardClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
                             .padding(
-                                start = DevMeetingAppTheme.dimensions.paddingMedium,
                                 top = 40.dp
                             )
                     )
                 }
                 item {
                     CommunitiesCarousel(
-                        blockText = popularCommunitiesBlockText,
-                        communitiesList = popularCommunitiesList,
-                        isCommunityButtonClicked = isPopularCommunityButtonClicked,
-                        onCommunityButtonClick = onPopularCommunityButtonClick,
-                        onCommunityClick = onPopularCommunityClick,
+                        blockText = secondCommunitiesBlockText,
+                        communitiesList = secondCommunitiesBlockList,
+                        myCommunitiesList = myCommunitiesList,
+                        onCommunityButtonClick = onCommunityButtonClick,
+                        onCommunityClick = onCommunityClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
                             .padding(
-                                start = DevMeetingAppTheme.dimensions.paddingMedium,
                                 top = 40.dp
                             )
                     )
@@ -290,14 +292,14 @@ internal fun MainScreenBody(
             in 6..8 -> {
                 item {
                     CommunitiesCarousel(
-                        blockText = popularCommunitiesBlockText,
-                        communitiesList = popularCommunitiesList,
-                        isCommunityButtonClicked = isPopularCommunityButtonClicked,
-                        onCommunityButtonClick = onPopularCommunityButtonClick,
-                        onCommunityClick = onPopularCommunityClick,
+                        blockText = secondCommunitiesBlockText,
+                        communitiesList = secondCommunitiesBlockList,
+                        myCommunitiesList = myCommunitiesList,
+                        onCommunityButtonClick = onCommunityButtonClick,
+                        onCommunityClick = onCommunityClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
                             .padding(
-                                start = DevMeetingAppTheme.dimensions.paddingMedium,
                                 top = 40.dp
                             )
                     )

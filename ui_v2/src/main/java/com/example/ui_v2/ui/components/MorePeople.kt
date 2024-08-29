@@ -1,6 +1,7 @@
 package com.example.ui_v2.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -22,6 +23,11 @@ internal fun MorePeople(
         modifier = Modifier
             .clip(CircleShape)
             .size(48.dp)
+            .border(
+                width = 2.dp,
+                color = DevMeetingAppTheme.colors.white,
+                shape = CircleShape
+            )
             .background(DevMeetingAppTheme.colors.disabledButtonGray)
     ) {
         Text(

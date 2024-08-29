@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 
@@ -51,6 +52,8 @@ internal fun TagBig(
                 }
             },
             style = DevMeetingAppTheme.typography.heading2,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
         )
     }
@@ -92,6 +95,8 @@ internal fun TagMedium(
                 }
             },
             style = DevMeetingAppTheme.typography.bodyText2,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
         )
     }
@@ -133,6 +138,8 @@ internal fun TagSmall(
                 }
             },
             style = DevMeetingAppTheme.typography.metadata1,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
         )
     }
@@ -158,6 +165,8 @@ internal fun BannerTag(
             text = tagText,
             color = DevMeetingAppTheme.colors.buttonTextPurple,
             style = DevMeetingAppTheme.typography.bodyText2,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
         )
     }

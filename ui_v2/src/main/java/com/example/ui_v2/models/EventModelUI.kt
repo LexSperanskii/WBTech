@@ -1,7 +1,7 @@
 package com.example.ui_v2.models
 
 internal data class EventModelUI(
-    val id: Int = 0,
+    val id: String = "",
     val name: String = "",
     val day: Int = 0,
     val month: String = "",
