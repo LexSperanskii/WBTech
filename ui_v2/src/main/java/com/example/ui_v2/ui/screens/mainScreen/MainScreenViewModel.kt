@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 internal data class MainScreenUiState(
+    val isSortedScreen: Boolean = false,
     val searchField: String = "",
     val myEventsList: List<EventModelUI> = listOf(),
     val upcomingEventsList: List<EventModelUI> = listOf(),
@@ -54,17 +55,41 @@ internal class MainScreenViewModel(
     fun getMainScreenUiStateFlow(): StateFlow<MainScreenUiState> = uiState
 
     fun onSearchFieldChange(search: String) {
-        _uiState.update {
-            it.copy(
-                searchField = search,
-            )
+        when (search.isNotBlank()) {
+            true -> {
+                _uiState.update {
+                    it.copy(
+                        isSortedScreen = true,
+                        searchField = search,
+                    )
+                }
+            }
+
+            else -> {
+                _uiState.update {
+                    it.copy(
+                        isSortedScreen = false,
+                        searchField = search,
+                    )
+                }
+            }
         }
+
     }
 
     fun onClearIconClick() {
         _uiState.update {
             it.copy(
+                isSortedScreen = false,
                 searchField = "",
+            )
+        }
+    }
+
+    fun onCancelClick() {
+        _uiState.update {
+            it.copy(
+                isSortedScreen = false,
             )
         }
     }

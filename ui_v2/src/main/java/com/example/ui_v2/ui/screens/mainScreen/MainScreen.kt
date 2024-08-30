@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -20,11 +21,11 @@ import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.Banner
 import com.example.ui_v2.ui.components.CommunitiesCarousel
 import com.example.ui_v2.ui.components.EvensCarousel
+import com.example.ui_v2.ui.components.EvensCarouselBlock
 import com.example.ui_v2.ui.components.EventCard
 import com.example.ui_v2.ui.components.PeopleCarousel
 import com.example.ui_v2.ui.components.SearchFieldBar
 import com.example.ui_v2.ui.components.TagBlock
-import com.example.ui_v2.ui.components.UpcomingEvensCarousel
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -46,11 +47,12 @@ internal fun MainScreen(
 
     Scaffold { innerPadding ->
         MainScreenBody(
+            isSortedScreen = mainScreenUiState.isSortedScreen,
             searchField = mainScreenUiState.searchField,
             onSearchFieldChange = { viewModel.onSearchFieldChange(it) },
             onClearIconClick = { viewModel.onClearIconClick() },
+            onCancelClick = { viewModel.onCancelClick() },
             onUserIconClick = navigateToProfileScreen,
-            onCancelClick = { },
             myEventsList = mainScreenUiState.myEventsList,
             onEventCardClick = { navigateToEventScreen(it.id) },
             upcomingEventsList = mainScreenUiState.upcomingEventsList,
@@ -68,6 +70,11 @@ internal fun MainScreen(
             onBannerTagClick = navigateToBannerScreen,
             listOfPeople = mainScreenUiState.listOfPeople,
             onPersonCardClick = { navigateToOtherUserScreen(it.id) },
+
+            sortedEventsList = mainScreenUiState.myEventsList.take(3),
+            sortedCommunitiesBlockText = mainScreenUiState.communitiesBlockText,
+            sortedCommunitiesBlockList = mainScreenUiState.communitiesList,
+            sortedBlockEventsList = mainScreenUiState.myEventsList,
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -75,11 +82,12 @@ internal fun MainScreen(
 
 @Composable
 internal fun MainScreenBody(
+    isSortedScreen: Boolean,
     searchField: String,
     onSearchFieldChange: (String) -> Unit,
     onClearIconClick: () -> Unit,
-    onUserIconClick: () -> Unit,
     onCancelClick: () -> Unit,
+    onUserIconClick: () -> Unit,
     myEventsList: List<EventModelUI>,
     onEventCardClick: (EventModelUI) -> Unit,
     upcomingEventsList: List<EventModelUI>,
@@ -97,6 +105,11 @@ internal fun MainScreenBody(
     onBannerTagClick: () -> Unit,
     listOfPeople: List<UserModelUI>,
     onPersonCardClick: (UserModelUI) -> Unit,
+
+    sortedEventsList: List<EventModelUI>,
+    sortedCommunitiesBlockText: String,
+    sortedCommunitiesBlockList: List<CommunityModelUI>,
+    sortedBlockEventsList: List<EventModelUI>,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -110,79 +123,100 @@ internal fun MainScreenBody(
                 onClearIconClick = onClearIconClick,
                 onUserIconClick = onUserIconClick,
                 onCancelClick = onCancelClick,
+                isShowProfile = !isSortedScreen,
                 modifier = Modifier
                     .padding(
                         horizontal = DevMeetingAppTheme.dimensions.paddingMedium
                     )
             )
         }
-        item {
-            EvensCarousel(
-                eventsList = myEventsList,
-                onEventCardClick = onEventCardClick,
-                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                modifier = Modifier
-                    .padding(
-                        top = 20.dp
+        when (isSortedScreen) {
+            true -> {
+                items(sortedEventsList) { event ->
+                    EventCard(
+                        event = event,
+                        onEventCardClick = { onEventCardClick(event) },
+                        modifier = Modifier
+                            .padding(
+                                start = DevMeetingAppTheme.dimensions.paddingMedium,
+                                end = DevMeetingAppTheme.dimensions.paddingMedium,
+                                top = 40.dp
+                            )
+                            .fillMaxWidth()
                     )
-            )
-        }
-        item {
-            UpcomingEvensCarousel(
-                blockText = stringResource(id = R.string.upcoming_events),
-                upcomingEventsList = upcomingEventsList,
-                onUpcomingEventCardClick = onEventCardClick,
-                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                modifier = Modifier
-                    .padding(
-                        top = 40.dp
+                }
+                item {
+                    CommunitiesCarousel(
+                        blockText = sortedCommunitiesBlockText,
+                        communitiesList = sortedCommunitiesBlockList,
+                        myCommunitiesList = myCommunitiesList,
+                        onCommunityButtonClick = onCommunityButtonClick,
+                        onCommunityClick = onCommunityClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                        modifier = Modifier
+                            .padding(
+                                top = 40.dp
+                            )
                     )
-            )
-        }
-        item {
-            CommunitiesCarousel(
-                blockText = firstCommunitiesBlockText,
-                communitiesList = firstCommunitiesBlockList,
-                myCommunitiesList = myCommunitiesList,
-                onCommunityButtonClick = onCommunityButtonClick,
-                onCommunityClick = onCommunityClick,
-                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                modifier = Modifier
-                    .padding(
-                        top = 40.dp
+                }
+                item {
+                    EvensCarouselBlock(
+                        blockText = stringResource(id = R.string.upcoming_events),
+                        blockEventsList = sortedBlockEventsList,
+                        onEventCardClick = onEventCardClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                        modifier = Modifier
+                            .padding(
+                                top = 40.dp
+                            )
                     )
-            )
-        }
-        item {
-            TagBlock(
-                blockText = stringResource(id = R.string.block_tag),
-                listOfTags = listOfTags,
-                listOfChosenTags = listOfChosenTags,
-                onTagClick = onTagClick,
-                modifier = Modifier
-                    .padding(
-                        start = DevMeetingAppTheme.dimensions.paddingMedium,
-                        end = DevMeetingAppTheme.dimensions.paddingMedium,
-                        top = 40.dp
+                }
+            }
+
+            else -> {
+                item {
+                    EvensCarousel(
+                        eventsList = myEventsList,
+                        onEventCardClick = onEventCardClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                        modifier = Modifier
+                            .padding(
+                                top = 20.dp
+                            )
                     )
-            )
-        }
-        itemsIndexed(infiniteEventsList) { index, event ->
-            EventCard(
-                event = event,
-                onEventCardClick = { onEventCardClick(event) },
-                modifier = Modifier
-                    .padding(
-                        start = DevMeetingAppTheme.dimensions.paddingMedium,
-                        end = DevMeetingAppTheme.dimensions.paddingMedium,
-                        top = 40.dp
+                }
+                item {
+                    EvensCarouselBlock(
+                        blockText = stringResource(id = R.string.upcoming_events),
+                        blockEventsList = upcomingEventsList,
+                        onEventCardClick = onEventCardClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                        modifier = Modifier
+                            .padding(
+                                top = 40.dp
+                            )
                     )
-                    .fillMaxWidth()
-            )
-            when (index) {
-                2 -> {
-                    Banner(
-                        onBannerTagClick = onBannerTagClick,
+                }
+                item {
+                    CommunitiesCarousel(
+                        blockText = firstCommunitiesBlockText,
+                        communitiesList = firstCommunitiesBlockList,
+                        myCommunitiesList = myCommunitiesList,
+                        onCommunityButtonClick = onCommunityButtonClick,
+                        onCommunityClick = onCommunityClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                        modifier = Modifier
+                            .padding(
+                                top = 40.dp
+                            )
+                    )
+                }
+                item {
+                    TagBlock(
+                        blockText = stringResource(id = R.string.block_tag),
+                        listOfTags = listOfTags,
+                        listOfChosenTags = listOfChosenTags,
+                        onTagClick = onTagClick,
                         modifier = Modifier
                             .padding(
                                 start = DevMeetingAppTheme.dimensions.paddingMedium,
@@ -191,122 +225,62 @@ internal fun MainScreenBody(
                             )
                     )
                 }
-
-                5 -> {
-                    PeopleCarousel(
-                        blockText = stringResource(id = R.string.block_people),
-                        listOfPeople = listOfPeople,
-                        onPersonCardClick = onPersonCardClick,
-                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                        modifier = Modifier
-                            .padding(
-                                top = 40.dp
-                            )
-                    )
-                }
-
-                8 -> {
-                    CommunitiesCarousel(
-                        blockText = secondCommunitiesBlockText,
-                        communitiesList = secondCommunitiesBlockList,
-                        myCommunitiesList = myCommunitiesList,
-                        onCommunityButtonClick = onCommunityButtonClick,
-                        onCommunityClick = onCommunityClick,
-                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                        modifier = Modifier
-                            .padding(
-                                top = 40.dp
-                            )
-                    )
-                }
-            }
-        }
-        when (infiniteEventsList.size) {
-            in 0..2 -> {
-                item {
-                    Banner(
-                        onBannerTagClick = onBannerTagClick,
+                itemsIndexed(infiniteEventsList) { index, event ->
+                    EventCard(
+                        event = event,
+                        onEventCardClick = { onEventCardClick(event) },
                         modifier = Modifier
                             .padding(
                                 start = DevMeetingAppTheme.dimensions.paddingMedium,
                                 end = DevMeetingAppTheme.dimensions.paddingMedium,
                                 top = 40.dp
                             )
+                            .fillMaxWidth()
                     )
-                }
-                item {
-                    PeopleCarousel(
-                        blockText = stringResource(id = R.string.block_people),
-                        listOfPeople = listOfPeople,
-                        onPersonCardClick = onPersonCardClick,
-                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                        modifier = Modifier
-                            .padding(
-                                top = 40.dp
+                    when (index) {
+                        2 -> {
+                            Banner(
+                                onBannerTagClick = onBannerTagClick,
+                                modifier = Modifier
+                                    .padding(
+                                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                                        top = 40.dp
+                                    )
                             )
-                    )
-                }
-                item {
-                    CommunitiesCarousel(
-                        blockText = secondCommunitiesBlockText,
-                        communitiesList = secondCommunitiesBlockList,
-                        myCommunitiesList = myCommunitiesList,
-                        onCommunityButtonClick = onCommunityButtonClick,
-                        onCommunityClick = onCommunityClick,
-                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                        modifier = Modifier
-                            .padding(
-                                top = 40.dp
-                            )
-                    )
-                }
-            }
+                        }
 
-            in 3..5 -> {
-                item {
-                    PeopleCarousel(
-                        blockText = stringResource(id = R.string.block_people),
-                        listOfPeople = listOfPeople,
-                        onPersonCardClick = onPersonCardClick,
-                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                        modifier = Modifier
-                            .padding(
-                                top = 40.dp
+                        5 -> {
+                            PeopleCarousel(
+                                blockText = stringResource(id = R.string.block_people),
+                                listOfPeople = listOfPeople,
+                                onPersonCardClick = onPersonCardClick,
+                                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                                modifier = Modifier
+                                    .padding(
+                                        top = 40.dp
+                                    )
                             )
-                    )
-                }
-                item {
-                    CommunitiesCarousel(
-                        blockText = secondCommunitiesBlockText,
-                        communitiesList = secondCommunitiesBlockList,
-                        myCommunitiesList = myCommunitiesList,
-                        onCommunityButtonClick = onCommunityButtonClick,
-                        onCommunityClick = onCommunityClick,
-                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                        modifier = Modifier
-                            .padding(
-                                top = 40.dp
-                            )
-                    )
-                }
-            }
+                        }
 
-            in 6..8 -> {
-                item {
-                    CommunitiesCarousel(
-                        blockText = secondCommunitiesBlockText,
-                        communitiesList = secondCommunitiesBlockList,
-                        myCommunitiesList = myCommunitiesList,
-                        onCommunityButtonClick = onCommunityButtonClick,
-                        onCommunityClick = onCommunityClick,
-                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                        modifier = Modifier
-                            .padding(
-                                top = 40.dp
+                        8 -> {
+                            CommunitiesCarousel(
+                                blockText = secondCommunitiesBlockText,
+                                communitiesList = secondCommunitiesBlockList,
+                                myCommunitiesList = myCommunitiesList,
+                                onCommunityButtonClick = onCommunityButtonClick,
+                                onCommunityClick = onCommunityClick,
+                                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                                modifier = Modifier
+                                    .padding(
+                                        top = 40.dp
+                                    )
                             )
-                    )
+                        }
+                    }
                 }
             }
         }
+
     }
 }

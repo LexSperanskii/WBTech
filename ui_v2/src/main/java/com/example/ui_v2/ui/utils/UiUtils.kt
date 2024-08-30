@@ -24,10 +24,5 @@ internal object UiUtils {
             }
         }
     }
-    fun generateRandomWord(length: Int): String {
-        val letters = ('a'..'z') + ('A'..'Z').toList()
-        return (1..length)
-            .map { letters.random() }
-            .joinToString("")
-    }
+
 }

@@ -4,7 +4,6 @@ import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.PersonalCommunitiesModelUI
 import com.example.ui_v2.models.UserModelUI
-import com.example.ui_v2.ui.utils.UiUtils.generateRandomWord
 import java.util.UUID
 
 internal class NewUIMockData {
@@ -332,7 +331,7 @@ internal class NewUIMockData {
                 imageURL = listOfRealIcons.random()
             )
         }
-        return realDataListOfCommunities + randomDataListOfCommunities
+        return (realDataListOfCommunities + randomDataListOfCommunities).shuffled()
     }
 
     fun listOfPeople(): List<UserModelUI> {
@@ -376,4 +375,11 @@ internal class NewUIMockData {
         }
         return realDataListOfEvent + randomDataListOfEvent
     }
+}
+
+fun generateRandomWord(length: Int): String {
+    val letters = ('a'..'z') + ('A'..'Z').toList()
+    return (1..length)
+        .map { letters.random() }
+        .joinToString("")
 }

@@ -30,6 +30,7 @@ import com.example.ui_v2.ui.components.CommunitiesCarousel
 import com.example.ui_v2.ui.components.CommunityCard
 import com.example.ui_v2.ui.components.CustomSwitch
 import com.example.ui_v2.ui.components.EvensCarousel
+import com.example.ui_v2.ui.components.EvensCarouselBlock
 import com.example.ui_v2.ui.components.EventCard
 import com.example.ui_v2.ui.components.MorePeople
 import com.example.ui_v2.ui.components.NameSurnameTextField
@@ -42,7 +43,6 @@ import com.example.ui_v2.ui.components.TagBig
 import com.example.ui_v2.ui.components.TagBlock
 import com.example.ui_v2.ui.components.TagMedium
 import com.example.ui_v2.ui.components.TagSmall
-import com.example.ui_v2.ui.components.UpcomingEvensCarousel
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import com.example.ui_v2.ui.utils.ButtonStatus
 
@@ -315,10 +315,10 @@ internal fun DeveloperScreen() {
                 )
             }
             item {
-                UpcomingEvensCarousel(
+                EvensCarouselBlock(
                     blockText = "Ближайшие встречи",
-                    upcomingEventsList = listOfEvents,
-                    onUpcomingEventCardClick = {},
+                    blockEventsList = listOfEvents,
+                    onEventCardClick = {},
                 )
             }
             item {
@@ -348,6 +348,7 @@ internal fun DeveloperScreen() {
             }
             item {
                 SearchFieldBar(
+                    isShowProfile = true,
                     searchField = search,
                     onSearchFieldChange = { search = it },
                     onClearIconClick = { search = "" },

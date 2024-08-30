@@ -37,10 +37,10 @@ internal fun EvensCarousel(
 }
 
 @Composable
-internal fun UpcomingEvensCarousel(
+internal fun EvensCarouselBlock(
     blockText: String,
-    upcomingEventsList: List<EventModelUI>,
-    onUpcomingEventCardClick: (EventModelUI) -> Unit,
+    blockEventsList: List<EventModelUI>,
+    onEventCardClick: (EventModelUI) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -61,10 +61,10 @@ internal fun UpcomingEvensCarousel(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            items(upcomingEventsList) { event ->
+            items(blockEventsList) { event ->
                 EventCard(
                     event = event,
-                    onEventCardClick = { onUpcomingEventCardClick(event) },
+                    onEventCardClick = { onEventCardClick(event) },
                     eventCardWidth = 212.dp
                 )
             }

@@ -41,6 +41,7 @@ internal fun SearchFieldBar(
     onClearIconClick: () -> Unit,
     onUserIconClick: () -> Unit,
     onCancelClick: () -> Unit,
+    isShowProfile: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -53,7 +54,7 @@ internal fun SearchFieldBar(
             onClearIconClick = onClearIconClick,
             modifier = Modifier.weight(1f)
         )
-        when (searchField.isEmpty()) {
+        when (isShowProfile) {
             true -> {
                 Icon(
                     painter = painterResource(id = R.drawable.icon_user),
