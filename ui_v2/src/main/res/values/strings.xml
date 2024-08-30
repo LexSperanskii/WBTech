@@ -61,6 +61,7 @@
     <string name="select_interests">Select interests</string>
     <string name="block_people">You may know them</string>
     <string name="block_tag">Other meetings</string>
+    <string name="nothing_found">Nothing found matching your request</string>
 
     <plurals name="community_people_count">
         <item quantity="zero">%s people</item>

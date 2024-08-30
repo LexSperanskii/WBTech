@@ -1,7 +1,9 @@
 package com.example.ui_v2.ui.screens.mainScreen
 
 import androidx.lifecycle.ViewModel
+import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
+import com.example.ui_v2.models.EventAdvertBlockModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.UserModelUI
 import com.example.ui_v2.ui.utils.NewUIMockData
@@ -11,21 +13,20 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 internal data class MainScreenUiState(
-    val isSortedScreen: Boolean = false,
+    val isShowSortedScreen: Boolean = false,
     val searchField: String = "",
-    val myEventsList: List<EventModelUI> = listOf(),
-    val upcomingEventsList: List<EventModelUI> = listOf(),
-    val communitiesBlockText: String = "",
-    val communitiesList: List<CommunityModelUI> = listOf(),
     val myCommunitiesList: List<CommunityModelUI> = listOf(),
-    val isCommunityButtonClicked: Boolean = false,
+    val primaryEventsList: List<EventModelUI> = listOf(),
+    val upcomingEventsList: List<EventModelUI> = listOf(),
+    val infiniteEventsList: List<EventModelUI> = listOf(),
+    val sortedEventsList: List<EventModelUI> = listOf(),
+    val allCommunitiesList: List<CommunityModelUI> = listOf(),
+    val communitiesAdvertBlock1: CommunitiesAdvertBlockModelUI = CommunitiesAdvertBlockModelUI(),
+    val communitiesAdvertBlock2: CommunitiesAdvertBlockModelUI = CommunitiesAdvertBlockModelUI(),
+    val eventsAdvertBlock: EventAdvertBlockModelUI = EventAdvertBlockModelUI(),
     val listOfTags: List<String> = listOf(),
     val listOfChosenTags: List<String> = listOf(),
     val listOfPeople: List<UserModelUI> = listOf(),
-    val popularCommunitiesBlockText: String = "",
-    val popularCommunitiesList: List<CommunityModelUI> = listOf(),
-    val isPopularCommunityButtonClicked: Boolean = false,
-    val infiniteEventsList: List<EventModelUI> = listOf(),
 )
 
 internal class MainScreenViewModel(
@@ -38,16 +39,17 @@ internal class MainScreenViewModel(
     init {
         _uiState.update {
             it.copy(
-                searchField = "",
-                myEventsList = mock.listOfMyEvents(),
-                upcomingEventsList = mock.listOfMyEvents(),
-                communitiesBlockText = mock.personalCommunities1.nameOfBlock,
-                communitiesList = mock.personalCommunities1.listOfCommunities,
-                listOfTags = mock.listOfTags().take((7..mock.listOfTags().size).random()),
-                listOfPeople = mock.listOfPeople(),
-                popularCommunitiesBlockText = mock.personalCommunities2.nameOfBlock,
-                popularCommunitiesList = mock.personalCommunities2.listOfCommunities,
-                infiniteEventsList = mock.listOfMyEvents()
+                myCommunitiesList = mock.getMyCommunitiesList(),
+                primaryEventsList = mock.listOfMyEvents().take(10),
+                upcomingEventsList = mock.listOfMyEvents().take(10),
+                infiniteEventsList = mock.listOfMyEvents(),
+                allCommunitiesList = mock.allCommunitiesList(),
+                communitiesAdvertBlock1 = mock.communitiesAdvertBlock1,
+                communitiesAdvertBlock2 = mock.communitiesAdvertBlock2,
+                eventsAdvertBlock = mock.eventsAdvertBlock,
+                listOfTags = mock.listOfTags(),
+                listOfChosenTags = mock.getMyChosenTags(),
+                listOfPeople = mock.listOfPeople()
             )
         }
     }
@@ -55,77 +57,86 @@ internal class MainScreenViewModel(
     fun getMainScreenUiStateFlow(): StateFlow<MainScreenUiState> = uiState
 
     fun onSearchFieldChange(search: String) {
-        when (search.isNotBlank()) {
-            true -> {
-                _uiState.update {
-                    it.copy(
-                        isSortedScreen = true,
-                        searchField = search,
-                    )
-                }
-            }
+        _uiState.update {
+            it.copy(
+                isShowSortedScreen = when (search.isBlank()) {
+                    true -> {
+                        false
+                    }
 
-            else -> {
-                _uiState.update {
-                    it.copy(
-                        isSortedScreen = false,
-                        searchField = search,
-                    )
-                }
-            }
+                    else -> {
+                        sortEventList(search)
+                        true
+                    }
+                },
+                searchField = search,
+            )
         }
-
     }
 
     fun onClearIconClick() {
         _uiState.update {
             it.copy(
-                isSortedScreen = false,
                 searchField = "",
             )
         }
+        sortEventList("")
     }
 
     fun onCancelClick() {
         _uiState.update {
             it.copy(
-                isSortedScreen = false,
+                isShowSortedScreen = false,
+                searchField = ""
+            )
+        }
+    }
+
+    private fun sortEventList(search: String) {
+        _uiState.update { it ->
+            it.copy(
+                sortedEventsList = it.infiniteEventsList.filter {
+                    it.name.contains(
+                        search,
+                        ignoreCase = true
+                    )
+                }
             )
         }
     }
 
     fun onCommunityButtonClick(community: CommunityModelUI) {
-        val newMyCommunities = uiState.value.myCommunitiesList.toMutableList()
-        when (newMyCommunities.contains(community)) {
-            true -> {
-                newMyCommunities.remove(community)
-            }
+        _uiState.update { state ->
+            state.copy(
+                myCommunitiesList = when (state.myCommunitiesList.any { it.id == community.id }) {
+                    true -> {
+                        mock.removeFromMyCommunities(community)
+                        state.myCommunitiesList.toMutableList().apply { remove(community) }
+                    }
 
-            else -> {
-                newMyCommunities.add(community)
-            }
-        }
-        _uiState.update {
-            it.copy(
-                myCommunitiesList = newMyCommunities
+                    else -> {
+                        mock.addToMyCommunities(community)
+                        state.myCommunitiesList.toMutableList().apply { add(community) }
+                    }
+                }
             )
         }
     }
 
     fun onTagClick(tag: String) {
-        val newMyTags = uiState.value.listOfChosenTags.toMutableList()
-        when (newMyTags.contains(tag)) {
-            true -> {
-                newMyTags.remove(tag)
-            }
+        _uiState.update { state ->
+            state.copy(
+                listOfChosenTags = when (state.listOfChosenTags.contains(tag)) {
+                    true -> {
+                        mock.removeFromMyChosenTags(tag)
+                        state.listOfChosenTags.toMutableList().apply { remove(tag) }
+                    }
 
-            else -> {
-                newMyTags.add(tag)
-            }
-        }
-        _uiState.update {
-            it.copy(
-                listOfChosenTags = newMyTags
+                    else -> {
+                        mock.addToMyChosenTags(tag)
+                        state.listOfChosenTags.toMutableList().apply { add(tag) }
+                    }
+                }
             )
         }
     }

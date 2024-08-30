@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -14,14 +15,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
+import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
+import com.example.ui_v2.models.EventAdvertBlockModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.UserModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.Banner
-import com.example.ui_v2.ui.components.CommunitiesCarousel
+import com.example.ui_v2.ui.components.CommunitiesAdvertBlockCarousel
+import com.example.ui_v2.ui.components.CommunitiesFixBlockCarousel
+import com.example.ui_v2.ui.components.EvensAdvertBlockCarousel
 import com.example.ui_v2.ui.components.EvensCarousel
-import com.example.ui_v2.ui.components.EvensCarouselBlock
+import com.example.ui_v2.ui.components.EvensFixBlockCarousel
 import com.example.ui_v2.ui.components.EventCard
 import com.example.ui_v2.ui.components.PeopleCarousel
 import com.example.ui_v2.ui.components.SearchFieldBar
@@ -47,34 +52,30 @@ internal fun MainScreen(
 
     Scaffold { innerPadding ->
         MainScreenBody(
-            isSortedScreen = mainScreenUiState.isSortedScreen,
+            isShowSortedScreen = mainScreenUiState.isShowSortedScreen,
             searchField = mainScreenUiState.searchField,
             onSearchFieldChange = { viewModel.onSearchFieldChange(it) },
             onClearIconClick = { viewModel.onClearIconClick() },
             onCancelClick = { viewModel.onCancelClick() },
             onUserIconClick = navigateToProfileScreen,
-            myEventsList = mainScreenUiState.myEventsList,
             onEventCardClick = { navigateToEventScreen(it.id) },
-            upcomingEventsList = mainScreenUiState.upcomingEventsList,
-            infiniteEventsList = mainScreenUiState.infiniteEventsList,
-            firstCommunitiesBlockText = mainScreenUiState.communitiesBlockText,
-            firstCommunitiesBlockList = mainScreenUiState.communitiesList,
-            myCommunitiesList = mainScreenUiState.myCommunitiesList,
             onCommunityButtonClick = { viewModel.onCommunityButtonClick(it) },
             onCommunityClick = { navigateToCommunityScreen(it.id) },
-            secondCommunitiesBlockText = mainScreenUiState.popularCommunitiesBlockText,
-            secondCommunitiesBlockList = mainScreenUiState.popularCommunitiesList,
+            myCommunitiesList = mainScreenUiState.myCommunitiesList,
+            primaryEventsList = mainScreenUiState.primaryEventsList,
+            upcomingEventsList = mainScreenUiState.upcomingEventsList,
+            infiniteEventsList = mainScreenUiState.infiniteEventsList,
+            sortedEventsList = mainScreenUiState.sortedEventsList,
+            allCommunitiesList = mainScreenUiState.allCommunitiesList,
+            communitiesAdvertBlock1 = mainScreenUiState.communitiesAdvertBlock1,
+            communitiesAdvertBlock2 = mainScreenUiState.communitiesAdvertBlock2,
+            eventsAdvertBlock = mainScreenUiState.eventsAdvertBlock,
             listOfTags = mainScreenUiState.listOfTags,
             listOfChosenTags = mainScreenUiState.listOfChosenTags,
             onTagClick = { viewModel.onTagClick(it) },
             onBannerTagClick = navigateToBannerScreen,
             listOfPeople = mainScreenUiState.listOfPeople,
             onPersonCardClick = { navigateToOtherUserScreen(it.id) },
-
-            sortedEventsList = mainScreenUiState.myEventsList.take(3),
-            sortedCommunitiesBlockText = mainScreenUiState.communitiesBlockText,
-            sortedCommunitiesBlockList = mainScreenUiState.communitiesList,
-            sortedBlockEventsList = mainScreenUiState.myEventsList,
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -82,34 +83,30 @@ internal fun MainScreen(
 
 @Composable
 internal fun MainScreenBody(
-    isSortedScreen: Boolean,
+    isShowSortedScreen: Boolean,
     searchField: String,
     onSearchFieldChange: (String) -> Unit,
     onClearIconClick: () -> Unit,
     onCancelClick: () -> Unit,
     onUserIconClick: () -> Unit,
-    myEventsList: List<EventModelUI>,
     onEventCardClick: (EventModelUI) -> Unit,
-    upcomingEventsList: List<EventModelUI>,
-    infiniteEventsList: List<EventModelUI>,
-    firstCommunitiesBlockText: String,
-    firstCommunitiesBlockList: List<CommunityModelUI>,
-    myCommunitiesList: List<CommunityModelUI>,
     onCommunityButtonClick: (CommunityModelUI) -> Unit,
     onCommunityClick: (CommunityModelUI) -> Unit,
-    secondCommunitiesBlockText: String,
-    secondCommunitiesBlockList: List<CommunityModelUI>,
+    myCommunitiesList: List<CommunityModelUI>,
+    primaryEventsList: List<EventModelUI>,
+    upcomingEventsList: List<EventModelUI>,
+    infiniteEventsList: List<EventModelUI>,
+    sortedEventsList: List<EventModelUI>,
+    allCommunitiesList: List<CommunityModelUI>,
+    communitiesAdvertBlock1: CommunitiesAdvertBlockModelUI,
+    communitiesAdvertBlock2: CommunitiesAdvertBlockModelUI,
+    eventsAdvertBlock: EventAdvertBlockModelUI,
     listOfTags: List<String>,
     listOfChosenTags: List<String>,
     onTagClick: (String) -> Unit,
     onBannerTagClick: () -> Unit,
     listOfPeople: List<UserModelUI>,
     onPersonCardClick: (UserModelUI) -> Unit,
-
-    sortedEventsList: List<EventModelUI>,
-    sortedCommunitiesBlockText: String,
-    sortedCommunitiesBlockList: List<CommunityModelUI>,
-    sortedBlockEventsList: List<EventModelUI>,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -123,19 +120,19 @@ internal fun MainScreenBody(
                 onClearIconClick = onClearIconClick,
                 onUserIconClick = onUserIconClick,
                 onCancelClick = onCancelClick,
-                isShowProfile = !isSortedScreen,
+                isShowProfile = !isShowSortedScreen,
                 modifier = Modifier
                     .padding(
                         horizontal = DevMeetingAppTheme.dimensions.paddingMedium
                     )
             )
         }
-        when (isSortedScreen) {
+        when (isShowSortedScreen) {
             true -> {
-                items(sortedEventsList) { event ->
+                items(sortedEventsList) { sortedEvent ->
                     EventCard(
-                        event = event,
-                        onEventCardClick = { onEventCardClick(event) },
+                        event = sortedEvent,
+                        onEventCardClick = { onEventCardClick(sortedEvent) },
                         modifier = Modifier
                             .padding(
                                 start = DevMeetingAppTheme.dimensions.paddingMedium,
@@ -145,10 +142,26 @@ internal fun MainScreenBody(
                             .fillMaxWidth()
                     )
                 }
+                if (sortedEventsList.isEmpty()) {
+                    item {
+                        Text(
+                            text = stringResource(id = R.string.nothing_found),
+                            color = DevMeetingAppTheme.colors.eventCardText,
+                            style = DevMeetingAppTheme.typography.customH2,
+                            modifier = Modifier
+                                .padding(
+                                    start = DevMeetingAppTheme.dimensions.paddingMedium,
+                                    end = DevMeetingAppTheme.dimensions.paddingMedium,
+                                    top = 40.dp
+                                )
+                                .fillMaxWidth()
+                        )
+                    }
+                }
                 item {
-                    CommunitiesCarousel(
-                        blockText = sortedCommunitiesBlockText,
-                        communitiesList = sortedCommunitiesBlockList,
+                    CommunitiesFixBlockCarousel(
+                        blockText = stringResource(id = R.string.communities),
+                        communitiesList = allCommunitiesList,
                         myCommunitiesList = myCommunitiesList,
                         onCommunityButtonClick = onCommunityButtonClick,
                         onCommunityClick = onCommunityClick,
@@ -160,9 +173,8 @@ internal fun MainScreenBody(
                     )
                 }
                 item {
-                    EvensCarouselBlock(
-                        blockText = stringResource(id = R.string.upcoming_events),
-                        blockEventsList = sortedBlockEventsList,
+                    EvensAdvertBlockCarousel(
+                        eventsAdvert = eventsAdvertBlock,
                         onEventCardClick = onEventCardClick,
                         contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
@@ -176,7 +188,7 @@ internal fun MainScreenBody(
             else -> {
                 item {
                     EvensCarousel(
-                        eventsList = myEventsList,
+                        eventsList = primaryEventsList,
                         onEventCardClick = onEventCardClick,
                         contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
@@ -186,7 +198,7 @@ internal fun MainScreenBody(
                     )
                 }
                 item {
-                    EvensCarouselBlock(
+                    EvensFixBlockCarousel(
                         blockText = stringResource(id = R.string.upcoming_events),
                         blockEventsList = upcomingEventsList,
                         onEventCardClick = onEventCardClick,
@@ -198,9 +210,8 @@ internal fun MainScreenBody(
                     )
                 }
                 item {
-                    CommunitiesCarousel(
-                        blockText = firstCommunitiesBlockText,
-                        communitiesList = firstCommunitiesBlockList,
+                    CommunitiesAdvertBlockCarousel(
+                        communitiesAdvert = communitiesAdvertBlock1,
                         myCommunitiesList = myCommunitiesList,
                         onCommunityButtonClick = onCommunityButtonClick,
                         onCommunityClick = onCommunityClick,
@@ -264,9 +275,8 @@ internal fun MainScreenBody(
                         }
 
                         8 -> {
-                            CommunitiesCarousel(
-                                blockText = secondCommunitiesBlockText,
-                                communitiesList = secondCommunitiesBlockList,
+                            CommunitiesAdvertBlockCarousel(
+                                communitiesAdvert = communitiesAdvertBlock2,
                                 myCommunitiesList = myCommunitiesList,
                                 onCommunityButtonClick = onCommunityButtonClick,
                                 onCommunityClick = onCommunityClick,

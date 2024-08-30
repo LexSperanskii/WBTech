@@ -12,3 +12,9 @@ internal data class EventModelUI(
     val imageURL: String = "",
     val listOfTags: List<String> = listOf(),
 )
+
+internal data class EventAdvertBlockModelUI(
+    val id: String = "",
+    val nameOfBlock: String = "",
+    val listOfEvents: List<EventModelUI> = listOf(),
+)

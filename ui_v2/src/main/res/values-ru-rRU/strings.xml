@@ -61,7 +61,7 @@
     <string name="tell_about_interests">Расскажите о своих интересах, чтобы мы рекомендовали полезные встречи</string>
     <string name="select_interests">Выбрать интересы</string>
     <string name="block_people">Вы можете их знать</string>
-    <string name="block_tag">Другие встречи</string>
+    <string name="nothing_found">По вашему запросу ничего не найдено</string>
 
     <plurals name="community_people_count">
         <item quantity="one">%s человек</item>

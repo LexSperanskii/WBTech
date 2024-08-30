@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ui_v2.R
+import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.EventModelUI
@@ -26,11 +27,11 @@ import com.example.ui_v2.ui.components.BackShareBar
 import com.example.ui_v2.ui.components.Banner
 import com.example.ui_v2.ui.components.ButtonWithStatus
 import com.example.ui_v2.ui.components.ClassicSwitch
-import com.example.ui_v2.ui.components.CommunitiesCarousel
+import com.example.ui_v2.ui.components.CommunitiesAdvertBlockCarousel
 import com.example.ui_v2.ui.components.CommunityCard
 import com.example.ui_v2.ui.components.CustomSwitch
 import com.example.ui_v2.ui.components.EvensCarousel
-import com.example.ui_v2.ui.components.EvensCarouselBlock
+import com.example.ui_v2.ui.components.EvensFixBlockCarousel
 import com.example.ui_v2.ui.components.EventCard
 import com.example.ui_v2.ui.components.MorePeople
 import com.example.ui_v2.ui.components.NameSurnameTextField
@@ -45,6 +46,7 @@ import com.example.ui_v2.ui.components.TagMedium
 import com.example.ui_v2.ui.components.TagSmall
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import com.example.ui_v2.ui.utils.ButtonStatus
+import java.util.UUID
 
 internal object DeveloperDestination : NavigationDestination {
     override val route = "developer"
@@ -306,16 +308,19 @@ internal fun DeveloperScreen() {
                 )
             }
             item {
-                CommunitiesCarousel(
-                    blockText = "Сообщества для тестировщиков",
-                    communitiesList = communitiesList,
+                CommunitiesAdvertBlockCarousel(
+                    communitiesAdvert = CommunitiesAdvertBlockModelUI(
+                        id = UUID.randomUUID().toString(),
+                        nameOfBlock = "Сообщества для тестировщиков",
+                        listOfCommunities = communitiesList
+                    ),
                     myCommunitiesList = listOf(),
                     onCommunityButtonClick = { communityButton = !communityButton },
                     onCommunityClick = {}
                 )
             }
             item {
-                EvensCarouselBlock(
+                EvensFixBlockCarousel(
                     blockText = "Ближайшие встречи",
                     blockEventsList = listOfEvents,
                     onEventCardClick = {},

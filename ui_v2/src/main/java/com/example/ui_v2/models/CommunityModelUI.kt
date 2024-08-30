@@ -6,7 +6,7 @@ internal data class CommunityModelUI(
     val imageURL: String = "",
 )
 
-internal data class PersonalCommunitiesModelUI(
+internal data class CommunitiesAdvertBlockModelUI(
     val id: String = "",
     val nameOfBlock: String = "",
     val listOfCommunities: List<CommunityModelUI> = listOf(),

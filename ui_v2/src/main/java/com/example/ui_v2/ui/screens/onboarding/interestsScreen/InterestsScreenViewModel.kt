@@ -2,6 +2,7 @@ package com.example.ui_v2.ui.screens.onboarding.interestsScreen
 
 import androidx.lifecycle.ViewModel
 import com.example.ui_v2.ui.utils.ButtonStatus
+import com.example.ui_v2.ui.utils.NewUIMockData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +17,9 @@ internal data class InterestsScreenUiState(
         get() = listOfChosenTags.isNotEmpty()
 }
 
-internal class InterestsScreenViewModel : ViewModel() {
+internal class InterestsScreenViewModel(
+    private val mock: NewUIMockData,
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(InterestsScreenUiState())
     private val uiState: StateFlow<InterestsScreenUiState> = _uiState.asStateFlow()
@@ -24,15 +27,7 @@ internal class InterestsScreenViewModel : ViewModel() {
     init {
         _uiState.update {
             it.copy(
-                listOfTags = listOf(
-                    "Дизайн",
-                    "Разработка",
-                    "Продакт Менеджмент",
-                    "Проджект менеджмент",
-                    "Backend", "Frontend", "Mobile",
-                    "Тестирование", "Продажи", "Бизнес",
-                    "Безопасность", "Web", "Девопс", "Маркетинг", "Аналитика"
-                ),
+                listOfTags = mock.listOfTags()
             )
         }
     }
@@ -40,19 +35,19 @@ internal class InterestsScreenViewModel : ViewModel() {
     fun getInterestsScreenUiStateFlow(): StateFlow<InterestsScreenUiState> = uiState
 
     fun onTagClick(tag: String) {
-        _uiState.update { currentState ->
-            val updatedList = currentState.listOfChosenTags.toMutableList().apply {
-                when (this.contains(tag)) {
+        _uiState.update { state ->
+            state.copy(
+                listOfChosenTags = when (state.listOfChosenTags.contains(tag)) {
                     true -> {
-                        remove(tag)
+                        mock.removeFromMyChosenTags(tag)
+                        state.listOfChosenTags.toMutableList().apply { remove(tag) }
                     }
-
                     else -> {
-                        add(tag)
+                        mock.addToMyChosenTags(tag)
+                        state.listOfChosenTags.toMutableList().apply { add(tag) }
                     }
                 }
-            }
-            currentState.copy(listOfChosenTags = updatedList)
+            )
         }
     }
 
