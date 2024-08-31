@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.ui_v2.R
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
@@ -18,17 +19,20 @@ import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 @Composable
 internal fun MorePeople(
     quantity: Int,
+    modifier: Modifier = Modifier,
+    size: Dp = 48.dp,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clip(CircleShape)
-            .size(48.dp)
+            .size(size)
+            .background(DevMeetingAppTheme.colors.disabledButtonGray)
             .border(
                 width = 2.dp,
                 color = DevMeetingAppTheme.colors.white,
                 shape = CircleShape
             )
-            .background(DevMeetingAppTheme.colors.disabledButtonGray)
+
     ) {
         Text(
             text = stringResource(id = R.string.number_of_people, quantity),

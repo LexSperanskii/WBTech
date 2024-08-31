@@ -63,8 +63,13 @@
     <string name="block_tag">Other meetings</string>
     <string name="nothing_found">Nothing found matching your request</string>
     <string name="book_appointment">Book an appointment</string>
+    <string name="book_appointment_confirmed">You have an appointment</string>
     <string name="other_community_meetups">Other community meetings</string>
     <string name="organizer">Organizer</string>
+    <string name="participants">They will go to the meeting</string>
+    <string name="no_participants">No one has joined yet</string>
+    <string name="pitcher">Pitcher</string>
+    <string name="event_address">%1$s, %2$s, %3$s</string>
 
     <plurals name="event_people_count">
         <item quantity="zero">No seats available</item>

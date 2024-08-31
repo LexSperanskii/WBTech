@@ -3,12 +3,16 @@ package com.example.ui_v2.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.ui_v2.ui.DeveloperDestination
 import com.example.ui_v2.ui.DeveloperScreen
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreen
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreenDestination
+import com.example.ui_v2.ui.screens.eventScreen.EventScreen
+import com.example.ui_v2.ui.screens.eventScreen.EventScreenDestination
 import com.example.ui_v2.ui.screens.mainScreen.MainScreen
 import com.example.ui_v2.ui.screens.mainScreen.MainScreenDestination
 import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreen
@@ -60,9 +64,26 @@ fun NavHost(
             MainScreen(
                 navigateToOtherUserScreen = {},
                 navigateToCommunityScreen = {},
-                navigateToEventScreen = {},
+                navigateToEventScreen = {
+                    navController.navigate("${EventScreenDestination.route}/${it}")
+                },
                 navigateToBannerScreen = {},
                 navigateToProfileScreen = {},
+            )
+        }
+        composable(
+            route = EventScreenDestination.routeWithArgs,
+            arguments = listOf(navArgument(EventScreenDestination.itemIdArg) {
+                type = NavType.StringType
+            })
+        ) {
+            EventScreen(
+                navigateToEventScreen = {},
+                navigateToPeopleScreen = {},
+                navigateToCommunityScreen = {},
+                navigateBack = { navController.popBackStack() },
+                onShareClick = {},
+                onPitcherClick = {}
             )
         }
     }

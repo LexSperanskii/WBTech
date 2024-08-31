@@ -112,8 +112,8 @@ internal fun InterestsScreenBody(
             }
         }
         ButtonWithStatus(
-            text = stringResource(id = R.string.safe),
-            isEnabled = isButtonEnabled,
+            notPressedText = stringResource(id = R.string.safe),
+            pressedText = stringResource(id = R.string.safe),
             onClick = onButtonClick,
             buttonStatus = buttonStatus,
             modifier = Modifier

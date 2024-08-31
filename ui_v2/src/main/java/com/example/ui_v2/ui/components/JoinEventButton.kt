@@ -81,19 +81,26 @@ internal fun JoinEventButton(
                         vertical = 10.dp
                     )
             ) {
-                Text(
-                    text = LocalContext.current.resources.getQuantityString(
-                        R.plurals.event_people_count,
-                        eventRestCapacity,
-                        eventRestCapacity
-                    ),
-                    color = DevMeetingAppTheme.colors.buttonTextPurple,
-                    style = DevMeetingAppTheme.typography.metadata1,
-                    modifier = Modifier
-                )
+                when (buttonStatus) {
+                    ButtonStatus.Active -> {
+                        Text(
+                            text = LocalContext.current.resources.getQuantityString(
+                                R.plurals.event_people_count,
+                                eventRestCapacity,
+                                eventRestCapacity
+                            ),
+                            color = DevMeetingAppTheme.colors.buttonTextPurple,
+                            style = DevMeetingAppTheme.typography.metadata1,
+                            modifier = Modifier
+                        )
+                    }
+
+                    else -> {}
+                }
+
                 ButtonWithStatus(
-                    text = stringResource(id = R.string.book_appointment),
-                    isEnabled = eventRestCapacity > 0,
+                    notPressedText = stringResource(id = R.string.book_appointment),
+                    pressedText = stringResource(id = R.string.book_appointment_confirmed),
                     onClick = onButtonClick,
                     buttonStatus = buttonStatus,
                     modifier = Modifier

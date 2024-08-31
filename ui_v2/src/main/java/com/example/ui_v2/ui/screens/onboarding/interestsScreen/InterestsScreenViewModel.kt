@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.update
 internal data class InterestsScreenUiState(
     val listOfTags: List<String> = listOf(),
     val listOfChosenTags: List<String> = listOf(),
-    val buttonStatus: ButtonStatus = ButtonStatus.NotPressed,
+    val buttonStatus: ButtonStatus = ButtonStatus.Active,
 ) {
     val isButtonEnabled: Boolean
         get() = listOfChosenTags.isNotEmpty()

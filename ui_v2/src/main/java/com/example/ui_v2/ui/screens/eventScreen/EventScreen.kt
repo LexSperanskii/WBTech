@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -12,12 +13,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
+import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.BackShareBar
 import com.example.ui_v2.ui.components.EvensFixBlockCarousel
+import com.example.ui_v2.ui.components.EventDescriptionBlock
 import com.example.ui_v2.ui.components.JoinEventButton
+import com.example.ui_v2.ui.components.MapBlock
 import com.example.ui_v2.ui.components.OrganizerBlock
+import com.example.ui_v2.ui.components.OverlappingBlock
+import com.example.ui_v2.ui.components.PitcherBlock
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import com.example.ui_v2.ui.utils.ButtonStatus
 import org.koin.androidx.compose.koinViewModel
@@ -25,36 +31,55 @@ import org.koin.androidx.compose.koinViewModel
 
 internal object EventScreenDestination : NavigationDestination {
     override val route = "event_screen"
+    const val itemIdArg = "itemId"
+    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable
 internal fun EventScreen(
-    navigateTo: () -> Unit,
+    navigateToEventScreen: (eventId: String) -> Unit,
+    navigateToPeopleScreen: (eventId: String) -> Unit,
+    navigateToCommunityScreen: (communityId: String) -> Unit,
+    navigateBack: () -> Unit,
+    onShareClick: (eventId: String) -> Unit,
+    onPitcherClick: (userId: String) -> Unit,
     viewModel: EventScreenViewModel = koinViewModel(),
 ) {
     val eventScreenUiState by viewModel.getEventScreenUiStateFlow().collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
-//        EventScreenBody(
-//            modifier = Modifier.padding(innerPadding)
-//        )
+        EventScreenBody(
+            eventDescription = eventScreenUiState.eventDescription,
+            onArrowBackClick = navigateBack,
+            onShareClick = { onShareClick(eventScreenUiState.eventDescription.id) },
+            onPitcherClick = { onPitcherClick(eventScreenUiState.eventDescription.pitcher.id) },
+            onParticipantsRowClick = { navigateToPeopleScreen(eventScreenUiState.eventDescription.id) },
+            isInMyCommunities = eventScreenUiState.isInMyCommunities,
+            onCommunityClick = { navigateToCommunityScreen(eventScreenUiState.eventDescription.organizer.id) },
+            onCommunityButtonClick = { viewModel.onCommunityButtonClick() },
+            otherCommunityEventsList = eventScreenUiState.otherCommunityEventsList,
+            onEventCardClick = { navigateToEventScreen(it.id) },
+            onJoinEventButtonClick = { viewModel.onJoinEventButtonClick() },
+            joinEventButtonStatus = eventScreenUiState.buttonStatus,
+            modifier = Modifier
+                .padding(innerPadding)
+        )
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun EventScreenBody(
-    backBarText: String,
+    eventDescription: EventDescriptionModelUI,
     onArrowBackClick: () -> Unit,
     onShareClick: () -> Unit,
-
-    nameOfCommunity: String,
-    descriptionOfCommunity: String,
-    communityImageURL: String,
+    onPitcherClick: () -> Unit,
+    onParticipantsRowClick: () -> Unit,
+    isInMyCommunities: Boolean,
     onCommunityClick: () -> Unit,
-    onEventCardClick: (EventModelUI) -> Unit,
+    onCommunityButtonClick: () -> Unit,
     otherCommunityEventsList: List<EventModelUI>,
-    eventRestCapacity: Int,
+    onEventCardClick: (EventModelUI) -> Unit,
     onJoinEventButtonClick: () -> Unit,
     joinEventButtonStatus: ButtonStatus,
     modifier: Modifier = Modifier,
@@ -65,22 +90,87 @@ internal fun EventScreenBody(
     ) {
         item {
             BackShareBar(
-                barText = backBarText,
+                barText = eventDescription.name,
                 onArrowClick = onArrowBackClick,
-                onShareClick = onShareClick
+                onShareClick = onShareClick,
+                modifier = Modifier.padding(horizontal = DevMeetingAppTheme.dimensions.paddingMedium)
             )
         }
         item {
-
+            EventDescriptionBlock(
+                eventDescription = eventDescription,
+                modifier = Modifier
+                    .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                        top = 8.dp
+                    )
+            )
+        }
+        item {
+            Text(
+                text = eventDescription.description,
+                style = DevMeetingAppTheme.typography.metadata1,
+                color = DevMeetingAppTheme.colors.black,
+                modifier = Modifier
+                    .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                        top = 32.dp
+                    )
+            )
+        }
+        item {
+            PitcherBlock(
+                pitcher = eventDescription.pitcher,
+                onPitcherClick = onPitcherClick,
+                modifier = Modifier
+                    .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                        top = 32.dp
+                    )
+            )
+        }
+        item {
+            MapBlock(
+                address = stringResource(
+                    id = R.string.event_address,
+                    eventDescription.city,
+                    eventDescription.street,
+                    eventDescription.building
+                ),
+                metro = eventDescription.metroStation,
+                modifier = Modifier
+                    .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                        top = 32.dp
+                    )
+            )
+        }
+        item {
+            OverlappingBlock(
+                participantsList = eventDescription.listOfParticipants,
+                onOverlappingRowClick = onParticipantsRowClick,
+                modifier = Modifier
+                    .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                        top = 32.dp
+                    )
+            )
         }
         item {
             OrganizerBlock(
-                nameOfCommunity = nameOfCommunity,
-                descriptionOfCommunity = descriptionOfCommunity,
-                communityImageURL = communityImageURL,
+                orgCommunity = eventDescription.organizer,
+                isInMyCommunities = isInMyCommunities,
                 onCommunityClick = onCommunityClick,
+                onCommunityButtonClick = onCommunityButtonClick,
                 modifier = Modifier
                     .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
                         top = 32.dp
                     )
             )
@@ -99,7 +189,7 @@ internal fun EventScreenBody(
         }
         stickyHeader {
             JoinEventButton(
-                eventRestCapacity = eventRestCapacity,
+                eventRestCapacity = eventDescription.availableCapacity,
                 onButtonClick = onJoinEventButtonClick,
                 buttonStatus = joinEventButtonStatus
             )

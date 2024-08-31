@@ -37,6 +37,7 @@ import com.example.ui_v2.ui.components.JoinEventButton
 import com.example.ui_v2.ui.components.MorePeople
 import com.example.ui_v2.ui.components.NameSurnameTextField
 import com.example.ui_v2.ui.components.NetworkIcon
+import com.example.ui_v2.ui.components.OverlappingPeopleRow
 import com.example.ui_v2.ui.components.PeopleCarousel
 import com.example.ui_v2.ui.components.PersonCard
 import com.example.ui_v2.ui.components.PhoneNumberInput
@@ -250,6 +251,26 @@ internal fun DeveloperScreen() {
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         )
     )
+    val listOfPeople2 = listOf(
+        UserModelUI(
+            id = "0",
+            name = "Маша",
+            tag = "Разработка",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ),
+        UserModelUI(
+            id = "1",
+            name = "Коля",
+            tag = "Менеджмент",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        ),
+        UserModelUI(
+            id = "2",
+            name = "Миша",
+            tag = "Тестирование",
+            imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
+        )
+    )
     val availableCountries = listOf(
         CountryModelUI("Россия", "+7", R.drawable.flag_ru),
         CountryModelUI("Казахстан", "+7", R.drawable.flag_kz),
@@ -276,10 +297,17 @@ internal fun DeveloperScreen() {
             contentPadding = PaddingValues(24.dp)
         ) {
             item {
+                OverlappingPeopleRow(
+                    participantsList = listOfPeople2,
+                    onOverlappingRowClick = {},
+                    reverse = true
+                )
+            }
+            item {
                 JoinEventButton(
                     eventRestCapacity = 1,
                     onButtonClick = { },
-                    buttonStatus = ButtonStatus.NotPressed
+                    buttonStatus = ButtonStatus.Active
                 )
             }
             item {
@@ -479,34 +507,42 @@ internal fun DeveloperScreen() {
             }
             item {
                 ButtonWithStatus(
-                    text = "Оплатить",
-                    isEnabled = true,
+                    notPressedText = "Оплатить",
+                    pressedText = "Оплатить",
                     onClick = {},
-                    buttonStatus = ButtonStatus.NotPressed
+                    buttonStatus = ButtonStatus.Active
                 )
             }
             item {
                 ButtonWithStatus(
-                    text = "Оплатить",
-                    isEnabled = false,
+                    notPressedText = "Оплатить",
+                    pressedText = "Оплатить",
                     onClick = {},
-                    buttonStatus = ButtonStatus.NotPressed
+                    buttonStatus = ButtonStatus.Active
                 )
             }
             item {
                 ButtonWithStatus(
-                    text = "Оплатить",
-                    isEnabled = true,
+                    notPressedText = "Оплатить",
+                    pressedText = "Оплатить",
                     onClick = {},
                     buttonStatus = ButtonStatus.Loading
                 )
             }
             item {
                 ButtonWithStatus(
-                    text = "Оплачено",
-                    isEnabled = true,
+                    notPressedText = "Оплатить",
+                    pressedText = "Оплатить",
                     onClick = {},
                     buttonStatus = ButtonStatus.Pressed
+                )
+            }
+            item {
+                ButtonWithStatus(
+                    notPressedText = "Оплатить",
+                    pressedText = "Оплатить",
+                    onClick = {},
+                    buttonStatus = ButtonStatus.Disabled
                 )
             }
 

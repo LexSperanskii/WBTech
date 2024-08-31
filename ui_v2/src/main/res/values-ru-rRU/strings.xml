@@ -61,10 +61,16 @@
     <string name="tell_about_interests">Расскажите о своих интересах, чтобы мы рекомендовали полезные встречи</string>
     <string name="select_interests">Выбрать интересы</string>
     <string name="block_people">Вы можете их знать</string>
+    <string name="block_tag">Другие встречи</string>
     <string name="nothing_found">По вашему запросу ничего не найдено</string>
     <string name="book_appointment">Записаться на встречу</string>
+    <string name="book_appointment_confirmed">Вы записаны на встречу</string>
     <string name="other_community_meetups">Другие встречи сообщества</string>
     <string name="organizer">Организатор</string>
+    <string name="participants">Пойдут на встречу</string>
+    <string name="no_participants">Никто еще не присоединился</string>
+    <string name="pitcher">Ведущий</string>
+    <string name="event_address">%1$s, %2$s, %3$s</string>
 
     <plurals name="event_people_count">
         <item quantity="zero">Места закончились</item>

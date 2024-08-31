@@ -72,6 +72,7 @@ internal fun CommunityCard(
         ButtonForCommunityCard(
             isClicked = isCommunityButtonClicked,
             onCommunityButtonClick = onCommunityButtonClick,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -98,8 +99,7 @@ internal fun ButtonForCommunityCard(
                     }
                 }
             )
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(8.dp)
     ) {
         Icon(
             painter = when (isClicked) {

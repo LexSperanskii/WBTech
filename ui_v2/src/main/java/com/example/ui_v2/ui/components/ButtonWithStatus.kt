@@ -18,26 +18,34 @@ import com.example.ui_v2.ui.utils.ButtonStatus
 
 @Composable
 internal fun ButtonWithStatus(
-    text: String,
-    isEnabled: Boolean,
+    notPressedText: String,
+    pressedText: String,
     onClick: () -> Unit,
     buttonStatus: ButtonStatus,
     modifier: Modifier = Modifier,
 ) {
     Button(
         onClick = onClick,
-        enabled = isEnabled,
+        enabled = when (buttonStatus) {
+            ButtonStatus.Disabled -> {
+                false
+            }
+
+            else -> {
+                true
+            }
+        },
         shape = RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium),
         modifier = modifier
             .fillMaxWidth()
             .heightIn(56.dp)
             .background(
                 brush = when (buttonStatus) {
-                    ButtonStatus.NotPressed, ButtonStatus.Loading -> {
+                    ButtonStatus.Active, ButtonStatus.Loading -> {
                         DevMeetingAppTheme.brush.buttonGradientPrimary
                     }
 
-                    ButtonStatus.Pressed -> {
+                    else -> {
                         DevMeetingAppTheme.brush.buttonGradientSecondary
                     }
                 },
@@ -48,7 +56,6 @@ internal fun ButtonWithStatus(
                 ButtonStatus.Pressed -> {
                     DevMeetingAppTheme.colors.buttonTextPurple
                 }
-
                 else -> {
                     DevMeetingAppTheme.colors.white
                 }
@@ -59,7 +66,8 @@ internal fun ButtonWithStatus(
         ),
     ) {
         ButtonContent(
-            text = text,
+            notPressedText = notPressedText,
+            pressedText = pressedText,
             buttonStatus = buttonStatus
         )
     }
@@ -67,22 +75,35 @@ internal fun ButtonWithStatus(
 
 @Composable
 private fun ButtonContent(
-    text: String,
+    notPressedText: String,
+    pressedText: String,
     buttonStatus: ButtonStatus,
 ) {
     when (buttonStatus) {
-        ButtonStatus.NotPressed, ButtonStatus.Pressed -> {
+        ButtonStatus.Active -> {
             Text(
-                text = text,
+                text = notPressedText,
                 style = DevMeetingAppTheme.typography.subheading2
             )
         }
 
+        ButtonStatus.Pressed -> {
+            Text(
+                text = pressedText,
+                style = DevMeetingAppTheme.typography.subheading2
+            )
+        }
         ButtonStatus.Loading -> {
             CircularProgressIndicator(
                 strokeWidth = 2.dp,
                 color = DevMeetingAppTheme.colors.white,
                 modifier = Modifier.size(20.dp)
+            )
+        }
+        ButtonStatus.Disabled -> {
+            Text(
+                text = notPressedText,
+                style = DevMeetingAppTheme.typography.subheading2
             )
         }
     }
