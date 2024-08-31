@@ -62,13 +62,14 @@
     <string name="block_people">You may know them</string>
     <string name="block_tag">Other meetings</string>
     <string name="nothing_found">Nothing found matching your request</string>
+    <string name="book_appointment">Book an appointment</string>
+    <string name="other_community_meetups">Other community meetings</string>
+    <string name="organizer">Organizer</string>
 
-    <plurals name="community_people_count">
-        <item quantity="zero">%s people</item>
-        <item quantity="one">%s man</item>
-        <item quantity="two">%s people</item>
-        <item quantity="few">%s people</item>
-        <item quantity="many">%s people</item>
-        <item quantity="other">%s people</item>
+    <plurals name="event_people_count">
+        <item quantity="zero">No seats available</item>
+        <item quantity="one">Only %d place. If you change your mind - unsubscribe</item>
+        <item quantity="many">Only %d places. If you change your mind - unsubscribe</item>
+        <item quantity="other">If you change your mind - unsubscribe</item>
     </plurals>
 </resources>

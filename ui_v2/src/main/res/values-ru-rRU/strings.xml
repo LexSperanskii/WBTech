@@ -62,11 +62,15 @@
     <string name="select_interests">Выбрать интересы</string>
     <string name="block_people">Вы можете их знать</string>
     <string name="nothing_found">По вашему запросу ничего не найдено</string>
+    <string name="book_appointment">Записаться на встречу</string>
+    <string name="other_community_meetups">Другие встречи сообщества</string>
+    <string name="organizer">Организатор</string>
 
-    <plurals name="community_people_count">
-        <item quantity="one">%s человек</item>
-        <item quantity="few">%s человека</item>
-        <item quantity="many">%s человек</item>
-        <item quantity="other">%s человек</item>
+    <plurals name="event_people_count">
+        <item quantity="zero">Места закончились</item>
+        <item quantity="one">Всего %d место. Если передумаете — отпишитесь</item>
+        <item quantity="few">Всего %d места. Если передумаете — отпишитесь</item>
+        <item quantity="many">Всего %d мест. Если передумаете — отпишитесь</item>
+        <item quantity="other">Если передумаете — отпишитесь</item>
     </plurals>
 </resources>

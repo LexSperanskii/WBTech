@@ -33,6 +33,7 @@ import com.example.ui_v2.ui.components.CustomSwitch
 import com.example.ui_v2.ui.components.EvensCarousel
 import com.example.ui_v2.ui.components.EvensFixBlockCarousel
 import com.example.ui_v2.ui.components.EventCard
+import com.example.ui_v2.ui.components.JoinEventButton
 import com.example.ui_v2.ui.components.MorePeople
 import com.example.ui_v2.ui.components.NameSurnameTextField
 import com.example.ui_v2.ui.components.NetworkIcon
@@ -274,6 +275,13 @@ internal fun DeveloperScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(24.dp)
         ) {
+            item {
+                JoinEventButton(
+                    eventRestCapacity = 1,
+                    onButtonClick = { },
+                    buttonStatus = ButtonStatus.NotPressed
+                )
+            }
             item {
                 PeopleCarousel(
                     blockText = "Вы можете их знать",
