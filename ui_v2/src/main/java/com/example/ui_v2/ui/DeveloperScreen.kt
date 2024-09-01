@@ -306,7 +306,7 @@ internal fun DeveloperScreen() {
                         description = "Ведущий специалист по подбору персонала в одной из крупнейших IT-компаний в ЕС.",
                         imageURL = "https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg"
                     ),
-                    onPitcherClick = { /*TODO*/ }
+                    onPitcherClick = { }
                 )
             }
             item {
