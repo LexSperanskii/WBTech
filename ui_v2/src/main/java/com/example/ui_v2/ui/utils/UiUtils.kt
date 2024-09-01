@@ -3,8 +3,7 @@ package com.example.ui_v2.ui.utils
 internal enum class ButtonStatus {
     Active,
     Loading,
-    Pressed,
-    Disabled
+    Pressed
 }
 
 internal object UiUtils {

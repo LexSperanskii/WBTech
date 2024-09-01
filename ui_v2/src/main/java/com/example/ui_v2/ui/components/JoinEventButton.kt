@@ -30,6 +30,7 @@ internal fun JoinEventButton(
     eventRestCapacity: Int,
     onButtonClick: () -> Unit,
     buttonStatus: ButtonStatus,
+    isButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     shadowElevation: Dp = 8.dp,
 ) {
@@ -82,16 +83,9 @@ internal fun JoinEventButton(
                     )
             ) {
                 when (buttonStatus) {
-                    ButtonStatus.Active -> {
-                        Text(
-                            text = LocalContext.current.resources.getQuantityString(
-                                R.plurals.event_people_count,
-                                eventRestCapacity,
-                                eventRestCapacity
-                            ),
-                            color = DevMeetingAppTheme.colors.buttonTextPurple,
-                            style = DevMeetingAppTheme.typography.metadata1,
-                            modifier = Modifier
+                    ButtonStatus.Active, ButtonStatus.Loading -> {
+                        CustomButtonText(
+                            eventRestCapacity = eventRestCapacity
                         )
                     }
 
@@ -103,10 +97,35 @@ internal fun JoinEventButton(
                     pressedText = stringResource(id = R.string.book_appointment_confirmed),
                     onClick = onButtonClick,
                     buttonStatus = buttonStatus,
+                    isButtonEnabled = isButtonEnabled,
                     modifier = Modifier
                         .padding(bottom = 14.dp)
                 )
             }
         }
     }
+}
+
+@Composable
+private fun CustomButtonText(
+    eventRestCapacity: Int,
+) {
+    Text(
+        text = when (eventRestCapacity) {
+            0 -> {
+                stringResource(id = R.string.no_spare_place)
+            }
+
+            else -> {
+                LocalContext.current.resources.getQuantityString(
+                    R.plurals.event_people_count,
+                    eventRestCapacity,
+                    eventRestCapacity
+                )
+            }
+        },
+        color = DevMeetingAppTheme.colors.buttonTextPurple,
+        style = DevMeetingAppTheme.typography.metadata1,
+        modifier = Modifier
+    )
 }

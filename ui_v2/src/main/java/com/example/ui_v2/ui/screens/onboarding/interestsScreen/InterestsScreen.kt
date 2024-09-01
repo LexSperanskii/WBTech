@@ -116,6 +116,7 @@ internal fun InterestsScreenBody(
             pressedText = stringResource(id = R.string.safe),
             onClick = onButtonClick,
             buttonStatus = buttonStatus,
+            isButtonEnabled = isButtonEnabled,
             modifier = Modifier
                 .padding(
                     top = 24.dp,

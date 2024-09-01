@@ -40,16 +40,16 @@ internal class MainScreenViewModel(
         _uiState.update {
             it.copy(
                 myCommunitiesList = mock.getMyCommunitiesList(),
-                primaryEventsList = mock.listOfMyEvents().take(10),
-                upcomingEventsList = mock.listOfMyEvents().take(10),
-                infiniteEventsList = mock.listOfMyEvents(),
-                allCommunitiesList = mock.allCommunitiesList(),
+                primaryEventsList = mock.getListOfEvents().take(10),
+                upcomingEventsList = mock.getListOfEvents().take(10),
+                infiniteEventsList = mock.getListOfEvents(),
+                allCommunitiesList = mock.getListOfCommunities(),
                 communitiesAdvertBlock1 = mock.communitiesAdvertBlock1,
                 communitiesAdvertBlock2 = mock.communitiesAdvertBlock2,
                 eventsAdvertBlock = mock.eventsAdvertBlock,
-                listOfTags = mock.listOfTags(),
+                listOfTags = mock.getListOfTags(),
                 listOfChosenTags = mock.getMyChosenTags(),
-                listOfPeople = mock.listOfPeople()
+                listOfPeople = mock.getListOfPeople()
             )
         }
     }

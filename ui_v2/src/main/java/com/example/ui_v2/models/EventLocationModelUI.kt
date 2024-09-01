@@ -2,6 +2,6 @@ package com.example.ui_v2.models
 
 
 internal data class EventLocationModelUI(
-    val description: String = "",
-    val pitcher: UserModelUI = UserModelUI(),
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0,
 )

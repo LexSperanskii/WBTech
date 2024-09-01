@@ -20,21 +20,14 @@ import com.example.ui_v2.ui.utils.ButtonStatus
 internal fun ButtonWithStatus(
     notPressedText: String,
     pressedText: String,
+    isButtonEnabled: Boolean,
     onClick: () -> Unit,
     buttonStatus: ButtonStatus,
     modifier: Modifier = Modifier,
 ) {
     Button(
         onClick = onClick,
-        enabled = when (buttonStatus) {
-            ButtonStatus.Disabled -> {
-                false
-            }
-
-            else -> {
-                true
-            }
-        },
+        enabled = isButtonEnabled,
         shape = RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium),
         modifier = modifier
             .fillMaxWidth()
@@ -98,12 +91,6 @@ private fun ButtonContent(
                 strokeWidth = 2.dp,
                 color = DevMeetingAppTheme.colors.white,
                 modifier = Modifier.size(20.dp)
-            )
-        }
-        ButtonStatus.Disabled -> {
-            Text(
-                text = notPressedText,
-                style = DevMeetingAppTheme.typography.subheading2
             )
         }
     }

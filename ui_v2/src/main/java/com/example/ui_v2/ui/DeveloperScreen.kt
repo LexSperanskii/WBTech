@@ -41,6 +41,7 @@ import com.example.ui_v2.ui.components.OverlappingPeopleRow
 import com.example.ui_v2.ui.components.PeopleCarousel
 import com.example.ui_v2.ui.components.PersonCard
 import com.example.ui_v2.ui.components.PhoneNumberInput
+import com.example.ui_v2.ui.components.PitcherBlock
 import com.example.ui_v2.ui.components.SearchFieldBar
 import com.example.ui_v2.ui.components.TagBig
 import com.example.ui_v2.ui.components.TagBlock
@@ -297,6 +298,18 @@ internal fun DeveloperScreen() {
             contentPadding = PaddingValues(24.dp)
         ) {
             item {
+                PitcherBlock(
+                    pitcher = UserModelUI(
+                        id = "0",
+                        name = "Павел Хориков",
+                        tag = "HR",
+                        description = "Ведущий специалист по подбору персонала в одной из крупнейших IT-компаний в ЕС.",
+                        imageURL = "https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg"
+                    ),
+                    onPitcherClick = { /*TODO*/ }
+                )
+            }
+            item {
                 OverlappingPeopleRow(
                     participantsList = listOfPeople2,
                     onOverlappingRowClick = {},
@@ -307,7 +320,8 @@ internal fun DeveloperScreen() {
                 JoinEventButton(
                     eventRestCapacity = 1,
                     onButtonClick = { },
-                    buttonStatus = ButtonStatus.Active
+                    buttonStatus = ButtonStatus.Active,
+                    isButtonEnabled = true
                 )
             }
             item {
@@ -510,7 +524,8 @@ internal fun DeveloperScreen() {
                     notPressedText = "Оплатить",
                     pressedText = "Оплатить",
                     onClick = {},
-                    buttonStatus = ButtonStatus.Active
+                    buttonStatus = ButtonStatus.Active,
+                    isButtonEnabled = true
                 )
             }
             item {
@@ -518,7 +533,8 @@ internal fun DeveloperScreen() {
                     notPressedText = "Оплатить",
                     pressedText = "Оплатить",
                     onClick = {},
-                    buttonStatus = ButtonStatus.Active
+                    buttonStatus = ButtonStatus.Active,
+                    isButtonEnabled = true
                 )
             }
             item {
@@ -526,7 +542,8 @@ internal fun DeveloperScreen() {
                     notPressedText = "Оплатить",
                     pressedText = "Оплатить",
                     onClick = {},
-                    buttonStatus = ButtonStatus.Loading
+                    buttonStatus = ButtonStatus.Loading,
+                    isButtonEnabled = true
                 )
             }
             item {
@@ -534,7 +551,8 @@ internal fun DeveloperScreen() {
                     notPressedText = "Оплатить",
                     pressedText = "Оплатить",
                     onClick = {},
-                    buttonStatus = ButtonStatus.Pressed
+                    buttonStatus = ButtonStatus.Pressed,
+                    isButtonEnabled = true
                 )
             }
             item {
@@ -542,7 +560,8 @@ internal fun DeveloperScreen() {
                     notPressedText = "Оплатить",
                     pressedText = "Оплатить",
                     onClick = {},
-                    buttonStatus = ButtonStatus.Disabled
+                    buttonStatus = ButtonStatus.Active,
+                    isButtonEnabled = false
                 )
             }
 

@@ -1,14 +1,27 @@
 package com.example.ui_v2.ui.utils
 
+import androidx.compose.ui.graphics.Color
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventAdvertBlockModelUI
+import com.example.ui_v2.models.EventDescriptionModelUI
+import com.example.ui_v2.models.EventLocationModelUI
 import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.MetroModelUI
 import com.example.ui_v2.models.UserModelUI
 import java.util.UUID
 
 internal class NewUIMockData {
 
+    private val colors = listOf(Color.Green, Color.Red, Color.Blue, Color.Yellow)
+    private val metroStations = listOf(
+        "Приморская",
+        "Улица Дыбенко",
+        "Проспект Большевиков",
+        "Адмиралтейская",
+        "Спасская",
+        "Гостинный Двор"
+    )
     private val listOfRealTags = listOf(
         "Тестирование",
         "Разработка",
@@ -19,7 +32,11 @@ internal class NewUIMockData {
         "Дизайн",
         "Mobile",
         "FrontEnd",
-        "ГачиМучи"
+        "Гачи",
+        "Мучи",
+        "DevOps",
+        "HR",
+        "Бухгалтерия"
     )
     private val listOfRealIcons = listOf(
         "https://i.pinimg.com/564x/dc/c4/ef/dcc4ef15c657260d1d13331daf3a13c8.jpg",
@@ -292,8 +309,51 @@ internal class NewUIMockData {
             listOfTags = listOf("Гачи", "Мучи", "BackEnd")
         )
     )
+    private val listOfRealUsers = List(20) { index ->
+        UserModelUI(
+            id = "$index",
+            name = generateRandomWord((7..15).random()),
+            tag = listOfRealTags.random(),
+            description = generateRandomWord((50..100).random()),
+            imageURL = listOfRealIcons.random()
+        )
+    }
+    private val listOfRealCommunities = List(20) { index ->
+        CommunityModelUI(
+            id = "$index",
+            name = generateRandomWord((7..15).random()),
+            description = generateRandomWord((50..100).random()),
+            imageURL = listOfRealIcons.random()
+        )
+    }
+    private val listOfRealEventDescriptions = List(20) { index ->
+        EventDescriptionModelUI(
+            id = listOfRealEvents[index].id,
+            name = listOfRealEvents[index].name,
+            day = listOfRealEvents[index].day,
+            month = listOfRealEvents[index].month,
+            year = listOfRealEvents[index].year,
+            city = listOfRealEvents[index].city,
+            street = listOfRealEvents[index].street,
+            building = listOfRealEvents[index].building,
+            imageURL = listOfRealEvents[index].imageURL,
+            listOfTags = listOfRealEvents[index].listOfTags,
+            description = generateRandomWord((200..400).random()),
+            pitcher = listOfRealUsers[index],
+            location = EventLocationModelUI(),
+            metroStation = MetroModelUI(
+                name = metroStations.random(),
+                tint = colors.random()
+            ),
+            listOfParticipants = getListOfPeople().shuffled().take((5..15).random()),
+            organizer = listOfRealCommunities[index],
+            availableCapacity = index,
+        )
+    }
+
     private val myCommunitiesList = mutableListOf<CommunityModelUI>()
     private val myChosenTags = mutableListOf<String>()
+
 
     fun getMyCommunitiesList(): List<CommunityModelUI> = myCommunitiesList
     fun addToMyCommunities(community: CommunityModelUI) = myCommunitiesList.add(community)
@@ -306,84 +366,29 @@ internal class NewUIMockData {
     val communitiesAdvertBlock1 = CommunitiesAdvertBlockModelUI(
         id = UUID.randomUUID().toString(),
         nameOfBlock = "Сообщества для тестировщиков",
-        listOfCommunities = allCommunitiesList().take(5)
+        listOfCommunities = getListOfCommunities().take(5)
     )
     val communitiesAdvertBlock2 = CommunitiesAdvertBlockModelUI(
         id = UUID.randomUUID().toString(),
         nameOfBlock = "Популярные сообщества в IT",
-        listOfCommunities = allCommunitiesList().take(12)
+        listOfCommunities = getListOfCommunities().take(12)
     )
     val eventsAdvertBlock = EventAdvertBlockModelUI(
         id = UUID.randomUUID().toString(),
         nameOfBlock = "Встречи для разработчиков",
-        listOfEvents = listOfMyEvents().take(10)
+        listOfEvents = getListOfEvents().take(10)
     )
 
-    fun allCommunitiesList(): List<CommunityModelUI> {
-        val realDataListOfCommunities = listOf(
-            CommunityModelUI(
-                id = "0",
-                name = "Хабр",
-                imageURL = "https://i.pinimg.com/736x/93/ef/d8/93efd8084d7a45602665b45c5e8a707a.jpg"
-            ),
-            CommunityModelUI(
-                id = "1",
-                name = "The IT Crowd",
-                imageURL = "https://i.pinimg.com/564x/63/a1/03/63a103287c81e84ebda348010d09a734.jpg"
-            ),
-            CommunityModelUI(
-                id = "2",
-                name = "Супер тестировщики",
-                imageURL = "https://i.pinimg.com/564x/fd/d5/49/fdd5492da7a8b705cbe1a66bd5cb42ef.jpg"
-            ),
-        )
-        val randomDataListOfCommunities = List((10..20).random()) {
-            CommunityModelUI(
-                id = UUID.randomUUID().toString(),
-                name = generateRandomWord((2..7).random()) + generateRandomWord((2..7).random()),
-                imageURL = listOfRealIcons.random()
-            )
-        }
-        return (realDataListOfCommunities + randomDataListOfCommunities).shuffled()
-    }
+    fun getListOfCommunities(): List<CommunityModelUI> = listOfRealCommunities
 
-    fun listOfPeople(): List<UserModelUI> {
-        val userList = List((10..20).random()) {
-            UserModelUI(
-                id = UUID.randomUUID().toString(),
-                name = generateRandomWord((2..15).random()),
-                tag = listOfRealTags.random(),
-                imageURL = listOfRealIcons.random()
-            )
-        }
-        return userList
-    }
+    fun getListOfPeople(): List<UserModelUI> = listOfRealUsers
 
-    fun listOfTags(): List<String> {
-        val realDataListOfTags = listOfRealTags
-        val randomDataListOfTags = List((1..5).random()) {
-            generateRandomWord((2..10).random())
-        }
-        return (realDataListOfTags + randomDataListOfTags).shuffled()
-    }
+    fun getListOfTags(): List<String> = listOfRealTags
 
-    fun listOfMyEvents(): List<EventModelUI> {
-        val realDataListOfEvent = listOfRealEvents
-        val randomDataListOfEvent = List((2..5).random()) {
-            EventModelUI(
-                id = UUID.randomUUID().toString(),
-                name = generateRandomWord((2..5).random()) + generateRandomWord((2..5).random()),
-                day = (1..31).random(),
-                month = generateRandomWord((4..7).random()),
-                year = (2024..2030).random(),
-                city = generateRandomWord((4..20).random()),
-                street = generateRandomWord((2..7).random()) + generateRandomWord((2..20).random()),
-                building = (1..200).random().toString() + generateRandomWord(1),
-                imageURL = listOfRealIcons.random(),
-                listOfTags = listOfTags().take((1..5).random())
-            )
-        }
-        return (realDataListOfEvent + randomDataListOfEvent).shuffled()
+    fun getListOfEvents(): List<EventModelUI> = listOfRealEvents
+
+    fun getEventDescription(eventId: String): EventDescriptionModelUI {
+        return listOfRealEventDescriptions.find { it.id == eventId } ?: EventDescriptionModelUI()
     }
 }
 

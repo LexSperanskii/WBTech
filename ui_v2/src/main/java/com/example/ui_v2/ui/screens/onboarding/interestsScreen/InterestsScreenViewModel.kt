@@ -27,7 +27,7 @@ internal class InterestsScreenViewModel(
     init {
         _uiState.update {
             it.copy(
-                listOfTags = mock.listOfTags()
+                listOfTags = mock.getListOfTags()
             )
         }
     }

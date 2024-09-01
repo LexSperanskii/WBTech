@@ -22,6 +22,8 @@ internal data class EventScreenUiState(
 ) {
     val isInMyCommunities: Boolean
         get() = myCommunitiesList.any { it.id == eventDescription.organizer.id }
+    val isJoinEventButtonEnabled: Boolean
+        get() = eventDescription.availableCapacity > 0
 }
 
 internal class EventScreenViewModel(
@@ -42,7 +44,9 @@ internal class EventScreenViewModel(
     init {
         _uiState.update {
             it.copy(
-                eventDescription = EventDescriptionModelUI()
+                eventDescription = mock.getEventDescription(eventId),
+                myCommunitiesList = mock.getMyCommunitiesList(),
+                otherCommunityEventsList = mock.getListOfEvents().take(10),
             )
         }
     }
@@ -72,7 +76,15 @@ internal class EventScreenViewModel(
     fun onJoinEventButtonClick() {
         _uiState.update { state ->
             state.copy(
-                buttonStatus = ButtonStatus.Pressed
+                buttonStatus = when (state.buttonStatus) {
+                    ButtonStatus.Active -> {
+                        ButtonStatus.Pressed
+                    }
+
+                    else -> {
+                        ButtonStatus.Active
+                    }
+                }
             )
         }
     }

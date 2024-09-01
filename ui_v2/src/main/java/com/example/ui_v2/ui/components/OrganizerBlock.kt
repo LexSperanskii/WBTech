@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -49,10 +50,13 @@ internal fun OrganizerBlock(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
                 .clickable { onCommunityClick() }
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 10.dp)
+            ) {
                 Text(
                     text = orgCommunity.name,
                     color = DevMeetingAppTheme.colors.black,
@@ -89,7 +93,7 @@ internal fun OrganizerBlock(
                     onCommunityButtonClick = onCommunityButtonClick,
                     modifier = Modifier
                         .align(Alignment.BottomStart)
-                        .offset(x = 8.dp, y = 8.dp)
+                        .offset(x = 8.dp, y = (-8).dp)
                 )
             }
         }

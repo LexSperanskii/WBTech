@@ -4,7 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -43,11 +43,13 @@ internal fun PitcherBlock(
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
                 .clickable { onPitcherClick() }
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 10.dp)
+            ) {
                 Text(
                     text = pitcher.name,
                     color = DevMeetingAppTheme.colors.black,
@@ -72,8 +74,8 @@ internal fun PitcherBlock(
                 placeholder = painterResource(R.drawable.loading_img),
                 contentDescription = stringResource(R.string.profile_icon),
                 modifier = Modifier
-                    .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
                     .size(104.dp)
+                    .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
             )
         }
     }

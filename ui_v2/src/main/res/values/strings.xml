@@ -69,6 +69,7 @@
     <string name="participants">They will go to the meeting</string>
     <string name="no_participants">No one has joined yet</string>
     <string name="pitcher">Pitcher</string>
+    <string name="no_spare_place">There are no more places left</string>
     <string name="event_address">%1$s, %2$s, %3$s</string>
 
     <plurals name="event_people_count">

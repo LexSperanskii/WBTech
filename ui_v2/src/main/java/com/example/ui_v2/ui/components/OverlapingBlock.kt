@@ -41,7 +41,8 @@ internal fun OverlappingBlock(
             else -> {
                 OverlappingPeopleRow(
                     participantsList = participantsList,
-                    onOverlappingRowClick = onOverlappingRowClick
+                    onOverlappingRowClick = onOverlappingRowClick,
+                    reverse = true
                 )
             }
         }

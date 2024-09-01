@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -28,13 +30,17 @@ internal fun BackShareBar(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
     ) {
         Icon(
             painter = painterResource(id = R.drawable.backbar_arrow_left),
             contentDescription = stringResource(id = R.string.icon),
             tint = DevMeetingAppTheme.colors.buttonTextPurple,
             modifier = Modifier
-                .size(24.dp, 18.dp)
+                .clip(CircleShape)
+                .padding(end = 12.dp)
+                .size(12.dp, 18.dp)
                 .clickable {
                     onArrowClick()
                 }
@@ -56,9 +62,7 @@ internal fun BackShareBar(
             tint = DevMeetingAppTheme.colors.buttonTextPurple,
             modifier = Modifier
                 .size(24.dp)
-                .clickable {
-                    onShareClick()
-                }
+                .clickable { onShareClick() }
         )
     }
 }
@@ -73,13 +77,16 @@ internal fun BackBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
+            .padding(vertical = 8.dp)
     ) {
         Icon(
             painter = painterResource(id = R.drawable.backbar_arrow_left),
             contentDescription = stringResource(id = R.string.icon),
             tint = DevMeetingAppTheme.colors.buttonTextPurple,
             modifier = Modifier
-                .size(24.dp, 18.dp)
+                .clip(CircleShape)
+                .padding(end = 12.dp)
+                .size(12.dp, 18.dp)
                 .clickable {
                     onArrowClick()
                 }

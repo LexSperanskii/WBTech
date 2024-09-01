@@ -70,10 +70,10 @@
     <string name="participants">Пойдут на встречу</string>
     <string name="no_participants">Никто еще не присоединился</string>
     <string name="pitcher">Ведущий</string>
+    <string name="no_spare_place">Мест уже не осталось</string>
     <string name="event_address">%1$s, %2$s, %3$s</string>
 
     <plurals name="event_people_count">
-        <item quantity="zero">Места закончились</item>
         <item quantity="one">Всего %d место. Если передумаете — отпишитесь</item>
         <item quantity="few">Всего %d места. Если передумаете — отпишитесь</item>
         <item quantity="many">Всего %d мест. Если передумаете — отпишитесь</item>
