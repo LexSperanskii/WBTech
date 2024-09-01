@@ -24,3 +24,5 @@ rootProject.name = "SpA_WB_Junior_DevMeetingApp"
 include(":app")
 include(":data")
 include(":domain")
+include(":ui_v1")
+include(":ui_v2")
