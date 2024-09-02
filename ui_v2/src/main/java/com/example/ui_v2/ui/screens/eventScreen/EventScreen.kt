@@ -85,20 +85,24 @@ internal fun EventScreenBody(
     isJoinEventButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+            .padding(top = 12.dp)
+    ) {
+        BackShareBar(
+            barText = eventDescription.name,
+            onArrowClick = onArrowBackClick,
+            onShareClick = onShareClick,
+            modifier = Modifier.padding(horizontal = DevMeetingAppTheme.dimensions.paddingMedium)
+        )
         LazyColumn(
-            contentPadding = PaddingValues(vertical = 12.dp),
+            contentPadding = PaddingValues(
+                top = 32.dp,
+                bottom = 28.dp
+            ),
             modifier = Modifier
                 .weight(1f)
         ) {
-            item {
-                BackShareBar(
-                    barText = eventDescription.name,
-                    onArrowClick = onArrowBackClick,
-                    onShareClick = onShareClick,
-                    modifier = Modifier.padding(horizontal = DevMeetingAppTheme.dimensions.paddingMedium)
-                )
-            }
             item {
                 EventDescriptionBlock(
                     eventDescription = eventDescription,

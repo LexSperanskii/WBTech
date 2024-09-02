@@ -313,6 +313,7 @@ internal class NewUIMockData {
         UserModelUI(
             id = "$index",
             name = generateRandomWord((7..15).random()),
+            surname = "Гачимучный",
             tag = listOfRealTags.random(),
             description = generateRandomWord((50..100).random()),
             imageURL = listOfRealIcons.random()
@@ -389,6 +390,9 @@ internal class NewUIMockData {
 
     fun getEventDescription(eventId: String): EventDescriptionModelUI {
         return listOfRealEventDescriptions.find { it.id == eventId } ?: EventDescriptionModelUI()
+    }
+    fun getListOfParticipants(eventId: String): List<UserModelUI> {
+        return listOfRealEventDescriptions.find { it.id == eventId }?.listOfParticipants ?: listOf()
     }
 }
 

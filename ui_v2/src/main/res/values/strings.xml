@@ -71,11 +71,10 @@
     <string name="pitcher">Pitcher</string>
     <string name="no_spare_place">There are no more places left</string>
     <string name="event_address">%1$s, %2$s, %3$s</string>
+    <string name="go_to_the_meeting">They will go to the meeting</string>
 
     <plurals name="event_people_count">
-        <item quantity="zero">No seats available</item>
         <item quantity="one">Only %d place. If you change your mind - unsubscribe</item>
-        <item quantity="many">Only %d places. If you change your mind - unsubscribe</item>
-        <item quantity="other">If you change your mind - unsubscribe</item>
+        <item quantity="other">Only %d places. If you change your mind - unsubscribe</item>
     </plurals>
 </resources>

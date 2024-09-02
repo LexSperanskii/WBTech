@@ -19,6 +19,8 @@ import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreen
 import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreenDestination
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreen
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreenDestination
+import com.example.ui_v2.ui.screens.peopleScreen.PeopleScreen
+import com.example.ui_v2.ui.screens.peopleScreen.PeopleScreenDestination
 
 
 @Composable
@@ -53,9 +55,7 @@ fun NavHost(
             LocationScreen(
                 navigateToMainScreen = {
                     navController.navigate(MainScreenDestination.route) {
-                        popUpTo(InterestsScreenDestination.route) {
-                            inclusive = true
-                        }
+                        popUpTo(InterestsScreenDestination.route)
                     }
                 }
             )
@@ -79,11 +79,24 @@ fun NavHost(
         ) {
             EventScreen(
                 navigateToEventScreen = {},
-                navigateToPeopleScreen = {},
+                navigateToPeopleScreen = {
+                    navController.navigate("${PeopleScreenDestination.route}/${it}")
+                },
                 navigateToCommunityScreen = {},
                 navigateBack = { navController.popBackStack() },
                 onShareClick = {},
                 onPitcherClick = {}
+            )
+        }
+        composable(
+            route = PeopleScreenDestination.routeWithArgs,
+            arguments = listOf(navArgument(PeopleScreenDestination.itemIdArg) {
+                type = NavType.StringType
+            })
+        ) {
+            PeopleScreen(
+                onArrowBackClick = { navController.popBackStack() },
+                navigateToPersonScreen = { /*TODO*/ }
             )
         }
     }
