@@ -372,6 +372,8 @@ internal class NewUIMockData {
     fun getMyCommunitiesList(): List<CommunityModelUI> = myCommunitiesList
     fun addToMyCommunities(community: CommunityModelUI) = myCommunitiesList.add(community)
     fun removeFromMyCommunities(community: CommunityModelUI) = myCommunitiesList.remove(community)
+    fun isInMyCommunityList(communityId: String): Boolean =
+        myCommunitiesList.any { it.id == communityId }
 
     fun getMyChosenTags(): List<String> = myChosenTags
     fun addToMyChosenTags(tag: String) = myChosenTags.add(tag)

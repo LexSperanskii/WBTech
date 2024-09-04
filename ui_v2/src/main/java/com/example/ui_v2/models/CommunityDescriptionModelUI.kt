@@ -10,3 +10,11 @@ internal data class CommunityDescriptionModelUI(
     val listOfEvents: List<EventModelUI> = listOf(),
     val listOfPastEvents: List<EventModelUI> = listOf(),
 )
+
+internal fun CommunityDescriptionModelUI.toCommunityModelUI(): CommunityModelUI =
+    CommunityModelUI(
+        id = this.id,
+        name = this.name,
+        description = this.description,
+        imageURL = this.imageURL
+    )

@@ -3,6 +3,7 @@ package com.example.ui_v2.ui.screens.communityScreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.ui_v2.models.CommunityDescriptionModelUI
+import com.example.ui_v2.models.toCommunityModelUI
 import com.example.ui_v2.ui.utils.ButtonStatus
 import com.example.ui_v2.ui.utils.NewUIMockData
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
@@ -36,7 +37,16 @@ internal class CommunityScreenViewModel(
     init {
         _uiState.update {
             it.copy(
-                communityDescription = mock.getCommunityDescription(communityId)
+                communityDescription = mock.getCommunityDescription(communityId),
+                buttonStatus = when (mock.isInMyCommunityList(communityId)) {
+                    true -> {
+                        ButtonStatus.Pressed
+                    }
+
+                    else -> {
+                        ButtonStatus.Active
+                    }
+                }
             )
         }
     }
@@ -48,11 +58,12 @@ internal class CommunityScreenViewModel(
             state.copy(
                 buttonStatus = when (state.buttonStatus) {
                     ButtonStatus.Active -> {
-                        mock.removeFromMyCommunities(state.communityDescription.id)
+                        mock.removeFromMyCommunities(state.communityDescription.toCommunityModelUI())
                         ButtonStatus.Pressed
                     }
 
                     else -> {
+                        mock.addToMyCommunities(state.communityDescription.toCommunityModelUI())
                         ButtonStatus.Active
                     }
                 }
