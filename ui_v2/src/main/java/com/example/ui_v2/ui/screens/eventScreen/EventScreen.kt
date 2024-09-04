@@ -97,7 +97,7 @@ internal fun EventScreenBody(
         )
         LazyColumn(
             contentPadding = PaddingValues(
-                top = 32.dp,
+                top = 8.dp,
                 bottom = 28.dp
             ),
             modifier = Modifier
@@ -108,9 +108,7 @@ internal fun EventScreenBody(
                     eventDescription = eventDescription,
                     modifier = Modifier
                         .padding(
-                            start = DevMeetingAppTheme.dimensions.paddingMedium,
-                            end = DevMeetingAppTheme.dimensions.paddingMedium,
-                            top = 8.dp
+                            horizontal = DevMeetingAppTheme.dimensions.paddingMedium
                         )
                 )
             }

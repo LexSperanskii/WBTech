@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -68,6 +69,8 @@ internal fun OrganizerBlock(
                     text = orgCommunity.description,
                     color = DevMeetingAppTheme.colors.black,
                     style = DevMeetingAppTheme.typography.metadata1,
+                    maxLines = 5,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
                 )
             }

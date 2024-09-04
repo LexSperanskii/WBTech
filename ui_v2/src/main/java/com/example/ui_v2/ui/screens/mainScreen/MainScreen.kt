@@ -1,5 +1,7 @@
 package com.example.ui_v2.ui.screens.mainScreen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -41,7 +43,7 @@ internal object MainScreenDestination : NavigationDestination {
 
 @Composable
 internal fun MainScreen(
-    navigateToOtherUserScreen: (userId: String) -> Unit,
+    navigateToUserScreen: (userId: String) -> Unit,
     navigateToCommunityScreen: (communityId: String) -> Unit,
     navigateToEventScreen: (eventId: String) -> Unit,
     navigateToBannerScreen: () -> Unit,
@@ -75,12 +77,13 @@ internal fun MainScreen(
             onTagClick = { viewModel.onTagClick(it) },
             onBannerTagClick = navigateToBannerScreen,
             listOfPeople = mainScreenUiState.listOfPeople,
-            onPersonCardClick = { navigateToOtherUserScreen(it.id) },
+            onPersonCardClick = { navigateToUserScreen(it.id) },
             modifier = Modifier.padding(innerPadding)
         )
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun MainScreenBody(
     isShowSortedScreen: Boolean,
@@ -113,7 +116,7 @@ internal fun MainScreenBody(
         contentPadding = PaddingValues(vertical = 12.dp),
         modifier = modifier
     ) {
-        item {
+        stickyHeader {
             SearchFieldBar(
                 searchField = searchField,
                 onSearchFieldChange = onSearchFieldChange,
@@ -122,6 +125,8 @@ internal fun MainScreenBody(
                 onCancelClick = onCancelClick,
                 isShowProfile = !isShowSortedScreen,
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .background(DevMeetingAppTheme.colors.white)
                     .padding(
                         horizontal = DevMeetingAppTheme.dimensions.paddingMedium
                     )

@@ -56,7 +56,11 @@ internal fun PeopleScreenBody(
 ) {
     Column(
         modifier = modifier
-            .padding(horizontal = DevMeetingAppTheme.dimensions.paddingMedium)
+            .padding(
+                start = DevMeetingAppTheme.dimensions.paddingMedium,
+                end = DevMeetingAppTheme.dimensions.paddingMedium,
+                top = 12.dp
+            )
     ) {
         BackBar(
             barText = stringResource(id = R.string.go_to_the_meeting),

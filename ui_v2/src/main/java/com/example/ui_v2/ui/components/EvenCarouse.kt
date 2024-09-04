@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.example.ui_v2.models.EventAdvertBlockModelUI
 import com.example.ui_v2.models.EventModelUI
@@ -79,6 +80,7 @@ internal fun EvensFixBlockCarousel(
     onEventCardClick: (EventModelUI) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
+    style: TextStyle = DevMeetingAppTheme.typography.customH2,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -87,7 +89,7 @@ internal fun EvensFixBlockCarousel(
         Text(
             text = blockText,
             color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.customH2,
+            style = style,
             modifier = Modifier
                 .padding(contentPadding)
         )

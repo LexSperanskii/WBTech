@@ -73,6 +73,12 @@
     <string name="no_spare_place">Мест уже не осталось</string>
     <string name="event_address">%1$s, %2$s, %3$s</string>
     <string name="go_to_the_meeting">Пойдут на встречу</string>
+    <string name="subscribers">Подписаны</string>
+    <string name="meetups">Встречи</string>
+    <string name="past_meetups">Прошлые встречи</string>
+    <string name="subscribe">Подписаться</string>
+    <string name="subscribed">Вы подписаны</string>
+    <string name="community_button_text">Будем приглашать на встречи сообщества и рекомендовать похожие</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Всего %d место. Если передумаете — отпишитесь</item>

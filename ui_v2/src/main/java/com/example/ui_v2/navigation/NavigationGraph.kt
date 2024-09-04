@@ -11,6 +11,8 @@ import com.example.ui_v2.ui.DeveloperDestination
 import com.example.ui_v2.ui.DeveloperScreen
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreen
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreenDestination
+import com.example.ui_v2.ui.screens.communityScreen.CommunityScreen
+import com.example.ui_v2.ui.screens.communityScreen.CommunityScreenDestination
 import com.example.ui_v2.ui.screens.eventScreen.EventScreen
 import com.example.ui_v2.ui.screens.eventScreen.EventScreenDestination
 import com.example.ui_v2.ui.screens.mainScreen.MainScreen
@@ -62,8 +64,10 @@ fun NavHost(
         }
         composable(route = MainScreenDestination.route) {
             MainScreen(
-                navigateToOtherUserScreen = {},
-                navigateToCommunityScreen = {},
+                navigateToUserScreen = {},
+                navigateToCommunityScreen = {
+                    navController.navigate("${CommunityScreenDestination.route}/${it}")
+                },
                 navigateToEventScreen = {
                     navController.navigate("${EventScreenDestination.route}/${it}")
                 },
@@ -78,11 +82,15 @@ fun NavHost(
             })
         ) {
             EventScreen(
-                navigateToEventScreen = {},
+                navigateToEventScreen = {
+                    navController.navigate("${EventScreenDestination.route}/${it}")
+                },
                 navigateToPeopleScreen = {
                     navController.navigate("${PeopleScreenDestination.route}/${it}")
                 },
-                navigateToCommunityScreen = {},
+                navigateToCommunityScreen = {
+                    navController.navigate("${CommunityScreenDestination.route}/${it}")
+                },
                 navigateBack = { navController.popBackStack() },
                 onShareClick = {},
                 onPitcherClick = {}
@@ -97,6 +105,23 @@ fun NavHost(
             PeopleScreen(
                 onArrowBackClick = { navController.popBackStack() },
                 navigateToPersonScreen = { /*TODO*/ }
+            )
+        }
+        composable(
+            route = CommunityScreenDestination.routeWithArgs,
+            arguments = listOf(navArgument(CommunityScreenDestination.itemIdArg) {
+                type = NavType.StringType
+            })
+        ) {
+            CommunityScreen(
+                navigateToPeopleScreen = {
+                    navController.navigate("${PeopleScreenDestination.route}/${it}")
+                },
+                navigateToEventScreen = {
+                    navController.navigate("${EventScreenDestination.route}/${it}")
+                },
+                navigateBack = { navController.popBackStack() },
+                onShareClick = {}
             )
         }
     }

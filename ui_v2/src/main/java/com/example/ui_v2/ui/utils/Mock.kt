@@ -2,6 +2,7 @@ package com.example.ui_v2.ui.utils
 
 import androidx.compose.ui.graphics.Color
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
+import com.example.ui_v2.models.CommunityDescriptionModelUI
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventAdvertBlockModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
@@ -321,7 +322,7 @@ internal class NewUIMockData {
     }
     private val listOfRealCommunities = List(20) { index ->
         CommunityModelUI(
-            id = "$index",
+            id = "C$index",
             name = generateRandomWord((7..15).random()),
             description = generateRandomWord((50..100).random()),
             imageURL = listOfRealIcons.random()
@@ -346,9 +347,21 @@ internal class NewUIMockData {
                 name = metroStations.random(),
                 tint = colors.random()
             ),
-            listOfParticipants = getListOfPeople().shuffled().take((5..15).random()),
+            listOfParticipants = listOfRealUsers.shuffled().take((5..15).random()),
             organizer = listOfRealCommunities[index],
             availableCapacity = index,
+        )
+    }
+    private val listOfRealCommunityDescriptions = List(20) { index ->
+        CommunityDescriptionModelUI(
+            id = listOfRealCommunities[index].id,
+            name = listOfRealCommunities[index].name,
+            description = listOfRealCommunities[index].description,
+            imageURL = listOfRealCommunities[index].imageURL,
+            listOfTags = listOfRealTags.shuffled().take(5),
+            listOfParticipants = listOfRealUsers.shuffled().take((5..15).random()),
+            listOfEvents = listOfRealEvents.shuffled().take((3..5).random()),
+            listOfPastEvents = listOfRealEvents.shuffled().take((3..10).random())
         )
     }
 
@@ -391,8 +404,21 @@ internal class NewUIMockData {
     fun getEventDescription(eventId: String): EventDescriptionModelUI {
         return listOfRealEventDescriptions.find { it.id == eventId } ?: EventDescriptionModelUI()
     }
-    fun getListOfParticipants(eventId: String): List<UserModelUI> {
-        return listOfRealEventDescriptions.find { it.id == eventId }?.listOfParticipants ?: listOf()
+    fun getCommunityDescription(communityId: String): CommunityDescriptionModelUI {
+        return listOfRealCommunityDescriptions.find { it.id == communityId }
+            ?: CommunityDescriptionModelUI()
+    }
+
+    fun getListOfParticipants(id: String): List<UserModelUI> {
+        return when (id.contains(char = 'C', ignoreCase = true)) {
+            true -> {
+                listOfRealCommunityDescriptions.find { it.id == id }?.listOfParticipants ?: listOf()
+            }
+
+            else -> {
+                listOfRealEventDescriptions.find { it.id == id }?.listOfParticipants ?: listOf()
+            }
+        }
     }
 }
 

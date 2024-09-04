@@ -20,7 +20,7 @@ internal class PeopleScreenViewModel(
     private val mock: NewUIMockData,
 ) : ViewModel() {
 
-    private val eventId: String = try {
+    private val id: String = try {
         checkNotNull(savedStateHandle[PeopleScreenDestination.itemIdArg])
     } catch (e: IllegalStateException) {
         // TODO: do state with error
@@ -33,7 +33,7 @@ internal class PeopleScreenViewModel(
     init {
         _uiState.update {
             it.copy(
-                listOfUsers = mock.getListOfParticipants(eventId)
+                listOfUsers = mock.getListOfParticipants(id)
             )
         }
     }
