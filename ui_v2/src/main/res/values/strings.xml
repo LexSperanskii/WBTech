@@ -78,6 +78,18 @@
     <string name="subscribe">Subscribe</string>
     <string name="subscribed">You are subscribed</string>
     <string name="community_button_text">We will invite you to community meetings and recommend similar ones</string>
+    <string name="appointment_title">Login\nand appointment</string>
+    <string name="proceed">Continue</string>
+    <string name="get_code">Get code</string>
+    <string name="pin_code_placeholder">0000</string>
+    <string name="pin_code_number">We sent the code to %s</string>
+    <string name="pin_code_countdown">Get a new code in %d</string>
+    <string name="get_new_pin_code">Get a new code</string>
+    <string name="submit_confirm">Submit and confirm the entry</string>
+    <string name="incorrect_pin">Incorrect code</string>
+    <string name="signed_up">You have signed up for a meeting</string>
+    <string name="signed_up_info">%1$s\n%2$d %3$s at %4$s\n%5$s, %6$s</string>
+    <string name="signed_up_button">Find other meetings</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Only %d place. If you change your mind - unsubscribe</item>

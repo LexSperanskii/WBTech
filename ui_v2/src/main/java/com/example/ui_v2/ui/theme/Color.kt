@@ -25,6 +25,7 @@ internal data class DevMeetingsAppColorScheme(
     val buttonTextPurple: Color,
     val toggleColor: Color,
     val eventCardText: Color,
+    val incorrectPin: Color,
 )
 
 internal val LocalColorScheme = staticCompositionLocalOf {
@@ -49,6 +50,7 @@ internal val LocalColorScheme = staticCompositionLocalOf {
         disabledButtonTextGray = Color.Unspecified,
         buttonTextPurple = Color.Unspecified,
         toggleColor = Color.Unspecified,
-        eventCardText = Color.Unspecified
+        eventCardText = Color.Unspecified,
+        incorrectPin = Color.Unspecified,
     )
 }

@@ -79,6 +79,18 @@
     <string name="subscribe">Подписаться</string>
     <string name="subscribed">Вы подписаны</string>
     <string name="community_button_text">Будем приглашать на встречи сообщества и рекомендовать похожие</string>
+    <string name="appointment_title">Вход\nи запись\nна встречу</string>
+    <string name="proceed">Продолжить</string>
+    <string name="get_code">Получить код</string>
+    <string name="pin_code_placeholder">0000</string>
+    <string name="pin_code_number">Мы отправили код на %s</string>
+    <string name="pin_code_countdown">Получить новый код через %d</string>
+    <string name="get_new_pin_code">Получить новый код</string>
+    <string name="submit_confirm">Отправить и подтвердить запись</string>
+    <string name="incorrect_pin">Неправильный код</string>
+    <string name="signed_up">Вы записались на встречу</string>
+    <string name="signed_up_info">%1$s\n%2$d %3$s в %4$s\n%5$s, %6$s</string>
+    <string name="signed_up_button">Найти другие встречи</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Всего %d место. Если передумаете — отпишитесь</item>

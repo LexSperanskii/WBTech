@@ -8,3 +8,10 @@ internal data class UserModelUI(
     val description: String = "",
     val imageURL: String? = "",
 )
+
+internal data class ClientModelUI(
+    val name: String = "",
+    val surname: String = "",
+    val countryCode: String = "",
+    val number: String = "",
+)

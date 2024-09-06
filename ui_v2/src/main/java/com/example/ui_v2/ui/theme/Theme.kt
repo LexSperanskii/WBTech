@@ -32,7 +32,8 @@ private val ColorScheme = DevMeetingsAppColorScheme(
     disabledButtonTextGray = Color(0xFF9797AF),
     buttonTextPurple = Color(0xFF9A10F0),
     toggleColor = Color(0xFFEFEFEF),
-    eventCardText = Color(0xFF76778E)
+    eventCardText = Color(0xFF76778E),
+    incorrectPin = Color(0xFF5C93)
 )
 
 private val BrushScheme = DevMeetingsAppBrushScheme(
@@ -125,6 +126,18 @@ private val typography = DevMeetingsAppTypography(
         fontFamily = Inter,
         fontWeight = FontWeight.SemiBold,
         lineHeight = 26.sp,
+        fontSize = 24.sp
+    ),
+    customH3 = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 49.sp,
+        fontSize = 44.sp
+    ),
+    customH4 = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.Medium,
+        lineHeight = 20.sp,
         fontSize = 24.sp
     ),
 )

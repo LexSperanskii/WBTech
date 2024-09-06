@@ -17,6 +17,6 @@ internal val LocalBrushScheme = staticCompositionLocalOf {
         buttonGradientSecondary = Brush.horizontalGradient(),
         textFieldGradientNormal = Brush.horizontalGradient(),
         textFieldGradientError = Brush.horizontalGradient(),
-        buttonCommunityCardGradient = Brush.horizontalGradient(),
+        buttonCommunityCardGradient = Brush.horizontalGradient()
     )
 }

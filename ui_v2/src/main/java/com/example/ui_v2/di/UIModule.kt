@@ -1,7 +1,10 @@
 package com.example.ui_v2.di
 
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreenViewModel
-import com.example.ui_v2.ui.screens.appointmentScreen.AppointmentScreenViewModel
+import com.example.ui_v2.ui.screens.appointmentScreen.appointmentSplash.AppointmentSplashScreenViewModel
+import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentNameSurnameScreenViewModel
+import com.example.ui_v2.ui.screens.appointmentScreen.phoneNumber.AppointmentPhoneNumberScreenViewModel
+import com.example.ui_v2.ui.screens.appointmentScreen.verificationCode.AppointmentVerificationScreenViewModel
 import com.example.ui_v2.ui.screens.communityScreen.CommunityScreenViewModel
 import com.example.ui_v2.ui.screens.eventScreen.EventScreenViewModel
 import com.example.ui_v2.ui.screens.mainScreen.MainScreenViewModel
@@ -20,6 +23,9 @@ val uiModule = module {
     viewModelOf(::EventScreenViewModel)
     viewModelOf(::PeopleScreenViewModel)
     viewModelOf(::CommunityScreenViewModel)
-    viewModelOf(::AppointmentScreenViewModel)
+    viewModelOf(::AppointmentNameSurnameScreenViewModel)
+    viewModelOf(::AppointmentPhoneNumberScreenViewModel)
+    viewModelOf(::AppointmentVerificationScreenViewModel)
+    viewModelOf(::AppointmentSplashScreenViewModel)
     viewModelOf(::ProfileScreenViewModel)
 }

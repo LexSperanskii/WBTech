@@ -19,11 +19,11 @@ import com.example.ui_v2.ui.utils.ButtonStatus
 @Composable
 internal fun ButtonWithStatus(
     notPressedText: String,
-    pressedText: String,
     isButtonEnabled: Boolean,
     onClick: () -> Unit,
     buttonStatus: ButtonStatus,
     modifier: Modifier = Modifier,
+    pressedText: String = notPressedText,
 ) {
     Button(
         onClick = onClick,

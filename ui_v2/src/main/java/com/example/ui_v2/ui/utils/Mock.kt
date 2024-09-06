@@ -1,19 +1,32 @@
 package com.example.ui_v2.ui.utils
 
 import androidx.compose.ui.graphics.Color
+import com.example.ui_v2.R
+import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityDescriptionModelUI
 import com.example.ui_v2.models.CommunityModelUI
+import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.EventAdvertBlockModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.EventLocationModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.MetroModelUI
+import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.UserModelUI
 import java.util.UUID
 
 internal class NewUIMockData {
 
+    private var client = ClientModelUI()
+    private var clientPinCode = "5555"
+    private val availableCountries = listOf(
+        CountryModelUI("Россия", "+7", R.drawable.flag_ru),
+        CountryModelUI("Казахстан", "+7", R.drawable.flag_kz),
+        CountryModelUI("Белоруссия", "+375", R.drawable.flag_by),
+        CountryModelUI("Киргизия", "+996", R.drawable.flag_kg),
+        CountryModelUI("Азербайджан", "+994", R.drawable.flag_az)
+    )
     private val colors = listOf(Color.Green, Color.Red, Color.Blue, Color.Yellow)
     private val metroStations = listOf(
         "Приморская",
@@ -73,6 +86,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "0",
             name = "QA Talks - Global tech forum",
+            time = "13:00",
             day = 1,
             month = "января",
             year = 2024,
@@ -85,6 +99,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "1",
             name = "Python days 2024",
+            time = "14:00",
             day = 2,
             month = "января",
             year = 2024,
@@ -97,6 +112,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "2",
             name = "Как повышать грейд. Лекция Павла Хорикова",
+            time = "15:00",
             day = 3,
             month = "января",
             year = 2024,
@@ -109,6 +125,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "3",
             name = "Android QA",
+            time = "16:00",
             day = 4,
             month = "января",
             year = 2024,
@@ -121,6 +138,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "4",
             name = "Путь в IT для школьников",
+            time = "17:00",
             day = 5,
             month = "января",
             year = 2024,
@@ -133,6 +151,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "5",
             name = "Дизайн-встреча s8e2",
+            time = "18:00",
             day = 6,
             month = "января",
             year = 2024,
@@ -145,6 +164,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "6",
             name = "Офлайн интенсив по брендингу",
+            time = "19:00",
             day = 7,
             month = "января",
             year = 2024,
@@ -157,6 +177,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "7",
             name = "Просмотр",
+            time = "20:00",
             day = 8,
             month = "января",
             year = 2024,
@@ -169,6 +190,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "8",
             name = "Семинар по управлению проектами",
+            time = "21:00",
             day = 9,
             month = "января",
             year = 2024,
@@ -181,6 +203,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "9",
             name = "Дизайн-встреча s8e2",
+            time = "22:00",
             day = 10,
             month = "января",
             year = 2024,
@@ -193,6 +216,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "10",
             name = "Feature-Sliced Design 2024",
+            time = "23:00",
             day = 11,
             month = "января",
             year = 2024,
@@ -205,6 +229,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "11",
             name = "Геймдев на нейросетях. Лекция Станислава Макарова",
+            time = "13:30",
             day = 12,
             month = "января",
             year = 2024,
@@ -217,6 +242,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "12",
             name = "Front talks",
+            time = "14:30",
             day = 13,
             month = "января",
             year = 2024,
@@ -229,6 +255,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "13",
             name = "Путь дизайнера в России. Лекция Мити Харшака",
+            time = "15:30",
             day = 14,
             month = "января",
             year = 2024,
@@ -241,6 +268,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "14",
             name = "QA Talks - Наши дни",
+            time = "16:30",
             day = 15,
             month = "января",
             year = 2024,
@@ -253,6 +281,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "15",
             name = "QA Talks - Нашествие",
+            time = "17:30",
             day = 16,
             month = "января",
             year = 2024,
@@ -265,6 +294,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "16",
             name = "QA Talks - Король и Шут",
+            time = "18:30",
             day = 17,
             month = "января",
             year = 2024,
@@ -277,6 +307,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "17",
             name = "QA Talks - Дискотека",
+            time = "19:30",
             day = 18,
             month = "января",
             year = 2024,
@@ -289,6 +320,7 @@ internal class NewUIMockData {
         EventModelUI(
             id = "18",
             name = "Как выбрать качественную алкашку на вечер",
+            time = "20:30",
             day = 19,
             month = "января",
             year = 2024,
@@ -300,6 +332,7 @@ internal class NewUIMockData {
         ), EventModelUI(
             id = "19",
             name = "Лучшие гачимучи фильмы. Мнение экспертов",
+            time = "21:30",
             day = 20,
             month = "января",
             year = 2024,
@@ -332,6 +365,7 @@ internal class NewUIMockData {
         EventDescriptionModelUI(
             id = listOfRealEvents[index].id,
             name = listOfRealEvents[index].name,
+            time = listOfRealEvents[index].time,
             day = listOfRealEvents[index].day,
             month = listOfRealEvents[index].month,
             year = listOfRealEvents[index].year,
@@ -421,6 +455,27 @@ internal class NewUIMockData {
                 listOfRealEventDescriptions.find { it.id == id }?.listOfParticipants ?: listOf()
             }
         }
+    }
+
+    fun getAvailableCountriesList(): List<CountryModelUI> = availableCountries
+
+    fun setClientName(name: String, surname: String) {
+        client = client.copy(name = name, surname = surname)
+    }
+
+    fun setClientPhoneNumber(countryCode: String, number: String) {
+        client = client.copy(countryCode = countryCode, number = number)
+    }
+
+    fun getClientPhoneNumber(): PhoneNumberModelUI {
+        return PhoneNumberModelUI(
+            client.countryCode,
+            client.number
+        )
+    }
+
+    fun postClientPinCode(pinCode: String): Boolean {
+        return pinCode == clientPinCode
     }
 }
 

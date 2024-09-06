@@ -6,11 +6,21 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import com.example.ui_v2.ui.DeveloperDestination
 import com.example.ui_v2.ui.DeveloperScreen
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreen
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreenDestination
+import com.example.ui_v2.ui.screens.appointmentScreen.appointmentSplash.AppointmentSplashScreen
+import com.example.ui_v2.ui.screens.appointmentScreen.appointmentSplash.AppointmentSplashScreenDestination
+import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
+import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentNameSurnameScreen
+import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentNameSurnameScreenDestination
+import com.example.ui_v2.ui.screens.appointmentScreen.phoneNumber.AppointmentPhoneNumberScreen
+import com.example.ui_v2.ui.screens.appointmentScreen.phoneNumber.AppointmentPhoneNumberScreenDestination
+import com.example.ui_v2.ui.screens.appointmentScreen.verificationCode.AppointmentVerificationScreen
+import com.example.ui_v2.ui.screens.appointmentScreen.verificationCode.AppointmentVerificationScreenDestination
 import com.example.ui_v2.ui.screens.communityScreen.CommunityScreen
 import com.example.ui_v2.ui.screens.communityScreen.CommunityScreenDestination
 import com.example.ui_v2.ui.screens.eventScreen.EventScreen
@@ -31,7 +41,7 @@ fun NavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SplashScreenDestination.route,
+        startDestination = "${AppointmentDestination.route}/${"0"}",
         modifier = Modifier
     ) {
         composable(route = DeveloperDestination.route) {
@@ -93,7 +103,10 @@ fun NavHost(
                 },
                 navigateBack = { navController.popBackStack() },
                 onShareClick = {},
-                onPitcherClick = {}
+                onPitcherClick = {},
+                navigateToAppointmentScreen = {
+                    navController.navigate("${AppointmentDestination.route}/${it}")
+                }
             )
         }
         composable(
@@ -123,6 +136,49 @@ fun NavHost(
                 navigateBack = { navController.popBackStack() },
                 onShareClick = {}
             )
+        }
+        navigation(
+            route = AppointmentDestination.routeWithArgs,
+            startDestination = AppointmentNameSurnameScreenDestination.route,
+            arguments = listOf(navArgument(CommunityScreenDestination.itemIdArg) {
+                type = NavType.StringType
+            })
+        ) {
+            composable(
+                route = AppointmentNameSurnameScreenDestination.route
+            ) {
+                AppointmentNameSurnameScreen(
+                    navigateToAppointmentPhoneNumberScreen = {
+                        navController.navigate(AppointmentPhoneNumberScreenDestination.route)
+                    }
+                )
+            }
+            composable(
+                route = AppointmentPhoneNumberScreenDestination.route
+            ) {
+                AppointmentPhoneNumberScreen(
+                    navigateToAppointmentVerificationScreen = {
+                        navController.navigate(AppointmentVerificationScreenDestination.route)
+                    }
+                )
+            }
+            composable(
+                route = AppointmentVerificationScreenDestination.route
+            ) {
+                AppointmentVerificationScreen(
+                    navigateToAppointmentSplashScreen = {
+                        navController.navigate(AppointmentSplashScreenDestination.route)
+                    }
+                )
+            }
+            composable(
+                route = AppointmentSplashScreenDestination.route
+            ) {
+                AppointmentSplashScreen(
+                    navigateToMyEvents = {},
+                    navigateToFindOtherEvents = {}
+                )
+            }
         }
     }
 }

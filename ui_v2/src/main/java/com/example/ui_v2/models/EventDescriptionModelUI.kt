@@ -4,6 +4,7 @@ package com.example.ui_v2.models
 internal data class EventDescriptionModelUI(
     val id: String = "",
     val name: String = "",
+    val time: String = "",
     val day: Int = 0,
     val month: String = "",
     val year: Int = 0,
@@ -20,3 +21,18 @@ internal data class EventDescriptionModelUI(
     val organizer: CommunityModelUI = CommunityModelUI(),
     val availableCapacity: Int = 0,
 )
+
+internal fun EventDescriptionModelUI.toEventModelUI(): EventModelUI =
+    EventModelUI(
+        id = this.id,
+        name = this.name,
+        time = this.time,
+        day = this.day,
+        month = this.month,
+        year = this.year,
+        city = this.city,
+        street = this.street,
+        building = this.building,
+        imageURL = this.imageURL,
+        listOfTags = this.listOfTags
+    )
