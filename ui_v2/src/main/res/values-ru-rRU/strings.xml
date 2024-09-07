@@ -91,6 +91,7 @@
     <string name="signed_up">Вы записались на встречу</string>
     <string name="signed_up_info">%1$s\n%2$d %3$s в %4$s\n%5$s, %6$s</string>
     <string name="signed_up_button">Найти другие встречи</string>
+    <string name="appointment_header_date_address">%1$s · %2$d %3$s · %4$s, %5$s</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Всего %d место. Если передумаете — отпишитесь</item>

@@ -33,6 +33,7 @@ internal object AppointmentVerificationScreenDestination : NavigationDestination
 @Composable
 internal fun AppointmentVerificationScreen(
     navigateToAppointmentSplashScreen: () -> Unit,
+    onCrossClick: () -> Unit,
     viewModel: AppointmentVerificationScreenViewModel = koinViewModel(),
 ) {
     val appointmentVerificationScreenUiState by viewModel.getAppointmentVerificationScreenUiStateFlow()
@@ -41,6 +42,7 @@ internal fun AppointmentVerificationScreen(
     Scaffold { innerPadding ->
         AppointmentVerificationScreenBody(
             event = appointmentVerificationScreenUiState.event,
+            onCrossClick = onCrossClick,
             pinCode = appointmentVerificationScreenUiState.pinCode,
             isPinCodeValid = appointmentVerificationScreenUiState.isPinCodeValid,
             onPinCodeChange = {
@@ -64,6 +66,7 @@ internal fun AppointmentVerificationScreen(
 @Composable
 internal fun AppointmentVerificationScreenBody(
     event: EventModelUI,
+    onCrossClick: () -> Unit,
     pinCode: String,
     isPinCodeValid: Boolean,
     onPinCodeChange: (String) -> Unit,
@@ -86,6 +89,7 @@ internal fun AppointmentVerificationScreenBody(
     ) {
         AppointmentHeader(
             event = event,
+            onCrossClick = onCrossClick,
             modifier = Modifier
                 .padding(bottom = 24.dp)
         )
@@ -109,7 +113,6 @@ internal fun AppointmentVerificationScreenBody(
                     modifier = Modifier
                 )
             }
-
             false -> {
                 Text(
                     text = stringResource(id = R.string.incorrect_pin),

@@ -14,10 +14,10 @@ import kotlinx.coroutines.flow.update
 internal data class AppointmentNameSurnameScreenUiState(
     val event: EventModelUI = EventModelUI(),
     val nameSurnameValue: String = "",
-    val isNameSurnameValid: Boolean = false,
+    val isNameSurnameValid: Boolean = true,
 ) {
     val isButtonEnabled: Boolean
-        get() = isNameSurnameValid
+        get() = nameSurnameValue.isNotBlank()
 }
 
 internal class AppointmentNameSurnameScreenViewModel(
@@ -47,20 +47,37 @@ internal class AppointmentNameSurnameScreenViewModel(
         uiState
 
     fun onNameSurnameChange(inputValue: String) {
-        val isValid = inputValue.matches(Regex("^[а-яА-Я]{2,}$|^[a-zA-Z]{2,}$"))
         _uiState.update {
             it.copy(
-                nameSurnameValue = inputValue,
-                isNameSurnameValid = isValid
+                nameSurnameValue = inputValue
             )
         }
     }
 
-    fun onButtonClick() {
+    fun onButtonClick(navigateToAppointmentPhoneNumberScreen: () -> Unit) {
         val parts = uiState.value.nameSurnameValue.split(Regex("\\s+"), limit = 2)
         val name = parts[0]
         val surname = parts.getOrNull(1) ?: ""
-        mock.setClientName(name, surname)
+        when (surname.isNotBlank()) {
+            true -> {
+                _uiState.update {
+                    it.copy(
+                        isNameSurnameValid = true
+                    )
+                }
+                mock.setClientName(name, surname)
+                navigateToAppointmentPhoneNumberScreen()
+            }
+
+            false -> {
+                _uiState.update {
+                    it.copy(
+                        isNameSurnameValid = false
+                    )
+                }
+            }
+        }
+
     }
 
 }

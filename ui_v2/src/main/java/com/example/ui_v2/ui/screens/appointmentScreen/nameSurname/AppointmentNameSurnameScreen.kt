@@ -33,6 +33,7 @@ internal object AppointmentNameSurnameScreenDestination : NavigationDestination 
 @Composable
 internal fun AppointmentNameSurnameScreen(
     navigateToAppointmentPhoneNumberScreen: () -> Unit,
+    onCrossClick: () -> Unit,
     viewModel: AppointmentNameSurnameScreenViewModel = koinViewModel(),
 ) {
     val appointmentNameSurnameScreenUiState by viewModel.getAppointmentNameSurnameScreenUiStateFlow()
@@ -41,6 +42,7 @@ internal fun AppointmentNameSurnameScreen(
     Scaffold { innerPadding ->
         AppointmentNameSurnameScreenBody(
             event = appointmentNameSurnameScreenUiState.event,
+            onCrossClick = onCrossClick,
             nameSurnameValue = appointmentNameSurnameScreenUiState.nameSurnameValue,
             isNameSurnameValid = appointmentNameSurnameScreenUiState.isNameSurnameValid,
             onNameSurnameChange = {
@@ -48,8 +50,7 @@ internal fun AppointmentNameSurnameScreen(
             },
             isButtonEnabled = appointmentNameSurnameScreenUiState.isButtonEnabled,
             onButtonClick = {
-                viewModel.onButtonClick()
-                navigateToAppointmentPhoneNumberScreen()
+                viewModel.onButtonClick(navigateToAppointmentPhoneNumberScreen)
             },
             modifier = Modifier.padding(innerPadding)
         )
@@ -59,6 +60,7 @@ internal fun AppointmentNameSurnameScreen(
 @Composable
 internal fun AppointmentNameSurnameScreenBody(
     event: EventModelUI,
+    onCrossClick: () -> Unit,
     nameSurnameValue: String,
     isNameSurnameValid: Boolean,
     onNameSurnameChange: (String) -> Unit,
@@ -77,6 +79,7 @@ internal fun AppointmentNameSurnameScreenBody(
     ) {
         AppointmentHeader(
             event = event,
+            onCrossClick = onCrossClick,
             modifier = Modifier
                 .padding(bottom = 24.dp)
         )

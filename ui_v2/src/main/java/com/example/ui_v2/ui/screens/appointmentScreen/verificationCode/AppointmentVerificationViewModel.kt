@@ -81,6 +81,11 @@ internal class AppointmentVerificationScreenViewModel(
         uiState
 
     fun onCountdownClick() {
+        _uiState.update {
+            it.copy(
+                isCountdownEnabled = false
+            )
+        }
         startCountdown()
     }
 

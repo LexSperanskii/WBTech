@@ -29,6 +29,7 @@ internal object AppointmentPhoneNumberScreenDestination : NavigationDestination 
 @Composable
 internal fun AppointmentPhoneNumberScreen(
     navigateToAppointmentVerificationScreen: () -> Unit,
+    onCrossClick: () -> Unit,
     viewModel: AppointmentPhoneNumberScreenViewModel = koinViewModel(),
 ) {
     val appointmentPhoneNumberScreenUiState by viewModel.getAppointmentPhoneNumberScreenUiStateFlow()
@@ -37,6 +38,7 @@ internal fun AppointmentPhoneNumberScreen(
     Scaffold { innerPadding ->
         AppointmentPhoneNumberScreenBody(
             event = appointmentPhoneNumberScreenUiState.event,
+            onCrossClick = onCrossClick,
             number = appointmentPhoneNumberScreenUiState.number,
             onNumberChange = {
                 viewModel.onNumberChange(it)
@@ -59,6 +61,7 @@ internal fun AppointmentPhoneNumberScreen(
 @Composable
 internal fun AppointmentPhoneNumberScreenBody(
     event: EventModelUI,
+    onCrossClick: () -> Unit,
     number: String,
     onNumberChange: (String) -> Unit,
     countryCode: CountryModelUI,
@@ -79,6 +82,7 @@ internal fun AppointmentPhoneNumberScreenBody(
     ) {
         AppointmentHeader(
             event = event,
+            onCrossClick = onCrossClick,
             modifier = Modifier
                 .padding(bottom = 24.dp)
         )

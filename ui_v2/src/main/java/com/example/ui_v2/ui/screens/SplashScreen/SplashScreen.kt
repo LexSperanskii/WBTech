@@ -41,14 +41,8 @@ internal fun SplashScreen(
         }
     }
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
     ) {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = R.drawable.splash_screen_bg),
-            contentDescription = "splash",
-            contentScale = ContentScale.Crop
-        )
         Image(
             painter = painterResource(id = R.drawable.splash_screen_bg),
             contentDescription = "splash",

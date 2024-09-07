@@ -41,7 +41,7 @@ fun NavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "${AppointmentDestination.route}/${"0"}",
+        startDestination = SplashScreenDestination.route,
         modifier = Modifier
     ) {
         composable(route = DeveloperDestination.route) {
@@ -66,9 +66,7 @@ fun NavHost(
         composable(route = LocationScreenDestination.route) {
             LocationScreen(
                 navigateToMainScreen = {
-                    navController.navigate(MainScreenDestination.route) {
-                        popUpTo(InterestsScreenDestination.route)
-                    }
+                    navController.navigate(MainScreenDestination.route)
                 }
             )
         }
@@ -150,6 +148,12 @@ fun NavHost(
                 AppointmentNameSurnameScreen(
                     navigateToAppointmentPhoneNumberScreen = {
                         navController.navigate(AppointmentPhoneNumberScreenDestination.route)
+                    },
+                    onCrossClick = {
+                        navController.popBackStack(
+                            AppointmentDestination.routeWithArgs,
+                            inclusive = true
+                        )
                     }
                 )
             }
@@ -159,6 +163,12 @@ fun NavHost(
                 AppointmentPhoneNumberScreen(
                     navigateToAppointmentVerificationScreen = {
                         navController.navigate(AppointmentVerificationScreenDestination.route)
+                    },
+                    onCrossClick = {
+                        navController.popBackStack(
+                            AppointmentDestination.routeWithArgs,
+                            inclusive = true
+                        )
                     }
                 )
             }
@@ -168,6 +178,12 @@ fun NavHost(
                 AppointmentVerificationScreen(
                     navigateToAppointmentSplashScreen = {
                         navController.navigate(AppointmentSplashScreenDestination.route)
+                    },
+                    onCrossClick = {
+                        navController.popBackStack(
+                            AppointmentDestination.routeWithArgs,
+                            inclusive = true
+                        )
                     }
                 )
             }
@@ -176,7 +192,13 @@ fun NavHost(
             ) {
                 AppointmentSplashScreen(
                     navigateToMyEvents = {},
-                    navigateToFindOtherEvents = {}
+                    navigateToFindOtherEvents = {
+                        navController.navigate(MainScreenDestination.route) {
+                            popUpTo(AppointmentDestination.routeWithArgs) {
+                                inclusive = true
+                            }
+                        }
+                    }
                 )
             }
         }

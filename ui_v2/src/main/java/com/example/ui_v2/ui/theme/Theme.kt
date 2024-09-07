@@ -33,7 +33,7 @@ private val ColorScheme = DevMeetingsAppColorScheme(
     buttonTextPurple = Color(0xFF9A10F0),
     toggleColor = Color(0xFFEFEFEF),
     eventCardText = Color(0xFF76778E),
-    incorrectPin = Color(0xFF5C93)
+    incorrectPin = Color(0xFFFF5C93)
 )
 
 private val BrushScheme = DevMeetingsAppBrushScheme(
@@ -131,14 +131,14 @@ private val typography = DevMeetingsAppTypography(
     customH3 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.SemiBold,
-        lineHeight = 49.sp,
-        fontSize = 44.sp
+        lineHeight = 44.sp,
+        fontSize = 49.sp
     ),
     customH4 = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.Medium,
-        lineHeight = 20.sp,
-        fontSize = 24.sp
+        lineHeight = 24.sp,
+        fontSize = 20.sp
     ),
 )
 private val dimensions = DevMeetingsAppDimensions(
