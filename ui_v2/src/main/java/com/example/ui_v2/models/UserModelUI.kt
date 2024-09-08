@@ -4,9 +4,13 @@ internal data class UserModelUI(
     val id: String = "",
     val name: String = "",
     val surname: String = "",
-    val tag: String = "",
+    val city: String = "",
+    val listOfTags: List<String> = listOf(),
     val description: String = "",
     val imageURL: String? = "",
+    val listOfSocialMediaImageURL: List<String?> = listOf(),
+    val userEventsList: List<EventModelUI> = listOf(),
+    val userCommunitiesList: List<CommunityModelUI> = listOf(),
 )
 
 internal data class ClientModelUI(

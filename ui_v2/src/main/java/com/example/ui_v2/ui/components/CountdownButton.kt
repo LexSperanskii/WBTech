@@ -12,7 +12,7 @@ import com.example.ui_v2.R
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun CountdownButton(
+internal fun CountdownButton(
     countdown: Int,
     isButtonEnabled: Boolean,
     onClick: () -> Unit,

@@ -45,7 +45,7 @@ internal fun PersonCard(
             modifier = Modifier.padding(vertical = 4.dp)
         )
         TagSmall(
-            tagText = person.tag,
+            tagText = person.listOfTags.first(),
             onTagClick = {},
             isClicked = false
         )

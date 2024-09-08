@@ -91,6 +91,20 @@
     <string name="signed_up_info">%1$s\n%2$d %3$s at %4$s\n%5$s, %6$s</string>
     <string name="signed_up_button">Find other meetings</string>
     <string name="appointment_header_date_address">%1$s · %2$d %3$s · %4$s, %5$s</string>
+    <string name="you_go">You will go</string>
+    <string name="my_communities">My Communities</string>
+    <string name="exit">Exit</string>
+    <string name="delete_profile">Delete profile</string>
+    <string name="change_photo">Change photo</string>
+    <string name="change">+ Change</string>
+    <string name="social_networks">Social Networks</string>
+    <string name="show_my_communities">Show my communities</string>
+    <string name="show_my_events">Show my events</string>
+    <string name="apply_notifications">Turn on notifications</string>
+    <string name="delete_profile_header">Are you sure you want to delete the profile?</string>
+    <string name="delete_profile_description">No need...... We are cool\nWe will delete the profile, but not right away. You will have 30 days to log in and return everything back</string>
+    <string name="delete_profile_delete">Delete</string>
+    <string name="delete_profile_no_need">No need</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Only %d place. If you change your mind - unsubscribe</item>

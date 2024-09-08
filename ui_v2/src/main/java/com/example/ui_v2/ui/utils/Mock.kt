@@ -348,7 +348,7 @@ internal class NewUIMockData {
             id = "$index",
             name = generateRandomWord((7..15).random()),
             surname = "Гачимучный",
-            tag = listOfRealTags.random(),
+            listOfTags = listOfRealTags.take((2..5).random()),
             description = generateRandomWord((50..100).random()),
             imageURL = listOfRealIcons.random()
         )

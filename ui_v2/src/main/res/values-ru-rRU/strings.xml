@@ -92,6 +92,20 @@
     <string name="signed_up_info">%1$s\n%2$d %3$s в %4$s\n%5$s, %6$s</string>
     <string name="signed_up_button">Найти другие встречи</string>
     <string name="appointment_header_date_address">%1$s · %2$d %3$s · %4$s, %5$s</string>
+    <string name="you_go">Вы пойдете</string>
+    <string name="my_communities">Мои Сообщества</string>
+    <string name="exit">Выйти</string>
+    <string name="delete_profile">Удалить профиль</string>
+    <string name="change_photo">Изменить фото</string>
+    <string name="change">+ Изменить</string>
+    <string name="social_networks">Социальные сети</string>
+    <string name="show_my_communities">Показывать мои сообщества</string>
+    <string name="show_my_events">Показывать мои встерчи</string>
+    <string name="apply_notifications">Включить уведомления</string>
+    <string name="delete_profile_header">Точно\nудалить\nпрофиль?</string>
+    <string name="delete_profile_description">Не надо...... Мы крутые\nМы удалим профиль, но не сразу. У вас будет 30 дней чтобы зайти и обратно всё вернуть</string>
+    <string name="delete_profile_delete">Удалить</string>
+    <string name="delete_profile_no_need">Не надо</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Всего %d место. Если передумаете — отпишитесь</item>
