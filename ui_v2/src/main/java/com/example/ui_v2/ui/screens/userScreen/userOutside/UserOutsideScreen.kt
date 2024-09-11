@@ -14,10 +14,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.UserModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.EvensFixBlockCarousel
-import com.example.ui_v2.ui.components.TextButton
 import com.example.ui_v2.ui.components.UserCommunitiesFixBlockCarousel
 import com.example.ui_v2.ui.components.UserDescriptionBlockOutside
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
@@ -34,9 +34,9 @@ internal object UserOutsideScreenDestination : NavigationDestination {
 internal fun UserOutsideScreen(
     navigateBack: () -> Unit,
     onShareClick: () -> Unit,
-    onNetworkIconClick: (String?) -> Unit,
-    navigateToEvent: (EventModelUI) -> Unit,
-    navigateToCommunity: (CommunityModelUI) -> Unit,
+    onNetworkIconClick: (SocialMediaModelUI) -> Unit,
+    navigateToEvent: (eventId: String) -> Unit,
+    navigateToCommunity: (communityId: String) -> Unit,
     viewModel: UserOutsideScreenViewModel = koinViewModel(),
 ) {
     val userOutsideScreenUiState by viewModel.getUserOutsideScreenUiStateFlow()
@@ -48,9 +48,8 @@ internal fun UserOutsideScreen(
             onArrowClick = navigateBack,
             onShareClick = onShareClick,
             onNetworkIconClick = onNetworkIconClick,
-            onEventCardClick = navigateToEvent,
-            onCommunityClick = navigateToCommunity,
-            onExitButtonClick = {},
+            onEventCardClick = { navigateToEvent(it.id) },
+            onCommunityClick = { navigateToCommunity(it.id) },
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -61,10 +60,9 @@ internal fun UserOutsideScreenBody(
     user: UserModelUI,
     onArrowClick: () -> Unit,
     onShareClick: () -> Unit,
-    onNetworkIconClick: (String?) -> Unit,
+    onNetworkIconClick: (SocialMediaModelUI) -> Unit,
     onEventCardClick: (EventModelUI) -> Unit,
     onCommunityClick: (CommunityModelUI) -> Unit,
-    onExitButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -101,14 +99,6 @@ internal fun UserOutsideScreenBody(
                     .padding(
                         top = 40.dp
                     )
-            )
-        }
-        item {
-            TextButton(
-                buttonText = stringResource(id = R.string.exit),
-                onButtonClick = onExitButtonClick,
-                contentColor = DevMeetingAppTheme.colors.eventCardText,
-                modifier = Modifier
             )
         }
     }

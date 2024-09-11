@@ -12,13 +12,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
-import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.CountryModelUI
-import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.TextButton
 import com.example.ui_v2.ui.components.UserAvatarBlock
-import com.example.ui_v2.ui.components.UserInfoClock
+import com.example.ui_v2.ui.components.UserInfoBlock
 import com.example.ui_v2.ui.components.UserInterestsBlock
 import com.example.ui_v2.ui.components.UserSocialNetworkBlock
 import com.example.ui_v2.ui.components.UserSwitchBlock
@@ -33,10 +32,10 @@ internal object ProfileEditScreenDestination : NavigationDestination {
 @Composable
 internal fun ProfileEditScreen(
     navigateBack: () -> Unit,
-    onEditClick: () -> Unit,
-    onNetworkIconClick: (String?) -> Unit,
-    navigateToEvent: (EventModelUI) -> Unit,
-    navigateToCommunity: (CommunityModelUI) -> Unit,
+    onChangePhotoClick: () -> Unit,
+    navigateToUserInsideScreen: () -> Unit,
+    navigateToInterestsScreen: () -> Unit,
+    navigateToDeleteProfile: () -> Unit,
     viewModel: ProfileEditScreenViewModel = koinViewModel(),
 ) {
     val profileEditScreenUiState by viewModel.getProfileEditScreenUiStateFlow()
@@ -44,41 +43,60 @@ internal fun ProfileEditScreen(
 
     Scaffold { innerPadding ->
         ProfileEditScreenBody(
-            avatarURL =,
-            onCrossClick = { /*TODO*/ },
-            onDoneClick = { /*TODO*/ },
-            onChangePhotoClick = { /*TODO*/ },
-            nameSurnameValue =,
-            isNameSurnameValid =,
-            onNameSurnameChange =,
-            number =,
-            onNumberChange =,
-            countryCode =,
-            onCountryCodeChange =,
-            listOfCountriesCodes =,
-            cityValue =,
-            isCityValid =,
-            onCityChange =,
-            aboutUserValue =,
-            isAboutUserValid =,
-            onAboutUserChange =,
-            listOfUserTags =,
-            onTagChangeClick = { /*TODO*/ },
-            firstSocialNetworkValue =,
-            onFirstSocialNetworkValueChange =,
-            firstSocialNetworkURL =,
-            firstSocialNetworkName =,
-            secondSocialNetworkValue =,
-            onSecondSocialNetworkValueChange =,
-            secondSocialNetworkURL =,
-            secondSocialNetworkName =,
-            showMyCommunitiesChecked =,
-            onShowMyCommunitiesChange =,
-            showMyEventsChecked =,
-            onShowMyEventsChange =,
-            applyNotificationsChecked =,
-            onApplyNotificationsChange =,
-            onDeleteProfileButtonClick = { /*TODO*/ },
+            avatarURL = profileEditScreenUiState.avatarURL,
+            onCrossClick = navigateBack,
+            onDoneClick = {
+                viewModel.safeNewSettings()
+                navigateToUserInsideScreen()
+            },
+            onChangePhotoClick = onChangePhotoClick,
+            nameSurnameValue = profileEditScreenUiState.nameSurname,
+            isNameSurnameValid = profileEditScreenUiState.isNameSurnameValid,
+            onNameSurnameChange = {
+                viewModel.onNameSurnameChange(it)
+            },
+            number = profileEditScreenUiState.number,
+            onNumberChange = {
+                viewModel.onNumberChange(it)
+            },
+            countryCode = profileEditScreenUiState.countryCode,
+            onCountryCodeChange = {
+                viewModel.onCountryCodeChange(it)
+            },
+            listOfCountriesCodes = profileEditScreenUiState.listOfCountriesCodes,
+            cityValue = profileEditScreenUiState.city,
+            isCityValid = profileEditScreenUiState.isCityValid,
+            onCityChange = {
+                viewModel.onCityChange(it)
+            },
+            aboutUserValue = profileEditScreenUiState.aboutUser,
+            isAboutUserValid = profileEditScreenUiState.isAboutUserValid,
+            onAboutUserChange = {
+                viewModel.onAboutUserChange(it)
+            },
+            listOfUserTags = profileEditScreenUiState.listOfUserTags,
+            onTagChangeClick = {
+                navigateToInterestsScreen()
+            },
+            listOfSocialMedia = profileEditScreenUiState.listOfSocialMedia,
+            onSocialNetworkValueChange = { id, value ->
+                viewModel.onSocialNetworkValueChange(id = id, value = value)
+            },
+            showMyCommunitiesChecked = profileEditScreenUiState.showMyCommunitiesChecked,
+            onShowMyCommunitiesChange = {
+                viewModel.onShowMyCommunitiesChange(it)
+            },
+            showMyEventsChecked = profileEditScreenUiState.showMyEventsChecked,
+            onShowMyEventsChange = {
+                viewModel.onShowMyEventsChange(it)
+            },
+            applyNotificationsChecked = profileEditScreenUiState.applyNotificationsChecked,
+            onApplyNotificationsChange = {
+                viewModel.onApplyNotificationsChange(it)
+            },
+            onDeleteProfileButtonClick = {
+                navigateToDeleteProfile()
+            },
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -90,7 +108,6 @@ internal fun ProfileEditScreenBody(
     onCrossClick: () -> Unit,
     onDoneClick: () -> Unit,
     onChangePhotoClick: () -> Unit,
-
     nameSurnameValue: String,
     isNameSurnameValid: Boolean,
     onNameSurnameChange: (String) -> Unit,
@@ -105,26 +122,16 @@ internal fun ProfileEditScreenBody(
     aboutUserValue: String,
     isAboutUserValid: Boolean,
     onAboutUserChange: (String) -> Unit,
-
     listOfUserTags: List<String>,
     onTagChangeClick: () -> Unit,
-
-    firstSocialNetworkValue: String,
-    onFirstSocialNetworkValueChange: (String) -> Unit,
-    firstSocialNetworkURL: String?,
-    firstSocialNetworkName: String,
-    secondSocialNetworkValue: String,
-    onSecondSocialNetworkValueChange: (String) -> Unit,
-    secondSocialNetworkURL: String?,
-    secondSocialNetworkName: String,
-
+    listOfSocialMedia: List<SocialMediaModelUI>,
+    onSocialNetworkValueChange: (id: String, value: String) -> Unit,
     showMyCommunitiesChecked: Boolean,
     onShowMyCommunitiesChange: (Boolean) -> Unit,
     showMyEventsChecked: Boolean,
     onShowMyEventsChange: (Boolean) -> Unit,
     applyNotificationsChecked: Boolean,
     onApplyNotificationsChange: (Boolean) -> Unit,
-
     onDeleteProfileButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -144,7 +151,7 @@ internal fun ProfileEditScreenBody(
             )
         }
         item {
-            UserInfoClock(
+            UserInfoBlock(
                 nameSurnameValue = nameSurnameValue,
                 isNameSurnameValid = isNameSurnameValid,
                 onNameSurnameChange = onNameSurnameChange,
@@ -171,14 +178,8 @@ internal fun ProfileEditScreenBody(
         }
         item {
             UserSocialNetworkBlock(
-                firstSocialNetworkValue = firstSocialNetworkValue,
-                onFirstSocialNetworkValueChange = onFirstSocialNetworkValueChange,
-                firstSocialNetworkURL = firstSocialNetworkURL,
-                firstSocialNetworkName = firstSocialNetworkName,
-                secondSocialNetworkValue = secondSocialNetworkValue,
-                onSecondSocialNetworkValueChange = onSecondSocialNetworkValueChange,
-                secondSocialNetworkURL = secondSocialNetworkURL,
-                secondSocialNetworkName = secondSocialNetworkName
+                listOfSocialMedia = listOfSocialMedia,
+                onSocialNetworkValueChange = onSocialNetworkValueChange,
             )
         }
         item {

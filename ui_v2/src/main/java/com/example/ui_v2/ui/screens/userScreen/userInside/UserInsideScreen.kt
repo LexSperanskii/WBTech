@@ -14,6 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.UserModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.EvensFixBlockCarousel
@@ -23,6 +24,9 @@ import com.example.ui_v2.ui.components.UserDescriptionBlockInside
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
+internal object UserProfileDestination : NavigationDestination {
+    override val route = "user_profile"
+}
 
 internal object UserInsideScreenDestination : NavigationDestination {
     override val route = "user_inside_screen"
@@ -32,9 +36,9 @@ internal object UserInsideScreenDestination : NavigationDestination {
 internal fun UserInsideScreen(
     navigateBack: () -> Unit,
     onEditClick: () -> Unit,
-    onNetworkIconClick: (String?) -> Unit,
-    navigateToEvent: (EventModelUI) -> Unit,
-    navigateToCommunity: (CommunityModelUI) -> Unit,
+    onNetworkIconClick: (SocialMediaModelUI) -> Unit,
+    navigateToEvent: (eventId: String) -> Unit,
+    navigateToCommunity: (communityId: String) -> Unit,
     viewModel: UserInsideScreenViewModel = koinViewModel(),
 ) {
     val userInsideScreenUiState by viewModel.getUserInsideScreenUiStateFlow()
@@ -46,8 +50,8 @@ internal fun UserInsideScreen(
             onArrowClick = navigateBack,
             onEditClick = onEditClick,
             onNetworkIconClick = onNetworkIconClick,
-            onEventCardClick = navigateToEvent,
-            onCommunityClick = navigateToCommunity,
+            onEventCardClick = { navigateToEvent(it.id) },
+            onCommunityClick = { navigateToCommunity(it.id) },
             onExitButtonClick = {},
             modifier = Modifier.padding(innerPadding)
         )
@@ -59,7 +63,7 @@ internal fun UserInsideScreenBody(
     user: UserModelUI,
     onArrowClick: () -> Unit,
     onEditClick: () -> Unit,
-    onNetworkIconClick: (String?) -> Unit,
+    onNetworkIconClick: (SocialMediaModelUI) -> Unit,
     onEventCardClick: (EventModelUI) -> Unit,
     onCommunityClick: (CommunityModelUI) -> Unit,
     onExitButtonClick: () -> Unit,

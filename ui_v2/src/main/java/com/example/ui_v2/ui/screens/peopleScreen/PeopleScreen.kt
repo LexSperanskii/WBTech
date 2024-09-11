@@ -32,7 +32,7 @@ internal object PeopleScreenDestination : NavigationDestination {
 @Composable
 internal fun PeopleScreen(
     onArrowBackClick: () -> Unit,
-    navigateToPersonScreen: () -> Unit,
+    navigateToPersonScreen: (String) -> Unit,
     viewModel: PeopleScreenViewModel = koinViewModel(),
 ) {
     val peopleScreenUiState by viewModel.getPeopleScreenUiStateFlow().collectAsStateWithLifecycle()
@@ -40,7 +40,7 @@ internal fun PeopleScreen(
     Scaffold { innerPadding ->
         PeopleScreenBody(
             onArrowBackClick = onArrowBackClick,
-            onPersonCardClick = navigateToPersonScreen,
+            onPersonCardClick = { navigateToPersonScreen(it.id) },
             listOfUsers = peopleScreenUiState.listOfUsers,
             modifier = Modifier.padding(innerPadding)
         )
@@ -50,7 +50,7 @@ internal fun PeopleScreen(
 @Composable
 internal fun PeopleScreenBody(
     onArrowBackClick: () -> Unit,
-    onPersonCardClick: () -> Unit,
+    onPersonCardClick: (UserModelUI) -> Unit,
     listOfUsers: List<UserModelUI>,
     modifier: Modifier = Modifier,
 ) {
@@ -80,7 +80,7 @@ internal fun PeopleScreenBody(
             items(listOfUsers) { user ->
                 PersonCard(
                     person = user,
-                    onPersonCardClick = onPersonCardClick
+                    onPersonCardClick = { onPersonCardClick(user) }
                 )
             }
         }

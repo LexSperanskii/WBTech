@@ -42,7 +42,10 @@ internal fun DeleteProfileScreen(
     Scaffold { innerPadding ->
         DeleteProfileScreenBody(
             onCrossClick = navigateBack,
-            onDeleteClick = onDeleteClick,
+            onDeleteClick = {
+                //TODO
+                onDeleteClick()
+            },
             onNoNeedClick = onNoNeedClick,
             modifier = Modifier.padding(innerPadding)
         )
@@ -101,7 +104,9 @@ internal fun DeleteProfileScreenBody(
             notPressedText = stringResource(id = R.string.delete_profile_delete),
             isButtonEnabled = true,
             onClick = onDeleteClick,
-            buttonStatus = ButtonStatus.Pressed
+            buttonStatus = ButtonStatus.Pressed,
+            modifier = Modifier
+                .padding(bottom = DevMeetingAppTheme.dimensions.paddingMedium)
         )
         ButtonWithStatus(
             notPressedText = stringResource(id = R.string.delete_profile_no_need),

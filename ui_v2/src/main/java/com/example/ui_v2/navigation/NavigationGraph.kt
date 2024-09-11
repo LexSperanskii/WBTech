@@ -33,6 +33,17 @@ import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreen
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreenDestination
 import com.example.ui_v2.ui.screens.peopleScreen.PeopleScreen
 import com.example.ui_v2.ui.screens.peopleScreen.PeopleScreenDestination
+import com.example.ui_v2.ui.screens.userScreen.deleteProfile.DeleteProfileScreen
+import com.example.ui_v2.ui.screens.userScreen.deleteProfile.DeleteProfileScreenDestination
+import com.example.ui_v2.ui.screens.userScreen.profileEdit.ProfileEditScreen
+import com.example.ui_v2.ui.screens.userScreen.profileEdit.ProfileEditScreenDestination
+import com.example.ui_v2.ui.screens.userScreen.profileInterests.ProfileInterestsScreen
+import com.example.ui_v2.ui.screens.userScreen.profileInterests.ProfileInterestsScreenDestination
+import com.example.ui_v2.ui.screens.userScreen.userInside.UserInsideScreen
+import com.example.ui_v2.ui.screens.userScreen.userInside.UserInsideScreenDestination
+import com.example.ui_v2.ui.screens.userScreen.userInside.UserProfileDestination
+import com.example.ui_v2.ui.screens.userScreen.userOutside.UserOutsideScreen
+import com.example.ui_v2.ui.screens.userScreen.userOutside.UserOutsideScreenDestination
 
 
 @Composable
@@ -80,7 +91,9 @@ fun NavHost(
                     navController.navigate("${EventScreenDestination.route}/${it}")
                 },
                 navigateToBannerScreen = {},
-                navigateToProfileScreen = {},
+                navigateToProfileScreen = {
+                    navController.navigate(UserProfileDestination.route)
+                },
             )
         }
         composable(
@@ -115,7 +128,9 @@ fun NavHost(
         ) {
             PeopleScreen(
                 onArrowBackClick = { navController.popBackStack() },
-                navigateToPersonScreen = { /*TODO*/ }
+                navigateToPersonScreen = {
+                    navController.navigate("${UserOutsideScreenDestination.route}/${it}")
+                }
             )
         }
         composable(
@@ -199,6 +214,85 @@ fun NavHost(
                             }
                         }
                     }
+                )
+            }
+        }
+        composable(
+            route = UserOutsideScreenDestination.routeWithArgs,
+            arguments = listOf(navArgument(UserOutsideScreenDestination.itemIdArg) {
+                type = NavType.StringType
+            })
+        ) {
+            UserOutsideScreen(
+                navigateBack = { navController.popBackStack() },
+                onShareClick = { },
+                onNetworkIconClick = {},
+                navigateToEvent = {
+                    navController.navigate("${EventScreenDestination.route}/${it}")
+                },
+                navigateToCommunity = {
+                    navController.navigate("${CommunityScreenDestination.route}/${it}")
+                }
+            )
+        }
+        navigation(
+            route = UserProfileDestination.route,
+            startDestination = UserInsideScreenDestination.route
+        ) {
+            composable(
+                route = UserInsideScreenDestination.route
+            ) {
+                UserInsideScreen(
+                    navigateBack = { navController.popBackStack() },
+                    onEditClick = {
+                        navController.navigate(ProfileEditScreenDestination.route)
+                    },
+                    onNetworkIconClick = {},
+                    navigateToEvent = {
+                        navController.navigate("${EventScreenDestination.route}/${it}")
+                    },
+                    navigateToCommunity = {
+                        navController.navigate("${CommunityScreenDestination.route}/${it}")
+                    }
+                )
+            }
+            composable(
+                route = ProfileEditScreenDestination.route
+            ) {
+                ProfileEditScreen(
+                    navigateBack = { navController.popBackStack() },
+                    onChangePhotoClick = {
+
+                    },
+                    navigateToUserInsideScreen = {
+                        navController.navigate(UserInsideScreenDestination.route) {
+                            popUpTo(UserInsideScreenDestination.route)
+                        }
+                    },
+                    navigateToDeleteProfile = {
+                        navController.navigate(DeleteProfileScreenDestination.route)
+                    },
+                    navigateToInterestsScreen = {
+                        navController.navigate(ProfileInterestsScreenDestination.route)
+                    }
+                )
+            }
+            composable(
+                route = ProfileInterestsScreenDestination.route
+            ) {
+                ProfileInterestsScreen(
+                    navigateBack = { navController.popBackStack() }
+                )
+            }
+            composable(
+                route = DeleteProfileScreenDestination.route
+            ) {
+                DeleteProfileScreen(
+                    navigateBack = { navController.popBackStack() },
+                    onDeleteClick = {
+                        navController.navigate(MainScreenDestination.route)
+                    },
+                    onNoNeedClick = { navController.popBackStack() }
                 )
             }
         }

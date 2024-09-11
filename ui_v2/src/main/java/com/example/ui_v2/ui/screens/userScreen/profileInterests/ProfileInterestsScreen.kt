@@ -29,7 +29,7 @@ internal object ProfileInterestsScreenDestination : NavigationDestination {
 
 @Composable
 internal fun ProfileInterestsScreen(
-    onSafeButtonClick: () -> Unit,
+    navigateBack: () -> Unit,
     viewModel: ProfileInterestsScreenViewModel = koinViewModel(),
 ) {
     val profileInterestsScreenUiState by viewModel.getProfileInterestsScreenUiStateFlow()
@@ -43,7 +43,10 @@ internal fun ProfileInterestsScreen(
                 viewModel.onTagClick(it)
             },
             isButtonEnabled = profileInterestsScreenUiState.isButtonEnabled,
-            onButtonClick = onSafeButtonClick,
+            onButtonClick = {
+                //TODO
+                navigateBack()
+            },
             buttonStatus = profileInterestsScreenUiState.buttonStatus,
             modifier = Modifier.padding(innerPadding)
         )

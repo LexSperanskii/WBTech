@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -33,7 +34,21 @@ internal fun UserAvatarBlock(
 ) {
     Box(
         modifier = Modifier
+            .wrapContentSize()
     ) {
+        AsyncImage(
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(avatarURL)
+                .crossfade(true)
+                .build(),
+            contentScale = ContentScale.Inside,
+            error = painterResource(R.drawable.ic_broken_image),
+            placeholder = painterResource(R.drawable.loading_img),
+            contentDescription = stringResource(R.string.profile_icon),
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+        )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -63,19 +78,6 @@ internal fun UserAvatarBlock(
                     .clickable { onDoneClick() }
             )
         }
-        AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current)
-                .data(avatarURL)
-                .crossfade(true)
-                .build(),
-            contentScale = ContentScale.Inside,
-            error = painterResource(R.drawable.ic_broken_image),
-            placeholder = painterResource(R.drawable.loading_img),
-            contentDescription = stringResource(R.string.profile_icon),
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
-        )
         TextButton(
             buttonText = stringResource(id = R.string.change_photo),
             onButtonClick = onChangePhotoClick,

@@ -198,56 +198,56 @@ internal fun DeveloperScreen() {
     val listOfPeople = listOf(
         UserModelUI(
             id = "0",
-            name = "Маша",
+            nameSurname = "Маша",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "1",
-            name = "Коля",
+            nameSurname = "Коля",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "2",
-            name = "Миша",
+            nameSurname = "Миша",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "3",
-            name = "Женя",
+            nameSurname = "Женя",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "4",
-            name = "Даша",
+            nameSurname = "Даша",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "5",
-            name = "Витя",
+            nameSurname = "Витя",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "6",
-            name = "Саша",
+            nameSurname = "Саша",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "7",
-            name = "Сережа",
+            nameSurname = "Сережа",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "8",
-            name = "Федя",
+            nameSurname = "Федя",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "9",
-            name = "Валя",
+            nameSurname = "Валя",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         )
@@ -255,19 +255,19 @@ internal fun DeveloperScreen() {
     val listOfPeople2 = listOf(
         UserModelUI(
             id = "0",
-            name = "Маша",
+            nameSurname = "Маша",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "1",
-            name = "Коля",
+            nameSurname = "Коля",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "2",
-            name = "Миша",
+            nameSurname = "Миша",
             listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         )
@@ -301,7 +301,7 @@ internal fun DeveloperScreen() {
                 PitcherBlock(
                     pitcher = UserModelUI(
                         id = "0",
-                        name = "Павел Хориков",
+                        nameSurname = "Павел Хориков",
                         listOfTags = listOf("HR"),
                         description = "Ведущий специалист по подбору персонала в одной из крупнейших IT-компаний в ЕС.",
                         imageURL = "https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg"

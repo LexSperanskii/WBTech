@@ -8,18 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.ui_v2.R
+import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 
 @Composable
-fun UserSocialNetworkBlock(
-    firstSocialNetworkValue: String,
-    onFirstSocialNetworkValueChange: (String) -> Unit,
-    firstSocialNetworkURL: String?,
-    firstSocialNetworkName: String,
-    secondSocialNetworkValue: String,
-    onSecondSocialNetworkValueChange: (String) -> Unit,
-    secondSocialNetworkURL: String?,
-    secondSocialNetworkName: String,
+internal fun UserSocialNetworkBlock(
+    listOfSocialMedia: List<SocialMediaModelUI>,
+    onSocialNetworkValueChange: (id: String, value: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -33,20 +28,17 @@ fun UserSocialNetworkBlock(
             modifier = Modifier
                 .padding(bottom = 16.dp)
         )
-        UserSocialNetworksTextField(
-            value = firstSocialNetworkValue,
-            onValueChange = onFirstSocialNetworkValueChange,
-            socialNetworkURL = secondSocialNetworkURL,
-            socialNetworkName = secondSocialNetworkName,
-            modifier = Modifier
-                .padding(bottom = 8.dp)
-        )
-        UserSocialNetworksTextField(
-            value = secondSocialNetworkValue,
-            onValueChange = onSecondSocialNetworkValueChange,
-            socialNetworkURL = firstSocialNetworkURL,
-            socialNetworkName = firstSocialNetworkName,
-            modifier = Modifier
-        )
+        listOfSocialMedia.forEach { socialMedia ->
+            UserSocialNetworksTextField(
+                value = socialMedia.userNickname,
+                onValueChange = {
+                    onSocialNetworkValueChange(socialMedia.socialMediaId, it)
+                },
+                socialNetworkURL = socialMedia.socialMediaIconURL,
+                socialNetworkName = socialMedia.socialMediaName,
+                modifier = Modifier
+                    .padding(bottom = 8.dp)
+            )
+        }
     }
 }

@@ -11,6 +11,9 @@ import com.example.ui_v2.ui.screens.mainScreen.MainScreenViewModel
 import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreenViewModel
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreenViewModel
 import com.example.ui_v2.ui.screens.peopleScreen.PeopleScreenViewModel
+import com.example.ui_v2.ui.screens.userScreen.deleteProfile.DeleteProfileScreenViewModel
+import com.example.ui_v2.ui.screens.userScreen.profileEdit.ProfileEditScreenViewModel
+import com.example.ui_v2.ui.screens.userScreen.profileInterests.ProfileInterestsScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.userInside.UserInsideScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.userOutside.UserOutsideScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -30,4 +33,7 @@ val uiModule = module {
     viewModelOf(::AppointmentSplashScreenViewModel)
     viewModelOf(::UserOutsideScreenViewModel)
     viewModelOf(::UserInsideScreenViewModel)
+    viewModelOf(::ProfileEditScreenViewModel)
+    viewModelOf(::ProfileInterestsScreenViewModel)
+    viewModelOf(::DeleteProfileScreenViewModel)
 }

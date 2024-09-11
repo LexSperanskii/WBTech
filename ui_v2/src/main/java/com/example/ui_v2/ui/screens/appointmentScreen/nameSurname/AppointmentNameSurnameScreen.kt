@@ -50,7 +50,8 @@ internal fun AppointmentNameSurnameScreen(
             },
             isButtonEnabled = appointmentNameSurnameScreenUiState.isButtonEnabled,
             onButtonClick = {
-                viewModel.onButtonClick(navigateToAppointmentPhoneNumberScreen)
+                viewModel.onButtonClick()
+                navigateToAppointmentPhoneNumberScreen()
             },
             modifier = Modifier.padding(innerPadding)
         )

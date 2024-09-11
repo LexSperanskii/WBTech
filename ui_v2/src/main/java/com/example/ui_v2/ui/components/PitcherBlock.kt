@@ -51,11 +51,7 @@ internal fun PitcherBlock(
                     .padding(end = 10.dp)
             ) {
                 Text(
-                    text = stringResource(
-                        id = R.string.name_surname,
-                        pitcher.name,
-                        pitcher.surname
-                    ),
+                    text = pitcher.nameSurname,
                     color = DevMeetingAppTheme.colors.black,
                     style = DevMeetingAppTheme.typography.metadata2,
                     fontWeight = FontWeight.Bold,

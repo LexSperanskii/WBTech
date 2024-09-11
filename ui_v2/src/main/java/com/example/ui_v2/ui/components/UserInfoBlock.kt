@@ -10,7 +10,7 @@ import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 
 @Composable
-internal fun UserInfoClock(
+internal fun UserInfoBlock(
     nameSurnameValue: String,
     isNameSurnameValid: Boolean,
     onNameSurnameChange: (String) -> Unit,

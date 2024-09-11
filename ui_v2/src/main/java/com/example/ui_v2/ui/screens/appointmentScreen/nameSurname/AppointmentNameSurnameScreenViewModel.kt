@@ -17,7 +17,7 @@ internal data class AppointmentNameSurnameScreenUiState(
     val isNameSurnameValid: Boolean = true,
 ) {
     val isButtonEnabled: Boolean
-        get() = nameSurnameValue.isNotBlank()
+        get() = nameSurnameValue.isNotBlank() && isNameSurnameValid
 }
 
 internal class AppointmentNameSurnameScreenViewModel(
@@ -49,35 +49,15 @@ internal class AppointmentNameSurnameScreenViewModel(
     fun onNameSurnameChange(inputValue: String) {
         _uiState.update {
             it.copy(
-                nameSurnameValue = inputValue
+                nameSurnameValue = inputValue,
+                isNameSurnameValid = inputValue.isNotBlank() && inputValue.length > 1
             )
         }
     }
 
-    fun onButtonClick(navigateToAppointmentPhoneNumberScreen: () -> Unit) {
-        val parts = uiState.value.nameSurnameValue.split(Regex("\\s+"), limit = 2)
-        val name = parts[0]
-        val surname = parts.getOrNull(1) ?: ""
-        when (surname.isNotBlank()) {
-            true -> {
-                _uiState.update {
-                    it.copy(
-                        isNameSurnameValid = true
-                    )
-                }
-                mock.setClientName(name, surname)
-                navigateToAppointmentPhoneNumberScreen()
-            }
-
-            false -> {
-                _uiState.update {
-                    it.copy(
-                        isNameSurnameValid = false
-                    )
-                }
-            }
-        }
-
+    fun onButtonClick() {
+        val nameSurname = uiState.value.nameSurnameValue
+        mock.setClientName(nameSurname)
     }
 
 }

@@ -13,6 +13,7 @@ import com.example.ui_v2.models.EventLocationModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.MetroModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
+import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.UserModelUI
 import java.util.UUID
 
@@ -28,6 +29,20 @@ internal class NewUIMockData {
         CountryModelUI("Азербайджан", "+994", R.drawable.flag_az)
     )
     private val colors = listOf(Color.Green, Color.Red, Color.Blue, Color.Yellow)
+    private val listOfSocialMedia = listOf(
+        SocialMediaModelUI(
+            socialMediaId = "0",
+            socialMediaIconURL = "https://habrastorage.org/getpro/moikrug/uploads/company/901/244/761/logo/medium_c35efb293cd85320d66e74304d3a8076.jpg",
+            socialMediaName = "Хабр",
+            userNickname = "Ssdfweeeqww"
+        ),
+        SocialMediaModelUI(
+            socialMediaId = "1",
+            socialMediaIconURL = "https://w7.pngwing.com/pngs/460/412/png-transparent-telegram-computer-icons-email-filtering-angle-text-triangle.png",
+            socialMediaName = "Телеграм",
+            userNickname = "asdfsdfsdf"
+        )
+    )
     private val metroStations = listOf(
         "Приморская",
         "Улица Дыбенко",
@@ -343,22 +358,25 @@ internal class NewUIMockData {
             listOfTags = listOf("Гачи", "Мучи", "BackEnd")
         )
     )
-    private val listOfRealUsers = List(20) { index ->
-        UserModelUI(
-            id = "$index",
-            name = generateRandomWord((7..15).random()),
-            surname = "Гачимучный",
-            listOfTags = listOfRealTags.take((2..5).random()),
-            description = generateRandomWord((50..100).random()),
-            imageURL = listOfRealIcons.random()
-        )
-    }
     private val listOfRealCommunities = List(20) { index ->
         CommunityModelUI(
             id = "C$index",
             name = generateRandomWord((7..15).random()),
             description = generateRandomWord((50..100).random()),
             imageURL = listOfRealIcons.random()
+        )
+    }
+    private val listOfRealUsers = List(20) { index ->
+        UserModelUI(
+            id = "$index",
+            nameSurname = generateRandomWord((7..15).random()),
+            city = "Санкт-Петербург",
+            listOfTags = listOfRealTags.take((2..5).random()),
+            description = generateRandomWord((50..100).random()),
+            imageURL = listOfRealIcons.random(),
+            listOfSocialMediaImageURL = listOfSocialMedia,
+            userEventsList = listOfRealEvents.take(10),
+            userCommunitiesList = listOfRealCommunities.take(10)
         )
     }
     private val listOfRealEventDescriptions = List(20) { index ->
@@ -459,23 +477,29 @@ internal class NewUIMockData {
 
     fun getAvailableCountriesList(): List<CountryModelUI> = availableCountries
 
-    fun setClientName(name: String, surname: String) {
-        client = client.copy(name = name, surname = surname)
+    fun setClientName(nameSurname: String) {
+        client = client.copy(nameSurname = nameSurname)
     }
 
     fun setClientPhoneNumber(countryCode: String, number: String) {
-        client = client.copy(countryCode = countryCode, number = number)
+        client = client.copy(
+            phoneNumber = client.phoneNumber.copy(
+                countryCode = countryCode,
+                number = number
+            )
+        )
     }
 
     fun getClientPhoneNumber(): PhoneNumberModelUI {
-        return PhoneNumberModelUI(
-            client.countryCode,
-            client.number
-        )
+        return client.phoneNumber
     }
 
     fun postClientPinCode(pinCode: String): Boolean {
         return pinCode == clientPinCode
+    }
+
+    fun getUser(id: String): UserModelUI {
+        return listOfRealUsers.find { it.id == id } ?: UserModelUI()
     }
 }
 

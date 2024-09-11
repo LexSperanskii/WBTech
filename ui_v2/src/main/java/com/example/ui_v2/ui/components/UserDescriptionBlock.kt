@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.ui_v2.R
+import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.UserModelUI
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 
@@ -38,7 +40,7 @@ internal fun UserDescriptionBlockOutside(
     user: UserModelUI,
     onArrowClick: () -> Unit,
     onShareClick: () -> Unit,
-    onNetworkIconClick: (String?) -> Unit,
+    onNetworkIconClick: (SocialMediaModelUI) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -46,8 +48,22 @@ internal fun UserDescriptionBlockOutside(
     ) {
         Box(
             modifier = Modifier
+                .wrapContentSize()
                 .padding(bottom = 20.dp)
         ) {
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(user.imageURL)
+                    .crossfade(true)
+                    .build(),
+                contentScale = ContentScale.Crop,
+                error = painterResource(R.drawable.ic_broken_image),
+                placeholder = painterResource(R.drawable.loading_img),
+                contentDescription = stringResource(R.string.profile_icon),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+            )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -78,22 +94,9 @@ internal fun UserDescriptionBlockOutside(
                         .clickable { onShareClick() }
                 )
             }
-            AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(user.imageURL)
-                    .crossfade(true)
-                    .build(),
-                contentScale = ContentScale.Inside,
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_img),
-                contentDescription = stringResource(R.string.profile_icon),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
-            )
         }
         Text(
-            text = user.name,
+            text = user.nameSurname,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.customH3,
             modifier = Modifier.padding(
@@ -106,13 +109,23 @@ internal fun UserDescriptionBlockOutside(
             text = user.city,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.metadata2,
-            modifier = Modifier.padding(bottom = 2.dp)
+            modifier = Modifier
+                .padding(
+                    start = DevMeetingAppTheme.dimensions.paddingMedium,
+                    end = DevMeetingAppTheme.dimensions.paddingMedium,
+                    bottom = 2.dp
+                )
         )
         Text(
             text = user.description,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.metadata1,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier
+                .padding(
+                    start = DevMeetingAppTheme.dimensions.paddingMedium,
+                    end = DevMeetingAppTheme.dimensions.paddingMedium,
+                    bottom = 16.dp
+                )
         )
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -138,17 +151,17 @@ internal fun UserDescriptionBlockOutside(
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         ) {
-            user.listOfSocialMediaImageURL.forEach { icon ->
+            user.listOfSocialMediaImageURL.forEach { socialMedia ->
                 Box(
                     modifier = modifier
                         .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMediumSmall))
                         .size(52.dp)
-                        .clickable { onNetworkIconClick(icon) }
+                        .clickable { onNetworkIconClick(socialMedia) }
                         .background(DevMeetingAppTheme.colors.buttonTextPurple)
                 ) {
                     AsyncImage(
                         model = ImageRequest.Builder(context = LocalContext.current)
-                            .data(icon)
+                            .data(socialMedia.socialMediaIconURL)
                             .crossfade(true)
                             .build(),
                         contentScale = ContentScale.Inside,
@@ -171,7 +184,7 @@ internal fun UserDescriptionBlockInside(
     user: UserModelUI,
     onArrowClick: () -> Unit,
     onEditClick: () -> Unit,
-    onNetworkIconClick: (String?) -> Unit,
+    onNetworkIconClick: (SocialMediaModelUI) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -179,8 +192,22 @@ internal fun UserDescriptionBlockInside(
     ) {
         Box(
             modifier = Modifier
+                .wrapContentSize()
                 .padding(bottom = 20.dp)
         ) {
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(user.imageURL)
+                    .crossfade(true)
+                    .build(),
+                contentScale = ContentScale.Inside,
+                error = painterResource(R.drawable.ic_broken_image),
+                placeholder = painterResource(R.drawable.loading_img),
+                contentDescription = stringResource(R.string.profile_icon),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+            )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -211,22 +238,9 @@ internal fun UserDescriptionBlockInside(
                         .clickable { onEditClick() }
                 )
             }
-            AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(user.imageURL)
-                    .crossfade(true)
-                    .build(),
-                contentScale = ContentScale.Inside,
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_img),
-                contentDescription = stringResource(R.string.profile_icon),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
-            )
         }
         Text(
-            text = user.name,
+            text = user.nameSurname,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.customH3,
             modifier = Modifier.padding(
@@ -239,13 +253,23 @@ internal fun UserDescriptionBlockInside(
             text = user.city,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.metadata2,
-            modifier = Modifier.padding(bottom = 2.dp)
+            modifier = Modifier
+                .padding(
+                    start = DevMeetingAppTheme.dimensions.paddingMedium,
+                    end = DevMeetingAppTheme.dimensions.paddingMedium,
+                    bottom = 2.dp
+                )
         )
         Text(
             text = user.description,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.metadata1,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier
+                .padding(
+                    start = DevMeetingAppTheme.dimensions.paddingMedium,
+                    end = DevMeetingAppTheme.dimensions.paddingMedium,
+                    bottom = 16.dp
+                )
         )
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -271,17 +295,17 @@ internal fun UserDescriptionBlockInside(
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         ) {
-            user.listOfSocialMediaImageURL.forEach { icon ->
+            user.listOfSocialMediaImageURL.forEach { socialMedia ->
                 Box(
                     modifier = modifier
                         .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMediumSmall))
                         .size(52.dp)
-                        .clickable { onNetworkIconClick(icon) }
+                        .clickable { onNetworkIconClick(socialMedia) }
                         .background(DevMeetingAppTheme.colors.buttonTextPurple)
                 ) {
                     AsyncImage(
                         model = ImageRequest.Builder(context = LocalContext.current)
-                            .data(icon)
+                            .data(socialMedia.socialMediaIconURL)
                             .crossfade(true)
                             .build(),
                         contentScale = ContentScale.Inside,

@@ -37,7 +37,7 @@ internal fun PersonCard(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Text(
-            text = person.name,
+            text = person.nameSurname,
             color = DevMeetingAppTheme.colors.black,
             style = DevMeetingAppTheme.typography.bodyText1,
             maxLines = 1,
