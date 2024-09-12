@@ -77,6 +77,8 @@ internal fun EventCard(
             ),
             color = DevMeetingAppTheme.colors.eventCardText,
             style = DevMeetingAppTheme.typography.metadata1,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(top = 2.dp)
         )
         FlowRow(

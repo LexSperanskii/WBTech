@@ -109,7 +109,9 @@ internal class NewUIMockData {
             street = "Невский проспект",
             building = "11",
             imageURL = "https://i.pinimg.com/736x/e5/3b/90/e53b900fe55028bd1305716aaac3602d.jpg",
-            listOfTags = listOf("Тестирование", "Разработка", "BackEnd")
+            listOfTags = listOf(
+                "Тестирование", "Разработка", "BackEnd", "Гачи"
+            )
         ),
         EventModelUI(
             id = "1",
