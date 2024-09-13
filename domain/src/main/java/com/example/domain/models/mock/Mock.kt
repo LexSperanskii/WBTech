@@ -1,42 +1,42 @@
-package com.example.ui_v2.ui.utils
+package com.example.domain.models.mock
 
-import androidx.compose.ui.graphics.Color
-import com.example.ui_v2.R
-import com.example.ui_v2.models.ClientModelUI
-import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
-import com.example.ui_v2.models.CommunityDescriptionModelUI
-import com.example.ui_v2.models.CommunityModelUI
-import com.example.ui_v2.models.CountryModelUI
-import com.example.ui_v2.models.EventAdvertBlockModelUI
-import com.example.ui_v2.models.EventDescriptionModelUI
-import com.example.ui_v2.models.EventLocationModelUI
-import com.example.ui_v2.models.EventModelUI
-import com.example.ui_v2.models.MetroModelUI
-import com.example.ui_v2.models.PhoneNumberModelUI
-import com.example.ui_v2.models.SocialMediaModelUI
-import com.example.ui_v2.models.UserModelUI
+
+import com.example.domain.models.ClientModelDomain
+import com.example.domain.models.CommunitiesAdvertBlockModelDomain
+import com.example.domain.models.CommunityDescriptionModelDomain
+import com.example.domain.models.CommunityModelDomain
+import com.example.domain.models.CountryModelDomain
+import com.example.domain.models.EventAdvertBlockModelDomain
+import com.example.domain.models.EventDescriptionModelDomain
+import com.example.domain.models.EventLocationModelDomain
+import com.example.domain.models.EventModelDomain
+import com.example.domain.models.MetroModelDomain
+import com.example.domain.models.PhoneNumberModelDomain
+import com.example.domain.models.SocialMediaModelDomain
+import com.example.domain.models.UserModelDomain
 import java.util.UUID
 
 internal class NewUIMockData {
 
-    private var client = ClientModelUI()
+    private var client = ClientModelDomain()
     private var clientPinCode = "5555"
     private val availableCountries = listOf(
-        CountryModelUI("Россия", "+7", R.drawable.flag_ru),
-        CountryModelUI("Казахстан", "+7", R.drawable.flag_kz),
-        CountryModelUI("Белоруссия", "+375", R.drawable.flag_by),
-        CountryModelUI("Киргизия", "+996", R.drawable.flag_kg),
-        CountryModelUI("Азербайджан", "+994", R.drawable.flag_az)
+        CountryModelDomain(0, "Россия", "+7"),
+        CountryModelDomain(1, "Казахстан", "+7"),
+        CountryModelDomain(2, "Белоруссия", "+375"),
+        CountryModelDomain(3, "Киргизия", "+996"),
+        CountryModelDomain(4, "Азербайджан", "+994")
     )
-    private val colors = listOf(Color.Green, Color.Red, Color.Blue, Color.Yellow)
+    private val colorsStringList =
+        listOf("0xFF00FF00", "0xFFFFFF00", "0xFF0000FF", "0xFFFF0000", "0xFFFFA500", "0xFF800080")
     private val listOfSocialMedia = listOf(
-        SocialMediaModelUI(
+        SocialMediaModelDomain(
             socialMediaId = "0",
             socialMediaIconURL = "https://habrastorage.org/getpro/moikrug/uploads/company/901/244/761/logo/medium_c35efb293cd85320d66e74304d3a8076.jpg",
             socialMediaName = "Хабр",
             userNickname = "Ssdfweeeqww"
         ),
-        SocialMediaModelUI(
+        SocialMediaModelDomain(
             socialMediaId = "1",
             socialMediaIconURL = "https://w7.pngwing.com/pngs/460/412/png-transparent-telegram-computer-icons-email-filtering-angle-text-triangle.png",
             socialMediaName = "Телеграм",
@@ -98,7 +98,7 @@ internal class NewUIMockData {
         "https://i.pinimg.com/736x/93/ef/d8/93efd8084d7a45602665b45c5e8a707a.jpg"
     )
     private val listOfRealEvents = listOf(
-        EventModelUI(
+        EventModelDomain(
             id = "0",
             name = "QA Talks - Global tech forum",
             time = "13:00",
@@ -113,7 +113,7 @@ internal class NewUIMockData {
                 "Тестирование", "Разработка", "BackEnd", "Гачи"
             )
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "1",
             name = "Python days 2024",
             time = "14:00",
@@ -126,7 +126,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/564x/e0/59/1d/e0591de77b707dbac61e29394b725ff4.jpg",
             listOfTags = listOf("Тестирование", "Разработка")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "2",
             name = "Как повышать грейд. Лекция Павла Хорикова",
             time = "15:00",
@@ -139,7 +139,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/564x/20/76/ca/2076ca961b890a0ad175b59fb37248c3.jpg",
             listOfTags = listOf("Маркетинг", "Бизнес")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "3",
             name = "Android QA",
             time = "16:00",
@@ -152,7 +152,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/736x/8a/59/42/8a59429f123fe135e86fde71864b0921.jpg",
             listOfTags = listOf("Тестирование", "BackEnd")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "4",
             name = "Путь в IT для школьников",
             time = "17:00",
@@ -165,7 +165,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/736x/e9/fc/e3/e9fce3127136ff32d329ee248bebcf9f.jpg",
             listOfTags = listOf("Разработка", "Проджект менеджмент")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "5",
             name = "Дизайн-встреча s8e2",
             time = "18:00",
@@ -178,7 +178,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/736x/ee/92/9a/ee929a38297884933c3318ece374fd40.jpg",
             listOfTags = listOf("Дизайн", "Маркетинг", "Mobile")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "6",
             name = "Офлайн интенсив по брендингу",
             time = "19:00",
@@ -191,7 +191,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/564x/47/3f/19/473f198dd6051ea58e7ef76e73b86800.jpg",
             listOfTags = listOf("Дизайн", "Маркетинг")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "7",
             name = "Просмотр",
             time = "20:00",
@@ -204,7 +204,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/564x/02/59/69/0259699a168aea21ba838cd4873a1fdc.jpg",
             listOfTags = listOf("Дизайн", "Бизнес")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "8",
             name = "Семинар по управлению проектами",
             time = "21:00",
@@ -217,7 +217,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/564x/62/36/de/6236ded523155a85746a1121f5f04f1f.jpg",
             listOfTags = listOf("Проджект менеджмент", "Бизнес")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "9",
             name = "Дизайн-встреча s8e2",
             time = "22:00",
@@ -230,7 +230,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/736x/fb/ed/18/fbed1849aa6fc35fb2e2ff6c595f4e78.jpg",
             listOfTags = listOf("Дизайн", "Маркетинг", "Mobile")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "10",
             name = "Feature-Sliced Design 2024",
             time = "23:00",
@@ -243,7 +243,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/564x/1d/7f/54/1d7f546625f4c22cede2d9958c02d2bc.jpg",
             listOfTags = listOf("Разработка", "FrontEnd")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "11",
             name = "Геймдев на нейросетях. Лекция Станислава Макарова",
             time = "13:30",
@@ -256,7 +256,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/736x/6a/3e/68/6a3e68e72301cb0927ab72d19caf74d1.jpg",
             listOfTags = listOf("Разработка")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "12",
             name = "Front talks",
             time = "14:30",
@@ -269,7 +269,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/564x/28/8c/d3/288cd3492dbf4c8e128c627d48970578.jpg",
             listOfTags = listOf("Маркетинг", "FrontEnd")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "13",
             name = "Путь дизайнера в России. Лекция Мити Харшака",
             time = "15:30",
@@ -282,7 +282,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/736x/c3/1e/4c/c31e4cc99059d690d6ce1f62f0227b71.jpg",
             listOfTags = listOf("Дизайн")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "14",
             name = "QA Talks - Наши дни",
             time = "16:30",
@@ -295,7 +295,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/736x/cb/02/a1/cb02a1f429e2ae046c5572cdbd5029ae.jpg",
             listOfTags = listOf("Тестирование", "Разработка")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "15",
             name = "QA Talks - Нашествие",
             time = "17:30",
@@ -308,7 +308,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/736x/fd/38/3a/fd383a2a477664d63fc726e25434fe0b.jpg",
             listOfTags = listOf("Тестирование", "Разработка", "BackEnd")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "16",
             name = "QA Talks - Король и Шут",
             time = "18:30",
@@ -321,7 +321,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/736x/55/6e/cc/556ecc1bf5f5a5b86e53cbd10a8b10ef.jpg",
             listOfTags = listOf("Тестирование", "BackEnd")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "17",
             name = "QA Talks - Дискотека",
             time = "19:30",
@@ -334,7 +334,7 @@ internal class NewUIMockData {
             imageURL = "https://i.pinimg.com/564x/3f/52/9a/3f529a11413837d20d1f436d53bf47c6.jpg",
             listOfTags = listOf("Тестирование", "Разработка", "Тусовки")
         ),
-        EventModelUI(
+        EventModelDomain(
             id = "18",
             name = "Как выбрать качественную алкашку на вечер",
             time = "20:30",
@@ -346,7 +346,8 @@ internal class NewUIMockData {
             building = "25",
             imageURL = "https://i.pinimg.com/564x/54/7f/5c/547f5cfc0eadbaf8b455901000cf045d.jpg",
             listOfTags = listOf("Алкашка", "Разработка")
-        ), EventModelUI(
+        ),
+        EventModelDomain(
             id = "19",
             name = "Лучшие гачимучи фильмы. Мнение экспертов",
             time = "21:30",
@@ -361,7 +362,7 @@ internal class NewUIMockData {
         )
     )
     private val listOfRealCommunities = List(20) { index ->
-        CommunityModelUI(
+        CommunityModelDomain(
             id = "C$index",
             name = generateRandomWord((7..15).random()),
             description = generateRandomWord((50..100).random()),
@@ -369,7 +370,7 @@ internal class NewUIMockData {
         )
     }
     private val listOfRealUsers = List(20) { index ->
-        UserModelUI(
+        UserModelDomain(
             id = "$index",
             nameSurname = generateRandomWord((7..15).random()),
             city = "Санкт-Петербург",
@@ -382,7 +383,7 @@ internal class NewUIMockData {
         )
     }
     private val listOfRealEventDescriptions = List(20) { index ->
-        EventDescriptionModelUI(
+        EventDescriptionModelDomain(
             id = listOfRealEvents[index].id,
             name = listOfRealEvents[index].name,
             time = listOfRealEvents[index].time,
@@ -396,10 +397,10 @@ internal class NewUIMockData {
             listOfTags = listOfRealEvents[index].listOfTags,
             description = generateRandomWord((200..400).random()),
             pitcher = listOfRealUsers[index],
-            location = EventLocationModelUI(),
-            metroStation = MetroModelUI(
+            location = EventLocationModelDomain(),
+            metroStation = MetroModelDomain(
                 name = metroStations.random(),
-                tint = colors.random()
+                tint = colorsStringList.random()
             ),
             listOfParticipants = listOfRealUsers.shuffled().take((5..15).random()),
             organizer = listOfRealCommunities[index],
@@ -407,7 +408,7 @@ internal class NewUIMockData {
         )
     }
     private val listOfRealCommunityDescriptions = List(20) { index ->
-        CommunityDescriptionModelUI(
+        CommunityDescriptionModelDomain(
             id = listOfRealCommunities[index].id,
             name = listOfRealCommunities[index].name,
             description = listOfRealCommunities[index].description,
@@ -419,13 +420,14 @@ internal class NewUIMockData {
         )
     }
 
-    private val myCommunitiesList = mutableListOf<CommunityModelUI>()
+    private val myCommunitiesList = mutableListOf<CommunityModelDomain>()
     private val myChosenTags = mutableListOf<String>()
 
 
-    fun getMyCommunitiesList(): List<CommunityModelUI> = myCommunitiesList
-    fun addToMyCommunities(community: CommunityModelUI) = myCommunitiesList.add(community)
-    fun removeFromMyCommunities(community: CommunityModelUI) = myCommunitiesList.remove(community)
+    fun getMyCommunitiesList(): List<CommunityModelDomain> = myCommunitiesList
+    fun addToMyCommunities(community: CommunityModelDomain) = myCommunitiesList.add(community)
+    fun removeFromMyCommunities(community: CommunityModelDomain) =
+        myCommunitiesList.remove(community)
     fun isInMyCommunityList(communityId: String): Boolean =
         myCommunitiesList.any { it.id == communityId }
 
@@ -433,39 +435,41 @@ internal class NewUIMockData {
     fun addToMyChosenTags(tag: String) = myChosenTags.add(tag)
     fun removeFromMyChosenTags(tag: String) = myChosenTags.remove(tag)
 
-    val communitiesAdvertBlock1 = CommunitiesAdvertBlockModelUI(
+    val communitiesAdvertBlock1 = CommunitiesAdvertBlockModelDomain(
         id = UUID.randomUUID().toString(),
         nameOfBlock = "Сообщества для тестировщиков",
         listOfCommunities = getListOfCommunities().take(5)
     )
-    val communitiesAdvertBlock2 = CommunitiesAdvertBlockModelUI(
+    val communitiesAdvertBlock2 = CommunitiesAdvertBlockModelDomain(
         id = UUID.randomUUID().toString(),
         nameOfBlock = "Популярные сообщества в IT",
         listOfCommunities = getListOfCommunities().take(12)
     )
-    val eventsAdvertBlock = EventAdvertBlockModelUI(
+    val eventsAdvertBlock = EventAdvertBlockModelDomain(
         id = UUID.randomUUID().toString(),
         nameOfBlock = "Встречи для разработчиков",
         listOfEvents = getListOfEvents().take(10)
     )
 
-    fun getListOfCommunities(): List<CommunityModelUI> = listOfRealCommunities
+    fun getListOfCommunities(): List<CommunityModelDomain> = listOfRealCommunities
 
-    fun getListOfPeople(): List<UserModelUI> = listOfRealUsers
+    fun getListOfPeople(): List<UserModelDomain> = listOfRealUsers
 
     fun getListOfTags(): List<String> = listOfRealTags
 
-    fun getListOfEvents(): List<EventModelUI> = listOfRealEvents
+    fun getListOfEvents(): List<EventModelDomain> = listOfRealEvents
 
-    fun getEventDescription(eventId: String): EventDescriptionModelUI {
-        return listOfRealEventDescriptions.find { it.id == eventId } ?: EventDescriptionModelUI()
+    fun getEventDescription(eventId: String): EventDescriptionModelDomain {
+        return listOfRealEventDescriptions.find { it.id == eventId }
+            ?: EventDescriptionModelDomain()
     }
-    fun getCommunityDescription(communityId: String): CommunityDescriptionModelUI {
+
+    fun getCommunityDescription(communityId: String): CommunityDescriptionModelDomain {
         return listOfRealCommunityDescriptions.find { it.id == communityId }
-            ?: CommunityDescriptionModelUI()
+            ?: CommunityDescriptionModelDomain()
     }
 
-    fun getListOfParticipants(id: String): List<UserModelUI> {
+    fun getListOfParticipants(id: String): List<UserModelDomain> {
         return when (id.contains(char = 'C', ignoreCase = true)) {
             true -> {
                 listOfRealCommunityDescriptions.find { it.id == id }?.listOfParticipants ?: listOf()
@@ -477,7 +481,7 @@ internal class NewUIMockData {
         }
     }
 
-    fun getAvailableCountriesList(): List<CountryModelUI> = availableCountries
+    fun getAvailableCountriesList(): List<CountryModelDomain> = availableCountries
 
     fun setClientName(nameSurname: String) {
         client = client.copy(nameSurname = nameSurname)
@@ -492,7 +496,7 @@ internal class NewUIMockData {
         )
     }
 
-    fun getClientPhoneNumber(): PhoneNumberModelUI {
+    fun getClientPhoneNumber(): PhoneNumberModelDomain {
         return client.phoneNumber
     }
 
@@ -500,8 +504,8 @@ internal class NewUIMockData {
         return pinCode == clientPinCode
     }
 
-    fun getUser(id: String): UserModelUI {
-        return listOfRealUsers.find { it.id == id } ?: UserModelUI()
+    fun getUser(id: String): UserModelDomain {
+        return listOfRealUsers.find { it.id == id } ?: UserModelDomain()
     }
 }
 

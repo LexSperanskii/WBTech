@@ -1,12 +1,12 @@
 package com.example.ui_v2.ui.screens.mainScreen
 
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.mock.NewUIMockData
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventAdvertBlockModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.UserModelUI
-import com.example.ui_v2.ui.utils.NewUIMockData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

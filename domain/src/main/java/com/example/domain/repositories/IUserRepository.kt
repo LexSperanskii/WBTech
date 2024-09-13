@@ -1,7 +1,5 @@
 package com.example.domain.repositories
 
-import com.example.domain.models.PhoneNumber
-import com.example.domain.models.User
 import kotlinx.coroutines.flow.Flow
 
 interface IUserRepository {

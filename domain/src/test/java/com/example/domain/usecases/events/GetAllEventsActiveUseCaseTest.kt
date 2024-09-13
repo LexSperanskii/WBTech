@@ -1,6 +1,5 @@
 package com.example.domain.usecases.events
 
-import com.example.domain.models.Event
 import com.example.domain.stabRepositories.EventRepositoryStub
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

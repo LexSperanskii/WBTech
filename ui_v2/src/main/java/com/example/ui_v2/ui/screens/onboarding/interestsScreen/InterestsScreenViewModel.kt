@@ -1,8 +1,8 @@
 package com.example.ui_v2.ui.screens.onboarding.interestsScreen
 
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.mock.NewUIMockData
 import com.example.ui_v2.ui.utils.ButtonStatus
-import com.example.ui_v2.ui.utils.NewUIMockData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

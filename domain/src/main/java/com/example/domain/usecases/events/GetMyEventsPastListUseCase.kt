@@ -1,6 +1,5 @@
 package com.example.domain.usecases.events
 
-import com.example.domain.models.Event
 import com.example.domain.repositories.IEventRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -1,6 +1,5 @@
 package com.example.domain.usecases.user
 
-import com.example.domain.models.User
 import com.example.domain.stabRepositories.UserRepositoryStub
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

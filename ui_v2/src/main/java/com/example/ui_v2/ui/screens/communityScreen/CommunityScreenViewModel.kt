@@ -2,10 +2,10 @@ package com.example.ui_v2.ui.screens.communityScreen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.mock.NewUIMockData
 import com.example.ui_v2.models.CommunityDescriptionModelUI
 import com.example.ui_v2.models.toCommunityModelUI
 import com.example.ui_v2.ui.utils.ButtonStatus
-import com.example.ui_v2.ui.utils.NewUIMockData
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

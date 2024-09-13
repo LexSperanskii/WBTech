@@ -1,6 +1,5 @@
 package com.example.domain.usecases.user
 
-import com.example.domain.models.User
 import com.example.domain.repositories.IUserRepository
 import kotlinx.coroutines.flow.Flow
 

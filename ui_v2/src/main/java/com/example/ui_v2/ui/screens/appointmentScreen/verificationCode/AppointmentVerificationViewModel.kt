@@ -4,11 +4,11 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.models.mock.NewUIMockData
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.toEventModelUI
 import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
-import com.example.ui_v2.ui.utils.NewUIMockData
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import com.example.ui_v2.ui.utils.UiUtils.PIN_CODE_LENGTH
 import kotlinx.coroutines.delay

@@ -4,5 +4,5 @@ import androidx.compose.ui.graphics.Color
 
 internal data class MetroModelUI(
     val name: String = "",
-    val tint: Color = Color.Black,
+    val tint: Color = Color.Unspecified,
 )

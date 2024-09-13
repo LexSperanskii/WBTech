@@ -2,11 +2,11 @@ package com.example.ui_v2.ui.screens.appointmentScreen.phoneNumber
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.mock.NewUIMockData
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.toEventModelUI
 import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
-import com.example.ui_v2.ui.utils.NewUIMockData
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import com.example.ui_v2.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow

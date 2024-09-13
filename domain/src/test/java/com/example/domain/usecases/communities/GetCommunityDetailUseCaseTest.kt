@@ -1,6 +1,5 @@
 package com.example.domain.usecases.communities
 
-import com.example.domain.models.CommunityDetail
 import com.example.domain.stabRepositories.CommunityRepositoryStub
 import com.example.domain.utils.COMMUNITY_ID
 import kotlinx.coroutines.flow.first

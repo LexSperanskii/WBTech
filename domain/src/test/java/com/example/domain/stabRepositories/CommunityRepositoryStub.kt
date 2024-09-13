@@ -1,7 +1,5 @@
 package com.example.domain.stabRepositories
 
-import com.example.domain.models.Community
-import com.example.domain.models.CommunityDetail
 import com.example.domain.repositories.ICommunityRepository
 import com.example.domain.stabRepositories.StubData.communitiesList
 import com.example.domain.stabRepositories.StubData.communityDetail

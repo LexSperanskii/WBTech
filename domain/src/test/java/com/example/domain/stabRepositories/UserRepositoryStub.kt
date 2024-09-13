@@ -1,7 +1,5 @@
 package com.example.domain.stabRepositories
 
-import com.example.domain.models.PhoneNumber
-import com.example.domain.models.User
 import com.example.domain.repositories.IUserRepository
 import com.example.domain.stabRepositories.StubData.phoneNumber
 import com.example.domain.stabRepositories.StubData.user

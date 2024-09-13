@@ -1,8 +1,6 @@
 package com.example.data.repositoriesImpl
 
-import com.example.domain.models.Event
 import com.example.domain.models.EventDetail
-import com.example.domain.models.MockData
 import com.example.domain.models.RegisteredPerson
 import com.example.domain.repositories.IEventRepository
 import kotlinx.coroutines.Dispatchers

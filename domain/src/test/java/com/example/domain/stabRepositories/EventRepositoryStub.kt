@@ -1,6 +1,5 @@
 package com.example.domain.stabRepositories
 
-import com.example.domain.models.Event
 import com.example.domain.models.EventDetail
 import com.example.domain.models.RegisteredPerson
 import com.example.domain.repositories.IEventRepository

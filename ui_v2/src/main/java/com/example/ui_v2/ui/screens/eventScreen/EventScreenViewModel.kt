@@ -2,11 +2,11 @@ package com.example.ui_v2.ui.screens.eventScreen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.mock.NewUIMockData
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.ui.utils.ButtonStatus
-import com.example.ui_v2.ui.utils.NewUIMockData
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

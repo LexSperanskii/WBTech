@@ -1,14 +1,8 @@
 package com.example.domain.stabRepositories
 
-import com.example.domain.models.Community
-import com.example.domain.models.CommunityDetail
-import com.example.domain.models.Country
-import com.example.domain.models.Event
 import com.example.domain.models.EventAddress
 import com.example.domain.models.EventDetail
-import com.example.domain.models.PhoneNumber
 import com.example.domain.models.RegisteredPerson
-import com.example.domain.models.User
 
 object StubData {
     private const val DEFAULT_ID_0 = 0

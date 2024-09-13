@@ -5,7 +5,6 @@ import com.example.data.di.dataModule
 import com.example.domain.di.domainModule
 import com.example.domain.di.mockModule
 import com.example.generalDI.ui_v1Module
-import com.example.ui_v2.di.newMockDataModule
 import com.example.ui_v2.di.uiModule
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -22,10 +21,9 @@ class DeveloperMeetingsApplication : Application() {
             modules(
                 listOf(
                     uiModule,
-                    newMockDataModule,
-                    mockModule,
                     dataModule,
                     domainModule,
+                    mockModule,
                     ui_v1Module
                 )
             )
