@@ -64,7 +64,7 @@ internal fun MainScreen(
             onCommunityButtonClick = { viewModel.onCommunityButtonClick(it) },
             onCommunityClick = { navigateToCommunityScreen(it.id) },
             myCommunitiesList = mainScreenUiState.myCommunitiesList,
-            primaryEventsList = mainScreenUiState.primaryEventsList,
+            primaryEventsList = mainScreenUiState.relatedEventsList,
             upcomingEventsList = mainScreenUiState.upcomingEventsList,
             infiniteEventsList = mainScreenUiState.infiniteEventsList,
             sortedEventsList = mainScreenUiState.sortedEventsList,

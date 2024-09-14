@@ -1,6 +1,6 @@
 package com.example.domain.stabRepositories
 
-import com.example.domain.repositories.IUserRepository
+import com.example.domain.repositories.networkRepository.IUserRepository
 import com.example.domain.stabRepositories.StubData.phoneNumber
 import com.example.domain.stabRepositories.StubData.user
 import com.example.domain.stabRepositories.StubData.userAvatarURL

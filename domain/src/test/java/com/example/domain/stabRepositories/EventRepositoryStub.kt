@@ -2,7 +2,7 @@ package com.example.domain.stabRepositories
 
 import com.example.domain.models.EventDetail
 import com.example.domain.models.RegisteredPerson
-import com.example.domain.repositories.IEventRepository
+import com.example.domain.repositories.networkRepository.IEventRepository
 import com.example.domain.stabRepositories.StubData.eventDetail
 import com.example.domain.stabRepositories.StubData.eventsList
 import kotlinx.coroutines.Dispatchers

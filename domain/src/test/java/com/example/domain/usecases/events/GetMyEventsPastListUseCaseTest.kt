@@ -1,6 +1,7 @@
 package com.example.domain.usecases.events
 
 import com.example.domain.stabRepositories.EventRepositoryStub
+import com.example.domain.usecases.events.dump.GetMyEventsPastListUseCaseImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue

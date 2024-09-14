@@ -2,7 +2,7 @@ package com.example.ui_v2.ui.screens.eventScreen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.mock.NewUIMockData
+import com.example.domain.models.mock.MockData
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.EventModelUI
@@ -28,7 +28,7 @@ internal data class EventScreenUiState(
 
 internal class EventScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    private val mock: NewUIMockData,
+    private val mock: MockData,
 ) : ViewModel() {
 
     private val eventId: String = try {

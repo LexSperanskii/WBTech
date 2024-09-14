@@ -1,7 +1,7 @@
 package com.example.ui_v2.ui.screens.userScreen.profileInterests
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.mock.NewUIMockData
+import com.example.domain.models.mock.MockData
 import com.example.ui_v2.ui.utils.ButtonStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +18,7 @@ internal data class ProfileInterestsScreenUiState(
 }
 
 internal class ProfileInterestsScreenViewModel(
-    private val mock: NewUIMockData,
+    private val mock: MockData,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileInterestsScreenUiState())

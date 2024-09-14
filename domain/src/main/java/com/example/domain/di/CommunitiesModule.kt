@@ -4,10 +4,10 @@ import com.example.domain.usecases.communities.GetCommunitiesListUseCase
 import com.example.domain.usecases.communities.GetCommunitiesListUseCaseImpl
 import com.example.domain.usecases.communities.GetCommunityDetailUseCase
 import com.example.domain.usecases.communities.GetCommunityDetailUseCaseImpl
-import com.example.domain.usecases.events.AddUserAsParticipantUseCase
-import com.example.domain.usecases.events.AddUserAsParticipantUseCaseImpl
-import com.example.domain.usecases.events.RemoveUserAsParticipantUseCase
-import com.example.domain.usecases.events.RemoveUserAsParticipantUseCaseImpl
+import com.example.domain.usecases.events.dump.AddUserAsParticipantUseCase
+import com.example.domain.usecases.events.dump.AddUserAsParticipantUseCaseImpl
+import com.example.domain.usecases.events.dump.RemoveUserAsParticipantUseCase
+import com.example.domain.usecases.events.dump.RemoveUserAsParticipantUseCaseImpl
 import org.koin.dsl.module
 
 

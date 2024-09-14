@@ -1,6 +1,6 @@
 package com.example.domain.usecases.communities
 
-import com.example.domain.repositories.ICommunityRepository
+import com.example.domain.repositories.networkRepository.ICommunityRepository
 import kotlinx.coroutines.flow.Flow
 
 

@@ -16,7 +16,7 @@ import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.models.UserModelDomain
 import java.util.UUID
 
-internal class NewUIMockData {
+class MockData {
 
     private var client = ClientModelDomain()
     private var clientPinCode = "5555"
@@ -420,6 +420,22 @@ internal class NewUIMockData {
         )
     }
 
+    private val communitiesAdvertBlock1 = CommunitiesAdvertBlockModelDomain(
+        id = UUID.randomUUID().toString(),
+        nameOfBlock = "Сообщества для тестировщиков",
+        listOfCommunities = getListOfCommunities().take(5)
+    )
+    private val communitiesAdvertBlock2 = CommunitiesAdvertBlockModelDomain(
+        id = UUID.randomUUID().toString(),
+        nameOfBlock = "Популярные сообщества в IT",
+        listOfCommunities = getListOfCommunities().take(12)
+    )
+    private val eventsAdvertBlock = EventAdvertBlockModelDomain(
+        id = UUID.randomUUID().toString(),
+        nameOfBlock = "Встречи для разработчиков",
+        listOfEvents = getListOfEvents().take(10)
+    )
+
     private val myCommunitiesList = mutableListOf<CommunityModelDomain>()
     private val myChosenTags = mutableListOf<String>()
 
@@ -428,28 +444,15 @@ internal class NewUIMockData {
     fun addToMyCommunities(community: CommunityModelDomain) = myCommunitiesList.add(community)
     fun removeFromMyCommunities(community: CommunityModelDomain) =
         myCommunitiesList.remove(community)
-    fun isInMyCommunityList(communityId: String): Boolean =
-        myCommunitiesList.any { it.id == communityId }
+//    fun isInMyCommunityList(communityId: String): Boolean = myCommunitiesList.any { it.id == communityId }
 
-    fun getMyChosenTags(): List<String> = myChosenTags
+    fun getMyChosenTagsList(): List<String> = myChosenTags
     fun addToMyChosenTags(tag: String) = myChosenTags.add(tag)
     fun removeFromMyChosenTags(tag: String) = myChosenTags.remove(tag)
 
-    val communitiesAdvertBlock1 = CommunitiesAdvertBlockModelDomain(
-        id = UUID.randomUUID().toString(),
-        nameOfBlock = "Сообщества для тестировщиков",
-        listOfCommunities = getListOfCommunities().take(5)
-    )
-    val communitiesAdvertBlock2 = CommunitiesAdvertBlockModelDomain(
-        id = UUID.randomUUID().toString(),
-        nameOfBlock = "Популярные сообщества в IT",
-        listOfCommunities = getListOfCommunities().take(12)
-    )
-    val eventsAdvertBlock = EventAdvertBlockModelDomain(
-        id = UUID.randomUUID().toString(),
-        nameOfBlock = "Встречи для разработчиков",
-        listOfEvents = getListOfEvents().take(10)
-    )
+    fun getCommunitiesAdvertBlock1(): CommunitiesAdvertBlockModelDomain = communitiesAdvertBlock1
+    fun getCommunitiesAdvertBlock2(): CommunitiesAdvertBlockModelDomain = communitiesAdvertBlock2
+    fun getEventsAdvertBlock(): EventAdvertBlockModelDomain = eventsAdvertBlock
 
     fun getListOfCommunities(): List<CommunityModelDomain> = listOfRealCommunities
 
@@ -457,7 +460,7 @@ internal class NewUIMockData {
 
     fun getListOfTags(): List<String> = listOfRealTags
 
-    fun getListOfEvents(): List<EventModelDomain> = listOfRealEvents
+    fun getListOfEvents(): List<EventModelDomain> = listOfRealEvents //+
 
     fun getEventDescription(eventId: String): EventDescriptionModelDomain {
         return listOfRealEventDescriptions.find { it.id == eventId }
@@ -500,8 +503,12 @@ internal class NewUIMockData {
         return client.phoneNumber
     }
 
-    fun postClientPinCode(pinCode: String): Boolean {
+    fun setClientPinCode(pinCode: String): Boolean {
         return pinCode == clientPinCode
+    }
+
+    fun getClient(): ClientModelDomain {
+        return client
     }
 
     fun getUser(id: String): UserModelDomain {

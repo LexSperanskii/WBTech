@@ -2,7 +2,7 @@ package com.example.ui_v2.ui.screens.appointmentScreen.phoneNumber
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.mock.NewUIMockData
+import com.example.domain.models.mock.MockData
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.toEventModelUI
@@ -27,7 +27,7 @@ internal data class AppointmentPhoneNumberScreenUiState(
 
 internal class AppointmentPhoneNumberScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    private val mock: NewUIMockData,
+    private val mock: MockData,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AppointmentPhoneNumberScreenUiState())

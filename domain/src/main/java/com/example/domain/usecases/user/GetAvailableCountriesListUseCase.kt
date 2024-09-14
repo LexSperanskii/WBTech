@@ -1,6 +1,5 @@
 package com.example.domain.usecases.user
 
-import com.example.domain.repositories.ICountriesRepository
 import kotlinx.coroutines.flow.Flow
 
 interface GetAvailableCountriesListUseCase {

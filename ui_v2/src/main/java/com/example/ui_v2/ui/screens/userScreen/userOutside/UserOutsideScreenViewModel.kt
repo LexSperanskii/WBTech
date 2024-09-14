@@ -2,7 +2,7 @@ package com.example.ui_v2.ui.screens.userScreen.userOutside
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.mock.NewUIMockData
+import com.example.domain.models.mock.MockData
 import com.example.ui_v2.models.UserModelUI
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ internal data class UserOutsideScreenUiState(
 
 internal class UserOutsideScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    private val mock: NewUIMockData,
+    private val mock: MockData,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UserOutsideScreenUiState())

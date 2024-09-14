@@ -1,7 +1,7 @@
-package com.example.domain.usecases.events
+package com.example.domain.usecases.events.dump
 
 import com.example.domain.models.RegisteredPerson
-import com.example.domain.repositories.IEventRepository
+import com.example.domain.repositories.networkRepository.IEventRepository
 
 
 interface RemoveUserAsParticipantUseCase {

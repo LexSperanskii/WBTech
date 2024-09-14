@@ -1,7 +1,7 @@
 package com.example.ui_v2.ui.screens.mainScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.mock.NewUIMockData
+import com.example.domain.models.mock.MockData
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventAdvertBlockModelUI
@@ -16,7 +16,7 @@ internal data class MainScreenUiState(
     val isShowSortedScreen: Boolean = false,
     val searchField: String = "",
     val myCommunitiesList: List<CommunityModelUI> = listOf(),
-    val primaryEventsList: List<EventModelUI> = listOf(),
+    val relatedEventsList: List<EventModelUI> = listOf(),
     val upcomingEventsList: List<EventModelUI> = listOf(),
     val infiniteEventsList: List<EventModelUI> = listOf(),
     val sortedEventsList: List<EventModelUI> = listOf(),
@@ -30,7 +30,7 @@ internal data class MainScreenUiState(
 )
 
 internal class MainScreenViewModel(
-    private val mock: NewUIMockData,
+    private val mock: MockData,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MainScreenUiState())
@@ -40,7 +40,7 @@ internal class MainScreenViewModel(
         _uiState.update {
             it.copy(
                 myCommunitiesList = mock.getMyCommunitiesList(),
-                primaryEventsList = mock.getListOfEvents().take(10),
+                relatedEventsList = mock.getListOfEvents().take(10),
                 upcomingEventsList = mock.getListOfEvents().take(10),
                 infiniteEventsList = mock.getListOfEvents(),
                 allCommunitiesList = mock.getListOfCommunities(),
@@ -48,7 +48,7 @@ internal class MainScreenViewModel(
                 communitiesAdvertBlock2 = mock.communitiesAdvertBlock2,
                 eventsAdvertBlock = mock.eventsAdvertBlock,
                 listOfTags = mock.getListOfTags(),
-                listOfChosenTags = mock.getMyChosenTags(),
+                listOfChosenTags = mock.getMyChosenTagsList(),
                 listOfPeople = mock.getListOfPeople()
             )
         }

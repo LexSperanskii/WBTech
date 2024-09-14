@@ -2,6 +2,7 @@ package com.example.domain.usecases.events
 
 import com.example.domain.models.EventDetail
 import com.example.domain.stabRepositories.EventRepositoryStub
+import com.example.domain.usecases.events.dump.GetEventDetailsUseCaseImpl
 import com.example.domain.utils.EVENT_ID
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

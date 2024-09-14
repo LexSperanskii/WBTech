@@ -4,7 +4,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.models.mock.NewUIMockData
+import com.example.domain.models.mock.MockData
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.toEventModelUI
@@ -33,7 +33,7 @@ internal data class AppointmentVerificationScreenUiState(
 
 internal class AppointmentVerificationScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    private val mock: NewUIMockData,
+    private val mock: MockData,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AppointmentVerificationScreenUiState())
@@ -106,7 +106,7 @@ internal class AppointmentVerificationScreenViewModel(
     }
 
     fun onButtonClick(navigate: () -> Unit) {
-        when (mock.postClientPinCode(uiState.value.pinCode)) {
+        when (mock.setClientPinCode(uiState.value.pinCode)) {
             true -> {
                 _uiState.update {
                     it.copy(

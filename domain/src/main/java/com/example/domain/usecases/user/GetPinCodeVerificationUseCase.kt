@@ -1,6 +1,6 @@
 package com.example.domain.usecases.user
 
-import com.example.domain.repositories.IUserRepository
+import com.example.domain.repositories.networkRepository.IUserRepository
 import kotlinx.coroutines.flow.Flow
 
 interface GetPinCodeVerificationUseCase {

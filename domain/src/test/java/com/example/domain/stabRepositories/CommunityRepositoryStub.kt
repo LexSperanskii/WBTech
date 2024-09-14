@@ -1,6 +1,6 @@
 package com.example.domain.stabRepositories
 
-import com.example.domain.repositories.ICommunityRepository
+import com.example.domain.repositories.networkRepository.ICommunityRepository
 import com.example.domain.stabRepositories.StubData.communitiesList
 import com.example.domain.stabRepositories.StubData.communityDetail
 import kotlinx.coroutines.Dispatchers
