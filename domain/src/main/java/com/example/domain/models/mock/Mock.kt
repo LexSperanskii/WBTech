@@ -21,26 +21,24 @@ class MockData {
     private var client = ClientModelDomain()
     private var clientPinCode = "5555"
     private val availableCountries = listOf(
-        CountryModelDomain(0, "Россия", "+7"),
-        CountryModelDomain(1, "Казахстан", "+7"),
-        CountryModelDomain(2, "Белоруссия", "+375"),
-        CountryModelDomain(3, "Киргизия", "+996"),
-        CountryModelDomain(4, "Азербайджан", "+994")
+        CountryModelDomain("0", "Россия", "+7"),
+        CountryModelDomain("1", "Казахстан", "+7"),
+        CountryModelDomain("2", "Белоруссия", "+375"),
+        CountryModelDomain("3", "Киргизия", "+996"),
+        CountryModelDomain("4", "Азербайджан", "+994")
     )
     private val colorsStringList =
         listOf("0xFF00FF00", "0xFFFFFF00", "0xFF0000FF", "0xFFFF0000", "0xFFFFA500", "0xFF800080")
     private val listOfSocialMedia = listOf(
         SocialMediaModelDomain(
             socialMediaId = "0",
-            socialMediaIconURL = "https://habrastorage.org/getpro/moikrug/uploads/company/901/244/761/logo/medium_c35efb293cd85320d66e74304d3a8076.jpg",
             socialMediaName = "Хабр",
-            userNickname = "Ssdfweeeqww"
+            userNickname = "Гачи"
         ),
         SocialMediaModelDomain(
             socialMediaId = "1",
-            socialMediaIconURL = "https://w7.pngwing.com/pngs/460/412/png-transparent-telegram-computer-icons-email-filtering-angle-text-triangle.png",
             socialMediaName = "Телеграм",
-            userNickname = "asdfsdfsdf"
+            userNickname = "Мучи"
         )
     )
     private val metroStations = listOf(

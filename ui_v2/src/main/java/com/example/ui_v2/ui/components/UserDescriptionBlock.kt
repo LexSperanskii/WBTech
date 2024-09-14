@@ -1,6 +1,5 @@
 package com.example.ui_v2.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -152,27 +150,10 @@ internal fun UserDescriptionBlockOutside(
                 .padding(bottom = 16.dp)
         ) {
             user.listOfSocialMediaImageURL.forEach { socialMedia ->
-                Box(
-                    modifier = modifier
-                        .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMediumSmall))
-                        .size(52.dp)
-                        .clickable { onNetworkIconClick(socialMedia) }
-                        .background(DevMeetingAppTheme.colors.buttonTextPurple)
-                ) {
-                    AsyncImage(
-                        model = ImageRequest.Builder(context = LocalContext.current)
-                            .data(socialMedia.socialMediaIconURL)
-                            .crossfade(true)
-                            .build(),
-                        contentScale = ContentScale.Inside,
-                        error = painterResource(R.drawable.ic_broken_image),
-                        placeholder = painterResource(R.drawable.loading_img),
-                        contentDescription = stringResource(R.string.profile_icon),
-                        modifier = Modifier
-                            .size(32.dp)
-                            .align(Alignment.Center)
-                    )
-                }
+                NetworkIcon(
+                    networkIcon = socialMedia.socialMediaIcon,
+                    onNetworkIconClick = { onNetworkIconClick(socialMedia) }
+                )
             }
         }
     }
@@ -296,27 +277,10 @@ internal fun UserDescriptionBlockInside(
                 .padding(bottom = 16.dp)
         ) {
             user.listOfSocialMediaImageURL.forEach { socialMedia ->
-                Box(
-                    modifier = modifier
-                        .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMediumSmall))
-                        .size(52.dp)
-                        .clickable { onNetworkIconClick(socialMedia) }
-                        .background(DevMeetingAppTheme.colors.buttonTextPurple)
-                ) {
-                    AsyncImage(
-                        model = ImageRequest.Builder(context = LocalContext.current)
-                            .data(socialMedia.socialMediaIconURL)
-                            .crossfade(true)
-                            .build(),
-                        contentScale = ContentScale.Inside,
-                        error = painterResource(R.drawable.ic_broken_image),
-                        placeholder = painterResource(R.drawable.loading_img),
-                        contentDescription = stringResource(R.string.profile_icon),
-                        modifier = Modifier
-                            .size(32.dp)
-                            .align(Alignment.Center)
-                    )
-                }
+                NetworkIcon(
+                    networkIcon = socialMedia.socialMediaIcon,
+                    onNetworkIconClick = { onNetworkIconClick(socialMedia) }
+                )
             }
         }
     }

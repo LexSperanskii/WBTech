@@ -437,13 +437,7 @@ internal fun DeveloperScreen() {
             }
             item {
                 NetworkIcon(
-                    networkIcon = R.drawable.label_instagram,
-                    onNetworkIconClick = {}
-                )
-            }
-            item {
-                NetworkIcon(
-                    networkIcon = R.drawable.label_random_social_network,
+                    networkIcon = R.drawable.label_xabr,
                     onNetworkIconClick = {}
                 )
             }

@@ -29,7 +29,6 @@ data class ClientModelDomain(
 
 data class SocialMediaModelDomain(
     val socialMediaId: String = "",
-    val socialMediaIconURL: String? = "",
     val socialMediaName: String = "",
     val userNickname: String = "",
 )

@@ -1,16 +1,18 @@
 package com.example.ui_v2.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,16 +24,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.example.ui_v2.R
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import com.example.ui_v2.ui.utils.UiUtils.replaceFirstCharToCapitalCase
@@ -123,8 +121,9 @@ internal fun NameSurnameTextField(
 internal fun UserSocialNetworksTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    socialNetworkURL: String?,
-    socialNetworkName: String,
+    @DrawableRes
+    socialNetworkIcon: Int,
+    socialNetworkPlaceholderName: String,
     modifier: Modifier = Modifier,
 ) {
     val focusManager = LocalFocusManager.current
@@ -162,24 +161,17 @@ internal fun UserSocialNetworksTextField(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
             ) {
-                AsyncImage(
-                    model = ImageRequest.Builder(context = LocalContext.current)
-                        .data(socialNetworkURL)
-                        .crossfade(true)
-                        .build(),
-                    contentScale = ContentScale.Inside,
-                    error = painterResource(R.drawable.ic_broken_image),
-                    placeholder = painterResource(R.drawable.loading_img),
-                    contentDescription = stringResource(R.string.profile_icon),
+                Icon(
+                    painter = painterResource(id = socialNetworkIcon),
+                    contentDescription = stringResource(id = R.string.icon),
+                    tint = DevMeetingAppTheme.colors.grayForCommunityCard,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f)
-                        .padding(end = 4.dp)
+                        .size(32.dp)
                 )
                 when {
                     !focusState && value.isEmpty() -> {
                         Text(
-                            text = socialNetworkName,
+                            text = socialNetworkPlaceholderName,
                             color = DevMeetingAppTheme.colors.grayForCommunityCard,
                             style = DevMeetingAppTheme.typography.subheading1
                         )

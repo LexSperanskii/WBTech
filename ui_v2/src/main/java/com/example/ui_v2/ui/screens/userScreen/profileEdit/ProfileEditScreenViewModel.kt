@@ -87,11 +87,11 @@ internal class ProfileEditScreenViewModel(
         }
     }
 
-    fun onSocialNetworkValueChange(id: String, value: String) {
+    fun onSocialNetworkValueChange(socialMediaID: String, value: String) {
         _uiState.update {
             it.copy(
                 listOfSocialMedia = it.listOfSocialMedia.map { socialMedia ->
-                    if (socialMedia.socialMediaId == id) {
+                    if (socialMedia.socialMediaId == socialMediaID) {
                         socialMedia.copy(userNickname = value)
                     } else {
                         socialMedia

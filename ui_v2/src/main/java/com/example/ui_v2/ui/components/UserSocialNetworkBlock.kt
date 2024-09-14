@@ -14,7 +14,7 @@ import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 @Composable
 internal fun UserSocialNetworkBlock(
     listOfSocialMedia: List<SocialMediaModelUI>,
-    onSocialNetworkValueChange: (id: String, value: String) -> Unit,
+    onSocialNetworkValueChange: (socialMediaID: String, value: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -34,8 +34,8 @@ internal fun UserSocialNetworkBlock(
                 onValueChange = {
                     onSocialNetworkValueChange(socialMedia.socialMediaId, it)
                 },
-                socialNetworkURL = socialMedia.socialMediaIconURL,
-                socialNetworkName = socialMedia.socialMediaName,
+                socialNetworkIcon = socialMedia.socialMediaIcon,
+                socialNetworkPlaceholderName = socialMedia.socialMediaName,
                 modifier = Modifier
                     .padding(bottom = 8.dp)
             )

@@ -194,36 +194,51 @@ internal class MapperDomainUI : IMapperDomainUI {
 
     override fun toSocialMediaModelUI(socialMediaModelDomain: SocialMediaModelDomain): SocialMediaModelUI =
         SocialMediaModelUI(
-            socialMediaId = socialMediaModelDomain.socialMediaId,
-            socialMediaIconURL = socialMediaModelDomain.socialMediaIconURL,
+            socialMediaIcon = correctSocialMediaIcon(socialMediaModelDomain),
             socialMediaName = socialMediaModelDomain.socialMediaName,
             userNickname = socialMediaModelDomain.userNickname
         )
 
     private fun correctFlag(countryModelDomain: CountryModelDomain): Int {
         return when (countryModelDomain.id) {
-            0 -> {
+            "0" -> {
                 R.drawable.flag_ru
             }
 
-            1 -> {
+            "1" -> {
                 R.drawable.flag_kz
             }
 
-            2 -> {
+            "2" -> {
                 R.drawable.flag_by
             }
 
-            3 -> {
+            "3" -> {
                 R.drawable.flag_kg
             }
 
-            4 -> {
+            "4" -> {
                 R.drawable.flag_az
             }
 
             else -> {
                 R.drawable.flag_default
+            }
+        }
+    }
+
+    private fun correctSocialMediaIcon(socialMediaModelDomain: SocialMediaModelDomain): Int {
+        return when (socialMediaModelDomain.socialMediaId) {
+            "0" -> {
+                R.drawable.label_xabr
+            }
+
+            "1" -> {
+                R.drawable.label_telegramm
+            }
+
+            else -> {
+                R.drawable.icon_avatar_person
             }
         }
     }

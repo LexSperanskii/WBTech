@@ -79,8 +79,8 @@ internal fun ProfileEditScreen(
                 navigateToInterestsScreen()
             },
             listOfSocialMedia = profileEditScreenUiState.listOfSocialMedia,
-            onSocialNetworkValueChange = { id, value ->
-                viewModel.onSocialNetworkValueChange(id = id, value = value)
+            onSocialNetworkValueChange = { socialMediaID, value ->
+                viewModel.onSocialNetworkValueChange(socialMediaID = socialMediaID, value = value)
             },
             showMyCommunitiesChecked = profileEditScreenUiState.showMyCommunitiesChecked,
             onShowMyCommunitiesChange = {
@@ -125,7 +125,7 @@ internal fun ProfileEditScreenBody(
     listOfUserTags: List<String>,
     onTagChangeClick: () -> Unit,
     listOfSocialMedia: List<SocialMediaModelUI>,
-    onSocialNetworkValueChange: (id: String, value: String) -> Unit,
+    onSocialNetworkValueChange: (socialMediaID: String, value: String) -> Unit,
     showMyCommunitiesChecked: Boolean,
     onShowMyCommunitiesChange: (Boolean) -> Unit,
     showMyEventsChecked: Boolean,
