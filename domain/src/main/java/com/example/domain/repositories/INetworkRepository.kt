@@ -42,4 +42,6 @@ interface INetworkRepository {
 
     suspend fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain
     suspend fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain
+
+    fun getListOfSortedEvents(search: String): Flow<List<EventModelDomain>>
 }

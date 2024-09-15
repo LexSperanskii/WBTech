@@ -473,7 +473,24 @@ class MockData {
 
     fun getListOfTags(): List<String> = listOfRealTags
 
-    fun getListOfEvents(): List<EventModelDomain> = listOfRealEvents //+
+    fun getListOfEvents(): List<EventModelDomain> = listOfRealEvents
+
+    fun getListOfSortedEvents(search: String): List<EventModelDomain> {
+        return if (search.isBlank()) {
+            listOfRealEvents
+        } else {
+            listOfRealEvents.filter { event ->
+                event.name.contains(search, ignoreCase = true) ||
+                        event.building.contains(search, ignoreCase = true) ||
+                        event.street.contains(search, ignoreCase = true) ||
+                        event.city.contains(search, ignoreCase = true) ||
+                        event.day.toString().contains(search, ignoreCase = true) ||
+                        event.month.contains(search, ignoreCase = true) ||
+                        event.year.toString().contains(search, ignoreCase = true) ||
+                        event.listOfTags.any { it.contains(search, ignoreCase = true) }
+            }
+        }
+    }
 
     fun getEventDescription(eventId: String): EventDescriptionModelDomain {
         return listOfRealEventDescriptions.find { it.id == eventId }

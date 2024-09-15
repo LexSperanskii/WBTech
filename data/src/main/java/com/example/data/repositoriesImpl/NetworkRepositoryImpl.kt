@@ -138,4 +138,10 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         return mock.getEventsAdvertBlock(blockId)
     }
 
+    override fun getListOfSortedEvents(search: String): Flow<List<EventModelDomain>> {
+        return flow {
+            emit(mock.getListOfSortedEvents(search))
+        }.flowOn(Dispatchers.IO)
+    }
+
 }

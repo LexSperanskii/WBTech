@@ -44,6 +44,10 @@ import com.example.domain.interactors.listOfPeople.IInteractorGetListOfPeople
 import com.example.domain.interactors.listOfPeople.IInteractorLoadListOfPeople
 import com.example.domain.interactors.listOfPeople.InteractorGetListOfPeopleImpl
 import com.example.domain.interactors.listOfPeople.InteractorLoadListOfPeopleImpl
+import com.example.domain.interactors.listOfSortedEvents.IInteractorGetListOfSortedEvents
+import com.example.domain.interactors.listOfSortedEvents.IInteractorLoadListOfSortedEvents
+import com.example.domain.interactors.listOfSortedEvents.InteractorGetListOfSortedEventsImpl
+import com.example.domain.interactors.listOfSortedEvents.InteractorLoadListOfSortedEventsImpl
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
 import com.example.domain.interactors.listOfTags.InteractorGetListOfTagsImpl
@@ -259,6 +263,19 @@ val domainModule = module {
     }
     single<IInteractorLoadUser> {
         InteractorLoadUserImpl(
+            useCase = get()
+        )
+    }
+
+
+    single<IInteractorGetListOfSortedEvents> {
+        InteractorGetListOfSortedEventsImpl(
+            useCase = get(),
+            networkRepository = get()
+        )
+    }
+    single<IInteractorLoadListOfSortedEvents> {
+        InteractorLoadListOfSortedEventsImpl(
             useCase = get()
         )
     }

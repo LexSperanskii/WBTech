@@ -10,6 +10,8 @@ import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
 import com.example.domain.interactors.listOfEvents.IInteractorLoadListOfEvents
 import com.example.domain.interactors.listOfPeople.IInteractorGetListOfPeople
 import com.example.domain.interactors.listOfPeople.IInteractorLoadListOfPeople
+import com.example.domain.interactors.listOfSortedEvents.IInteractorGetListOfSortedEvents
+import com.example.domain.interactors.listOfSortedEvents.IInteractorLoadListOfSortedEvents
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
 import com.example.domain.interactors.myChosenTags.IInteractorAddToMyChosenTags
@@ -71,6 +73,8 @@ internal class MainScreenViewModel(
     private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
     private val addToMyChosenTags: IInteractorAddToMyChosenTags,
     private val removeFromMyChosenTags: IInteractorRemoveFromMyChosenTags,
+    private val loadListOfSortedEvents: IInteractorLoadListOfSortedEvents,
+    private val getListOfSortedEvents: IInteractorGetListOfSortedEvents,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MainScreenUiState())
@@ -85,30 +89,24 @@ internal class MainScreenViewModel(
     fun getMainScreenUiStateFlow(): StateFlow<MainScreenUiState> = uiState
 
     fun onSearchFieldChange(search: String) {
+        if (search.isNotBlank()) {
+            loadListOfSortedEvents.invoke(search)
+        }
         _uiState.update {
             it.copy(
-                isShowSortedScreen = when (search.isBlank()) {
-                    true -> {
-                        false
-                    }
-
-                    else -> {
-                        sortEventList(search)
-                        true
-                    }
-                },
-                searchField = search,
+                isShowSortedScreen = search.isNotBlank(),
+                searchField = search
             )
         }
     }
 
     fun onClearIconClick() {
+        loadListOfSortedEvents.invoke("")
         _uiState.update {
             it.copy(
                 searchField = "",
             )
         }
-        sortEventList("")
     }
 
     fun onCancelClick() {
@@ -116,19 +114,6 @@ internal class MainScreenViewModel(
             it.copy(
                 isShowSortedScreen = false,
                 searchField = ""
-            )
-        }
-    }
-
-    private fun sortEventList(search: String) {
-        _uiState.update { it ->
-            it.copy(
-                sortedEventsList = it.infiniteEventsList.filter {
-                    it.name.contains(
-                        search,
-                        ignoreCase = true
-                    )
-                }
             )
         }
     }
@@ -161,43 +146,6 @@ internal class MainScreenViewModel(
         }
     }
 
-    private fun getMainScreen() {
-        val combinedFlow = combine(
-            getListOfEvents.invoke(),
-            getMyCommunitiesList.invoke(),
-            getListOfCommunities.invoke(),
-            getListOfTags.invoke(),
-            getMyChosenTagsList.invoke(),
-        ) { eventsList, myCommunitiesList, listOfCommunities, listOfTags, myChosenTagsList ->
-            MainScreenUiState().copy(
-                myCommunitiesList = myCommunitiesList.map { mapper.toCommunityModelUI(it) },
-                relatedEventsList = eventsList.map { mapper.toEventModelUI(it) },
-                upcomingEventsList = eventsList.map { mapper.toEventModelUI(it) },
-                infiniteEventsList = eventsList.map { mapper.toEventModelUI(it) },
-                allCommunitiesList = listOfCommunities.map { mapper.toCommunityModelUI(it) },
-                listOfTags = listOfTags,
-                listOfChosenTags = myChosenTagsList
-            )
-        }
-
-        combinedFlow.combine(
-            getListOfPeople.invoke()
-        ) { combinedData, listOfPeople ->
-            _uiState.update { it ->
-                it.copy(
-                    myCommunitiesList = combinedData.myCommunitiesList,
-                    relatedEventsList = combinedData.relatedEventsList,
-                    upcomingEventsList = combinedData.upcomingEventsList,
-                    infiniteEventsList = combinedData.infiniteEventsList,
-                    allCommunitiesList = combinedData.allCommunitiesList,
-                    listOfTags = combinedData.listOfTags,
-                    listOfChosenTags = combinedData.listOfChosenTags,
-                    listOfPeople = listOfPeople.map { mapper.toUserModelUI(it) }
-                )
-            }
-        }.launchIn(viewModelScope)
-    }
-
     private fun loadData() {
         loadMyCommunitiesList.invoke()
         loadListOfEvents.invoke()
@@ -205,6 +153,53 @@ internal class MainScreenViewModel(
         loadListOfTags.invoke()
         loadMyChosenTagsList.invoke()
         loadListOfPeople.invoke()
+    }
+
+    private fun getMainScreen() {
+        val combinedEventsAndCommunitiesFlow = combine(
+            getListOfEvents.invoke(),
+            getMyCommunitiesList.invoke(),
+            getListOfCommunities.invoke(),
+            getListOfSortedEvents.invoke()
+        ) { eventsList, myCommunitiesList, listOfCommunities, listOfSortedEvents ->
+            MainScreenUiState().copy(
+                myCommunitiesList = myCommunitiesList.map { mapper.toCommunityModelUI(it) },
+                relatedEventsList = eventsList.map { mapper.toEventModelUI(it) },
+                upcomingEventsList = eventsList.map { mapper.toEventModelUI(it) },
+                infiniteEventsList = eventsList.map { mapper.toEventModelUI(it) },
+                allCommunitiesList = listOfCommunities.map { mapper.toCommunityModelUI(it) },
+                sortedEventsList = listOfSortedEvents.map { mapper.toEventModelUI(it) }
+            )
+        }
+        val combinedPeopleAndTagsFlow = combine(
+            getListOfPeople.invoke(),
+            getListOfTags.invoke(),
+            getMyChosenTagsList.invoke(),
+        ) { listOfPeople, listOfTags, myChosenTagsList ->
+            MainScreenUiState().copy(
+                listOfPeople = listOfPeople.map { mapper.toUserModelUI(it) },
+                listOfTags = listOfTags,
+                listOfChosenTags = myChosenTagsList
+            )
+        }
+
+        combinedEventsAndCommunitiesFlow.combine(
+            combinedPeopleAndTagsFlow
+        ) { combinedEventsAndCommunities, combinedPeopleAndTags ->
+            _uiState.update { it ->
+                it.copy(
+                    myCommunitiesList = combinedEventsAndCommunities.myCommunitiesList,
+                    relatedEventsList = combinedEventsAndCommunities.relatedEventsList,
+                    upcomingEventsList = combinedEventsAndCommunities.upcomingEventsList,
+                    infiniteEventsList = combinedEventsAndCommunities.infiniteEventsList,
+                    allCommunitiesList = combinedEventsAndCommunities.allCommunitiesList,
+                    sortedEventsList = combinedEventsAndCommunities.sortedEventsList,
+                    listOfPeople = combinedPeopleAndTags.listOfPeople,
+                    listOfTags = combinedPeopleAndTags.listOfTags,
+                    listOfChosenTags = combinedPeopleAndTags.listOfChosenTags
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 
     private fun getAdvertBlocks() {
