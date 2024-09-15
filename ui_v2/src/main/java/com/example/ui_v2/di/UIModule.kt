@@ -1,5 +1,7 @@
 package com.example.ui_v2.di
 
+import com.example.ui_v2.models.mapper.IMapperDomainUI
+import com.example.ui_v2.models.mapper.MapperDomainUIImpl
 import com.example.ui_v2.ui.screens.SplashScreen.SplashScreenViewModel
 import com.example.ui_v2.ui.screens.appointmentScreen.appointmentSplash.AppointmentSplashScreenViewModel
 import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentNameSurnameScreenViewModel
@@ -20,6 +22,9 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 val uiModule = module {
+    single<IMapperDomainUI> {
+        MapperDomainUIImpl()
+    }
     viewModelOf(::SplashScreenViewModel)
     viewModelOf(::InterestsScreenViewModel)
     viewModelOf(::LocationScreenViewModel)

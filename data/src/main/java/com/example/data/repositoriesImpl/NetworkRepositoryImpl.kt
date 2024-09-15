@@ -51,12 +51,12 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun addToMyCommunities(community: CommunityModelDomain) {
-        mock.addToMyCommunities(community)
+    override suspend fun addToMyCommunities(communityId: String) {
+        mock.addToMyCommunities(communityId)
     }
 
-    override suspend fun removeFromMyCommunities(community: CommunityModelDomain) {
-        mock.removeFromMyCommunities(community)
+    override suspend fun removeFromMyCommunities(communityId: String) {
+        mock.removeFromMyCommunities(communityId)
     }
 
 

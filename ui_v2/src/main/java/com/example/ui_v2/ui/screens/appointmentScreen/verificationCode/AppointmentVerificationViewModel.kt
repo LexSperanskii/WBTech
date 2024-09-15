@@ -4,9 +4,9 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.models.mock.MockData
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
+import com.example.ui_v2.models.mapper.IMapperDomainUI
 import com.example.ui_v2.models.toEventModelUI
 import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
@@ -33,7 +33,7 @@ internal data class AppointmentVerificationScreenUiState(
 
 internal class AppointmentVerificationScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    private val mock: MockData,
+    private val mapper: IMapperDomainUI,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AppointmentVerificationScreenUiState())

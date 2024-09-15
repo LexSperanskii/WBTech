@@ -45,7 +45,7 @@ internal interface IMapperDomainUI {
     fun toSocialMediaModelUI(socialMediaModelDomain: SocialMediaModelDomain): SocialMediaModelUI
 }
 
-internal class MapperDomainUI : IMapperDomainUI {
+internal class MapperDomainUIImpl : IMapperDomainUI {
 
     override fun toCommunityDescriptionModelUI(communityDescriptionModelDomain: CommunityDescriptionModelDomain): CommunityDescriptionModelUI =
         CommunityDescriptionModelUI(

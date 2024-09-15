@@ -2,8 +2,8 @@ package com.example.ui_v2.ui.screens.communityScreen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.mock.MockData
 import com.example.ui_v2.models.CommunityDescriptionModelUI
+import com.example.ui_v2.models.mapper.IMapperDomainUI
 import com.example.ui_v2.models.toCommunityModelUI
 import com.example.ui_v2.ui.utils.ButtonStatus
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
@@ -21,7 +21,7 @@ internal data class CommunityScreenUiState(
 
 internal class CommunityScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    private val mock: MockData,
+    private val mapper: IMapperDomainUI,
 ) : ViewModel() {
 
     private val communityId: String = try {

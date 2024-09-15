@@ -14,7 +14,6 @@ import com.example.domain.models.MetroModelDomain
 import com.example.domain.models.PhoneNumberModelDomain
 import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.models.UserModelDomain
-import java.util.UUID
 
 class MockData {
 
@@ -419,17 +418,17 @@ class MockData {
     }
 
     private val communitiesAdvertBlock1 = CommunitiesAdvertBlockModelDomain(
-        id = UUID.randomUUID().toString(),
+        id = "0",
         nameOfBlock = "Сообщества для тестировщиков",
         listOfCommunities = getListOfCommunities().take(5)
     )
     private val communitiesAdvertBlock2 = CommunitiesAdvertBlockModelDomain(
-        id = UUID.randomUUID().toString(),
+        id = "1",
         nameOfBlock = "Популярные сообщества в IT",
         listOfCommunities = getListOfCommunities().take(12)
     )
     private val eventsAdvertBlock = EventAdvertBlockModelDomain(
-        id = UUID.randomUUID().toString(),
+        id = "0",
         nameOfBlock = "Встречи для разработчиков",
         listOfEvents = getListOfEvents().take(10)
     )
@@ -439,10 +438,15 @@ class MockData {
 
 
     fun getMyCommunitiesList(): List<CommunityModelDomain> = myCommunitiesList
-    fun addToMyCommunities(community: CommunityModelDomain) = myCommunitiesList.add(community)
-    fun removeFromMyCommunities(community: CommunityModelDomain) =
-        myCommunitiesList.remove(community)
-//    fun isInMyCommunityList(communityId: String): Boolean = myCommunitiesList.any { it.id == communityId }
+    fun addToMyCommunities(communityId: String) {
+        val community = myCommunitiesList.find { it.id == communityId }
+        if (community != null) {
+            myCommunitiesList.add(community)
+        }
+    }
+
+    fun removeFromMyCommunities(communityId: String) =
+        myCommunitiesList.removeAll { it.id == communityId }
 
     fun getMyChosenTagsList(): List<String> = myChosenTags
     fun addToMyChosenTags(tag: String) = myChosenTags.add(tag)
