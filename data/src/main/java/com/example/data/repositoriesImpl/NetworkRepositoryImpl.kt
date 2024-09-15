@@ -115,16 +115,12 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         mock.setClientPhoneNumber(countryCode, number)
     }
 
-    override fun setClientPinCode(pinCode: String): Flow<Boolean> {
-        return flow {
-            emit(mock.setClientPinCode(pinCode))
-        }.flowOn(Dispatchers.IO)
+    override suspend fun setClientPinCode(pinCode: String): Boolean {
+        return mock.setClientPinCode(pinCode)
     }
 
-    override fun getClientPhoneNumber(): Flow<PhoneNumberModelDomain> {
-        return flow {
-            emit(mock.getClientPhoneNumber())
-        }.flowOn(Dispatchers.IO)
+    override suspend fun getClientPhoneNumber(): PhoneNumberModelDomain {
+        return mock.getClientPhoneNumber()
     }
 
     override fun getClient(): Flow<ClientModelDomain> {
@@ -134,22 +130,12 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
     }
 
 
-    override fun getCommunitiesAdvertBlock1(): Flow<CommunitiesAdvertBlockModelDomain> {
-        return flow {
-            emit(mock.getCommunitiesAdvertBlock1())
-        }.flowOn(Dispatchers.IO)
+    override suspend fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain {
+        return mock.getCommunitiesAdvertBlock(blockId)
     }
 
-    override fun getCommunitiesAdvertBlock2(): Flow<CommunitiesAdvertBlockModelDomain> {
-        return flow {
-            emit(mock.getCommunitiesAdvertBlock2())
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun getEventsAdvertBlock(): Flow<EventAdvertBlockModelDomain> {
-        return flow {
-            emit(mock.getEventsAdvertBlock())
-        }.flowOn(Dispatchers.IO)
+    override suspend fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain {
+        return mock.getEventsAdvertBlock(blockId)
     }
 
 }

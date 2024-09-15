@@ -448,9 +448,20 @@ class MockData {
     fun addToMyChosenTags(tag: String) = myChosenTags.add(tag)
     fun removeFromMyChosenTags(tag: String) = myChosenTags.remove(tag)
 
-    fun getCommunitiesAdvertBlock1(): CommunitiesAdvertBlockModelDomain = communitiesAdvertBlock1
-    fun getCommunitiesAdvertBlock2(): CommunitiesAdvertBlockModelDomain = communitiesAdvertBlock2
-    fun getEventsAdvertBlock(): EventAdvertBlockModelDomain = eventsAdvertBlock
+    fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain {
+        return when (blockId) {
+            "0" -> communitiesAdvertBlock1
+            "1" -> communitiesAdvertBlock2
+            else -> communitiesAdvertBlock1
+        }
+    }
+
+    fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain {
+        return when (blockId) {
+            "0" -> eventsAdvertBlock
+            else -> eventsAdvertBlock
+        }
+    }
 
     fun getListOfCommunities(): List<CommunityModelDomain> = listOfRealCommunities
 

@@ -29,18 +29,17 @@ interface INetworkRepository {
     suspend fun removeFromMyChosenTags(tag: String)
 
     fun getListOfPeople(): Flow<List<UserModelDomain>>
-    fun getListOfParticipants(communityOrEventID: String): Flow<List<UserModelDomain>>
     fun getUser(id: String): Flow<UserModelDomain>
+    fun getListOfParticipants(communityOrEventID: String): Flow<List<UserModelDomain>>
 
     fun getAvailableCountriesList(): Flow<List<CountryModelDomain>>
 
     suspend fun setClientName(nameSurname: String)
     suspend fun setClientPhoneNumber(countryCode: String, number: String)
-    fun setClientPinCode(pinCode: String): Flow<Boolean>
-    fun getClientPhoneNumber(): Flow<PhoneNumberModelDomain>
+    suspend fun setClientPinCode(pinCode: String): Boolean
+    suspend fun getClientPhoneNumber(): PhoneNumberModelDomain
     fun getClient(): Flow<ClientModelDomain>
 
-    fun getCommunitiesAdvertBlock1(): Flow<CommunitiesAdvertBlockModelDomain>
-    fun getCommunitiesAdvertBlock2(): Flow<CommunitiesAdvertBlockModelDomain>
-    fun getEventsAdvertBlock(): Flow<EventAdvertBlockModelDomain>
+    suspend fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain
+    suspend fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain
 }

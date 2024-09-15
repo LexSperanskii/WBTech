@@ -2,8 +2,8 @@ package com.example.ui_v1.ui.registration.registratinProfileScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.user.Uiv1GetUserAvatarUseCase
-import com.example.domain.usecases.user.Uiv1SetUserUseCase
+import com.example.domain.usecase.user.Uiv1GetUserAvatarUseCase
+import com.example.domain.usecase.user.Uiv1SetUserUseCase
 import com.example.ui_v1.utils.UIv1UiUtils.EMPTY_STRING
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

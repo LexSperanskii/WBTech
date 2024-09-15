@@ -1,13 +1,13 @@
 package com.example.domain.di
 
-import com.example.domain.usecases.communities.Uiv1GetCommunitiesListUseCase
-import com.example.domain.usecases.communities.Uiv1GetCommunitiesListUseCaseImpl
-import com.example.domain.usecases.communities.Uiv1GetCommunityDetailUseCase
-import com.example.domain.usecases.communities.Uiv1GetCommunityDetailUseCaseImpl
-import com.example.domain.usecases.events.Uiv1AddUserAsParticipantUseCase
-import com.example.domain.usecases.events.Uiv1AddUserAsParticipantUseCaseImpl
-import com.example.domain.usecases.events.Uiv1RemoveUserAsParticipantUseCase
-import com.example.domain.usecases.events.Uiv1RemoveUserAsParticipantUseCaseImpl
+import com.example.domain.usecase.communities.Uiv1GetCommunitiesListUseCase
+import com.example.domain.usecase.communities.Uiv1GetCommunitiesListUseCaseImpl
+import com.example.domain.usecase.communities.Uiv1GetCommunityDetailUseCase
+import com.example.domain.usecase.communities.Uiv1GetCommunityDetailUseCaseImpl
+import com.example.domain.usecase.events.Uiv1AddUserAsParticipantUseCase
+import com.example.domain.usecase.events.Uiv1AddUserAsParticipantUseCaseImpl
+import com.example.domain.usecase.events.Uiv1RemoveUserAsParticipantUseCase
+import com.example.domain.usecase.events.Uiv1RemoveUserAsParticipantUseCaseImpl
 import org.koin.dsl.module
 
 
