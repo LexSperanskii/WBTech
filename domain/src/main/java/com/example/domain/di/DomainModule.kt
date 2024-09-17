@@ -10,21 +10,27 @@ import com.example.domain.interactors.availableCountries.InteractorGetAvailableC
 import com.example.domain.interactors.availableCountries.InteractorLoadAvailableCountriesListImpl
 import com.example.domain.interactors.client.IInteractorDeleteClient
 import com.example.domain.interactors.client.IInteractorGetClient
-import com.example.domain.interactors.client.IInteractorGetClientPhoneNumber
+import com.example.domain.interactors.client.IInteractorGetClientNotVerifiedName
+import com.example.domain.interactors.client.IInteractorGetClientNotVerifiedPhoneNumber
 import com.example.domain.interactors.client.IInteractorGetClientPinCodeVerification
 import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.interactors.client.IInteractorLoadClientPinCodeVerification
 import com.example.domain.interactors.client.IInteractorSaveClientSettings
 import com.example.domain.interactors.client.IInteractorSetClientName
+import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedName
+import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedPhoneNumber
 import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
 import com.example.domain.interactors.client.InteractorDeleteClientImpl
 import com.example.domain.interactors.client.InteractorGetClientImpl
-import com.example.domain.interactors.client.InteractorGetClientPhoneNumberImpl
+import com.example.domain.interactors.client.InteractorGetClientNotVerifiedNameImpl
+import com.example.domain.interactors.client.InteractorGetClientNotVerifiedPhoneNumberImpl
 import com.example.domain.interactors.client.InteractorGetClientPinCodeVerificationImpl
 import com.example.domain.interactors.client.InteractorLoadClientImpl
 import com.example.domain.interactors.client.InteractorLoadClientPinCodeVerificationImpl
 import com.example.domain.interactors.client.InteractorSaveClientSettingsImpl
 import com.example.domain.interactors.client.InteractorSetClientNameImpl
+import com.example.domain.interactors.client.InteractorSetClientNotVerifiedNameImpl
+import com.example.domain.interactors.client.InteractorSetClientNotVerifiedPhoneNumberImpl
 import com.example.domain.interactors.client.InteractorSetClientPhoneNumberImpl
 import com.example.domain.interactors.communitiesDescription.IInteractorGetCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.IInteractorLoadCommunitiesDescription
@@ -126,9 +132,6 @@ val domainModule = module {
             useCase = get()
         )
     }
-    single<IInteractorGetClientPhoneNumber> {
-        InteractorGetClientPhoneNumberImpl(networkRepository = get())
-    }
     single<IInteractorSetClientName> {
         InteractorSetClientNameImpl(networkRepository = get())
     }
@@ -151,6 +154,18 @@ val domainModule = module {
     }
     single<IInteractorSaveClientSettings> {
         InteractorSaveClientSettingsImpl(networkRepository = get())
+    }
+    single<IInteractorSetClientNotVerifiedName> {
+        InteractorSetClientNotVerifiedNameImpl(networkRepository = get())
+    }
+    single<IInteractorGetClientNotVerifiedName> {
+        InteractorGetClientNotVerifiedNameImpl(networkRepository = get())
+    }
+    single<IInteractorSetClientNotVerifiedPhoneNumber> {
+        InteractorSetClientNotVerifiedPhoneNumberImpl(networkRepository = get())
+    }
+    single<IInteractorGetClientNotVerifiedPhoneNumber> {
+        InteractorGetClientNotVerifiedPhoneNumberImpl(networkRepository = get())
     }
 
 

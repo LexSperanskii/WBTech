@@ -76,11 +76,11 @@ internal class CommunityScreenViewModel(
             val isInMyCommunities = uiState.value.isInMyCommunities
             when (isInMyCommunities) {
                 true -> {
-                    addToMyCommunities.invoke(communityId)
+                    removeFromMyCommunities.invoke(communityId)
                 }
 
                 false -> {
-                    removeFromMyCommunities.invoke(communityId)
+                    addToMyCommunities.invoke(communityId)
                 }
             }
         }

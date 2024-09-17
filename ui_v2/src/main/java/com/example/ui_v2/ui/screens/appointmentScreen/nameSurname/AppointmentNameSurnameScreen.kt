@@ -22,8 +22,8 @@ import org.koin.androidx.compose.koinViewModel
 
 internal object AppointmentDestination : NavigationDestination {
     override val route = "appointment"
-    const val itemIdArg = "itemId"
-    val routeWithArgs = "$route/{$itemIdArg}"
+//    const val itemIdArg = "itemId"
+//    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 internal object AppointmentNameSurnameScreenDestination : NavigationDestination {

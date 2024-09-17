@@ -47,11 +47,11 @@ internal class ProfileInterestsScreenViewModel(
         viewModelScope.launch {
             when (uiState.value.listOfChosenTags.contains(tag)) {
                 true -> {
-                    addToMyChosenTags.invoke(tag)
+                    removeFromMyChosenTags.invoke(tag)
                 }
 
                 false -> {
-                    removeFromMyChosenTags.invoke(tag)
+                    addToMyChosenTags.invoke(tag)
                 }
             }
         }

@@ -433,19 +433,6 @@ class MockData {
         listOfEvents = getListOfEvents().take(10)
     )
 
-//    private val myCommunitiesList = mutableListOf<CommunityModelDomain>()
-//    private val myEventsList = mutableListOf<EventModelDomain>()
-//    private val myChosenTags = mutableListOf<String>()
-
-//    fun getMyCommunitiesList(): List<CommunityModelDomain> = myCommunitiesList
-//    fun addToMyCommunities(communityId: String) {
-//        val community = myCommunitiesList.find { it.id == communityId }
-//        if (community != null) {
-//            myCommunitiesList.add(community)
-//        }
-//    }
-//    fun removeFromMyCommunities(communityId: String) = myCommunitiesList.removeAll { it.id == communityId }
-
     fun getMyCommunitiesList(): List<CommunityModelDomain> = client.clientCommunitiesList
     fun addToMyCommunities(communityId: String) {
         val community = listOfRealCommunities.find { it.id == communityId }
@@ -459,15 +446,6 @@ class MockData {
             client.copy(clientCommunitiesList = client.clientCommunitiesList.filter { it.id != communityId })
     }
 
-//    fun getMyEventsList(): List<EventModelDomain> = myEventsList
-//    fun addToMyEvents(eventId: String) {
-//        val event = myEventsList.find { it.id == eventId }
-//        if (event != null) {
-//            myEventsList.add(event)
-//        }
-//    }
-//    fun removeFromMyEvents(eventId: String) = myCommunitiesList.removeAll { it.id == eventId }
-
     fun getMyEventsList(): List<EventModelDomain> = client.clientEventsList
     fun addToMyEvents(eventId: String) {
         val event = listOfRealEvents.find { it.id == eventId }
@@ -479,10 +457,6 @@ class MockData {
     fun removeFromMyEvents(eventId: String) {
         client = client.copy(clientEventsList = client.clientEventsList.filter { it.id != eventId })
     }
-
-//    fun getMyChosenTagsList(): List<String> = myChosenTags
-//    fun addToMyChosenTags(tag: String) = myChosenTags.add(tag)
-//    fun removeFromMyChosenTags(tag: String) = myChosenTags.remove(tag)
 
     fun getMyChosenTagsList(): List<String> = client.listOfClientTags
     fun addToMyChosenTags(tag: String) {
@@ -570,10 +544,6 @@ class MockData {
         )
     }
 
-    fun getClientPhoneNumber(): PhoneNumberModelDomain {
-        return client.phoneNumber
-    }
-
     fun setClientPinCode(pinCode: String): Boolean {
         return pinCode == clientPinCode
     }
@@ -611,6 +581,24 @@ class MockData {
     fun getUser(id: String): UserModelDomain {
         return listOfRealUsers.find { it.id == id } ?: UserModelDomain()
     }
+
+    private var clientNotVerifiedNameSurname: String = ""
+    private var clientNotVerifiedPhoneNumber: PhoneNumberModelDomain = PhoneNumberModelDomain()
+
+    fun setClientNotVerifiedName(nameSurname: String) {
+        clientNotVerifiedNameSurname = nameSurname
+    }
+
+    fun getClientNotVerifiedName(): String = clientNotVerifiedNameSurname
+    fun setClientNotVerifiedPhoneNumber(countryCode: CountryModelDomain, number: String) {
+        clientNotVerifiedPhoneNumber = PhoneNumberModelDomain(
+            country = countryCode,
+            number = number
+        )
+    }
+
+    fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain = clientNotVerifiedPhoneNumber
+
 }
 
 fun generateRandomWord(length: Int): String {

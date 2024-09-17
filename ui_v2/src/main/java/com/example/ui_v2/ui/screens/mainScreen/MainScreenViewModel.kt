@@ -122,11 +122,11 @@ internal class MainScreenViewModel(
         viewModelScope.launch {
             when (uiState.value.myCommunitiesList.any { it.id == community.id }) {
                 true -> {
-                    addToMyCommunities.invoke(community.id)
+                    removeFromMyCommunities.invoke(community.id)
                 }
 
                 false -> {
-                    removeFromMyCommunities.invoke(community.id)
+                    addToMyCommunities.invoke(community.id)
                 }
             }
         }
@@ -136,11 +136,11 @@ internal class MainScreenViewModel(
         viewModelScope.launch {
             when (uiState.value.listOfChosenTags.contains(tag)) {
                 true -> {
-                    addToMyChosenTags.invoke(tag)
+                    removeFromMyChosenTags.invoke(tag)
                 }
 
                 false -> {
-                    removeFromMyChosenTags.invoke(tag)
+                    addToMyChosenTags.invoke(tag)
                 }
             }
         }

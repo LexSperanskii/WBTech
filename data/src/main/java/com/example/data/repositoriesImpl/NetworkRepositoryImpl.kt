@@ -136,10 +136,6 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getClientPhoneNumber(): PhoneNumberModelDomain {
-        return mock.getClientPhoneNumber()
-    }
-
     override fun getClient(): Flow<ClientModelDomain> {
         return flow {
             emit(mock.getClient())
@@ -170,6 +166,25 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
             showMyEventsChecked = showMyEventsChecked,
             applyNotificationsChecked = applyNotificationsChecked
         )
+    }
+
+    override suspend fun setClientNotVerifiedName(nameSurname: String) {
+        mock.setClientNotVerifiedName(nameSurname)
+    }
+
+    override suspend fun getClientNotVerifiedName(): String {
+        return mock.getClientNotVerifiedName()
+    }
+
+    override suspend fun setClientNotVerifiedPhoneNumber(
+        countryCode: CountryModelDomain,
+        number: String,
+    ) {
+        mock.setClientNotVerifiedPhoneNumber(countryCode, number)
+    }
+
+    override suspend fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain {
+        return mock.getClientNotVerifiedPhoneNumber()
     }
 
 

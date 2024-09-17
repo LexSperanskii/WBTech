@@ -273,11 +273,11 @@ internal fun DeveloperScreen() {
         )
     )
     val availableCountries = listOf(
-        CountryModelUI("Россия", "+7", R.drawable.flag_ru),
-        CountryModelUI("Казахстан", "+7", R.drawable.flag_kz),
-        CountryModelUI("Белоруссия", "+375", R.drawable.flag_by),
-        CountryModelUI("Киргизия", "+996", R.drawable.flag_kg),
-        CountryModelUI("Азербайджан", "+994", R.drawable.flag_az)
+        CountryModelUI("0", "Россия", "+7", R.drawable.flag_ru),
+        CountryModelUI("1", "Казахстан", "+7", R.drawable.flag_kz),
+        CountryModelUI("2", "Белоруссия", "+375", R.drawable.flag_by),
+        CountryModelUI("3", "Киргизия", "+996", R.drawable.flag_kg),
+        CountryModelUI("4", "Азербайджан", "+994", R.drawable.flag_az)
     )
     var countryCode2 by remember { mutableStateOf(availableCountries[0]) }
     var phoneNumber by remember { mutableStateOf("") }

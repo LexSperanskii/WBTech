@@ -41,7 +41,6 @@ interface INetworkRepository {
     suspend fun setClientName(nameSurname: String)
     suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String)
     fun setClientPinCode(pinCode: String): Flow<Boolean>
-    suspend fun getClientPhoneNumber(): PhoneNumberModelDomain
     fun getClient(): Flow<ClientModelDomain>
     suspend fun deleteClient()
     suspend fun saveClientChanges(
@@ -54,7 +53,10 @@ interface INetworkRepository {
         showMyEventsChecked: Boolean,
         applyNotificationsChecked: Boolean,
     )
-
+    suspend fun setClientNotVerifiedName(nameSurname: String)
+    suspend fun getClientNotVerifiedName(): String
+    suspend fun setClientNotVerifiedPhoneNumber(countryCode: CountryModelDomain, number: String)
+    suspend fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain
 
     suspend fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain
     suspend fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain

@@ -3,19 +3,17 @@ package com.example.ui_v2.ui.screens.eventScreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.interactors.client.IInteractorGetClient
+import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
 import com.example.domain.interactors.listOfEvents.IInteractorLoadListOfEvents
 import com.example.domain.interactors.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.myCommunities.IInteractorGetMyCommunitiesList
-import com.example.domain.interactors.myCommunities.IInteractorLoadMyCommunitiesList
 import com.example.domain.interactors.myCommunities.IInteractorRemoveFromMyCommunities
 import com.example.domain.interactors.myEvents.IInteractorAddToMyEvents
-import com.example.domain.interactors.myEvents.IInteractorGetMyEventsList
-import com.example.domain.interactors.myEvents.IInteractorLoadMyEventsList
 import com.example.domain.interactors.myEvents.IInteractorRemoveFromMyEvents
-import com.example.ui_v2.models.CommunityModelUI
+import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
@@ -32,14 +30,13 @@ import kotlinx.coroutines.launch
 
 internal data class EventScreenUiState(
     val eventDescription: EventDescriptionModelUI = EventDescriptionModelUI(),
-    val myCommunitiesList: List<CommunityModelUI> = listOf(),
-    val myEventsList: List<EventModelUI> = listOf(),
     val communityOtherEventsList: List<EventModelUI> = listOf(),
+    val client: ClientModelUI = ClientModelUI(),
 ) {
     val isInMyCommunities: Boolean
-        get() = myCommunitiesList.any { it.id == eventDescription.organizer.id }
+        get() = client.clientCommunitiesList.any { it.id == eventDescription.organizer.id }
     val isInMyEvents: Boolean
-        get() = myEventsList.any { it.id == eventDescription.id }
+        get() = client.clientEventsList.any { it.id == eventDescription.id }
     val buttonStatus: ButtonStatus
         get() = when (isInMyEvents) {
             true -> {
@@ -59,16 +56,14 @@ internal class EventScreenViewModel(
     private val mapper: IMapperDomainUI,
     private val loadEventDescription: IInteractorLoadEventDescription,
     private val getEventDescription: IInteractorGetEventDescription,
-    private val loadMyCommunitiesList: IInteractorLoadMyCommunitiesList,
-    private val getMyCommunitiesList: IInteractorGetMyCommunitiesList,
     private val addToMyCommunities: IInteractorAddToMyCommunities,
     private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
     private val loadListOfEvents: IInteractorLoadListOfEvents,
     private val getListOfEvents: IInteractorGetListOfEvents,
-    private val loadMyEventsList: IInteractorLoadMyEventsList,
-    private val getMyEventsList: IInteractorGetMyEventsList,
     private val addToMyEvents: IInteractorAddToMyEvents,
     private val removeFromMyEvents: IInteractorRemoveFromMyEvents,
+    private val loadClient: IInteractorLoadClient,
+    private val getClient: IInteractorGetClient,
 ) : ViewModel() {
 
     private val eventId: String = try {
@@ -94,52 +89,59 @@ internal class EventScreenViewModel(
             val isInMyCommunities = uiState.value.isInMyCommunities
             when (isInMyCommunities) {
                 true -> {
-                    addToMyCommunities.invoke(eventOrganizerId)
+                    removeFromMyCommunities.invoke(eventOrganizerId)
                 }
 
                 false -> {
-                    removeFromMyCommunities.invoke(eventOrganizerId)
+                    addToMyCommunities.invoke(eventOrganizerId)
                 }
             }
         }
     }
 
-    fun onJoinEventButtonClick() {
-        viewModelScope.launch {
-            val eventId = uiState.value.eventDescription.id
-            val isInMyEvents = uiState.value.isInMyEvents
-            when (isInMyEvents) {
-                true -> {
-                    addToMyEvents.invoke(eventId)
-                }
+    fun onJoinEventButtonClick(navigateToAppointmentScreen: () -> Unit) {
+        val uiState = uiState.value
+        when (uiState.client.phoneNumber.number.isNotBlank()) {
+            true -> {
+                viewModelScope.launch {
+                    val eventId = uiState.eventDescription.id
+                    val isInMyEvents = uiState.isInMyEvents
+                    when (isInMyEvents) {
+                        true -> {
+                            removeFromMyEvents.invoke(eventId)
+                        }
 
-                false -> {
-                    removeFromMyEvents.invoke(eventId)
+                        false -> {
+                            addToMyEvents.invoke(eventId)
+                        }
+                    }
                 }
             }
+
+            false -> {
+                navigateToAppointmentScreen()
+            }
         }
+
     }
 
     private fun loadData() {
         loadEventDescription.invoke(eventId)
-        loadMyCommunitiesList.invoke()
         loadListOfEvents.invoke()
-        loadMyEventsList.invoke()
+        loadClient.invoke()
     }
 
     private fun getDataEventScreenUiState() {
         combine(
             getEventDescription.invoke(),
-            getMyCommunitiesList.invoke(),
             getListOfEvents.invoke(),
-            getMyEventsList.invoke()
-        ) { eventDescription, myCommunitiesList, listOfEvents, myEventsList ->
+            getClient.invoke()
+        ) { eventDescription, listOfEvents, client ->
             _uiState.update { it ->
                 it.copy(
                     eventDescription = mapper.toEventDescriptionModelUI(eventDescription),
-                    myCommunitiesList = myCommunitiesList.map { mapper.toCommunityModelUI(it) },
                     communityOtherEventsList = listOfEvents.map { mapper.toEventModelUI(it) },
-                    myEventsList = myEventsList.map { mapper.toEventModelUI(it) }
+                    client = mapper.toClientModelUI(client)
                 )
             }
         }.launchIn(viewModelScope)

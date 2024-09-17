@@ -42,6 +42,7 @@ internal fun AppointmentVerificationScreen(
 
     LaunchedEffect(key1 = appointmentVerificationScreenUiState.isPinCodeValid) {
         if (appointmentVerificationScreenUiState.isPinCodeValid) {
+            viewModel.setVerifiedClientNameAndPhoneNumber()
             navigateToAppointmentSplashScreen()
         }
     }

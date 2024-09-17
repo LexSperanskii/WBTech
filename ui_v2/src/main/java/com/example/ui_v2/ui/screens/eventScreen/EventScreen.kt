@@ -41,7 +41,7 @@ internal fun EventScreen(
     navigateToPeopleScreen: (eventId: String) -> Unit,
     navigateToCommunityScreen: (communityId: String) -> Unit,
     navigateBack: () -> Unit,
-    navigateToAppointmentScreen: (eventId: String) -> Unit,
+    navigateToAppointmentScreen: () -> Unit,
     onShareClick: (eventId: String) -> Unit,
     onPitcherClick: (userId: String) -> Unit,
     viewModel: EventScreenViewModel = koinViewModel(),
@@ -61,8 +61,7 @@ internal fun EventScreen(
             otherCommunityEventsList = eventScreenUiState.communityOtherEventsList,
             onEventCardClick = { navigateToEventScreen(it.id) },
             onJoinEventButtonClick = {
-                viewModel.onJoinEventButtonClick()
-//                navigateToAppointmentScreen(eventScreenUiState.eventDescription.id)
+                viewModel.onJoinEventButtonClick(navigateToAppointmentScreen)
             },
             joinEventButtonStatus = eventScreenUiState.buttonStatus,
             isJoinEventButtonEnabled = eventScreenUiState.isJoinEventButtonEnabled,

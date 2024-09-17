@@ -4,15 +4,15 @@ import com.example.domain.models.PhoneNumberModelDomain
 import com.example.domain.repositories.INetworkRepository
 
 
-interface IInteractorGetClientPhoneNumber {
+interface IInteractorGetClientNotVerifiedPhoneNumber {
     suspend fun invoke(): PhoneNumberModelDomain
 }
 
-internal class InteractorGetClientPhoneNumberImpl(
+internal class InteractorGetClientNotVerifiedPhoneNumberImpl(
     private val networkRepository: INetworkRepository,
-) : IInteractorGetClientPhoneNumber {
+) : IInteractorGetClientNotVerifiedPhoneNumber {
 
     override suspend fun invoke(): PhoneNumberModelDomain {
-        return networkRepository.getClientPhoneNumber()
+        return networkRepository.getClientNotVerifiedPhoneNumber()
     }
 }

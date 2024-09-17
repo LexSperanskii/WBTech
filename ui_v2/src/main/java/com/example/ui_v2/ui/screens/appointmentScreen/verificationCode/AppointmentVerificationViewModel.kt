@@ -4,16 +4,16 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.client.IInteractorGetClientPhoneNumber
+import com.example.domain.interactors.client.IInteractorGetClientNotVerifiedName
+import com.example.domain.interactors.client.IInteractorGetClientNotVerifiedPhoneNumber
 import com.example.domain.interactors.client.IInteractorGetClientPinCodeVerification
 import com.example.domain.interactors.client.IInteractorLoadClientPinCodeVerification
+import com.example.domain.interactors.client.IInteractorSetClientName
+import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
-import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
-import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
-import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import com.example.ui_v2.ui.utils.UiUtils.PIN_CODE_LENGTH
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,22 +40,27 @@ internal data class AppointmentVerificationScreenUiState(
 internal class AppointmentVerificationScreenViewModel(
     savedStateHandle: SavedStateHandle,
     private val mapper: IMapperDomainUI,
-    private val loadEventDescription: IInteractorLoadEventDescription,
+//    private val loadEventDescription: IInteractorLoadEventDescription,
     private val getEventDescription: IInteractorGetEventDescription,
-    private val getClientPhoneNumber: IInteractorGetClientPhoneNumber,
     private val loadClientPinCodeVerification: IInteractorLoadClientPinCodeVerification,
     private val getClientPinCodeVerification: IInteractorGetClientPinCodeVerification,
-) : ViewModel() {
+
+    private val getClientNotVerifiedPhoneNumber: IInteractorGetClientNotVerifiedPhoneNumber,
+    private val getClientNotVerifiedName: IInteractorGetClientNotVerifiedName,
+    private val setClientName: IInteractorSetClientName,
+    private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
+
+    ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AppointmentVerificationScreenUiState())
     private val uiState: StateFlow<AppointmentVerificationScreenUiState> = _uiState.asStateFlow()
 
-    private val eventId: String = try {
-        checkNotNull(savedStateHandle[AppointmentDestination.itemIdArg])
-    } catch (e: IllegalStateException) {
-        // TODO: do state with error
-        DEFAULT_ID
-    }
+//    private val eventId: String = try {
+//        checkNotNull(savedStateHandle[AppointmentDestination.itemIdArg])
+//    } catch (e: IllegalStateException) {
+//        // TODO: do state with error
+//        DEFAULT_ID
+//    }
 
     init {
         loadData()
@@ -97,6 +102,18 @@ internal class AppointmentVerificationScreenViewModel(
         loadClientPinCodeVerification.invoke(pinCode)
     }
 
+    fun setVerifiedClientNameAndPhoneNumber() {
+        val phoneNumber = uiState.value.phoneNumber
+        viewModelScope.launch {
+            val clientName = getClientNotVerifiedName.invoke()
+            setClientName.invoke(clientName)
+            setClientPhoneNumber.invoke(
+                mapper.toCountryModelDomain(phoneNumber.country),
+                phoneNumber.number
+            )
+        }
+    }
+
     private fun loadData() {
 //        loadEventDescription.invoke(eventId)
     }
@@ -119,7 +136,7 @@ internal class AppointmentVerificationScreenViewModel(
         viewModelScope.launch {
             _uiState.update {
                 it.copy(
-                    phoneNumber = mapper.toPhoneNumberModelUI(getClientPhoneNumber.invoke())
+                    phoneNumber = mapper.toPhoneNumberModelUI(getClientNotVerifiedPhoneNumber.invoke())
                 )
             }
         }
