@@ -9,6 +9,7 @@ import com.example.domain.models.EventAdvertBlockModelDomain
 import com.example.domain.models.EventDescriptionModelDomain
 import com.example.domain.models.EventModelDomain
 import com.example.domain.models.PhoneNumberModelDomain
+import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.models.UserModelDomain
 import com.example.domain.models.mock.MockData
 import com.example.domain.repositories.INetworkRepository
@@ -30,6 +31,20 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         return flow {
             emit(mock.getEventDescription(eventId))
         }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getMyEventsList(): Flow<List<EventModelDomain>> {
+        return flow {
+            emit(mock.getMyEventsList())
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun addToMyEvents(eventId: String) {
+        mock.addToMyEvents(eventId)
+    }
+
+    override suspend fun removeFromMyEvents(eventId: String) {
+        mock.removeFromMyEvents(eventId)
     }
 
 
@@ -111,12 +126,14 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         mock.setClientName(nameSurname)
     }
 
-    override suspend fun setClientPhoneNumber(countryCode: String, number: String) {
+    override suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String) {
         mock.setClientPhoneNumber(countryCode, number)
     }
 
-    override suspend fun setClientPinCode(pinCode: String): Boolean {
-        return mock.setClientPinCode(pinCode)
+    override fun setClientPinCode(pinCode: String): Flow<Boolean> {
+        return flow {
+            emit(mock.setClientPinCode(pinCode))
+        }.flowOn(Dispatchers.IO)
     }
 
     override suspend fun getClientPhoneNumber(): PhoneNumberModelDomain {
@@ -127,6 +144,32 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         return flow {
             emit(mock.getClient())
         }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun deleteClient() {
+        return mock.deleteClient()
+    }
+
+    override suspend fun saveClientChanges(
+        imageURL: String?,
+        nameSurname: String,
+        city: String,
+        description: String,
+        listOfClientSocialMedia: List<SocialMediaModelDomain>,
+        isShowMyCommunities: Boolean,
+        showMyEventsChecked: Boolean,
+        applyNotificationsChecked: Boolean,
+    ) {
+        mock.saveClientChanges(
+            imageURL = imageURL,
+            nameSurname = nameSurname,
+            city = city,
+            description = description,
+            listOfClientSocialMedia = listOfClientSocialMedia,
+            isShowMyCommunities = isShowMyCommunities,
+            showMyEventsChecked = showMyEventsChecked,
+            applyNotificationsChecked = applyNotificationsChecked
+        )
     }
 
 

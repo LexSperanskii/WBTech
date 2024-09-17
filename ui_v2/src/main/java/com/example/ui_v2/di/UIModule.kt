@@ -12,7 +12,7 @@ import com.example.ui_v2.ui.screens.eventScreen.EventScreenViewModel
 import com.example.ui_v2.ui.screens.mainScreen.MainScreenViewModel
 import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreenViewModel
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreenViewModel
-import com.example.ui_v2.ui.screens.peopleScreen.PeopleScreenViewModel
+import com.example.ui_v2.ui.screens.participantsScreen.ParticipantsScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.deleteProfile.DeleteProfileScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.profileEdit.ProfileEditScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.profileInterests.ProfileInterestsScreenViewModel
@@ -30,7 +30,7 @@ val uiModule = module {
     viewModelOf(::LocationScreenViewModel)
     viewModelOf(::MainScreenViewModel)
     viewModelOf(::EventScreenViewModel)
-    viewModelOf(::PeopleScreenViewModel)
+    viewModelOf(::ParticipantsScreenViewModel)
     viewModelOf(::CommunityScreenViewModel)
     viewModelOf(::AppointmentNameSurnameScreenViewModel)
     viewModelOf(::AppointmentPhoneNumberScreenViewModel)

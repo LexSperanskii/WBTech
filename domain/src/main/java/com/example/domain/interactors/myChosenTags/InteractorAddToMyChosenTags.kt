@@ -9,9 +9,11 @@ interface IInteractorAddToMyChosenTags {
 
 internal class InteractorAddToMyChosenTagsImpl(
     private val networkRepository: INetworkRepository,
+    private val loadMyChosenTagsList: IInteractorLoadMyChosenTagsList,
 ) : IInteractorAddToMyChosenTags {
 
     override suspend fun invoke(tag: String) {
         networkRepository.addToMyChosenTags(tag)
+        loadMyChosenTagsList.invoke()
     }
 }

@@ -47,7 +47,6 @@ internal fun ProfileInterestsScreen(
                 //TODO
                 navigateBack()
             },
-            buttonStatus = profileInterestsScreenUiState.buttonStatus,
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -61,7 +60,6 @@ internal fun ProfileInterestsScreenBody(
     onTagClick: (String) -> Unit,
     isButtonEnabled: Boolean,
     onButtonClick: () -> Unit,
-    buttonStatus: ButtonStatus,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -108,7 +106,7 @@ internal fun ProfileInterestsScreenBody(
         ButtonWithStatus(
             notPressedText = stringResource(id = R.string.safe),
             onClick = onButtonClick,
-            buttonStatus = buttonStatus,
+            buttonStatus = ButtonStatus.Active,
             isButtonEnabled = isButtonEnabled,
             modifier = Modifier
         )

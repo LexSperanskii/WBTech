@@ -1,6 +1,6 @@
 package com.example.domain.models
 
 data class PhoneNumberModelDomain(
-    val countryCode: String = "",
+    val country: CountryModelDomain = CountryModelDomain(),
     val number: String = "",
 )

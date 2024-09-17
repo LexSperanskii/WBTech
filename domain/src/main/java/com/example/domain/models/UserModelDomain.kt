@@ -7,7 +7,7 @@ data class UserModelDomain(
     val listOfTags: List<String> = listOf(),
     val description: String = "",
     val imageURL: String? = "",
-    val listOfSocialMediaImageURL: List<SocialMediaModelDomain> = listOf(),
+    val listOfSocialMedia: List<SocialMediaModelDomain> = listOf(),
     val userEventsList: List<EventModelDomain> = listOf(),
     val userCommunitiesList: List<CommunityModelDomain> = listOf(),
 )
@@ -19,12 +19,13 @@ data class ClientModelDomain(
     val phoneNumber: PhoneNumberModelDomain = PhoneNumberModelDomain(),
     val city: String = "",
     val description: String = "",
-    val listOfTags: List<String> = listOf(),
-    val listOfSocialMedia: List<SocialMediaModelDomain> = listOf(),
-    val userEventsList: List<EventModelDomain> = listOf(),
-    val userCommunitiesList: List<CommunityModelDomain> = listOf(),
+    val listOfClientTags: List<String> = listOf(),
+    val listOfClientSocialMedia: List<SocialMediaModelDomain> = listOf(),
+    val clientEventsList: List<EventModelDomain> = listOf(),
+    val clientCommunitiesList: List<CommunityModelDomain> = listOf(),
     val isShowMyCommunities: Boolean = true,
     val showMyEventsChecked: Boolean = true,
+    val applyNotificationsChecked: Boolean = true,
 )
 
 data class SocialMediaModelDomain(

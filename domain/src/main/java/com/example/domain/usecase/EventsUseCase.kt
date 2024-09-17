@@ -33,8 +33,12 @@ internal class EventsUseCase {
 
     private val streamClient = MutableSharedFlow<Unit>()
 
+    private val streamClientPinCode = MutableSharedFlow<String>(replay = 1)
+
     private val streamUserSearch = MutableSharedFlow<String>(replay = 1)
     private var userSearchLastValue: String = ""
+
+    private val streamMyEventsList = MutableSharedFlow<Unit>()
 
 
     // Для EventDescription
@@ -79,7 +83,7 @@ internal class EventsUseCase {
     fun observeCommunityId(): Flow<String> = streamCommunityId
 
 
-    // Для MyOfCommunitiesList
+    // Для MyCommunitiesList
     fun loadMyCommunitiesList() {
         streamMyCommunitiesList.tryEmit(Unit)
     }
@@ -153,6 +157,14 @@ internal class EventsUseCase {
     fun observeClient(): Flow<Unit> = streamClient
 
 
+    //Для ClientPinCodeVerification
+    fun loadClientPinCodeVerification(pinCode: String) {
+        streamClientPinCode.tryEmit(pinCode)
+    }
+
+    fun observeClientPinCodeVerification(): Flow<String> = streamClientPinCode
+
+
     // Для ListOfSortedEvents
     fun loadListOfSortedEvents(search: String) {
         userSearchLastValue = search
@@ -164,4 +176,12 @@ internal class EventsUseCase {
     }
 
     fun observeUserSearch(): Flow<String> = streamUserSearch
+
+
+    // Для MyEventsList
+    fun loadMyEventsList() {
+        streamMyEventsList.tryEmit(Unit)
+    }
+
+    fun observeMyEventsList(): Flow<Unit> = streamMyEventsList
 }

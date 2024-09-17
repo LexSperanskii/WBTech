@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
 import com.example.ui_v2.models.CountryModelUI
-import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.AppointmentHeader
 import com.example.ui_v2.ui.components.ButtonWithStatus
@@ -60,7 +60,7 @@ internal fun AppointmentPhoneNumberScreen(
 
 @Composable
 internal fun AppointmentPhoneNumberScreenBody(
-    event: EventModelUI,
+    event: EventDescriptionModelUI,
     onCrossClick: () -> Unit,
     number: String,
     onNumberChange: (String) -> Unit,

@@ -1,17 +1,18 @@
 package com.example.domain.interactors.client
 
+import com.example.domain.models.CountryModelDomain
 import com.example.domain.repositories.INetworkRepository
 
 
 interface IInteractorSetClientPhoneNumber {
-    suspend fun invoke(countryCode: String, number: String)
+    suspend fun invoke(countryCode: CountryModelDomain, number: String)
 }
 
 internal class InteractorSetClientPhoneNumberImpl(
     private val networkRepository: INetworkRepository,
 ) : IInteractorSetClientPhoneNumber {
 
-    override suspend fun invoke(countryCode: String, number: String) {
+    override suspend fun invoke(countryCode: CountryModelDomain, number: String) {
         networkRepository.setClientPhoneNumber(countryCode, number)
     }
 }

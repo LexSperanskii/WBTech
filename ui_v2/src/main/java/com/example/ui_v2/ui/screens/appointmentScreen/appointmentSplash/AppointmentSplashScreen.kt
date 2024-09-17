@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
-import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.ButtonWithStatus
 import com.example.ui_v2.ui.components.TextButton
@@ -51,7 +51,7 @@ internal fun AppointmentSplashScreen(
 
 @Composable
 internal fun AppointmentSplashScreenBody(
-    event: EventModelUI,
+    event: EventDescriptionModelUI,
     onMyEventsButtonClick: () -> Unit,
     onFindOtherEventsButtonClick: () -> Unit,
     modifier: Modifier = Modifier,

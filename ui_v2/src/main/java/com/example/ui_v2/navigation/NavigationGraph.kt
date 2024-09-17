@@ -31,8 +31,8 @@ import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreen
 import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreenDestination
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreen
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreenDestination
-import com.example.ui_v2.ui.screens.peopleScreen.PeopleScreen
-import com.example.ui_v2.ui.screens.peopleScreen.PeopleScreenDestination
+import com.example.ui_v2.ui.screens.participantsScreen.ParticipantsScreen
+import com.example.ui_v2.ui.screens.participantsScreen.ParticipantsScreenDestination
 import com.example.ui_v2.ui.screens.userScreen.deleteProfile.DeleteProfileScreen
 import com.example.ui_v2.ui.screens.userScreen.deleteProfile.DeleteProfileScreenDestination
 import com.example.ui_v2.ui.screens.userScreen.profileEdit.ProfileEditScreen
@@ -107,7 +107,7 @@ fun NavHost(
                     navController.navigate("${EventScreenDestination.route}/${it}")
                 },
                 navigateToPeopleScreen = {
-                    navController.navigate("${PeopleScreenDestination.route}/${it}")
+                    navController.navigate("${ParticipantsScreenDestination.route}/${it}")
                 },
                 navigateToCommunityScreen = {
                     navController.navigate("${CommunityScreenDestination.route}/${it}")
@@ -121,12 +121,12 @@ fun NavHost(
             )
         }
         composable(
-            route = PeopleScreenDestination.routeWithArgs,
-            arguments = listOf(navArgument(PeopleScreenDestination.itemIdArg) {
+            route = ParticipantsScreenDestination.routeWithArgs,
+            arguments = listOf(navArgument(ParticipantsScreenDestination.itemIdArg) {
                 type = NavType.StringType
             })
         ) {
-            PeopleScreen(
+            ParticipantsScreen(
                 onArrowBackClick = { navController.popBackStack() },
                 navigateToPersonScreen = {
                     navController.navigate("${UserOutsideScreenDestination.route}/${it}")
@@ -141,7 +141,7 @@ fun NavHost(
         ) {
             CommunityScreen(
                 navigateToPeopleScreen = {
-                    navController.navigate("${PeopleScreenDestination.route}/${it}")
+                    navController.navigate("${ParticipantsScreenDestination.route}/${it}")
                 },
                 navigateToEventScreen = {
                     navController.navigate("${EventScreenDestination.route}/${it}")
@@ -251,6 +251,12 @@ fun NavHost(
                     navigateToEvent = {
                         navController.navigate("${EventScreenDestination.route}/${it}")
                     },
+                    navigateOnExit = {
+                        navController.popBackStack(
+                            SplashScreenDestination.route,
+                            inclusive = true
+                        )
+                    },
                     navigateToCommunity = {
                         navController.navigate("${CommunityScreenDestination.route}/${it}")
                     }
@@ -289,10 +295,10 @@ fun NavHost(
             ) {
                 DeleteProfileScreen(
                     navigateBack = { navController.popBackStack() },
-                    onDeleteClick = {
-                        navController.navigate(MainScreenDestination.route)
+                    navigateOnDeleteClick = {
+                        navController.navigate(InterestsScreenDestination.route)
                     },
-                    onNoNeedClick = { navController.popBackStack() }
+                    navigateOnNoNeedClick = { navController.popBackStack() }
                 )
             }
         }

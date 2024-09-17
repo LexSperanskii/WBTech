@@ -18,7 +18,7 @@ import com.example.domain.models.UserModelDomain
 class MockData {
 
     private var client = ClientModelDomain()
-    private var clientPinCode = "5555"
+    private val clientPinCode = "5555"
     private val availableCountries = listOf(
         CountryModelDomain("0", "Россия", "+7"),
         CountryModelDomain("1", "Казахстан", "+7"),
@@ -374,7 +374,7 @@ class MockData {
             listOfTags = listOfRealTags.take((2..5).random()),
             description = generateRandomWord((50..100).random()),
             imageURL = listOfRealIcons.random(),
-            listOfSocialMediaImageURL = listOfSocialMedia,
+            listOfSocialMedia = listOfSocialMedia,
             userEventsList = listOfRealEvents.take(10),
             userCommunitiesList = listOfRealCommunities.take(10)
         )
@@ -433,24 +433,65 @@ class MockData {
         listOfEvents = getListOfEvents().take(10)
     )
 
-    private val myCommunitiesList = mutableListOf<CommunityModelDomain>()
-    private val myChosenTags = mutableListOf<String>()
+//    private val myCommunitiesList = mutableListOf<CommunityModelDomain>()
+//    private val myEventsList = mutableListOf<EventModelDomain>()
+//    private val myChosenTags = mutableListOf<String>()
 
+//    fun getMyCommunitiesList(): List<CommunityModelDomain> = myCommunitiesList
+//    fun addToMyCommunities(communityId: String) {
+//        val community = myCommunitiesList.find { it.id == communityId }
+//        if (community != null) {
+//            myCommunitiesList.add(community)
+//        }
+//    }
+//    fun removeFromMyCommunities(communityId: String) = myCommunitiesList.removeAll { it.id == communityId }
 
-    fun getMyCommunitiesList(): List<CommunityModelDomain> = myCommunitiesList
+    fun getMyCommunitiesList(): List<CommunityModelDomain> = client.clientCommunitiesList
     fun addToMyCommunities(communityId: String) {
-        val community = myCommunitiesList.find { it.id == communityId }
+        val community = listOfRealCommunities.find { it.id == communityId }
         if (community != null) {
-            myCommunitiesList.add(community)
+            client = client.copy(clientCommunitiesList = client.clientCommunitiesList + community)
         }
     }
 
-    fun removeFromMyCommunities(communityId: String) =
-        myCommunitiesList.removeAll { it.id == communityId }
+    fun removeFromMyCommunities(communityId: String) {
+        client =
+            client.copy(clientCommunitiesList = client.clientCommunitiesList.filter { it.id != communityId })
+    }
 
-    fun getMyChosenTagsList(): List<String> = myChosenTags
-    fun addToMyChosenTags(tag: String) = myChosenTags.add(tag)
-    fun removeFromMyChosenTags(tag: String) = myChosenTags.remove(tag)
+//    fun getMyEventsList(): List<EventModelDomain> = myEventsList
+//    fun addToMyEvents(eventId: String) {
+//        val event = myEventsList.find { it.id == eventId }
+//        if (event != null) {
+//            myEventsList.add(event)
+//        }
+//    }
+//    fun removeFromMyEvents(eventId: String) = myCommunitiesList.removeAll { it.id == eventId }
+
+    fun getMyEventsList(): List<EventModelDomain> = client.clientEventsList
+    fun addToMyEvents(eventId: String) {
+        val event = listOfRealEvents.find { it.id == eventId }
+        if (event != null) {
+            client = client.copy(clientEventsList = client.clientEventsList + event)
+        }
+    }
+
+    fun removeFromMyEvents(eventId: String) {
+        client = client.copy(clientEventsList = client.clientEventsList.filter { it.id != eventId })
+    }
+
+//    fun getMyChosenTagsList(): List<String> = myChosenTags
+//    fun addToMyChosenTags(tag: String) = myChosenTags.add(tag)
+//    fun removeFromMyChosenTags(tag: String) = myChosenTags.remove(tag)
+
+    fun getMyChosenTagsList(): List<String> = client.listOfClientTags
+    fun addToMyChosenTags(tag: String) {
+        client = client.copy(listOfClientTags = client.listOfClientTags + tag)
+    }
+
+    fun removeFromMyChosenTags(tag: String) {
+        client = client.copy(listOfClientTags = client.listOfClientTags.filter { it != tag })
+    }
 
     fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain {
         return when (blockId) {
@@ -520,10 +561,10 @@ class MockData {
         client = client.copy(nameSurname = nameSurname)
     }
 
-    fun setClientPhoneNumber(countryCode: String, number: String) {
+    fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String) {
         client = client.copy(
             phoneNumber = client.phoneNumber.copy(
-                countryCode = countryCode,
+                country = countryCode,
                 number = number
             )
         )
@@ -539,6 +580,32 @@ class MockData {
 
     fun getClient(): ClientModelDomain {
         return client
+    }
+
+    fun deleteClient() {
+        client = ClientModelDomain()
+    }
+
+    fun saveClientChanges(
+        imageURL: String?,
+        nameSurname: String,
+        city: String,
+        description: String,
+        listOfClientSocialMedia: List<SocialMediaModelDomain>,
+        isShowMyCommunities: Boolean,
+        showMyEventsChecked: Boolean,
+        applyNotificationsChecked: Boolean,
+    ) {
+        client = client.copy(
+            imageURL = imageURL,
+            nameSurname = nameSurname,
+            city = city,
+            description = description,
+            listOfClientSocialMedia = listOfClientSocialMedia,
+            isShowMyCommunities = isShowMyCommunities,
+            showMyEventsChecked = showMyEventsChecked,
+            applyNotificationsChecked = applyNotificationsChecked
+        )
     }
 
     fun getUser(id: String): UserModelDomain {

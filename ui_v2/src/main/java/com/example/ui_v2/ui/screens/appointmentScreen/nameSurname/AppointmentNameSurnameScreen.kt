@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
-import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.AppointmentHeader
 import com.example.ui_v2.ui.components.ButtonWithStatus
@@ -60,7 +60,7 @@ internal fun AppointmentNameSurnameScreen(
 
 @Composable
 internal fun AppointmentNameSurnameScreenBody(
-    event: EventModelUI,
+    event: EventDescriptionModelUI,
     onCrossClick: () -> Unit,
     nameSurnameValue: String,
     isNameSurnameValid: Boolean,

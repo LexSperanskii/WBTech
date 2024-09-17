@@ -9,6 +9,7 @@ import com.example.domain.models.EventAdvertBlockModelDomain
 import com.example.domain.models.EventDescriptionModelDomain
 import com.example.domain.models.EventModelDomain
 import com.example.domain.models.PhoneNumberModelDomain
+import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.models.UserModelDomain
 import kotlinx.coroutines.flow.Flow
 
@@ -16,6 +17,9 @@ interface INetworkRepository {
 
     fun getListOfEvents(): Flow<List<EventModelDomain>>
     fun getEventDescription(eventId: String): Flow<EventDescriptionModelDomain>
+    fun getMyEventsList(): Flow<List<EventModelDomain>>
+    suspend fun addToMyEvents(eventId: String)
+    suspend fun removeFromMyEvents(eventId: String)
 
     fun getListOfCommunities(): Flow<List<CommunityModelDomain>>
     fun getCommunityDescription(communityId: String): Flow<CommunityDescriptionModelDomain>
@@ -35,10 +39,22 @@ interface INetworkRepository {
     fun getAvailableCountriesList(): Flow<List<CountryModelDomain>>
 
     suspend fun setClientName(nameSurname: String)
-    suspend fun setClientPhoneNumber(countryCode: String, number: String)
-    suspend fun setClientPinCode(pinCode: String): Boolean
+    suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String)
+    fun setClientPinCode(pinCode: String): Flow<Boolean>
     suspend fun getClientPhoneNumber(): PhoneNumberModelDomain
     fun getClient(): Flow<ClientModelDomain>
+    suspend fun deleteClient()
+    suspend fun saveClientChanges(
+        imageURL: String?,
+        nameSurname: String,
+        city: String,
+        description: String,
+        listOfClientSocialMedia: List<SocialMediaModelDomain>,
+        isShowMyCommunities: Boolean,
+        showMyEventsChecked: Boolean,
+        applyNotificationsChecked: Boolean,
+    )
+
 
     suspend fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain
     suspend fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain

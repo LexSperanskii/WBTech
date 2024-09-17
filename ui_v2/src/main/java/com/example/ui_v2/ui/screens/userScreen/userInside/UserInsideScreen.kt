@@ -12,10 +12,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
+import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.models.SocialMediaModelUI
-import com.example.ui_v2.models.UserModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.EvensFixBlockCarousel
 import com.example.ui_v2.ui.components.TextButton
@@ -39,6 +39,7 @@ internal fun UserInsideScreen(
     onNetworkIconClick: (SocialMediaModelUI) -> Unit,
     navigateToEvent: (eventId: String) -> Unit,
     navigateToCommunity: (communityId: String) -> Unit,
+    navigateOnExit: () -> Unit,
     viewModel: UserInsideScreenViewModel = koinViewModel(),
 ) {
     val userInsideScreenUiState by viewModel.getUserInsideScreenUiStateFlow()
@@ -46,13 +47,13 @@ internal fun UserInsideScreen(
 
     Scaffold { innerPadding ->
         UserInsideScreenBody(
-            user = userInsideScreenUiState.user,
+            client = userInsideScreenUiState.client,
             onArrowClick = navigateBack,
             onEditClick = onEditClick,
             onNetworkIconClick = onNetworkIconClick,
             onEventCardClick = { navigateToEvent(it.id) },
             onCommunityClick = { navigateToCommunity(it.id) },
-            onExitButtonClick = {},
+            onExitButtonClick = { navigateOnExit() },
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -60,7 +61,7 @@ internal fun UserInsideScreen(
 
 @Composable
 internal fun UserInsideScreenBody(
-    user: UserModelUI,
+    client: ClientModelUI,
     onArrowClick: () -> Unit,
     onEditClick: () -> Unit,
     onNetworkIconClick: (SocialMediaModelUI) -> Unit,
@@ -78,7 +79,7 @@ internal fun UserInsideScreenBody(
     ) {
         item {
             UserDescriptionBlockInside(
-                user = user,
+                user = client,
                 onArrowClick = onArrowClick,
                 onEditClick = onEditClick,
                 onNetworkIconClick = onNetworkIconClick,
@@ -88,7 +89,7 @@ internal fun UserInsideScreenBody(
         item {
             EvensFixBlockCarousel(
                 blockText = stringResource(id = R.string.my_events),
-                blockEventsList = user.userEventsList,
+                blockEventsList = client.clientEventsList,
                 onEventCardClick = onEventCardClick,
                 contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                 modifier = Modifier
@@ -96,7 +97,7 @@ internal fun UserInsideScreenBody(
         }
         item {
             UserCommunitiesFixBlockCarousel(
-                communitiesList = user.userCommunitiesList,
+                communitiesList = client.clientCommunitiesList,
                 onCommunityClick = onCommunityClick,
                 contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                 modifier = Modifier

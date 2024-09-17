@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.ui_v2.R
+import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.UserModelUI
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
@@ -149,7 +150,7 @@ internal fun UserDescriptionBlockOutside(
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         ) {
-            user.listOfSocialMediaImageURL.forEach { socialMedia ->
+            user.listOfSocialMedia.forEach { socialMedia ->
                 NetworkIcon(
                     networkIcon = socialMedia.socialMediaIcon,
                     onNetworkIconClick = { onNetworkIconClick(socialMedia) }
@@ -162,7 +163,7 @@ internal fun UserDescriptionBlockOutside(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun UserDescriptionBlockInside(
-    user: UserModelUI,
+    user: ClientModelUI,
     onArrowClick: () -> Unit,
     onEditClick: () -> Unit,
     onNetworkIconClick: (SocialMediaModelUI) -> Unit,
@@ -276,7 +277,7 @@ internal fun UserDescriptionBlockInside(
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         ) {
-            user.listOfSocialMediaImageURL.forEach { socialMedia ->
+            user.listOfSocialMedia.forEach { socialMedia ->
                 NetworkIcon(
                     networkIcon = socialMedia.socialMediaIcon,
                     onNetworkIconClick = { onNetworkIconClick(socialMedia) }

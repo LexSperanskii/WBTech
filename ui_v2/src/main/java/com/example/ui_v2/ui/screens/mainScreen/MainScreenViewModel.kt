@@ -82,7 +82,7 @@ internal class MainScreenViewModel(
 
     init {
         loadData()
-        getMainScreen()
+        getDataForMainScreenUiState()
         getAdvertBlocks()
     }
 
@@ -155,7 +155,7 @@ internal class MainScreenViewModel(
         loadListOfPeople.invoke()
     }
 
-    private fun getMainScreen() {
+    private fun getDataForMainScreenUiState() {
         val combinedEventsAndCommunitiesFlow = combine(
             getListOfEvents.invoke(),
             getMyCommunitiesList.invoke(),

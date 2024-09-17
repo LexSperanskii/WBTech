@@ -21,18 +21,3 @@ internal data class EventDescriptionModelUI(
     val organizer: CommunityModelUI = CommunityModelUI(),
     val availableCapacity: Int = 0,
 )
-
-internal fun EventDescriptionModelUI.toEventModelUI(): EventModelUI =
-    EventModelUI(
-        id = this.id,
-        name = this.name,
-        time = this.time,
-        day = this.day,
-        month = this.month,
-        year = this.year,
-        city = this.city,
-        street = this.street,
-        building = this.building,
-        imageURL = this.imageURL,
-        listOfTags = this.listOfTags
-    )

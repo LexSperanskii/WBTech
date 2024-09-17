@@ -9,9 +9,11 @@ interface IInteractorAddToMyCommunities {
 
 internal class InteractorAddToMyCommunitiesImpl(
     private val networkRepository: INetworkRepository,
+    private val loadMyCommunitiesList: IInteractorLoadMyCommunitiesList,
 ) : IInteractorAddToMyCommunities {
 
     override suspend fun invoke(communityId: String) {
         networkRepository.addToMyCommunities(communityId)
+        loadMyCommunitiesList.invoke()
     }
 }

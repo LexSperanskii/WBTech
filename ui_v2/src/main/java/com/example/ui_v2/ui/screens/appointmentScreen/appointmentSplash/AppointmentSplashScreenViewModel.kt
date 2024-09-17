@@ -2,24 +2,30 @@ package com.example.ui_v2.ui.screens.appointmentScreen.appointmentSplash
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.ui_v2.models.EventModelUI
+import androidx.lifecycle.viewModelScope
+import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
+import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
+import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
-import com.example.ui_v2.models.toEventModelUI
 import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 
 
 internal data class AppointmentSplashScreenUiState(
-    val event: EventModelUI = EventModelUI(),
+    val event: EventDescriptionModelUI = EventDescriptionModelUI(),
 )
 
 internal class AppointmentSplashScreenViewModel(
     savedStateHandle: SavedStateHandle,
     private val mapper: IMapperDomainUI,
+    private val loadEventDescription: IInteractorLoadEventDescription,
+    private val getEventDescription: IInteractorGetEventDescription,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AppointmentSplashScreenUiState())
@@ -33,13 +39,25 @@ internal class AppointmentSplashScreenViewModel(
     }
 
     init {
-        _uiState.update {
-            it.copy(
-                event = mock.getEventDescription(eventId).toEventModelUI()
-            )
-        }
+        loadData()
+        getDataAppointmentSplashScreenUiState()
     }
 
     fun getAppointmentSplashScreenUiStateFlow(): StateFlow<AppointmentSplashScreenUiState> = uiState
 
+    private fun loadData() {
+//        loadEventDescription.invoke(eventId)
+    }
+
+    private fun getDataAppointmentSplashScreenUiState() {
+        getEventDescription.invoke()
+            .onEach { eventDescription ->
+                _uiState.update { it ->
+                    it.copy(
+                        event = mapper.toEventDescriptionModelUI(eventDescription)
+                    )
+                }
+            }
+            .launchIn(viewModelScope)
+    }
 }

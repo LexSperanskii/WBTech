@@ -9,9 +9,11 @@ interface IInteractorRemoveFromMyChosenTags {
 
 internal class InteractorRemoveFromMyChosenTagsImpl(
     private val networkRepository: INetworkRepository,
+    private val loadMyChosenTagsList: IInteractorLoadMyChosenTagsList,
 ) : IInteractorRemoveFromMyChosenTags {
 
     override suspend fun invoke(tag: String) {
         networkRepository.removeFromMyChosenTags(tag)
+        loadMyChosenTagsList.invoke()
     }
 }

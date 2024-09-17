@@ -34,6 +34,7 @@ internal interface IMapperDomainUI {
     fun toCommunityModelUI(communityModelDomain: CommunityModelDomain): CommunityModelUI
     fun toCommunitiesAdvertBlockModelUI(communitiesAdvertBlockModelDomain: CommunitiesAdvertBlockModelDomain): CommunitiesAdvertBlockModelUI
     fun toCountryModelUI(countryModelDomain: CountryModelDomain): CountryModelUI
+    fun toCountryModelDomain(countryModelUI: CountryModelUI): CountryModelDomain
     fun toEventDescriptionModelUI(eventDescriptionModelDomain: EventDescriptionModelDomain): EventDescriptionModelUI
     fun toEventLocationModelUI(eventLocationModelDomain: EventLocationModelDomain): EventLocationModelUI
     fun toEventModelUI(eventModelDomain: EventModelDomain): EventModelUI
@@ -43,6 +44,7 @@ internal interface IMapperDomainUI {
     fun toUserModelUI(userModelDomain: UserModelDomain): UserModelUI
     fun toClientModelUI(clientModelDomain: ClientModelDomain): ClientModelUI
     fun toSocialMediaModelUI(socialMediaModelDomain: SocialMediaModelDomain): SocialMediaModelUI
+    fun toSocialMediaModelDomain(socialMediaModelUI: SocialMediaModelUI): SocialMediaModelDomain
 }
 
 internal class MapperDomainUIImpl : IMapperDomainUI {
@@ -88,9 +90,17 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
 
     override fun toCountryModelUI(countryModelDomain: CountryModelDomain): CountryModelUI =
         CountryModelUI(
+            id = countryModelDomain.id,
             country = countryModelDomain.country,
             code = countryModelDomain.code,
-            flag = correctFlag(countryModelDomain)
+            flag = correctFlagById(countryModelDomain)
+        )
+
+    override fun toCountryModelDomain(countryModelUI: CountryModelUI): CountryModelDomain =
+        CountryModelDomain(
+            id = countryModelUI.id,
+            country = countryModelUI.country,
+            code = countryModelUI.code
         )
 
     override fun toEventDescriptionModelUI(eventDescriptionModelDomain: EventDescriptionModelDomain): EventDescriptionModelUI =
@@ -155,7 +165,7 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
 
     override fun toPhoneNumberModelUI(phoneNumberModelDomain: PhoneNumberModelDomain): PhoneNumberModelUI =
         PhoneNumberModelUI(
-            countryCode = phoneNumberModelDomain.countryCode,
+            country = toCountryModelUI(phoneNumberModelDomain.country),
             number = phoneNumberModelDomain.number
         )
 
@@ -167,7 +177,7 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
             listOfTags = userModelDomain.listOfTags,
             description = userModelDomain.description,
             imageURL = userModelDomain.imageURL,
-            listOfSocialMediaImageURL = userModelDomain.listOfSocialMediaImageURL.map {
+            listOfSocialMedia = userModelDomain.listOfSocialMedia.map {
                 toSocialMediaModelUI(
                     it
                 )
@@ -184,22 +194,39 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
             phoneNumber = toPhoneNumberModelUI(clientModelDomain.phoneNumber),
             city = clientModelDomain.city,
             description = clientModelDomain.description,
-            listOfTags = clientModelDomain.listOfTags,
-            listOfSocialMedia = clientModelDomain.listOfSocialMedia.map { toSocialMediaModelUI(it) },
-            userEventsList = clientModelDomain.userEventsList.map { toEventModelUI(it) },
-            userCommunitiesList = clientModelDomain.userCommunitiesList.map { toCommunityModelUI(it) },
+            listOfTags = clientModelDomain.listOfClientTags,
+            listOfSocialMedia = clientModelDomain.listOfClientSocialMedia.map {
+                toSocialMediaModelUI(
+                    it
+                )
+            },
+            clientEventsList = clientModelDomain.clientEventsList.map { toEventModelUI(it) },
+            clientCommunitiesList = clientModelDomain.clientCommunitiesList.map {
+                toCommunityModelUI(
+                    it
+                )
+            },
             isShowMyCommunities = clientModelDomain.isShowMyCommunities,
-            showMyEventsChecked = clientModelDomain.showMyEventsChecked
+            showMyEventsChecked = clientModelDomain.showMyEventsChecked,
+            applyNotificationsChecked = clientModelDomain.applyNotificationsChecked
         )
 
     override fun toSocialMediaModelUI(socialMediaModelDomain: SocialMediaModelDomain): SocialMediaModelUI =
         SocialMediaModelUI(
-            socialMediaIcon = correctSocialMediaIcon(socialMediaModelDomain),
+            socialMediaId = socialMediaModelDomain.socialMediaId,
+            socialMediaIcon = correctSocialMediaIconById(socialMediaModelDomain),
             socialMediaName = socialMediaModelDomain.socialMediaName,
             userNickname = socialMediaModelDomain.userNickname
         )
 
-    private fun correctFlag(countryModelDomain: CountryModelDomain): Int {
+    override fun toSocialMediaModelDomain(socialMediaModelUI: SocialMediaModelUI): SocialMediaModelDomain =
+        SocialMediaModelDomain(
+            socialMediaId = socialMediaModelUI.socialMediaId,
+            socialMediaName = socialMediaModelUI.socialMediaName,
+            userNickname = socialMediaModelUI.userNickname
+        )
+
+    private fun correctFlagById(countryModelDomain: CountryModelDomain): Int {
         return when (countryModelDomain.id) {
             "0" -> {
                 R.drawable.flag_ru
@@ -227,7 +254,7 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
         }
     }
 
-    private fun correctSocialMediaIcon(socialMediaModelDomain: SocialMediaModelDomain): Int {
+    private fun correctSocialMediaIconById(socialMediaModelDomain: SocialMediaModelDomain): Int {
         return when (socialMediaModelDomain.socialMediaId) {
             "0" -> {
                 R.drawable.label_xabr

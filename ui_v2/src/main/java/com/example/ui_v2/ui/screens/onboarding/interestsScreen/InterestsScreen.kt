@@ -50,7 +50,6 @@ internal fun InterestsScreen(
             onButtonClick = {
                 navigateToLocationScreen()
             },
-            buttonStatus = interestsScreenUiState.buttonStatus,
             onTellLaterClick = { /*TODO*/ },
             modifier = Modifier.padding(innerPadding)
         )
@@ -65,7 +64,6 @@ internal fun InterestsScreenBody(
     onTagClick: (String) -> Unit,
     isButtonEnabled: Boolean,
     onButtonClick: () -> Unit,
-    buttonStatus: ButtonStatus,
     onTellLaterClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -114,7 +112,7 @@ internal fun InterestsScreenBody(
         ButtonWithStatus(
             notPressedText = stringResource(id = R.string.safe),
             onClick = onButtonClick,
-            buttonStatus = buttonStatus,
+            buttonStatus = ButtonStatus.Active,
             isButtonEnabled = isButtonEnabled,
             modifier = Modifier
                 .padding(

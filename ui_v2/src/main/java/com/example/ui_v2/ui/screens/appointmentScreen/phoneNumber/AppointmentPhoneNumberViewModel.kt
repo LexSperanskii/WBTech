@@ -2,21 +2,30 @@ package com.example.ui_v2.ui.screens.appointmentScreen.phoneNumber
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.domain.interactors.availableCountries.IInteractorGetAvailableCountriesList
+import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
+import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
+import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
+import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.ui_v2.models.CountryModelUI
-import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
-import com.example.ui_v2.models.toEventModelUI
 import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
 import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import com.example.ui_v2.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 
 internal data class AppointmentPhoneNumberScreenUiState(
-    val event: EventModelUI = EventModelUI(),
+    val event: EventDescriptionModelUI = EventDescriptionModelUI(),
     val number: String = "",
     val countryCode: CountryModelUI = CountryModelUI(),
     val listOfCountriesCodes: List<CountryModelUI> = listOf(),
@@ -28,6 +37,11 @@ internal data class AppointmentPhoneNumberScreenUiState(
 internal class AppointmentPhoneNumberScreenViewModel(
     savedStateHandle: SavedStateHandle,
     private val mapper: IMapperDomainUI,
+    private val loadEventDescription: IInteractorLoadEventDescription,
+    private val getEventDescription: IInteractorGetEventDescription,
+    private val loadAvailableCountriesList: IInteractorLoadAvailableCountriesList,
+    private val getAvailableCountriesList: IInteractorGetAvailableCountriesList,
+    private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AppointmentPhoneNumberScreenUiState())
@@ -41,13 +55,9 @@ internal class AppointmentPhoneNumberScreenViewModel(
     }
 
     init {
-        _uiState.update {
-            it.copy(
-                event = mock.getEventDescription(eventId).toEventModelUI(),
-                listOfCountriesCodes = mock.getAvailableCountriesList(),
-                countryCode = mock.getAvailableCountriesList().first()
-            )
-        }
+        loadData()
+        getDataAppointmentPhoneNumberScreenUiState()
+        initCountyCode()
     }
 
     fun getAppointmentPhoneNumberScreenUiStateFlow(): StateFlow<AppointmentPhoneNumberScreenUiState> =
@@ -71,6 +81,43 @@ internal class AppointmentPhoneNumberScreenViewModel(
 
     fun onButtonClick() {
         val uiState = uiState.value
-        mock.setClientPhoneNumber(uiState.countryCode.code, uiState.number)
+        viewModelScope.launch {
+            setClientPhoneNumber.invoke(
+                mapper.toCountryModelDomain(uiState.countryCode),
+                uiState.number
+            )
+        }
+    }
+
+    private fun loadData() {
+//        loadEventDescription.invoke(eventId)
+        loadAvailableCountriesList.invoke()
+    }
+
+    private fun getDataAppointmentPhoneNumberScreenUiState() {
+        combine(
+            getEventDescription.invoke(),
+            getAvailableCountriesList.invoke()
+        ) { eventDescription, availableCountriesList ->
+            _uiState.update { it ->
+                it.copy(
+                    event = mapper.toEventDescriptionModelUI(eventDescription),
+                    listOfCountriesCodes = availableCountriesList.map { mapper.toCountryModelUI(it) },
+                )
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun initCountyCode() {
+        viewModelScope.launch {
+            val availableCountriesList = getAvailableCountriesList.invoke().first()
+            val defaultCountryCode =
+                availableCountriesList.map { mapper.toCountryModelUI(it) }.first()
+            _uiState.update {
+                it.copy(
+                    countryCode = defaultCountryCode
+                )
+            }
+        }
     }
 }

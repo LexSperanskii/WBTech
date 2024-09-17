@@ -9,9 +9,11 @@ interface IInteractorRemoveFromMyCommunities {
 
 internal class InteracterRemoveFromMyCommunitiesImpl(
     private val networkRepository: INetworkRepository,
+    private val loadMyCommunitiesList: IInteractorLoadMyCommunitiesList,
 ) : IInteractorRemoveFromMyCommunities {
 
     override suspend fun invoke(communityId: String) {
         networkRepository.removeFromMyCommunities(communityId)
+        loadMyCommunitiesList.invoke()
     }
 }

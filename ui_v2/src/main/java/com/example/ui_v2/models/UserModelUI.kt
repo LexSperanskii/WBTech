@@ -9,7 +9,7 @@ internal data class UserModelUI(
     val listOfTags: List<String> = listOf(),
     val description: String = "",
     val imageURL: String? = "",
-    val listOfSocialMediaImageURL: List<SocialMediaModelUI> = listOf(),
+    val listOfSocialMedia: List<SocialMediaModelUI> = listOf(),
     val userEventsList: List<EventModelUI> = listOf(),
     val userCommunitiesList: List<CommunityModelUI> = listOf(),
 )
@@ -23,10 +23,11 @@ internal data class ClientModelUI(
     val description: String = "",
     val listOfTags: List<String> = listOf(),
     val listOfSocialMedia: List<SocialMediaModelUI> = listOf(),
-    val userEventsList: List<EventModelUI> = listOf(),
-    val userCommunitiesList: List<CommunityModelUI> = listOf(),
+    val clientEventsList: List<EventModelUI> = listOf(),
+    val clientCommunitiesList: List<CommunityModelUI> = listOf(),
     val isShowMyCommunities: Boolean = true,
     val showMyEventsChecked: Boolean = true,
+    val applyNotificationsChecked: Boolean = true,
 )
 
 internal data class SocialMediaModelUI(

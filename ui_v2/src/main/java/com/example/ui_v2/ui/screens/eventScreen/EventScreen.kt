@@ -58,11 +58,11 @@ internal fun EventScreen(
             isInMyCommunities = eventScreenUiState.isInMyCommunities,
             onCommunityClick = { navigateToCommunityScreen(eventScreenUiState.eventDescription.organizer.id) },
             onCommunityButtonClick = { viewModel.onCommunityButtonClick() },
-            otherCommunityEventsList = eventScreenUiState.otherCommunityEventsList,
+            otherCommunityEventsList = eventScreenUiState.communityOtherEventsList,
             onEventCardClick = { navigateToEventScreen(it.id) },
             onJoinEventButtonClick = {
                 viewModel.onJoinEventButtonClick()
-                navigateToAppointmentScreen(eventScreenUiState.eventDescription.id)
+//                navigateToAppointmentScreen(eventScreenUiState.eventDescription.id)
             },
             joinEventButtonStatus = eventScreenUiState.buttonStatus,
             isJoinEventButtonEnabled = eventScreenUiState.isJoinEventButtonEnabled,

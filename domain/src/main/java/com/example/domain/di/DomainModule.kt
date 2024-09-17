@@ -8,18 +8,24 @@ import com.example.domain.interactors.availableCountries.IInteractorGetAvailable
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
 import com.example.domain.interactors.availableCountries.InteractorGetAvailableCountriesListImpl
 import com.example.domain.interactors.availableCountries.InteractorLoadAvailableCountriesListImpl
+import com.example.domain.interactors.client.IInteractorDeleteClient
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorGetClientPhoneNumber
+import com.example.domain.interactors.client.IInteractorGetClientPinCodeVerification
 import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.client.IInteractorLoadClientPinCodeVerification
+import com.example.domain.interactors.client.IInteractorSaveClientSettings
 import com.example.domain.interactors.client.IInteractorSetClientName
 import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
-import com.example.domain.interactors.client.IInteractorSetClientPinCode
+import com.example.domain.interactors.client.InteractorDeleteClientImpl
 import com.example.domain.interactors.client.InteractorGetClientImpl
 import com.example.domain.interactors.client.InteractorGetClientPhoneNumberImpl
+import com.example.domain.interactors.client.InteractorGetClientPinCodeVerificationImpl
 import com.example.domain.interactors.client.InteractorLoadClientImpl
+import com.example.domain.interactors.client.InteractorLoadClientPinCodeVerificationImpl
+import com.example.domain.interactors.client.InteractorSaveClientSettingsImpl
 import com.example.domain.interactors.client.InteractorSetClientNameImpl
 import com.example.domain.interactors.client.InteractorSetClientPhoneNumberImpl
-import com.example.domain.interactors.client.InteractorSetClientPinCodeImpl
 import com.example.domain.interactors.communitiesDescription.IInteractorGetCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.IInteractorLoadCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.InteractorGetCommunitiesDescriptionImpl
@@ -68,6 +74,14 @@ import com.example.domain.interactors.myCommunities.InteracterRemoveFromMyCommun
 import com.example.domain.interactors.myCommunities.InteractorAddToMyCommunitiesImpl
 import com.example.domain.interactors.myCommunities.InteractorGetMyCommunitiesListImpl
 import com.example.domain.interactors.myCommunities.InteractorLoadMyCommunitiesListImpl
+import com.example.domain.interactors.myEvents.IInteractorAddToMyEvents
+import com.example.domain.interactors.myEvents.IInteractorGetMyEventsList
+import com.example.domain.interactors.myEvents.IInteractorLoadMyEventsList
+import com.example.domain.interactors.myEvents.IInteractorRemoveFromMyEvents
+import com.example.domain.interactors.myEvents.InteractorAddToMyEventsImpl
+import com.example.domain.interactors.myEvents.InteractorGetMyEventsListImpl
+import com.example.domain.interactors.myEvents.InteractorLoadMyEventsListImpl
+import com.example.domain.interactors.myEvents.InteractorRemoveFromMyEventsImpl
 import com.example.domain.interactors.user.IInteractorGetUser
 import com.example.domain.interactors.user.IInteractorLoadUser
 import com.example.domain.interactors.user.InteractorGetUserImpl
@@ -121,8 +135,22 @@ val domainModule = module {
     single<IInteractorSetClientPhoneNumber> {
         InteractorSetClientPhoneNumberImpl(networkRepository = get())
     }
-    single<IInteractorSetClientPinCode> {
-        InteractorSetClientPinCodeImpl(networkRepository = get())
+    single<IInteractorGetClientPinCodeVerification> {
+        InteractorGetClientPinCodeVerificationImpl(
+            useCase = get(),
+            networkRepository = get()
+        )
+    }
+    single<IInteractorLoadClientPinCodeVerification> {
+        InteractorLoadClientPinCodeVerificationImpl(
+            useCase = get()
+        )
+    }
+    single<IInteractorDeleteClient> {
+        InteractorDeleteClientImpl(networkRepository = get())
+    }
+    single<IInteractorSaveClientSettings> {
+        InteractorSaveClientSettingsImpl(networkRepository = get())
     }
 
 
@@ -229,10 +257,16 @@ val domainModule = module {
         )
     }
     single<IInteractorAddToMyChosenTags> {
-        InteractorAddToMyChosenTagsImpl(networkRepository = get())
+        InteractorAddToMyChosenTagsImpl(
+            networkRepository = get(),
+            loadMyChosenTagsList = get()
+        )
     }
     single<IInteractorRemoveFromMyChosenTags> {
-        InteractorRemoveFromMyChosenTagsImpl(networkRepository = get())
+        InteractorRemoveFromMyChosenTagsImpl(
+            networkRepository = get(),
+            loadMyChosenTagsList = get()
+        )
     }
 
 
@@ -248,10 +282,16 @@ val domainModule = module {
         )
     }
     single<IInteractorAddToMyCommunities> {
-        InteractorAddToMyCommunitiesImpl(networkRepository = get())
+        InteractorAddToMyCommunitiesImpl(
+            networkRepository = get(),
+            loadMyCommunitiesList = get()
+        )
     }
     single<IInteractorRemoveFromMyCommunities> {
-        InteracterRemoveFromMyCommunitiesImpl(networkRepository = get())
+        InteracterRemoveFromMyCommunitiesImpl(
+            networkRepository = get(),
+            loadMyCommunitiesList = get()
+        )
     }
 
 
@@ -277,6 +317,31 @@ val domainModule = module {
     single<IInteractorLoadListOfSortedEvents> {
         InteractorLoadListOfSortedEventsImpl(
             useCase = get()
+        )
+    }
+
+
+    single<IInteractorGetMyEventsList> {
+        InteractorGetMyEventsListImpl(
+            useCase = get(),
+            networkRepository = get()
+        )
+    }
+    single<IInteractorLoadMyEventsList> {
+        InteractorLoadMyEventsListImpl(
+            useCase = get()
+        )
+    }
+    single<IInteractorAddToMyEvents> {
+        InteractorAddToMyEventsImpl(
+            networkRepository = get(),
+            loadMyEventsList = get()
+        )
+    }
+    single<IInteractorRemoveFromMyEvents> {
+        InteractorRemoveFromMyEventsImpl(
+            networkRepository = get(),
+            loadMyEventsList = get()
         )
     }
 }

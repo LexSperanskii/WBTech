@@ -1,4 +1,4 @@
-package com.example.ui_v2.ui.screens.peopleScreen
+package com.example.ui_v2.ui.screens.participantsScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,32 +23,33 @@ import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import org.koin.androidx.compose.koinViewModel
 
 
-internal object PeopleScreenDestination : NavigationDestination {
+internal object ParticipantsScreenDestination : NavigationDestination {
     override val route = "people_screen"
     const val itemIdArg = "itemId"
     val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable
-internal fun PeopleScreen(
+internal fun ParticipantsScreen(
     onArrowBackClick: () -> Unit,
     navigateToPersonScreen: (String) -> Unit,
-    viewModel: PeopleScreenViewModel = koinViewModel(),
+    viewModel: ParticipantsScreenViewModel = koinViewModel(),
 ) {
-    val peopleScreenUiState by viewModel.getPeopleScreenUiStateFlow().collectAsStateWithLifecycle()
+    val participantsScreenUiState by viewModel.getParticipantsScreenUiStateFlow()
+        .collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
-        PeopleScreenBody(
+        ParticipantsScreenBody(
             onArrowBackClick = onArrowBackClick,
             onPersonCardClick = { navigateToPersonScreen(it.id) },
-            listOfUsers = peopleScreenUiState.listOfUsers,
+            listOfUsers = participantsScreenUiState.listOfUsers,
             modifier = Modifier.padding(innerPadding)
         )
     }
 }
 
 @Composable
-internal fun PeopleScreenBody(
+internal fun ParticipantsScreenBody(
     onArrowBackClick: () -> Unit,
     onPersonCardClick: (UserModelUI) -> Unit,
     listOfUsers: List<UserModelUI>,

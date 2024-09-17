@@ -1,55 +1,79 @@
 package com.example.ui_v2.ui.screens.userScreen.profileInterests
 
 import androidx.lifecycle.ViewModel
-import com.example.ui_v2.models.mapper.IMapperDomainUI
-import com.example.ui_v2.ui.utils.ButtonStatus
+import androidx.lifecycle.viewModelScope
+import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
+import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
+import com.example.domain.interactors.myChosenTags.IInteractorAddToMyChosenTags
+import com.example.domain.interactors.myChosenTags.IInteractorGetMyChosenTagsList
+import com.example.domain.interactors.myChosenTags.IInteractorLoadMyChosenTagsList
+import com.example.domain.interactors.myChosenTags.IInteractorRemoveFromMyChosenTags
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 internal data class ProfileInterestsScreenUiState(
     val listOfTags: List<String> = listOf(),
     val listOfChosenTags: List<String> = listOf(),
-    val buttonStatus: ButtonStatus = ButtonStatus.Active,
 ) {
     val isButtonEnabled: Boolean
         get() = listOfChosenTags.isNotEmpty()
 }
 
 internal class ProfileInterestsScreenViewModel(
-    private val mapper: IMapperDomainUI,
+    private val loadListOfTags: IInteractorLoadListOfTags,
+    private val getListOfTags: IInteractorGetListOfTags,
+    private val loadMyChosenTagsList: IInteractorLoadMyChosenTagsList,
+    private val getMyChosenTagsList: IInteractorGetMyChosenTagsList,
+    private val addToMyChosenTags: IInteractorAddToMyChosenTags,
+    private val removeFromMyChosenTags: IInteractorRemoveFromMyChosenTags,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileInterestsScreenUiState())
     private val uiState: StateFlow<ProfileInterestsScreenUiState> = _uiState.asStateFlow()
 
     init {
-        _uiState.update {
-            it.copy(
-                listOfTags = mock.getListOfTags()
-            )
-        }
+        loadData()
+        getDataForProfileInterestsScreenUiState()
     }
 
     fun getProfileInterestsScreenUiStateFlow(): StateFlow<ProfileInterestsScreenUiState> = uiState
 
     fun onTagClick(tag: String) {
-        _uiState.update { state ->
-            state.copy(
-                listOfChosenTags = when (state.listOfChosenTags.contains(tag)) {
-                    true -> {
-                        mock.removeFromMyChosenTags(tag)
-                        state.listOfChosenTags.toMutableList().apply { remove(tag) }
-                    }
-
-                    else -> {
-                        mock.addToMyChosenTags(tag)
-                        state.listOfChosenTags.toMutableList().apply { add(tag) }
-                    }
+        viewModelScope.launch {
+            when (uiState.value.listOfChosenTags.contains(tag)) {
+                true -> {
+                    addToMyChosenTags.invoke(tag)
                 }
-            )
+
+                false -> {
+                    removeFromMyChosenTags.invoke(tag)
+                }
+            }
         }
+    }
+
+    private fun loadData() {
+        loadListOfTags.invoke()
+        loadMyChosenTagsList.invoke()
+    }
+
+    private fun getDataForProfileInterestsScreenUiState() {
+        combine(
+            getListOfTags.invoke(),
+            getMyChosenTagsList.invoke()
+        ) { listOfTags, myChosenTagsList ->
+            _uiState.update {
+                it.copy(
+                    listOfTags = listOfTags,
+                    listOfChosenTags = myChosenTagsList
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 
 }

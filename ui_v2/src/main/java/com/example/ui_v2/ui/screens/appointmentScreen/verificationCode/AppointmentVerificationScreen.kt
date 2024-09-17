@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
-import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.AppointmentHeader
@@ -39,6 +40,12 @@ internal fun AppointmentVerificationScreen(
     val appointmentVerificationScreenUiState by viewModel.getAppointmentVerificationScreenUiStateFlow()
         .collectAsStateWithLifecycle()
 
+    LaunchedEffect(key1 = appointmentVerificationScreenUiState.isPinCodeValid) {
+        if (appointmentVerificationScreenUiState.isPinCodeValid) {
+            navigateToAppointmentSplashScreen()
+        }
+    }
+
     Scaffold { innerPadding ->
         AppointmentVerificationScreenBody(
             event = appointmentVerificationScreenUiState.event,
@@ -56,7 +63,7 @@ internal fun AppointmentVerificationScreen(
             },
             isButtonEnabled = appointmentVerificationScreenUiState.isButtonEnabled,
             onButtonClick = {
-                viewModel.onButtonClick(navigateToAppointmentSplashScreen)
+                viewModel.onButtonClick()
             },
             modifier = Modifier.padding(innerPadding)
         )
@@ -65,7 +72,7 @@ internal fun AppointmentVerificationScreen(
 
 @Composable
 internal fun AppointmentVerificationScreenBody(
-    event: EventModelUI,
+    event: EventDescriptionModelUI,
     onCrossClick: () -> Unit,
     pinCode: String,
     isPinCodeValid: Boolean,

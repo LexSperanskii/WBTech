@@ -14,12 +14,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.ui_v2.R
-import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 
 @Composable
 internal fun AppointmentHeader(
-    event: EventModelUI,
+    event: EventDescriptionModelUI,
     onCrossClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

@@ -1,13 +1,23 @@
 package com.example.ui_v2.ui.screens.userScreen.profileEdit
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.domain.interactors.availableCountries.IInteractorGetAvailableCountriesList
+import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
+import com.example.domain.interactors.client.IInteractorGetClient
+import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.client.IInteractorSaveClientSettings
+import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 
 internal data class ProfileEditScreenUiState(
@@ -30,18 +40,20 @@ internal data class ProfileEditScreenUiState(
 
 internal class ProfileEditScreenViewModel(
     private val mapper: IMapperDomainUI,
+    private val loadClient: IInteractorLoadClient,
+    private val getClient: IInteractorGetClient,
+    private val loadAvailableCountriesList: IInteractorLoadAvailableCountriesList,
+    private val getAvailableCountriesList: IInteractorGetAvailableCountriesList,
+    private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
+    private val saveClientSettings: IInteractorSaveClientSettings,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileEditScreenUiState())
     private val uiState: StateFlow<ProfileEditScreenUiState> = _uiState.asStateFlow()
 
     init {
-        _uiState.update {
-            it.copy(
-                listOfCountriesCodes = mock.getAvailableCountriesList(),
-                countryCode = mock.getAvailableCountriesList().first()
-            )
-        }
+        loadData()
+        getDataUserOutsideScreenUiState()
     }
 
     fun getProfileEditScreenUiStateFlow(): StateFlow<ProfileEditScreenUiState> = uiState
@@ -74,7 +86,8 @@ internal class ProfileEditScreenViewModel(
     fun onCityChange(city: String) {
         _uiState.update {
             it.copy(
-                city = city
+                city = city,
+                isCityValid = city.length > 2
             )
         }
     }
@@ -126,7 +139,60 @@ internal class ProfileEditScreenViewModel(
     }
 
     fun safeNewSettings() {
-        // сделаьб сохранение в мок
+        val uiState = uiState.value
+        viewModelScope.launch {
+            saveClientSettings.invoke(
+                imageURL = uiState.avatarURL,
+                nameSurname = uiState.nameSurname,
+                city = uiState.city,
+                description = uiState.aboutUser,
+                listOfClientSocialMedia = uiState.listOfSocialMedia.map {
+                    mapper.toSocialMediaModelDomain(
+                        it
+                    )
+                },
+                isShowMyCommunities = uiState.showMyCommunitiesChecked,
+                showMyEventsChecked = uiState.showMyEventsChecked,
+                applyNotificationsChecked = uiState.applyNotificationsChecked
+            )
+            setClientPhoneNumber.invoke(
+                mapper.toCountryModelDomain(uiState.countryCode),
+                uiState.number
+            )
+        }
+    }
+
+    private fun loadData() {
+        loadClient.invoke()
+        loadAvailableCountriesList.invoke()
+    }
+
+    private fun getDataUserOutsideScreenUiState() {
+        combine(
+            getClient.invoke(),
+            getAvailableCountriesList.invoke()
+        ) { client, availableCountriesList ->
+            _uiState.update { it ->
+                it.copy(
+                    avatarURL = client.imageURL,
+                    nameSurname = client.nameSurname,
+                    number = client.phoneNumber.number,
+                    countryCode = mapper.toCountryModelUI(client.phoneNumber.country),
+                    listOfCountriesCodes = availableCountriesList.map { mapper.toCountryModelUI(it) },
+                    city = client.city,
+                    aboutUser = client.description,
+                    listOfUserTags = client.listOfClientTags,
+                    listOfSocialMedia = client.listOfClientSocialMedia.map {
+                        mapper.toSocialMediaModelUI(
+                            it
+                        )
+                    },
+                    showMyCommunitiesChecked = client.isShowMyCommunities,
+                    showMyEventsChecked = client.showMyEventsChecked,
+                    applyNotificationsChecked = client.applyNotificationsChecked
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 
 }

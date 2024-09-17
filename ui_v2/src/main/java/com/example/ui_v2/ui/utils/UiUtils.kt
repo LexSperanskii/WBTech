@@ -37,7 +37,7 @@ internal object UiUtils {
     fun formattedMobileNumber(phoneNumber: PhoneNumberModelUI): String {
         return when (phoneNumber.number.length) {
             PHONE_NUMBER_LENGTH -> buildString {
-                append(phoneNumber.countryCode)
+                append(phoneNumber.country.code)
                 append(" ")
                 append(phoneNumber.number.substring(0, FIRST_SPACE_POSITION))
                 append(" ")
@@ -49,7 +49,7 @@ internal object UiUtils {
             }
 
             else -> buildString {
-                append(phoneNumber.countryCode)
+                append(phoneNumber.country)
                 append(" ")
                 append(phoneNumber.number)
             }

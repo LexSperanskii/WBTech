@@ -11,12 +11,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.ButtonWithStatus
@@ -32,21 +30,21 @@ internal object DeleteProfileScreenDestination : NavigationDestination {
 @Composable
 internal fun DeleteProfileScreen(
     navigateBack: () -> Unit,
-    onDeleteClick: () -> Unit,
-    onNoNeedClick: () -> Unit,
+    navigateOnDeleteClick: () -> Unit,
+    navigateOnNoNeedClick: () -> Unit,
     viewModel: DeleteProfileScreenViewModel = koinViewModel(),
 ) {
-    val deleteProfileScreenUiState by viewModel.getDeleteProfileScreenUiStateFlow()
-        .collectAsStateWithLifecycle()
+//    val deleteProfileScreenUiState by viewModel.getDeleteProfileScreenUiStateFlow()
+//        .collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
         DeleteProfileScreenBody(
             onCrossClick = navigateBack,
             onDeleteClick = {
-                //TODO
-                onDeleteClick()
+                viewModel.onDeleteClick()
+                navigateOnDeleteClick()
             },
-            onNoNeedClick = onNoNeedClick,
+            onNoNeedClick = navigateOnNoNeedClick,
             modifier = Modifier.padding(innerPadding)
         )
     }
