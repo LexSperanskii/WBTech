@@ -17,9 +17,9 @@ internal class EventsUseCase {
 
     private val streamMyCommunitiesList = MutableSharedFlow<Unit>()
 
-    private val streamListOfTags = MutableSharedFlow<Unit>()
+    private val streamListOfTags = MutableSharedFlow<Unit>(replay = 1)
 
-    private val streamMyChosenTagsList = MutableSharedFlow<Unit>()
+    private val streamMyChosenTagsList = MutableSharedFlow<Unit>(replay = 1)
 
     private val streamListOfPeople = MutableSharedFlow<Unit>()
 
