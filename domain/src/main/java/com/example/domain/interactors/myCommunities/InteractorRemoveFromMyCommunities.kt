@@ -14,6 +14,5 @@ internal class InteracterRemoveFromMyCommunitiesImpl(
 
     override suspend fun invoke(communityId: String) {
         networkRepository.removeFromMyCommunities(communityId)
-        loadMyCommunitiesList.invoke()
     }
 }

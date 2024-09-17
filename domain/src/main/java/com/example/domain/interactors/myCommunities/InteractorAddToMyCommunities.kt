@@ -14,6 +14,5 @@ internal class InteractorAddToMyCommunitiesImpl(
 
     override suspend fun invoke(communityId: String) {
         networkRepository.addToMyCommunities(communityId)
-        loadMyCommunitiesList.invoke()
     }
 }

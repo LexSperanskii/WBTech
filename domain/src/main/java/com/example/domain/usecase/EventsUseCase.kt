@@ -8,20 +8,20 @@ internal class EventsUseCase {
     private val streamEventId = MutableSharedFlow<String>(replay = 1)
     private var eventIdLastValue: String = ""
 
-    private val streamListOfEvents = MutableSharedFlow<Unit>()
+    private val streamListOfEvents = MutableSharedFlow<Unit>(replay = 1)
 
-    private val streamListOfCommunities = MutableSharedFlow<Unit>()
+    private val streamListOfCommunities = MutableSharedFlow<Unit>(replay = 1)
 
     private val streamCommunityId = MutableSharedFlow<String>(replay = 1)
     private var communityIdLastValue: String = ""
 
-    private val streamMyCommunitiesList = MutableSharedFlow<Unit>()
+    private val streamMyCommunitiesList = MutableSharedFlow<Unit>(replay = 1)
 
     private val streamListOfTags = MutableSharedFlow<Unit>(replay = 1)
 
     private val streamMyChosenTagsList = MutableSharedFlow<Unit>(replay = 1)
 
-    private val streamListOfPeople = MutableSharedFlow<Unit>()
+    private val streamListOfPeople = MutableSharedFlow<Unit>(replay = 1)
 
     private val streamUserId = MutableSharedFlow<String>(replay = 1)
     private var userIdLastValue: String = ""
@@ -29,16 +29,16 @@ internal class EventsUseCase {
     private val streamListOfParticipantsId = MutableSharedFlow<String>(replay = 1)
     private var participantsIdLastValue: String = ""
 
-    private val streamAvailableCountriesList = MutableSharedFlow<Unit>()
+    private val streamAvailableCountriesList = MutableSharedFlow<Unit>(replay = 1)
 
-    private val streamClient = MutableSharedFlow<Unit>()
+    private val streamClient = MutableSharedFlow<Unit>(replay = 1)
 
     private val streamClientPinCode = MutableSharedFlow<String>(replay = 1)
 
     private val streamUserSearch = MutableSharedFlow<String>(replay = 1)
     private var userSearchLastValue: String = ""
 
-    private val streamMyEventsList = MutableSharedFlow<Unit>()
+    private val streamMyEventsList = MutableSharedFlow<Unit>(replay = 1)
 
 
     // Для EventDescription

@@ -14,6 +14,5 @@ internal class InteractorRemoveFromMyEventsImpl(
 
     override suspend fun invoke(eventId: String) {
         networkRepository.removeFromMyEvents(eventId)
-        loadMyEventsList.invoke()
     }
 }

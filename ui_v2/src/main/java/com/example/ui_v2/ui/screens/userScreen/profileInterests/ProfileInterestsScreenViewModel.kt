@@ -55,6 +55,7 @@ internal class ProfileInterestsScreenViewModel(
                 }
             }
         }
+        loadData()
     }
 
     private fun loadData() {

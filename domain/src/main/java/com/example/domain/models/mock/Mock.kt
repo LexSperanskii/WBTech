@@ -24,10 +24,11 @@ class MockData {
         CountryModelDomain("1", "Казахстан", "+7"),
         CountryModelDomain("2", "Белоруссия", "+375"),
         CountryModelDomain("3", "Киргизия", "+996"),
-        CountryModelDomain("4", "Азербайджан", "+994")
+        CountryModelDomain("4", "Азербайджан", "+994"),
+        CountryModelDomain("5", "Великобритания", "+44")
     )
     private val colorsStringList =
-        listOf("0xFF00FF00", "0xFFFFFF00", "0xFF0000FF", "0xFFFF0000", "0xFFFFA500", "0xFF800080")
+        listOf("FF00FF00", "FFFFFF00", "FF0000FF", "FFFF0000", "FFFFA500", "FF800080")
     private val listOfSocialMedia = listOf(
         SocialMediaModelDomain(
             socialMediaId = "0",

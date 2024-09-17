@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -35,7 +34,6 @@ internal fun EvensCarousel(
                 event = event,
                 onEventCardClick = { onEventCardClick(event) },
                 modifier = Modifier
-                    .height(328.dp)
             )
         }
     }
@@ -71,7 +69,6 @@ internal fun EvensAdvertBlockCarousel(
                     onEventCardClick = { onEventCardClick(event) },
                     eventCardWidth = 212.dp,
                     modifier = Modifier
-                        .height(328.dp)
                 )
             }
         }
@@ -110,7 +107,6 @@ internal fun EvensFixBlockCarousel(
                     onEventCardClick = { onEventCardClick(event) },
                     eventCardWidth = 212.dp,
                     modifier = Modifier
-                        .height(328.dp)
                 )
             }
         }

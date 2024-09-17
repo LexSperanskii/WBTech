@@ -14,6 +14,5 @@ internal class InteractorAddToMyEventsImpl(
 
     override suspend fun invoke(eventId: String) {
         networkRepository.addToMyEvents(eventId)
-        loadMyEventsList.invoke()
     }
 }

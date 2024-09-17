@@ -14,6 +14,5 @@ internal class InteractorAddToMyChosenTagsImpl(
 
     override suspend fun invoke(tag: String) {
         networkRepository.addToMyChosenTags(tag)
-        loadMyChosenTagsList.invoke()
     }
 }

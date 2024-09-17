@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -28,7 +29,8 @@ import kotlinx.coroutines.launch
 internal data class AppointmentVerificationScreenUiState(
     val event: EventDescriptionModelUI = EventDescriptionModelUI(),
     val pinCode: String = "",
-    val isPinCodeValid: Boolean = true,
+    val isPinCodeValid: Boolean = false,
+    val isPinCodeFieldValid: Boolean = true,
     val phoneNumber: PhoneNumberModelUI = PhoneNumberModelUI(),
     val countdown: Int = 10,
     val isCountdownEnabled: Boolean = false,
@@ -92,7 +94,8 @@ internal class AppointmentVerificationScreenViewModel(
                     else -> {
                         it.pinCode
                     }
-                }
+                },
+                isPinCodeFieldValid = true
             )
         }
     }
@@ -100,6 +103,14 @@ internal class AppointmentVerificationScreenViewModel(
     fun onButtonClick() {
         val pinCode = uiState.value.pinCode
         loadClientPinCodeVerification.invoke(pinCode)
+        getClientPinCodeVerification.invoke()
+            .onEach { pinCodeVerification ->
+                _uiState.update {
+                    it.copy(
+                        isPinCodeFieldValid = pinCodeVerification
+                    )
+                }
+            }.launchIn(viewModelScope)
     }
 
     fun setVerifiedClientNameAndPhoneNumber() {
@@ -142,26 +153,6 @@ internal class AppointmentVerificationScreenViewModel(
         }
     }
 
-    //    private fun startCountdown() {
-//        viewModelScope.launch {
-//            var countdown = 10
-//            while (countdown > 0) {
-//                delay(1000L)
-//                _uiState.update {
-//                    it.copy(
-//                        countdown = countdown
-//                    )
-//                }
-//                countdown--
-//            }
-//            _uiState.update {
-//                it.copy(
-//                    countdown = countdown,
-//                    isCountdownEnabled = true
-//                )
-//            }
-//        }
-//    }
     private fun startCountdown() {
         viewModelScope.launch {
             while (uiState.value.countdown > 0) {

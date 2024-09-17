@@ -84,9 +84,9 @@ internal class EventScreenViewModel(
     fun getEventScreenUiStateFlow(): StateFlow<EventScreenUiState> = uiState
 
     fun onCommunityButtonClick() {
+        val eventOrganizerId = uiState.value.eventDescription.organizer.id
+        val isInMyCommunities = uiState.value.isInMyCommunities
         viewModelScope.launch {
-            val eventOrganizerId = uiState.value.eventDescription.organizer.id
-            val isInMyCommunities = uiState.value.isInMyCommunities
             when (isInMyCommunities) {
                 true -> {
                     removeFromMyCommunities.invoke(eventOrganizerId)

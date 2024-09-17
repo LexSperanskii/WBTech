@@ -103,7 +103,7 @@ internal fun CountryCodeDropdownMenuDefaultItem(
             .padding(vertical = 16.dp, horizontal = 20.dp)
     ) {
         Image(
-            painter = painterResource(country.flag),
+            painter = painterResource(id = country.flag),
             contentDescription = stringResource(id = R.string.country_code),
             modifier = Modifier
                 .size(16.dp)

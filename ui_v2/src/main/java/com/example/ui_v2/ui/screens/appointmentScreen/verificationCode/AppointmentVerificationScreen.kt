@@ -52,7 +52,7 @@ internal fun AppointmentVerificationScreen(
             event = appointmentVerificationScreenUiState.event,
             onCrossClick = onCrossClick,
             pinCode = appointmentVerificationScreenUiState.pinCode,
-            isPinCodeValid = appointmentVerificationScreenUiState.isPinCodeValid,
+            isPinCodeValid = appointmentVerificationScreenUiState.isPinCodeFieldValid,
             onPinCodeChange = {
                 viewModel.onPinCodeChange(it)
             },

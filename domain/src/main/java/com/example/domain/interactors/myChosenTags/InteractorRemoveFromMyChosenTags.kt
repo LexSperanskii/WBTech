@@ -14,6 +14,5 @@ internal class InteractorRemoveFromMyChosenTagsImpl(
 
     override suspend fun invoke(tag: String) {
         networkRepository.removeFromMyChosenTags(tag)
-        loadMyChosenTagsList.invoke()
     }
 }
