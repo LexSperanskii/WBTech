@@ -17,20 +17,12 @@ interface INetworkRepository {
 
     fun getListOfEvents(): Flow<List<EventModelDomain>>
     fun getEventDescription(eventId: String): Flow<EventDescriptionModelDomain>
-    fun getMyEventsList(): Flow<List<EventModelDomain>>
-    suspend fun addToMyEvents(eventId: String)
-    suspend fun removeFromMyEvents(eventId: String)
+    fun getListOfSortedEvents(search: String): Flow<List<EventModelDomain>>
 
     fun getListOfCommunities(): Flow<List<CommunityModelDomain>>
     fun getCommunityDescription(communityId: String): Flow<CommunityDescriptionModelDomain>
-    fun getMyCommunitiesList(): Flow<List<CommunityModelDomain>>
-    suspend fun addToMyCommunities(communityId: String)
-    suspend fun removeFromMyCommunities(communityId: String)
 
     fun getListOfTags(): Flow<List<String>>
-    fun getMyChosenTagsList(): Flow<List<String>>
-    suspend fun addToMyChosenTags(tag: String)
-    suspend fun removeFromMyChosenTags(tag: String)
 
     fun getListOfPeople(): Flow<List<UserModelDomain>>
     fun getUser(id: String): Flow<UserModelDomain>
@@ -38,11 +30,14 @@ interface INetworkRepository {
 
     fun getAvailableCountriesList(): Flow<List<CountryModelDomain>>
 
-    suspend fun setClientName(nameSurname: String)
-    suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String)
+    suspend fun setClientNotVerifiedName(nameSurname: String)
+    suspend fun getClientNotVerifiedName(): String
+    suspend fun setClientNotVerifiedPhoneNumber(countryCode: CountryModelDomain, number: String)
+    suspend fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain
     fun setClientPinCode(pinCode: String): Flow<Boolean>
     fun getClient(): Flow<ClientModelDomain>
-    suspend fun deleteClient()
+    suspend fun setClientName(nameSurname: String)
+    suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String)
     suspend fun saveClientChanges(
         imageURL: String?,
         nameSurname: String,
@@ -53,13 +48,14 @@ interface INetworkRepository {
         showMyEventsChecked: Boolean,
         applyNotificationsChecked: Boolean,
     )
-    suspend fun setClientNotVerifiedName(nameSurname: String)
-    suspend fun getClientNotVerifiedName(): String
-    suspend fun setClientNotVerifiedPhoneNumber(countryCode: CountryModelDomain, number: String)
-    suspend fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain
+    suspend fun deleteClient()
+    suspend fun addToMyEvents(eventId: String)
+    suspend fun removeFromMyEvents(eventId: String)
+    suspend fun addToMyCommunities(communityId: String)
+    suspend fun removeFromMyCommunities(communityId: String)
+    suspend fun addToMyChosenTags(tag: String)
+    suspend fun removeFromMyChosenTags(tag: String)
 
     suspend fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain
     suspend fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain
-
-    fun getListOfSortedEvents(search: String): Flow<List<EventModelDomain>>
 }

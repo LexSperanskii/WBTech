@@ -26,26 +26,17 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
             emit(mock.getListOfEvents())
         }.flowOn(Dispatchers.IO)
     }
-
     override fun getEventDescription(eventId: String): Flow<EventDescriptionModelDomain> {
         return flow {
             emit(mock.getEventDescription(eventId))
         }.flowOn(Dispatchers.IO)
     }
-
-    override fun getMyEventsList(): Flow<List<EventModelDomain>> {
+    override fun getListOfSortedEvents(search: String): Flow<List<EventModelDomain>> {
         return flow {
-            emit(mock.getMyEventsList())
+            emit(mock.getListOfSortedEvents(search))
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun addToMyEvents(eventId: String) {
-        mock.addToMyEvents(eventId)
-    }
-
-    override suspend fun removeFromMyEvents(eventId: String) {
-        mock.removeFromMyEvents(eventId)
-    }
 
 
     override fun getListOfCommunities(): Flow<List<CommunityModelDomain>> {
@@ -53,46 +44,18 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
             emit(mock.getListOfCommunities())
         }.flowOn(Dispatchers.IO)
     }
-
     override fun getCommunityDescription(communityId: String): Flow<CommunityDescriptionModelDomain> {
         return flow {
             emit(mock.getCommunityDescription(communityId))
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getMyCommunitiesList(): Flow<List<CommunityModelDomain>> {
-        return flow {
-            emit(mock.getMyCommunitiesList())
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override suspend fun addToMyCommunities(communityId: String) {
-        mock.addToMyCommunities(communityId)
-    }
-
-    override suspend fun removeFromMyCommunities(communityId: String) {
-        mock.removeFromMyCommunities(communityId)
-    }
 
 
     override fun getListOfTags(): Flow<List<String>> {
         return flow {
             emit(mock.getListOfTags())
         }.flowOn(Dispatchers.IO)
-    }
-
-    override fun getMyChosenTagsList(): Flow<List<String>> {
-        return flow {
-            emit(mock.getMyChosenTagsList())
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override suspend fun addToMyChosenTags(tag: String) {
-        mock.addToMyChosenTags(tag)
-    }
-
-    override suspend fun removeFromMyChosenTags(tag: String) {
-        mock.removeFromMyChosenTags(tag)
     }
 
 
@@ -102,17 +65,17 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         }.flowOn(Dispatchers.IO)
     }
 
+    override fun getUser(id: String): Flow<UserModelDomain> {
+        return flow {
+            emit(mock.getUser(id))
+        }.flowOn(Dispatchers.IO)
+    }
     override fun getListOfParticipants(communityOrEventID: String): Flow<List<UserModelDomain>> {
         return flow {
             emit(mock.getListOfParticipants(communityOrEventID))
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getUser(id: String): Flow<UserModelDomain> {
-        return flow {
-            emit(mock.getUser(id))
-        }.flowOn(Dispatchers.IO)
-    }
 
 
     override fun getAvailableCountriesList(): Flow<List<CountryModelDomain>> {
@@ -122,6 +85,34 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
     }
 
 
+    override suspend fun setClientNotVerifiedName(nameSurname: String) {
+        mock.setClientNotVerifiedName(nameSurname)
+    }
+
+    override suspend fun getClientNotVerifiedName(): String {
+        return mock.getClientNotVerifiedName()
+    }
+
+    override suspend fun setClientNotVerifiedPhoneNumber(
+        countryCode: CountryModelDomain,
+        number: String,
+    ) {
+        mock.setClientNotVerifiedPhoneNumber(countryCode, number)
+    }
+
+    override suspend fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain {
+        return mock.getClientNotVerifiedPhoneNumber()
+    }
+    override fun setClientPinCode(pinCode: String): Flow<Boolean> {
+        return flow {
+            emit(mock.setClientPinCode(pinCode))
+        }.flowOn(Dispatchers.IO)
+    }
+    override fun getClient(): Flow<ClientModelDomain> {
+        return flow {
+            emit(mock.getClient())
+        }.flowOn(Dispatchers.IO)
+    }
     override suspend fun setClientName(nameSurname: String) {
         mock.setClientName(nameSurname)
     }
@@ -129,23 +120,6 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
     override suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String) {
         mock.setClientPhoneNumber(countryCode, number)
     }
-
-    override fun setClientPinCode(pinCode: String): Flow<Boolean> {
-        return flow {
-            emit(mock.setClientPinCode(pinCode))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun getClient(): Flow<ClientModelDomain> {
-        return flow {
-            emit(mock.getClient())
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override suspend fun deleteClient() {
-        return mock.deleteClient()
-    }
-
     override suspend fun saveClientChanges(
         imageURL: String?,
         nameSurname: String,
@@ -167,39 +141,39 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
             applyNotificationsChecked = applyNotificationsChecked
         )
     }
-
-    override suspend fun setClientNotVerifiedName(nameSurname: String) {
-        mock.setClientNotVerifiedName(nameSurname)
+    override suspend fun deleteClient() {
+        return mock.deleteClient()
     }
 
-    override suspend fun getClientNotVerifiedName(): String {
-        return mock.getClientNotVerifiedName()
+    override suspend fun addToMyEvents(eventId: String) {
+        mock.addToMyEvents(eventId)
     }
 
-    override suspend fun setClientNotVerifiedPhoneNumber(
-        countryCode: CountryModelDomain,
-        number: String,
-    ) {
-        mock.setClientNotVerifiedPhoneNumber(countryCode, number)
+    override suspend fun removeFromMyEvents(eventId: String) {
+        mock.removeFromMyEvents(eventId)
     }
 
-    override suspend fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain {
-        return mock.getClientNotVerifiedPhoneNumber()
+    override suspend fun addToMyCommunities(communityId: String) {
+        mock.addToMyCommunities(communityId)
+    }
+
+    override suspend fun removeFromMyCommunities(communityId: String) {
+        mock.removeFromMyCommunities(communityId)
+    }
+
+    override suspend fun addToMyChosenTags(tag: String) {
+        mock.addToMyChosenTags(tag)
+    }
+
+    override suspend fun removeFromMyChosenTags(tag: String) {
+        mock.removeFromMyChosenTags(tag)
     }
 
 
     override suspend fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain {
         return mock.getCommunitiesAdvertBlock(blockId)
     }
-
     override suspend fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain {
         return mock.getEventsAdvertBlock(blockId)
     }
-
-    override fun getListOfSortedEvents(search: String): Flow<List<EventModelDomain>> {
-        return flow {
-            emit(mock.getListOfSortedEvents(search))
-        }.flowOn(Dispatchers.IO)
-    }
-
 }

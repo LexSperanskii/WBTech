@@ -2,12 +2,12 @@ package com.example.ui_v2.ui.screens.onboarding.interestsScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.interactors.client.IInteractorGetClient
+import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.client.myChosenTags.IInteractorAddToMyChosenTags
+import com.example.domain.interactors.client.myChosenTags.IInteractorRemoveFromMyChosenTags
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
-import com.example.domain.interactors.myChosenTags.IInteractorAddToMyChosenTags
-import com.example.domain.interactors.myChosenTags.IInteractorGetMyChosenTagsList
-import com.example.domain.interactors.myChosenTags.IInteractorLoadMyChosenTagsList
-import com.example.domain.interactors.myChosenTags.IInteractorRemoveFromMyChosenTags
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,8 +27,8 @@ internal data class InterestsScreenUiState(
 internal class InterestsScreenViewModel(
     private val loadListOfTags: IInteractorLoadListOfTags,
     private val getListOfTags: IInteractorGetListOfTags,
-    private val loadMyChosenTagsList: IInteractorLoadMyChosenTagsList,
-    private val getMyChosenTagsList: IInteractorGetMyChosenTagsList,
+    private val loadClient: IInteractorLoadClient,
+    private val getClient: IInteractorGetClient,
     private val addToMyChosenTags: IInteractorAddToMyChosenTags,
     private val removeFromMyChosenTags: IInteractorRemoveFromMyChosenTags,
 ) : ViewModel() {
@@ -59,18 +59,18 @@ internal class InterestsScreenViewModel(
 
     private fun loadData() {
         loadListOfTags.invoke()
-        loadMyChosenTagsList.invoke()
+        loadClient.invoke()
     }
 
     private fun getDataForInterestsScreenUiState() {
         combine(
             getListOfTags.invoke(),
-            getMyChosenTagsList.invoke()
-        ) { listOfTags, myChosenTagsList ->
+            getClient.invoke()
+        ) { listOfTags, client ->
             _uiState.update { it ->
                 it.copy(
                     listOfTags = listOfTags,
-                    listOfChosenTags = myChosenTagsList
+                    listOfChosenTags = client.listOfClientTags
                 )
             }
         }.launchIn(viewModelScope)

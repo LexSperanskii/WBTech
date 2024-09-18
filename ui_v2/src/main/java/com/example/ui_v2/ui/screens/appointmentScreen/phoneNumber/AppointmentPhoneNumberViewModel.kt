@@ -7,9 +7,12 @@ import com.example.domain.interactors.availableCountries.IInteractorGetAvailable
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
 import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedPhoneNumber
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
+import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
+import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
+import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import com.example.ui_v2.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,22 +37,22 @@ internal data class AppointmentPhoneNumberScreenUiState(
 internal class AppointmentPhoneNumberScreenViewModel(
     savedStateHandle: SavedStateHandle,
     private val mapper: IMapperDomainUI,
-//    private val loadEventDescription: IInteractorLoadEventDescription,
+    private val loadEventDescription: IInteractorLoadEventDescription,
     private val getEventDescription: IInteractorGetEventDescription,
     private val loadAvailableCountriesList: IInteractorLoadAvailableCountriesList,
     private val getAvailableCountriesList: IInteractorGetAvailableCountriesList,
     private val setClientNotVerifiedPhoneNumber: IInteractorSetClientNotVerifiedPhoneNumber,
 ) : ViewModel() {
 
+    private val eventId: String = try {
+        checkNotNull(savedStateHandle[AppointmentDestination.itemIdArg])
+    } catch (e: IllegalStateException) {
+        // TODO: do state with error
+        DEFAULT_ID
+    }
+
     private val _uiState = MutableStateFlow(AppointmentPhoneNumberScreenUiState())
     private val uiState: StateFlow<AppointmentPhoneNumberScreenUiState> = _uiState.asStateFlow()
-
-//    private val eventId: String = try {
-//        checkNotNull(savedStateHandle[AppointmentDestination.itemIdArg])
-//    } catch (e: IllegalStateException) {
-//        // TODO: do state with error
-//        DEFAULT_ID
-//    }
 
     init {
         loadData()
@@ -77,17 +80,17 @@ internal class AppointmentPhoneNumberScreenViewModel(
     }
 
     fun onButtonClick() {
-        val uiState = uiState.value
+        val state = uiState.value
         viewModelScope.launch {
             setClientNotVerifiedPhoneNumber.invoke(
-                mapper.toCountryModelDomain(uiState.countryCode),
-                uiState.number
+                mapper.toCountryModelDomain(state.countryCode),
+                state.number
             )
         }
     }
 
     private fun loadData() {
-//        loadEventDescription.invoke(eventId)
+        loadEventDescription.invoke(eventId)
         loadAvailableCountriesList.invoke()
     }
 

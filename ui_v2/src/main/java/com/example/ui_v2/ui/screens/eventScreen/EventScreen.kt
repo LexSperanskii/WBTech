@@ -41,7 +41,7 @@ internal fun EventScreen(
     navigateToPeopleScreen: (eventId: String) -> Unit,
     navigateToCommunityScreen: (communityId: String) -> Unit,
     navigateBack: () -> Unit,
-    navigateToAppointmentScreen: () -> Unit,
+    navigateToAppointmentScreen: (eventId: String) -> Unit,
     onShareClick: (eventId: String) -> Unit,
     onPitcherClick: (userId: String) -> Unit,
     viewModel: EventScreenViewModel = koinViewModel(),

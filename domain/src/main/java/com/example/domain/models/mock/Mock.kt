@@ -434,7 +434,6 @@ class MockData {
         listOfEvents = getListOfEvents().take(10)
     )
 
-    fun getMyCommunitiesList(): List<CommunityModelDomain> = client.clientCommunitiesList
     fun addToMyCommunities(communityId: String) {
         val community = listOfRealCommunities.find { it.id == communityId }
         if (community != null) {
@@ -447,7 +446,6 @@ class MockData {
             client.copy(clientCommunitiesList = client.clientCommunitiesList.filter { it.id != communityId })
     }
 
-    fun getMyEventsList(): List<EventModelDomain> = client.clientEventsList
     fun addToMyEvents(eventId: String) {
         val event = listOfRealEvents.find { it.id == eventId }
         if (event != null) {
@@ -459,7 +457,6 @@ class MockData {
         client = client.copy(clientEventsList = client.clientEventsList.filter { it.id != eventId })
     }
 
-    fun getMyChosenTagsList(): List<String> = client.listOfClientTags
     fun addToMyChosenTags(tag: String) {
         client = client.copy(listOfClientTags = client.listOfClientTags + tag)
     }

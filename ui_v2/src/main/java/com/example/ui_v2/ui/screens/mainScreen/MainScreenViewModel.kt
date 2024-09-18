@@ -6,6 +6,10 @@ import com.example.domain.interactors.advertBlock.IInteractorGetCommunitiesAdver
 import com.example.domain.interactors.advertBlock.IInteractorGetEventsAdvertBlock
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.client.myChosenTags.IInteractorAddToMyChosenTags
+import com.example.domain.interactors.client.myChosenTags.IInteractorRemoveFromMyChosenTags
+import com.example.domain.interactors.client.myCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.client.myCommunities.IInteractorRemoveFromMyCommunities
 import com.example.domain.interactors.listOfCommunities.IInteractorGetListOfCommunities
 import com.example.domain.interactors.listOfCommunities.IInteractorLoadListOfCommunities
 import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
@@ -16,10 +20,6 @@ import com.example.domain.interactors.listOfSortedEvents.IInteractorGetListOfSor
 import com.example.domain.interactors.listOfSortedEvents.IInteractorLoadListOfSortedEvents
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
-import com.example.domain.interactors.myChosenTags.IInteractorAddToMyChosenTags
-import com.example.domain.interactors.myChosenTags.IInteractorRemoveFromMyChosenTags
-import com.example.domain.interactors.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.myCommunities.IInteractorRemoveFromMyCommunities
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventAdvertBlockModelUI

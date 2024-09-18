@@ -1,20 +1,20 @@
-package com.example.domain.interactors.myEvents
+package com.example.domain.interactors.client.myEvents
 
 import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.repositories.INetworkRepository
 
 
-interface IInteractorRemoveFromMyEvents {
+interface IInteractorAddToMyEvents {
     suspend fun invoke(eventId: String)
 }
 
-internal class InteractorRemoveFromMyEventsImpl(
+internal class InteractorAddToMyEventsImpl(
     private val networkRepository: INetworkRepository,
     private val loadClient: IInteractorLoadClient,
-) : IInteractorRemoveFromMyEvents {
+) : IInteractorAddToMyEvents {
 
     override suspend fun invoke(eventId: String) {
-        networkRepository.removeFromMyEvents(eventId)
+        networkRepository.addToMyEvents(eventId)
         loadClient.invoke()
     }
 }

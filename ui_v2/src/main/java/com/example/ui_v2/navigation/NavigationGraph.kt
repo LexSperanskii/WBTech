@@ -118,8 +118,7 @@ fun NavHost(
                 onShareClick = {},
                 onPitcherClick = {},
                 navigateToAppointmentScreen = {
-//                    navController.navigate("${AppointmentDestination.route}/${it}")
-                    navController.navigate(AppointmentDestination.route)
+                    navController.navigate("${AppointmentDestination.route}/${it}")
                 }
             )
         }
@@ -154,11 +153,11 @@ fun NavHost(
             )
         }
         navigation(
-            route = AppointmentDestination.route,
+            route = AppointmentDestination.routeWithArgs,
             startDestination = AppointmentNameSurnameScreenDestination.route,
-//            arguments = listOf(navArgument(CommunityScreenDestination.itemIdArg) {
-//                type = NavType.StringType
-//            })
+            arguments = listOf(navArgument(CommunityScreenDestination.itemIdArg) {
+                type = NavType.StringType
+            })
         ) {
             composable(
                 route = AppointmentNameSurnameScreenDestination.route
@@ -169,8 +168,7 @@ fun NavHost(
                     },
                     onCrossClick = {
                         navController.popBackStack(
-//                            AppointmentDestination.routeWithArgs,
-                            AppointmentDestination.route,
+                            AppointmentDestination.routeWithArgs,
                             inclusive = true
                         )
                     }
@@ -185,8 +183,7 @@ fun NavHost(
                     },
                     onCrossClick = {
                         navController.popBackStack(
-//                            AppointmentDestination.routeWithArgs,
-                            AppointmentDestination.route,
+                            AppointmentDestination.routeWithArgs,
                             inclusive = true
                         )
                     }
@@ -201,8 +198,7 @@ fun NavHost(
                     },
                     onCrossClick = {
                         navController.popBackStack(
-//                            AppointmentDestination.routeWithArgs,
-                            AppointmentDestination.route,
+                            AppointmentDestination.routeWithArgs,
                             inclusive = true
                         )
                     }

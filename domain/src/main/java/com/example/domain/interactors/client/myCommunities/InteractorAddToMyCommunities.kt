@@ -1,20 +1,20 @@
-package com.example.domain.interactors.myCommunities
+package com.example.domain.interactors.client.myCommunities
 
 import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.repositories.INetworkRepository
 
 
-interface IInteractorRemoveFromMyCommunities {
+interface IInteractorAddToMyCommunities {
     suspend fun invoke(communityId: String)
 }
 
-internal class InteracterRemoveFromMyCommunitiesImpl(
+internal class InteractorAddToMyCommunitiesImpl(
     private val networkRepository: INetworkRepository,
     private val loadClient: IInteractorLoadClient,
-) : IInteractorRemoveFromMyCommunities {
+) : IInteractorAddToMyCommunities {
 
     override suspend fun invoke(communityId: String) {
-        networkRepository.removeFromMyCommunities(communityId)
+        networkRepository.addToMyCommunities(communityId)
         loadClient.invoke()
     }
 }

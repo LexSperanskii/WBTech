@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.client.myCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.client.myCommunities.IInteractorRemoveFromMyCommunities
+import com.example.domain.interactors.client.myEvents.IInteractorAddToMyEvents
+import com.example.domain.interactors.client.myEvents.IInteractorRemoveFromMyEvents
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
 import com.example.domain.interactors.listOfEvents.IInteractorLoadListOfEvents
-import com.example.domain.interactors.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.myCommunities.IInteractorRemoveFromMyCommunities
-import com.example.domain.interactors.myEvents.IInteractorAddToMyEvents
-import com.example.domain.interactors.myEvents.IInteractorRemoveFromMyEvents
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.EventModelUI
@@ -56,14 +56,14 @@ internal class EventScreenViewModel(
     private val mapper: IMapperDomainUI,
     private val loadEventDescription: IInteractorLoadEventDescription,
     private val getEventDescription: IInteractorGetEventDescription,
-    private val addToMyCommunities: IInteractorAddToMyCommunities,
-    private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
     private val loadListOfEvents: IInteractorLoadListOfEvents,
     private val getListOfEvents: IInteractorGetListOfEvents,
-    private val addToMyEvents: IInteractorAddToMyEvents,
-    private val removeFromMyEvents: IInteractorRemoveFromMyEvents,
     private val loadClient: IInteractorLoadClient,
     private val getClient: IInteractorGetClient,
+    private val addToMyEvents: IInteractorAddToMyEvents,
+    private val removeFromMyEvents: IInteractorRemoveFromMyEvents,
+    private val addToMyCommunities: IInteractorAddToMyCommunities,
+    private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
 ) : ViewModel() {
 
     private val eventId: String = try {
@@ -84,46 +84,41 @@ internal class EventScreenViewModel(
     fun getEventScreenUiStateFlow(): StateFlow<EventScreenUiState> = uiState
 
     fun onCommunityButtonClick() {
-        val eventOrganizerId = uiState.value.eventDescription.organizer.id
-        val isInMyCommunities = uiState.value.isInMyCommunities
+        val state = uiState.value
         viewModelScope.launch {
-            when (isInMyCommunities) {
+            when (state.isInMyCommunities) {
                 true -> {
-                    removeFromMyCommunities.invoke(eventOrganizerId)
+                    removeFromMyCommunities.invoke(state.eventDescription.organizer.id)
                 }
 
                 false -> {
-                    addToMyCommunities.invoke(eventOrganizerId)
+                    addToMyCommunities.invoke(state.eventDescription.organizer.id)
                 }
             }
-            loadClient.invoke()
         }
     }
 
-    fun onJoinEventButtonClick(navigateToAppointmentScreen: () -> Unit) {
-        val uiState = uiState.value
-        when (uiState.client.phoneNumber.number.isNotBlank()) {
+    fun onJoinEventButtonClick(navigateToAppointmentScreen: (String) -> Unit) {
+        val state = uiState.value
+        when (state.client.phoneNumber.number.isNotBlank()) {
             true -> {
                 viewModelScope.launch {
-                    val eventId = uiState.eventDescription.id
-                    val isInMyEvents = uiState.isInMyEvents
-                    when (isInMyEvents) {
+                    when (state.isInMyEvents) {
                         true -> {
-                            removeFromMyEvents.invoke(eventId)
+                            removeFromMyEvents.invoke(state.eventDescription.id)
                         }
 
                         false -> {
-                            addToMyEvents.invoke(eventId)
+                            addToMyEvents.invoke(state.eventDescription.id)
                         }
                     }
                 }
             }
 
             false -> {
-                navigateToAppointmentScreen()
+                navigateToAppointmentScreen(state.eventDescription.id)
             }
         }
-
     }
 
     private fun loadData() {

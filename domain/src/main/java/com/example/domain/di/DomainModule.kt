@@ -32,6 +32,18 @@ import com.example.domain.interactors.client.InteractorSetClientNameImpl
 import com.example.domain.interactors.client.InteractorSetClientNotVerifiedNameImpl
 import com.example.domain.interactors.client.InteractorSetClientNotVerifiedPhoneNumberImpl
 import com.example.domain.interactors.client.InteractorSetClientPhoneNumberImpl
+import com.example.domain.interactors.client.myChosenTags.IInteractorAddToMyChosenTags
+import com.example.domain.interactors.client.myChosenTags.IInteractorRemoveFromMyChosenTags
+import com.example.domain.interactors.client.myChosenTags.InteractorAddToMyChosenTagsImpl
+import com.example.domain.interactors.client.myChosenTags.InteractorRemoveFromMyChosenTagsImpl
+import com.example.domain.interactors.client.myCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.client.myCommunities.IInteractorRemoveFromMyCommunities
+import com.example.domain.interactors.client.myCommunities.InteracterRemoveFromMyCommunitiesImpl
+import com.example.domain.interactors.client.myCommunities.InteractorAddToMyCommunitiesImpl
+import com.example.domain.interactors.client.myEvents.IInteractorAddToMyEvents
+import com.example.domain.interactors.client.myEvents.IInteractorRemoveFromMyEvents
+import com.example.domain.interactors.client.myEvents.InteractorAddToMyEventsImpl
+import com.example.domain.interactors.client.myEvents.InteractorRemoveFromMyEventsImpl
 import com.example.domain.interactors.communitiesDescription.IInteractorGetCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.IInteractorLoadCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.InteractorGetCommunitiesDescriptionImpl
@@ -64,30 +76,6 @@ import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
 import com.example.domain.interactors.listOfTags.InteractorGetListOfTagsImpl
 import com.example.domain.interactors.listOfTags.InteractorLoadListOfTagsImpl
-import com.example.domain.interactors.myChosenTags.IInteractorAddToMyChosenTags
-import com.example.domain.interactors.myChosenTags.IInteractorGetMyChosenTagsList
-import com.example.domain.interactors.myChosenTags.IInteractorLoadMyChosenTagsList
-import com.example.domain.interactors.myChosenTags.IInteractorRemoveFromMyChosenTags
-import com.example.domain.interactors.myChosenTags.InteractorAddToMyChosenTagsImpl
-import com.example.domain.interactors.myChosenTags.InteractorGetMyChosenTagsListImpl
-import com.example.domain.interactors.myChosenTags.InteractorLoadMyChosenTagsListImpl
-import com.example.domain.interactors.myChosenTags.InteractorRemoveFromMyChosenTagsImpl
-import com.example.domain.interactors.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.myCommunities.IInteractorGetMyCommunitiesList
-import com.example.domain.interactors.myCommunities.IInteractorLoadMyCommunitiesList
-import com.example.domain.interactors.myCommunities.IInteractorRemoveFromMyCommunities
-import com.example.domain.interactors.myCommunities.InteracterRemoveFromMyCommunitiesImpl
-import com.example.domain.interactors.myCommunities.InteractorAddToMyCommunitiesImpl
-import com.example.domain.interactors.myCommunities.InteractorGetMyCommunitiesListImpl
-import com.example.domain.interactors.myCommunities.InteractorLoadMyCommunitiesListImpl
-import com.example.domain.interactors.myEvents.IInteractorAddToMyEvents
-import com.example.domain.interactors.myEvents.IInteractorGetMyEventsList
-import com.example.domain.interactors.myEvents.IInteractorLoadMyEventsList
-import com.example.domain.interactors.myEvents.IInteractorRemoveFromMyEvents
-import com.example.domain.interactors.myEvents.InteractorAddToMyEventsImpl
-import com.example.domain.interactors.myEvents.InteractorGetMyEventsListImpl
-import com.example.domain.interactors.myEvents.InteractorLoadMyEventsListImpl
-import com.example.domain.interactors.myEvents.InteractorRemoveFromMyEventsImpl
 import com.example.domain.interactors.user.IInteractorGetUser
 import com.example.domain.interactors.user.IInteractorLoadUser
 import com.example.domain.interactors.user.InteractorGetUserImpl
@@ -260,52 +248,32 @@ val domainModule = module {
     }
 
 
-    single<IInteractorGetMyChosenTagsList> {
-        InteractorGetMyChosenTagsListImpl(
-            useCase = get(),
-            networkRepository = get()
-        )
-    }
-    single<IInteractorLoadMyChosenTagsList> {
-        InteractorLoadMyChosenTagsListImpl(
-            useCase = get()
-        )
-    }
+
     single<IInteractorAddToMyChosenTags> {
         InteractorAddToMyChosenTagsImpl(
             networkRepository = get(),
-            loadMyChosenTagsList = get()
+            loadClient = get()
         )
     }
     single<IInteractorRemoveFromMyChosenTags> {
         InteractorRemoveFromMyChosenTagsImpl(
             networkRepository = get(),
-            loadMyChosenTagsList = get()
+            loadClient = get()
         )
     }
 
 
-    single<IInteractorGetMyCommunitiesList> {
-        InteractorGetMyCommunitiesListImpl(
-            useCase = get(),
-            networkRepository = get()
-        )
-    }
-    single<IInteractorLoadMyCommunitiesList> {
-        InteractorLoadMyCommunitiesListImpl(
-            useCase = get()
-        )
-    }
+
     single<IInteractorAddToMyCommunities> {
         InteractorAddToMyCommunitiesImpl(
             networkRepository = get(),
-            loadMyCommunitiesList = get()
+            loadClient = get()
         )
     }
     single<IInteractorRemoveFromMyCommunities> {
         InteracterRemoveFromMyCommunitiesImpl(
             networkRepository = get(),
-            loadMyCommunitiesList = get()
+            loadClient = get()
         )
     }
 
@@ -336,27 +304,17 @@ val domainModule = module {
     }
 
 
-    single<IInteractorGetMyEventsList> {
-        InteractorGetMyEventsListImpl(
-            useCase = get(),
-            networkRepository = get()
-        )
-    }
-    single<IInteractorLoadMyEventsList> {
-        InteractorLoadMyEventsListImpl(
-            useCase = get()
-        )
-    }
+
     single<IInteractorAddToMyEvents> {
         InteractorAddToMyEventsImpl(
             networkRepository = get(),
-            loadMyEventsList = get()
+            loadClient = get()
         )
     }
     single<IInteractorRemoveFromMyEvents> {
         InteractorRemoveFromMyEventsImpl(
             networkRepository = get(),
-            loadMyEventsList = get()
+            loadClient = get()
         )
     }
 }

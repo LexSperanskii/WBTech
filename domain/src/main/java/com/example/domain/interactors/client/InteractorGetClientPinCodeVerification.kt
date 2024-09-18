@@ -5,6 +5,7 @@ import com.example.domain.usecase.EventsUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onStart
 
 
 interface IInteractorGetClientPinCodeVerification {
@@ -22,5 +23,9 @@ internal class InteractorGetClientPinCodeVerificationImpl(
             networkRepository.setClientPinCode(pinCode)
         }
 
-    override fun invoke(): Flow<Boolean> = clientPinCodeVerification
+    override fun invoke(): Flow<Boolean> = clientPinCodeVerification.onStart {
+        emit(
+            false
+        )
+    }
 }

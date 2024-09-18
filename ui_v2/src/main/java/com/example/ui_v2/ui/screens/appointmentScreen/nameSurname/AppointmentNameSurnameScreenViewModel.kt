@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedName
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
+import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
+import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,20 +29,20 @@ internal data class AppointmentNameSurnameScreenUiState(
 internal class AppointmentNameSurnameScreenViewModel(
     savedStateHandle: SavedStateHandle,
     private val mapper: IMapperDomainUI,
-//    private val loadEventDescription: IInteractorLoadEventDescription,
+    private val loadEventDescription: IInteractorLoadEventDescription,
     private val getEventDescription: IInteractorGetEventDescription,
     private val setClientNotVerifiedName: IInteractorSetClientNotVerifiedName,
 ) : ViewModel() {
 
+    private val eventId: String = try {
+        checkNotNull(savedStateHandle[AppointmentDestination.itemIdArg])
+    } catch (e: IllegalStateException) {
+        // TODO: do state with error
+        DEFAULT_ID
+    }
+
     private val _uiState = MutableStateFlow(AppointmentNameSurnameScreenUiState())
     private val uiState: StateFlow<AppointmentNameSurnameScreenUiState> = _uiState.asStateFlow()
-
-//    private val eventId: String = try {
-//        checkNotNull(savedStateHandle[AppointmentDestination.itemIdArg])
-//    } catch (e: IllegalStateException) {
-//        // TODO: do state with error
-//        DEFAULT_ID
-//    }
 
     init {
         loadData()
@@ -67,7 +69,7 @@ internal class AppointmentNameSurnameScreenViewModel(
     }
 
     private fun loadData() {
-//        loadEventDescription.invoke(eventId)
+        loadEventDescription.invoke(eventId)
     }
 
     private fun getDataAppointmentNameSurnameScreenUiState() {

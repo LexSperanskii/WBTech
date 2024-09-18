@@ -31,13 +31,12 @@ internal fun CountdownButton(
         ),
     ) {
         Text(
-            text = when (countdown > 1) {
+            text = when (isButtonEnabled) {
                 true -> {
-                    stringResource(id = R.string.pin_code_countdown, countdown)
-                }
-
-                else -> {
                     stringResource(id = R.string.get_new_pin_code)
+                }
+                else -> {
+                    stringResource(id = R.string.pin_code_countdown, countdown)
                 }
             },
             style = DevMeetingAppTheme.typography.bodyText1,

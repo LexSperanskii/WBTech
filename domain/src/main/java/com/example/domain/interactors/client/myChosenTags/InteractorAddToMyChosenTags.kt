@@ -1,20 +1,20 @@
-package com.example.domain.interactors.myChosenTags
+package com.example.domain.interactors.client.myChosenTags
 
 import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.repositories.INetworkRepository
 
 
-interface IInteractorRemoveFromMyChosenTags {
+interface IInteractorAddToMyChosenTags {
     suspend fun invoke(tag: String)
 }
 
-internal class InteractorRemoveFromMyChosenTagsImpl(
+internal class InteractorAddToMyChosenTagsImpl(
     private val networkRepository: INetworkRepository,
     private val loadClient: IInteractorLoadClient,
-) : IInteractorRemoveFromMyChosenTags {
+) : IInteractorAddToMyChosenTags {
 
     override suspend fun invoke(tag: String) {
-        networkRepository.removeFromMyChosenTags(tag)
+        networkRepository.addToMyChosenTags(tag)
         loadClient.invoke()
     }
 }
