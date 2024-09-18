@@ -83,7 +83,9 @@ fun NavHost(
         }
         composable(route = MainScreenDestination.route) {
             MainScreen(
-                navigateToUserScreen = {},
+                navigateToUserScreen = {
+                    navController.navigate("${UserOutsideScreenDestination.route}/${it}")
+                },
                 navigateToCommunityScreen = {
                     navController.navigate("${CommunityScreenDestination.route}/${it}")
                 },

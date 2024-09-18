@@ -89,12 +89,10 @@ internal class MainScreenViewModel(
     fun getMainScreenUiStateFlow(): StateFlow<MainScreenUiState> = uiState
 
     fun onSearchFieldChange(search: String) {
-        if (search.isNotBlank()) {
-            loadListOfSortedEvents.invoke(search)
-        }
+        loadListOfSortedEvents.invoke(search)
         _uiState.update {
             it.copy(
-                isShowSortedScreen = search.isNotBlank(),
+                isShowSortedScreen = true,
                 searchField = search
             )
         }
@@ -130,6 +128,8 @@ internal class MainScreenViewModel(
                 }
             }
         }
+        loadListOfCommunities.invoke()
+        loadMyCommunitiesList.invoke()
     }
 
     fun onTagClick(tag: String) {
@@ -144,18 +144,21 @@ internal class MainScreenViewModel(
                 }
             }
         }
+        loadListOfTags.invoke()
+        loadMyChosenTagsList.invoke()
     }
 
     private fun loadData() {
-        loadMyCommunitiesList.invoke()
         loadListOfEvents.invoke()
         loadListOfCommunities.invoke()
+        loadMyCommunitiesList.invoke()
         loadListOfTags.invoke()
         loadMyChosenTagsList.invoke()
         loadListOfPeople.invoke()
     }
 
     private fun getDataForMainScreenUiState() {
+
         val combinedEventsAndCommunitiesFlow = combine(
             getListOfEvents.invoke(),
             getMyCommunitiesList.invoke(),
@@ -174,7 +177,7 @@ internal class MainScreenViewModel(
         val combinedPeopleAndTagsFlow = combine(
             getListOfPeople.invoke(),
             getListOfTags.invoke(),
-            getMyChosenTagsList.invoke(),
+            getMyChosenTagsList.invoke()
         ) { listOfPeople, listOfTags, myChosenTagsList ->
             MainScreenUiState().copy(
                 listOfPeople = listOfPeople.map { mapper.toUserModelUI(it) },
@@ -184,7 +187,7 @@ internal class MainScreenViewModel(
         }
 
         combinedEventsAndCommunitiesFlow.combine(
-            combinedPeopleAndTagsFlow
+            combinedPeopleAndTagsFlow,
         ) { combinedEventsAndCommunities, combinedPeopleAndTags ->
             _uiState.update { it ->
                 it.copy(
