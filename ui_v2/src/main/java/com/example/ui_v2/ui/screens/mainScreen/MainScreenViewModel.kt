@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.advertBlock.IInteractorGetCommunitiesAdvertBlock
 import com.example.domain.interactors.advertBlock.IInteractorGetEventsAdvertBlock
+import com.example.domain.interactors.client.IInteractorGetClient
+import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.interactors.listOfCommunities.IInteractorGetListOfCommunities
 import com.example.domain.interactors.listOfCommunities.IInteractorLoadListOfCommunities
 import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
@@ -15,12 +17,8 @@ import com.example.domain.interactors.listOfSortedEvents.IInteractorLoadListOfSo
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
 import com.example.domain.interactors.myChosenTags.IInteractorAddToMyChosenTags
-import com.example.domain.interactors.myChosenTags.IInteractorGetMyChosenTagsList
-import com.example.domain.interactors.myChosenTags.IInteractorLoadMyChosenTagsList
 import com.example.domain.interactors.myChosenTags.IInteractorRemoveFromMyChosenTags
 import com.example.domain.interactors.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.myCommunities.IInteractorGetMyCommunitiesList
-import com.example.domain.interactors.myCommunities.IInteractorLoadMyCommunitiesList
 import com.example.domain.interactors.myCommunities.IInteractorRemoveFromMyCommunities
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
@@ -57,24 +55,22 @@ internal class MainScreenViewModel(
     private val mapper: IMapperDomainUI,
     private val loadListOfEvents: IInteractorLoadListOfEvents,
     private val getListOfEvents: IInteractorGetListOfEvents,
-    private val loadMyCommunitiesList: IInteractorLoadMyCommunitiesList,
-    private val getMyCommunitiesList: IInteractorGetMyCommunitiesList,
+    private val loadListOfSortedEvents: IInteractorLoadListOfSortedEvents,
+    private val getListOfSortedEvents: IInteractorGetListOfSortedEvents,
     private val loadListOfCommunities: IInteractorLoadListOfCommunities,
     private val getListOfCommunities: IInteractorGetListOfCommunities,
-    private val getCommunitiesAdvertBlock: IInteractorGetCommunitiesAdvertBlock,
-    private val getEventsAdvertBlock: IInteractorGetEventsAdvertBlock,
     private val loadListOfTags: IInteractorLoadListOfTags,
     private val getListOfTags: IInteractorGetListOfTags,
-    private val loadMyChosenTagsList: IInteractorLoadMyChosenTagsList,
-    private val getMyChosenTagsList: IInteractorGetMyChosenTagsList,
     private val loadListOfPeople: IInteractorLoadListOfPeople,
     private val getListOfPeople: IInteractorGetListOfPeople,
+    private val getCommunitiesAdvertBlock: IInteractorGetCommunitiesAdvertBlock,
+    private val getEventsAdvertBlock: IInteractorGetEventsAdvertBlock,
+    private val loadClient: IInteractorLoadClient,
+    private val getClient: IInteractorGetClient,
     private val addToMyCommunities: IInteractorAddToMyCommunities,
     private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
     private val addToMyChosenTags: IInteractorAddToMyChosenTags,
     private val removeFromMyChosenTags: IInteractorRemoveFromMyChosenTags,
-    private val loadListOfSortedEvents: IInteractorLoadListOfSortedEvents,
-    private val getListOfSortedEvents: IInteractorGetListOfSortedEvents,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MainScreenUiState())
@@ -128,8 +124,6 @@ internal class MainScreenViewModel(
                 }
             }
         }
-        loadListOfCommunities.invoke()
-        loadMyCommunitiesList.invoke()
     }
 
     fun onTagClick(tag: String) {
@@ -144,45 +138,41 @@ internal class MainScreenViewModel(
                 }
             }
         }
-        loadListOfTags.invoke()
-        loadMyChosenTagsList.invoke()
     }
 
     private fun loadData() {
         loadListOfEvents.invoke()
         loadListOfCommunities.invoke()
-        loadMyCommunitiesList.invoke()
         loadListOfTags.invoke()
-        loadMyChosenTagsList.invoke()
         loadListOfPeople.invoke()
+        loadClient.invoke()
     }
 
     private fun getDataForMainScreenUiState() {
 
         val combinedEventsAndCommunitiesFlow = combine(
             getListOfEvents.invoke(),
-            getMyCommunitiesList.invoke(),
+            getClient.invoke(),
             getListOfCommunities.invoke(),
             getListOfSortedEvents.invoke()
-        ) { eventsList, myCommunitiesList, listOfCommunities, listOfSortedEvents ->
+        ) { eventsList, client, listOfCommunities, listOfSortedEvents ->
             MainScreenUiState().copy(
-                myCommunitiesList = myCommunitiesList.map { mapper.toCommunityModelUI(it) },
+                myCommunitiesList = client.clientCommunitiesList.map { mapper.toCommunityModelUI(it) },
                 relatedEventsList = eventsList.map { mapper.toEventModelUI(it) },
                 upcomingEventsList = eventsList.map { mapper.toEventModelUI(it) },
                 infiniteEventsList = eventsList.map { mapper.toEventModelUI(it) },
                 allCommunitiesList = listOfCommunities.map { mapper.toCommunityModelUI(it) },
-                sortedEventsList = listOfSortedEvents.map { mapper.toEventModelUI(it) }
+                sortedEventsList = listOfSortedEvents.map { mapper.toEventModelUI(it) },
+                listOfChosenTags = client.listOfClientTags
             )
         }
         val combinedPeopleAndTagsFlow = combine(
             getListOfPeople.invoke(),
             getListOfTags.invoke(),
-            getMyChosenTagsList.invoke()
-        ) { listOfPeople, listOfTags, myChosenTagsList ->
+        ) { listOfPeople, listOfTags ->
             MainScreenUiState().copy(
                 listOfPeople = listOfPeople.map { mapper.toUserModelUI(it) },
-                listOfTags = listOfTags,
-                listOfChosenTags = myChosenTagsList
+                listOfTags = listOfTags
             )
         }
 
@@ -197,9 +187,9 @@ internal class MainScreenViewModel(
                     infiniteEventsList = combinedEventsAndCommunities.infiniteEventsList,
                     allCommunitiesList = combinedEventsAndCommunities.allCommunitiesList,
                     sortedEventsList = combinedEventsAndCommunities.sortedEventsList,
+                    listOfChosenTags = combinedEventsAndCommunities.listOfChosenTags,
                     listOfPeople = combinedPeopleAndTags.listOfPeople,
-                    listOfTags = combinedPeopleAndTags.listOfTags,
-                    listOfChosenTags = combinedPeopleAndTags.listOfChosenTags
+                    listOfTags = combinedPeopleAndTags.listOfTags
                 )
             }
         }.launchIn(viewModelScope)

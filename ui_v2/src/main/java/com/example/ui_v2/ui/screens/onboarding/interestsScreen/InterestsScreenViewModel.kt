@@ -55,7 +55,6 @@ internal class InterestsScreenViewModel(
                 }
             }
         }
-        loadData()
     }
 
     private fun loadData() {

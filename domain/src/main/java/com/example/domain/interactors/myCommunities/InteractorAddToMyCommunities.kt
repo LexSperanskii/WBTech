@@ -1,5 +1,6 @@
 package com.example.domain.interactors.myCommunities
 
+import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.repositories.INetworkRepository
 
 
@@ -9,10 +10,11 @@ interface IInteractorAddToMyCommunities {
 
 internal class InteractorAddToMyCommunitiesImpl(
     private val networkRepository: INetworkRepository,
-    private val loadMyCommunitiesList: IInteractorLoadMyCommunitiesList,
+    private val loadClient: IInteractorLoadClient,
 ) : IInteractorAddToMyCommunities {
 
     override suspend fun invoke(communityId: String) {
         networkRepository.addToMyCommunities(communityId)
+        loadClient.invoke()
     }
 }

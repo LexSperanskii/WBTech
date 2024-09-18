@@ -96,6 +96,7 @@ internal class EventScreenViewModel(
                     addToMyCommunities.invoke(eventOrganizerId)
                 }
             }
+            loadClient.invoke()
         }
     }
 
