@@ -25,6 +25,10 @@ import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import com.example.ui_v2.ui.utils.ButtonStatus
 import org.koin.androidx.compose.koinViewModel
 
+internal object OnboardingDestination : NavigationDestination {
+    override val route = "onboarding"
+}
+
 internal object InterestsScreenDestination : NavigationDestination {
     override val route = "interests_screen"
 }

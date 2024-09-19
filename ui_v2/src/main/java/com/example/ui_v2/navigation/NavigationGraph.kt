@@ -1,7 +1,10 @@
 package com.example.ui_v2.navigation
 
+import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -29,6 +32,7 @@ import com.example.ui_v2.ui.screens.mainScreen.MainScreen
 import com.example.ui_v2.ui.screens.mainScreen.MainScreenDestination
 import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreen
 import com.example.ui_v2.ui.screens.onboarding.interestsScreen.InterestsScreenDestination
+import com.example.ui_v2.ui.screens.onboarding.interestsScreen.OnboardingDestination
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreen
 import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreenDestination
 import com.example.ui_v2.ui.screens.participantsScreen.ParticipantsScreen
@@ -52,6 +56,7 @@ import com.example.ui_v2.ui.screens.userScreen.userOutside.UserOutsideScreenDest
 fun NavHost(
     navController: NavHostController,
 ) {
+    val activity = (LocalContext.current as? Activity)
     NavHost(
         navController = navController,
         startDestination = SplashScreenDestination.route,
@@ -62,29 +67,38 @@ fun NavHost(
         }
         composable(route = SplashScreenDestination.route) {
             SplashScreen(navigateToStartScreen = {
-                navController.navigate(InterestsScreenDestination.route) {
+                navController.navigate(OnboardingDestination.route) {
                     popUpTo(SplashScreenDestination.route) {
                         inclusive = true
                     }
                 }
             })
         }
-        composable(route = InterestsScreenDestination.route) {
-            InterestsScreen(
-                navigateToLocationScreen = {
-                    navController.navigate(LocationScreenDestination.route)
-                },
-                onTellLaterClick = {
-                    navController.navigate(LocationScreenDestination.route)
-                }
-            )
-        }
-        composable(route = LocationScreenDestination.route) {
-            LocationScreen(
-                navigateToMainScreen = {
-                    navController.navigate(MainScreenDestination.route)
-                }
-            )
+        navigation(
+            route = OnboardingDestination.route,
+            startDestination = InterestsScreenDestination.route
+        ) {
+            composable(route = InterestsScreenDestination.route) {
+                InterestsScreen(
+                    navigateToLocationScreen = {
+                        navController.navigate(LocationScreenDestination.route)
+                    },
+                    onTellLaterClick = {
+                        navController.navigate(LocationScreenDestination.route)
+                    }
+                )
+            }
+            composable(route = LocationScreenDestination.route) {
+                LocationScreen(
+                    navigateToMainScreen = {
+                        navController.navigate(MainScreenDestination.route) {
+                            popUpTo(OnboardingDestination.route) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                )
+            }
         }
         composable(route = MainScreenDestination.route) {
             MainScreen(
@@ -166,9 +180,7 @@ fun NavHost(
                 type = NavType.StringType
             })
         ) {
-            composable(
-                route = AppointmentNameSurnameScreenDestination.route
-            ) {
+            composable(route = AppointmentNameSurnameScreenDestination.route) {
                 AppointmentNameSurnameScreen(
                     navigateToAppointmentPhoneNumberScreen = {
                         navController.navigate("${AppointmentPhoneNumberScreenDestination.route}/${it}")
@@ -225,12 +237,26 @@ fun NavHost(
             ) {
                 AppointmentSplashScreen(
                     navigateToMyEvents = {
-                        navController.navigate(UserProfileDestination.route)
+                        navController.navigate(UserProfileDestination.route) {
+                            popUpTo(AppointmentDestination.routeWithArgs) {
+                                inclusive = true
+                            }
+                        }
                     },
                     navigateToFindOtherEvents = {
-                        navController.navigate(MainScreenDestination.route)
+                        navController.navigate(MainScreenDestination.route) {
+                            popUpTo(AppointmentDestination.routeWithArgs) {
+                                inclusive = true
+                            }
+                        }
                     }
                 )
+                BackHandler {
+                    navController.popBackStack(
+                        AppointmentDestination.routeWithArgs,
+                        inclusive = true
+                    )
+                }
             }
         }
         composable(
@@ -241,7 +267,7 @@ fun NavHost(
         ) {
             UserOutsideScreen(
                 navigateBack = { navController.popBackStack() },
-                onShareClick = { },
+                onShareClick = {},
                 onNetworkIconClick = {},
                 navigateToEvent = {
                     navController.navigate("${EventScreenDestination.route}/${it}")
@@ -260,7 +286,11 @@ fun NavHost(
             ) {
                 UserInsideScreen(
                     navigateBack = {
-                        navController.navigate(MainScreenDestination.route)
+                        navController.navigate(MainScreenDestination.route) {
+                            popUpTo(MainScreenDestination.route) {
+                                inclusive = true
+                            }
+                        }
                     },
                     onEditClick = {
                         navController.navigate(ProfileEditScreenDestination.route)
@@ -269,13 +299,20 @@ fun NavHost(
                     navigateToEvent = {
                         navController.navigate("${EventScreenDestination.route}/${it}")
                     },
-                    navigateOnExit = {
-
-                    },
                     navigateToCommunity = {
                         navController.navigate("${CommunityScreenDestination.route}/${it}")
+                    },
+                    navigateOnExit = {
+                        activity?.finish()
                     }
                 )
+                BackHandler {
+                    navController.navigate(MainScreenDestination.route) {
+                        popUpTo(MainScreenDestination.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             }
             composable(
                 route = ProfileEditScreenDestination.route
@@ -286,8 +323,8 @@ fun NavHost(
                         navController.navigate(ProfileEditPhotoScreenDestination.route)
                     },
                     navigateToUserInsideScreen = {
-                        navController.navigate(UserInsideScreenDestination.route) {
-                            popUpTo(UserInsideScreenDestination.route)
+                        navController.navigate(UserProfileDestination.route) {
+                            popUpTo(UserProfileDestination.route)
                         }
                     },
                     navigateToDeleteProfile = {
@@ -318,9 +355,17 @@ fun NavHost(
                 DeleteProfileScreen(
                     navigateBack = { navController.popBackStack() },
                     navigateOnDeleteClick = {
-                        navController.navigate(InterestsScreenDestination.route)
+                        navController.navigate(OnboardingDestination.route) {
+                            popUpTo(MainScreenDestination.route) {
+                                inclusive = true
+                            }
+                        }
                     },
-                    navigateOnNoNeedClick = { navController.popBackStack() }
+                    navigateOnNoNeedClick = {
+                        navController.navigate(UserProfileDestination.route) {
+                            popUpTo(UserProfileDestination.route)
+                        }
+                    }
                 )
             }
         }
