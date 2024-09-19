@@ -10,13 +10,13 @@ import com.example.domain.interactors.client.IInteractorGetClientPinCodeVerifica
 import com.example.domain.interactors.client.IInteractorLoadClientPinCodeVerification
 import com.example.domain.interactors.client.IInteractorSetClientName
 import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
+import com.example.domain.interactors.client.myEvents.IInteractorAddToMyEvents
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
 import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
-import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import com.example.ui_v2.ui.utils.UiUtils.PIN_CODE_LENGTH
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -52,13 +52,13 @@ internal class AppointmentVerificationScreenViewModel(
     private val getClientNotVerifiedName: IInteractorGetClientNotVerifiedName,
     private val setClientName: IInteractorSetClientName,
     private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
+    private val addToMyEvents: IInteractorAddToMyEvents,
 ) : ViewModel() {
 
     private val eventId: String = try {
         checkNotNull(savedStateHandle[AppointmentDestination.itemIdArg])
     } catch (e: IllegalStateException) {
-        // TODO: do state with error
-        DEFAULT_ID
+        throw IllegalArgumentException("Missing appointment ID", e)
     }
 
     private val _uiState = MutableStateFlow(AppointmentVerificationScreenUiState())
@@ -121,14 +121,15 @@ internal class AppointmentVerificationScreenViewModel(
     }
 
     fun setVerifiedClientNameAndPhoneNumber() {
-        val phoneNumber = uiState.value.phoneNumber
+        val state = uiState.value
         viewModelScope.launch {
             val clientName = getClientNotVerifiedName.invoke()
             setClientName.invoke(clientName)
             setClientPhoneNumber.invoke(
-                mapper.toCountryModelDomain(phoneNumber.country),
-                phoneNumber.number
+                mapper.toCountryModelDomain(state.phoneNumber.country),
+                state.phoneNumber.number
             )
+            addToMyEvents.invoke(state.event.id)
         }
     }
 

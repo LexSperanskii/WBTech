@@ -123,13 +123,22 @@ val domainModule = module {
         )
     }
     single<IInteractorSetClientName> {
-        InteractorSetClientNameImpl(networkRepository = get())
+        InteractorSetClientNameImpl(
+            networkRepository = get(),
+            loadClient = get()
+        )
     }
     single<IInteractorSetClientPhoneNumber> {
-        InteractorSetClientPhoneNumberImpl(networkRepository = get())
+        InteractorSetClientPhoneNumberImpl(
+            networkRepository = get(),
+            loadClient = get()
+        )
     }
     single<IInteractorSetClientAvatar> {
-        InteractorSetClientAvatarImpl(networkRepository = get())
+        InteractorSetClientAvatarImpl(
+            networkRepository = get(),
+            loadClient = get()
+        )
     }
     single<IInteractorGetClientPinCodeVerification> {
         InteractorGetClientPinCodeVerificationImpl(
@@ -146,7 +155,10 @@ val domainModule = module {
         InteractorDeleteClientImpl(networkRepository = get())
     }
     single<IInteractorSaveClientSettings> {
-        InteractorSaveClientSettingsImpl(networkRepository = get())
+        InteractorSaveClientSettingsImpl(
+            networkRepository = get(),
+            loadClient = get()
+        )
     }
     single<IInteractorSetClientNotVerifiedName> {
         InteractorSetClientNotVerifiedNameImpl(networkRepository = get())

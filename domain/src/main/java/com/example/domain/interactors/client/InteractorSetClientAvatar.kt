@@ -9,9 +9,11 @@ interface IInteractorSetClientAvatar {
 
 internal class InteractorSetClientAvatarImpl(
     private val networkRepository: INetworkRepository,
+    private val loadClient: IInteractorLoadClient,
 ) : IInteractorSetClientAvatar {
 
     override suspend fun invoke(imageURL: String?) {
         networkRepository.setClientAvatar(imageURL)
+        loadClient.invoke()
     }
 }

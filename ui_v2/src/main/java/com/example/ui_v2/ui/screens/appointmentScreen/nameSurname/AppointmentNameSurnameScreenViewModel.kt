@@ -8,7 +8,6 @@ import com.example.domain.interactors.eventDescription.IInteractorGetEventDescri
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
-import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,8 +36,7 @@ internal class AppointmentNameSurnameScreenViewModel(
     private val eventId: String = try {
         checkNotNull(savedStateHandle[AppointmentDestination.itemIdArg])
     } catch (e: IllegalStateException) {
-        // TODO: do state with error
-        DEFAULT_ID
+        throw IllegalArgumentException("Missing appointment ID", e)
     }
 
     private val _uiState = MutableStateFlow(AppointmentNameSurnameScreenUiState())

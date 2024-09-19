@@ -18,6 +18,7 @@ interface IInteractorSaveClientSettings {
 
 internal class InteractorSaveClientSettingsImpl(
     private val networkRepository: INetworkRepository,
+    private val loadClient: IInteractorLoadClient,
 ) : IInteractorSaveClientSettings {
 
     override suspend fun invoke(
@@ -38,5 +39,6 @@ internal class InteractorSaveClientSettingsImpl(
             showMyEventsChecked = showMyEventsChecked,
             applyNotificationsChecked = applyNotificationsChecked
         )
+        loadClient.invoke()
     }
 }

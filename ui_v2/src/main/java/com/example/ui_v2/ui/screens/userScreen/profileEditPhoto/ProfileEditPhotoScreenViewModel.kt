@@ -51,7 +51,6 @@ internal class ProfileEditPhotoScreenViewModel(
     fun onButtonSaveClick() {
         viewModelScope.launch {
             setClientAvatar.invoke(uiState.value.client.imageURL)
-            loadClient.invoke()
         }
     }
 

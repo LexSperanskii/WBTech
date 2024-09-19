@@ -9,9 +9,11 @@ interface IInteractorSetClientName {
 
 internal class InteractorSetClientNameImpl(
     private val networkRepository: INetworkRepository,
+    private val loadClient: IInteractorLoadClient,
 ) : IInteractorSetClientName {
 
     override suspend fun invoke(nameSurname: String) {
         networkRepository.setClientName(nameSurname)
+        loadClient.invoke()
     }
 }
