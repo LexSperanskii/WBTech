@@ -120,8 +120,12 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
     override suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String) {
         mock.setClientPhoneNumber(countryCode, number)
     }
+
+    override suspend fun setClientAvatar(imageURL: String?) {
+        mock.setClientAvatar(imageURL)
+    }
+
     override suspend fun saveClientChanges(
-        imageURL: String?,
         nameSurname: String,
         city: String,
         description: String,
@@ -131,7 +135,6 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         applyNotificationsChecked: Boolean,
     ) {
         mock.saveClientChanges(
-            imageURL = imageURL,
             nameSurname = nameSurname,
             city = city,
             description = description,

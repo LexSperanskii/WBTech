@@ -6,7 +6,6 @@ import com.example.domain.repositories.INetworkRepository
 
 interface IInteractorSaveClientSettings {
     suspend fun invoke(
-        imageURL: String?,
         nameSurname: String,
         city: String,
         description: String,
@@ -22,7 +21,6 @@ internal class InteractorSaveClientSettingsImpl(
 ) : IInteractorSaveClientSettings {
 
     override suspend fun invoke(
-        imageURL: String?,
         nameSurname: String,
         city: String,
         description: String,
@@ -32,7 +30,6 @@ internal class InteractorSaveClientSettingsImpl(
         applyNotificationsChecked: Boolean,
     ) {
         networkRepository.saveClientChanges(
-            imageURL = imageURL,
             nameSurname = nameSurname,
             city = city,
             description = description,

@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.ui_v2.R
@@ -78,9 +79,9 @@ internal fun PersonAvatar(
 
 @Composable
 internal fun PersonAvatarForUserScreen(
-    size: Dp,
     imageURL: String?,
     modifier: Modifier = Modifier,
+    size: Dp = 200.dp,
     defaultIcon: Painter = painterResource(id = R.drawable.icon_avatar_person),
     backgroundColor: Color = DevMeetingAppTheme.colors.extraLightGray,
 ) {

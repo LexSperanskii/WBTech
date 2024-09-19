@@ -44,7 +44,6 @@ internal fun UserDescriptionBlockOutside(
                 .padding(bottom = 20.dp)
         ) {
             PersonAvatarForUserScreen(
-                size = 200.dp,
                 imageURL = user.imageURL
             )
             Row(
@@ -168,7 +167,6 @@ internal fun UserDescriptionBlockInside(
                 .padding(bottom = 20.dp)
         ) {
             PersonAvatarForUserScreen(
-                size = 200.dp,
                 imageURL = user.imageURL
             )
             Row(

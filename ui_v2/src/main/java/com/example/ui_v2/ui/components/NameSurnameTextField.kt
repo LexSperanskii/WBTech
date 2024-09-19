@@ -187,3 +187,84 @@ internal fun UserSocialNetworksTextField(
         maxLines = 1
     )
 }
+
+@Composable
+internal fun NameAboutYourselfField(
+    value: String,
+    isValid: Boolean,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    placeholder: String = stringResource(id = R.string.placeholder_name_surname),
+) {
+    val focusManager = LocalFocusManager.current
+    var focusState by remember { mutableStateOf(false) }
+
+    BasicTextField(
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(102.dp)
+            .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
+            .background(
+                brush = when (isValid) {
+                    true -> {
+                        DevMeetingAppTheme.brush.textFieldGradientNormal
+                    }
+
+                    else -> {
+                        DevMeetingAppTheme.brush.textFieldGradientError
+                    }
+                }
+            )
+            .onFocusChanged { focusState = it.isFocused }
+            .border(
+                width = 1.dp,
+                color = when (focusState) {
+                    true -> {
+                        DevMeetingAppTheme.colors.purple
+                    }
+
+                    else -> {
+                        Color.Transparent
+                    }
+                },
+                shape = RoundedCornerShape(16.dp)
+            )
+            .padding(horizontal = 20.dp, vertical = 16.dp),
+        value = value,
+        onValueChange = {
+            onValueChange(replaceFirstCharToCapitalCase(it))
+        },
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Done,
+        ),
+        keyboardActions = KeyboardActions(onDone = {
+            focusManager.clearFocus()
+        }),
+        textStyle = TextStyle(
+            color = DevMeetingAppTheme.colors.black,
+            fontSize = DevMeetingAppTheme.typography.subheading1.fontSize,
+            fontWeight = DevMeetingAppTheme.typography.subheading1.fontWeight,
+            fontFamily = DevMeetingAppTheme.typography.subheading1.fontFamily,
+            lineHeight = DevMeetingAppTheme.typography.subheading1.lineHeight
+        ),
+        decorationBox = { innerTextField ->
+            Row(
+                modifier = Modifier
+            ) {
+                when {
+                    !focusState && value.isEmpty() -> {
+                        Text(
+                            text = placeholder,
+                            color = DevMeetingAppTheme.colors.grayForCommunityCard,
+                            style = DevMeetingAppTheme.typography.subheading1
+                        )
+                    }
+
+                    else -> {
+                        innerTextField()
+                    }
+                }
+            }
+        }
+    )
+}

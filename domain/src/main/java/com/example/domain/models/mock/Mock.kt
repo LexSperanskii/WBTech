@@ -106,7 +106,11 @@ class MockData {
         "https://i.pinimg.com/564x/3f/52/9a/3f529a11413837d20d1f436d53bf47c6.jpg",
         "https://i.pinimg.com/564x/54/7f/5c/547f5cfc0eadbaf8b455901000cf045d.jpg",
         "https://i.pinimg.com/564x/79/a6/d2/79a6d27000d0f0a834a0ead3edca44fe.jpg",
-        "https://i.pinimg.com/736x/93/ef/d8/93efd8084d7a45602665b45c5e8a707a.jpg"
+        "https://i.pinimg.com/736x/6c/7b/91/6c7b9184c6397bc2efd2fd34b4724833.jpg",
+        "https://i.pinimg.com/564x/84/c6/c4/84c6c435ec75543c6be459e5db12c274.jpg",
+        "https://i.pinimg.com/564x/b2/69/ba/b269ba2d674ae968063be32bc1c8af2a.jpg",
+        "https://i.pinimg.com/736x/3a/11/01/3a110130f3311e6a62eca8617111b426.jpg",
+        "https://i.pinimg.com/564x/ae/bc/35/aebc359faab886d0081e5dba46b4a998.jpg",
     )
     private val listOfRealEvents = listOf(
         EventModelDomain(
@@ -579,9 +583,12 @@ class MockData {
             )
         )
     }
-
+    fun setClientAvatar(imageURL: String?) {
+        client = client.copy(
+            imageURL = imageURL
+        )
+    }
     fun saveClientChanges(
-        imageURL: String?,
         nameSurname: String,
         city: String,
         description: String,
@@ -591,7 +598,6 @@ class MockData {
         applyNotificationsChecked: Boolean,
     ) {
         client = client.copy(
-            imageURL = imageURL,
             nameSurname = nameSurname,
             city = city,
             description = description,

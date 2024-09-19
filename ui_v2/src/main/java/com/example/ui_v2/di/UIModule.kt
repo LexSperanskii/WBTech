@@ -15,6 +15,7 @@ import com.example.ui_v2.ui.screens.onboarding.locationScreen.LocationScreenView
 import com.example.ui_v2.ui.screens.participantsScreen.ParticipantsScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.deleteProfile.DeleteProfileScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.profileEdit.ProfileEditScreenViewModel
+import com.example.ui_v2.ui.screens.userScreen.profileEditPhoto.ProfileEditPhotoScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.profileInterests.ProfileInterestsScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.userInside.UserInsideScreenViewModel
 import com.example.ui_v2.ui.screens.userScreen.userOutside.UserOutsideScreenViewModel
@@ -41,4 +42,5 @@ val uiModule = module {
     viewModelOf(::ProfileEditScreenViewModel)
     viewModelOf(::ProfileInterestsScreenViewModel)
     viewModelOf(::DeleteProfileScreenViewModel)
+    viewModelOf(::ProfileEditPhotoScreenViewModel)
 }

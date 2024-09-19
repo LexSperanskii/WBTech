@@ -18,6 +18,8 @@ internal fun UserInfoBlock(
     onNameSurnameChange: (String) -> Unit,
     number: String,
     onNumberChange: (String) -> Unit,
+    isNumberValid: Boolean,
+    isCountryCodeValid: Boolean,
     countryCode: CountryModelUI,
     onCountryCodeChange: (CountryModelUI) -> Unit,
     listOfCountriesCodes: List<CountryModelUI>,
@@ -43,6 +45,8 @@ internal fun UserInfoBlock(
         PhoneNumberInput(
             number = number,
             onNumberChange = onNumberChange,
+            isNumberValid = isNumberValid,
+            isCountryCodeValid = isCountryCodeValid,
             countryCode = countryCode,
             onCountryCodeChange = onCountryCodeChange,
             listOfCountriesCodes = listOfCountriesCodes
@@ -54,7 +58,7 @@ internal fun UserInfoBlock(
             placeholder = stringResource(id = R.string.city),
             modifier = Modifier
         )
-        NameSurnameTextField(
+        NameAboutYourselfField(
             value = aboutUserValue,
             isValid = isAboutUserValid,
             onValueChange = onAboutUserChange,

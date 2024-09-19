@@ -38,8 +38,8 @@ interface INetworkRepository {
     fun getClient(): Flow<ClientModelDomain>
     suspend fun setClientName(nameSurname: String)
     suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String)
+    suspend fun setClientAvatar(imageURL: String?)
     suspend fun saveClientChanges(
-        imageURL: String?,
         nameSurname: String,
         city: String,
         description: String,

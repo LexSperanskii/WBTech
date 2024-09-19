@@ -109,6 +109,7 @@
     <string name="about_yourself">Tell about yourself</string>
     <string name="no_events">No events</string>
     <string name="no_communities">No communities</string>
+    <string name="choose_another_photo">Choose another photo</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Only %d place. If you change your mind - unsubscribe</item>

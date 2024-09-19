@@ -23,6 +23,7 @@ import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 internal fun UserAvatarBlock(
     avatarURL: String?,
     onCrossClick: () -> Unit,
+    isCanSave: Boolean,
     onDoneClick: () -> Unit,
     onChangePhotoClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -32,7 +33,6 @@ internal fun UserAvatarBlock(
             .wrapContentSize()
     ) {
         PersonAvatarForUserScreen(
-            size = 200.dp,
             imageURL = avatarURL
         )
         Row(
@@ -58,10 +58,22 @@ internal fun UserAvatarBlock(
             Icon(
                 painter = painterResource(id = R.drawable.icon_check),
                 contentDescription = stringResource(id = R.string.icon),
-                tint = DevMeetingAppTheme.colors.buttonTextPurple,
+                tint = when (isCanSave) {
+                    true -> {
+                        DevMeetingAppTheme.colors.buttonTextPurple
+                    }
+
+                    false -> {
+                        DevMeetingAppTheme.colors.red
+                    }
+                },
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable { onDoneClick() }
+                    .clickable {
+                        if (isCanSave) {
+                            onDoneClick()
+                        }
+                    }
             )
         }
         TextButton(

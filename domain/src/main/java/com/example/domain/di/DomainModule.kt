@@ -16,6 +16,7 @@ import com.example.domain.interactors.client.IInteractorGetClientPinCodeVerifica
 import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.interactors.client.IInteractorLoadClientPinCodeVerification
 import com.example.domain.interactors.client.IInteractorSaveClientSettings
+import com.example.domain.interactors.client.IInteractorSetClientAvatar
 import com.example.domain.interactors.client.IInteractorSetClientName
 import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedName
 import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedPhoneNumber
@@ -28,6 +29,7 @@ import com.example.domain.interactors.client.InteractorGetClientPinCodeVerificat
 import com.example.domain.interactors.client.InteractorLoadClientImpl
 import com.example.domain.interactors.client.InteractorLoadClientPinCodeVerificationImpl
 import com.example.domain.interactors.client.InteractorSaveClientSettingsImpl
+import com.example.domain.interactors.client.InteractorSetClientAvatarImpl
 import com.example.domain.interactors.client.InteractorSetClientNameImpl
 import com.example.domain.interactors.client.InteractorSetClientNotVerifiedNameImpl
 import com.example.domain.interactors.client.InteractorSetClientNotVerifiedPhoneNumberImpl
@@ -125,6 +127,9 @@ val domainModule = module {
     }
     single<IInteractorSetClientPhoneNumber> {
         InteractorSetClientPhoneNumberImpl(networkRepository = get())
+    }
+    single<IInteractorSetClientAvatar> {
+        InteractorSetClientAvatarImpl(networkRepository = get())
     }
     single<IInteractorGetClientPinCodeVerification> {
         InteractorGetClientPinCodeVerificationImpl(

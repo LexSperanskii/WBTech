@@ -46,6 +46,9 @@ internal fun ProfileEditScreen(
         ProfileEditScreenBody(
             avatarURL = profileEditScreenUiState.avatarURL,
             onCrossClick = navigateBack,
+            isCanSave = profileEditScreenUiState.isNumberValid &&
+                    profileEditScreenUiState.isNameSurnameValid &&
+                    profileEditScreenUiState.isCountryCodeValid,
             onDoneClick = {
                 viewModel.safeNewSettings()
                 navigateToUserInsideScreen()
@@ -60,6 +63,8 @@ internal fun ProfileEditScreen(
             onNumberChange = {
                 viewModel.onNumberChange(it)
             },
+            isNumberValid = profileEditScreenUiState.isNumberValid,
+            isCountryCodeValid = profileEditScreenUiState.isCountryCodeValid,
             countryCode = profileEditScreenUiState.countryCode,
             onCountryCodeChange = {
                 viewModel.onCountryCodeChange(it)
@@ -112,12 +117,15 @@ internal fun ProfileEditScreenBody(
     avatarURL: String?,
     onCrossClick: () -> Unit,
     onDoneClick: () -> Unit,
+    isCanSave: Boolean,
     onChangePhotoClick: () -> Unit,
     nameSurnameValue: String,
     isNameSurnameValid: Boolean,
     onNameSurnameChange: (String) -> Unit,
     number: String,
     onNumberChange: (String) -> Unit,
+    isNumberValid: Boolean,
+    isCountryCodeValid: Boolean,
     countryCode: CountryModelUI,
     onCountryCodeChange: (CountryModelUI) -> Unit,
     listOfCountriesCodes: List<CountryModelUI>,
@@ -154,6 +162,7 @@ internal fun ProfileEditScreenBody(
                 avatarURL = avatarURL,
                 onCrossClick = onCrossClick,
                 onDoneClick = onDoneClick,
+                isCanSave = isCanSave,
                 onChangePhotoClick = onChangePhotoClick
             )
         }
@@ -164,6 +173,8 @@ internal fun ProfileEditScreenBody(
                 onNameSurnameChange = onNameSurnameChange,
                 number = number,
                 onNumberChange = onNumberChange,
+                isNumberValid = isNumberValid,
+                isCountryCodeValid = isCountryCodeValid,
                 countryCode = countryCode,
                 onCountryCodeChange = onCountryCodeChange,
                 listOfCountriesCodes = listOfCountriesCodes,

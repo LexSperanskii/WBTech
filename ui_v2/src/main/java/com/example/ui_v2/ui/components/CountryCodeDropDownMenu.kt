@@ -35,6 +35,7 @@ internal fun CountryCodeDropDownMenu(
     listOfCountries: List<CountryModelUI>,
     onDropdownMenuItemClick: (CountryModelUI) -> Unit,
     modifier: Modifier = Modifier,
+    isCountryCodeValid: Boolean = true,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
@@ -45,6 +46,7 @@ internal fun CountryCodeDropDownMenu(
     ) {
         CountryCodeDropdownMenuDefaultItem(
             country = country,
+            isCountryCodeValid = isCountryCodeValid,
             modifier = Modifier
                 .menuAnchor()
         )
@@ -93,13 +95,24 @@ internal fun CountryCodeDropDownMenu(
 internal fun CountryCodeDropdownMenuDefaultItem(
     country: CountryModelUI,
     modifier: Modifier = Modifier,
+    isCountryCodeValid: Boolean = true,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
-            .background(color = DevMeetingAppTheme.colors.disabledButtonGray)
+            .background(
+                brush = when (isCountryCodeValid) {
+                    true -> {
+                        DevMeetingAppTheme.brush.textFieldGradientNormal
+                    }
+
+                    else -> {
+                        DevMeetingAppTheme.brush.textFieldGradientError
+                    }
+                }
+            )
             .padding(vertical = 16.dp, horizontal = 20.dp)
     ) {
         Image(

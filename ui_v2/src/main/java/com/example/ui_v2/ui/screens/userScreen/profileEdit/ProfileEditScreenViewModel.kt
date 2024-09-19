@@ -12,6 +12,7 @@ import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
+import com.example.ui_v2.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +26,6 @@ import java.util.UUID
 internal data class ProfileEditScreenUiState(
     val avatarURL: String? = "",
     val nameSurname: String = "",
-    val isNameSurnameValid: Boolean = true,
     val number: String = "",
     val countryCode: CountryModelUI = CountryModelUI(),
     val listOfCountriesCodes: List<CountryModelUI> = listOf(),
@@ -39,7 +39,14 @@ internal data class ProfileEditScreenUiState(
     val showMyEventsChecked: Boolean = true,
     val applyNotificationsChecked: Boolean = true,
     val client: ClientModelUI = ClientModelUI(),
-)
+) {
+    val isNumberValid: Boolean
+        get() = number.length == PHONE_NUMBER_LENGTH
+    val isCountryCodeValid: Boolean
+        get() = countryCode.code.isNotBlank()
+    val isNameSurnameValid: Boolean
+        get() = nameSurname.isNotBlank() && nameSurname.length > 1
+}
 
 internal class ProfileEditScreenViewModel(
     private val mapper: IMapperDomainUI,
@@ -64,8 +71,7 @@ internal class ProfileEditScreenViewModel(
     fun onNameSurnameChange(nameSurname: String) {
         _uiState.update {
             it.copy(
-                nameSurname = nameSurname,
-                isNameSurnameValid = nameSurname.isNotBlank() && nameSurname.length > 1
+                nameSurname = nameSurname
             )
         }
     }
@@ -89,8 +95,7 @@ internal class ProfileEditScreenViewModel(
     fun onCityChange(city: String) {
         _uiState.update {
             it.copy(
-                city = city,
-                isCityValid = city.length > 2
+                city = city
             )
         }
     }
@@ -155,7 +160,6 @@ internal class ProfileEditScreenViewModel(
         val uiState = uiState.value
         viewModelScope.launch {
             saveClientSettings.invoke(
-                imageURL = uiState.avatarURL,
                 nameSurname = uiState.nameSurname,
                 city = uiState.city,
                 description = uiState.aboutUser,
