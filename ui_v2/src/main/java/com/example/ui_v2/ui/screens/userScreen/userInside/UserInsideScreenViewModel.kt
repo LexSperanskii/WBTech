@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.update
 
 internal data class UserInsideScreenUiState(
     val client: ClientModelUI = ClientModelUI(),
+    val isNavigateToEditScreen: Boolean = false,
 ) {
     val filteredSocialMediaList: List<SocialMediaModelUI>
         get() = client.listOfSocialMedia.filter { it.userNickname.isNotBlank() }
@@ -47,7 +48,8 @@ internal class UserInsideScreenViewModel(
             .onEach { client ->
                 _uiState.update {
                     it.copy(
-                        client = mapper.toClientModelUI(client)
+                        client = mapper.toClientModelUI(client),
+                        isNavigateToEditScreen = client.phoneNumber.number.isBlank()
                     )
                 }
             }

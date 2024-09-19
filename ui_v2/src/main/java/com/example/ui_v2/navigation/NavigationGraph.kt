@@ -100,9 +100,6 @@ fun NavHost(
                 navigateToBannerScreen = {},
                 navigateToProfileScreen = {
                     navController.navigate(UserProfileDestination.route)
-                },
-                navigateToProfileEditScreen = {
-                    navController.navigate(ProfileEditScreenDestination.route)
                 }
             )
         }

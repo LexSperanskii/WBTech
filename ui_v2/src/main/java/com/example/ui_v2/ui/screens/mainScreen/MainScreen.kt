@@ -48,7 +48,6 @@ internal fun MainScreen(
     navigateToEventScreen: (eventId: String) -> Unit,
     navigateToBannerScreen: () -> Unit,
     navigateToProfileScreen: () -> Unit,
-    navigateToProfileEditScreen: () -> Unit,
     viewModel: MainScreenViewModel = koinViewModel(),
 ) {
     val mainScreenUiState by viewModel.getMainScreenUiStateFlow().collectAsStateWithLifecycle()
@@ -60,17 +59,7 @@ internal fun MainScreen(
             onSearchFieldChange = { viewModel.onSearchFieldChange(it) },
             onClearIconClick = { viewModel.onClearIconClick() },
             onCancelClick = { viewModel.onCancelClick() },
-            onUserIconClick = {
-                when (mainScreenUiState.client.phoneNumber.number.isBlank()) {
-                    true -> {
-                        navigateToProfileEditScreen()
-                    }
-
-                    false -> {
-                        navigateToProfileScreen()
-                    }
-                }
-            },
+            onUserIconClick = navigateToProfileScreen,
             onEventCardClick = { navigateToEventScreen(it.id) },
             onCommunityButtonClick = { viewModel.onCommunityButtonClick(it) },
             onCommunityClick = { navigateToCommunityScreen(it.id) },
