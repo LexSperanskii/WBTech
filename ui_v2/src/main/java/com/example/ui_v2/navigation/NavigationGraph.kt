@@ -165,7 +165,7 @@ fun NavHost(
         navigation(
             route = AppointmentDestination.routeWithArgs,
             startDestination = AppointmentNameSurnameScreenDestination.route,
-            arguments = listOf(navArgument(CommunityScreenDestination.itemIdArg) {
+            arguments = listOf(navArgument(AppointmentDestination.itemIdArg) {
                 type = NavType.StringType
             })
         ) {
