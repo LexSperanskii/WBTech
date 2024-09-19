@@ -29,11 +29,13 @@ import org.koin.androidx.compose.koinViewModel
 
 internal object AppointmentVerificationScreenDestination : NavigationDestination {
     override val route = "appointment_verification_screen"
+    const val itemIdArg = "itemId"
+    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable
 internal fun AppointmentVerificationScreen(
-    navigateToAppointmentSplashScreen: () -> Unit,
+    navigateToAppointmentSplashScreen: (eventId: String) -> Unit,
     onCrossClick: () -> Unit,
     viewModel: AppointmentVerificationScreenViewModel = koinViewModel(),
 ) {
@@ -43,7 +45,7 @@ internal fun AppointmentVerificationScreen(
     LaunchedEffect(key1 = appointmentVerificationScreenUiState.isPinCodeValid) {
         if (appointmentVerificationScreenUiState.isPinCodeValid) {
             viewModel.setVerifiedClientNameAndPhoneNumber()
-            navigateToAppointmentSplashScreen()
+            navigateToAppointmentSplashScreen(appointmentVerificationScreenUiState.event.id)
         }
     }
 

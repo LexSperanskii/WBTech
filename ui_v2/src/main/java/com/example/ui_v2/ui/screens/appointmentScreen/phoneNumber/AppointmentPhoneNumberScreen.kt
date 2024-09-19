@@ -24,11 +24,13 @@ import org.koin.androidx.compose.koinViewModel
 
 internal object AppointmentPhoneNumberScreenDestination : NavigationDestination {
     override val route = "appointment_phone_number_screen"
+    const val itemIdArg = "itemId"
+    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable
 internal fun AppointmentPhoneNumberScreen(
-    navigateToAppointmentVerificationScreen: () -> Unit,
+    navigateToAppointmentVerificationScreen: (eventId: String) -> Unit,
     onCrossClick: () -> Unit,
     viewModel: AppointmentPhoneNumberScreenViewModel = koinViewModel(),
 ) {
@@ -50,7 +52,7 @@ internal fun AppointmentPhoneNumberScreen(
             listOfCountriesCodes = appointmentPhoneNumberScreenUiState.listOfCountriesCodes,
             onButtonClick = {
                 viewModel.onButtonClick()
-                navigateToAppointmentVerificationScreen()
+                navigateToAppointmentVerificationScreen(appointmentPhoneNumberScreenUiState.event.id)
             },
             isButtonEnabled = appointmentPhoneNumberScreenUiState.isButtonEnabled,
             modifier = Modifier.padding(innerPadding)

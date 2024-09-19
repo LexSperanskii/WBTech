@@ -11,7 +11,6 @@ import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescr
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
-import com.example.ui_v2.ui.screens.appointmentScreen.nameSurname.AppointmentDestination
 import com.example.ui_v2.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -44,7 +43,7 @@ internal class AppointmentPhoneNumberScreenViewModel(
 ) : ViewModel() {
 
     private val eventId: String = try {
-        checkNotNull(savedStateHandle[AppointmentDestination.itemIdArg])
+        checkNotNull(savedStateHandle[AppointmentPhoneNumberScreenDestination.itemIdArg])
     } catch (e: IllegalStateException) {
         throw IllegalArgumentException("Missing appointment ID", e)
     }

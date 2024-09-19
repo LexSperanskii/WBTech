@@ -174,7 +174,7 @@ fun NavHost(
             ) {
                 AppointmentNameSurnameScreen(
                     navigateToAppointmentPhoneNumberScreen = {
-                        navController.navigate(AppointmentPhoneNumberScreenDestination.route)
+                        navController.navigate("${AppointmentPhoneNumberScreenDestination.route}/${it}")
                     },
                     onCrossClick = {
                         navController.popBackStack(
@@ -185,11 +185,14 @@ fun NavHost(
                 )
             }
             composable(
-                route = AppointmentPhoneNumberScreenDestination.route
+                route = AppointmentPhoneNumberScreenDestination.routeWithArgs,
+                arguments = listOf(navArgument(AppointmentPhoneNumberScreenDestination.itemIdArg) {
+                    type = NavType.StringType
+                })
             ) {
                 AppointmentPhoneNumberScreen(
                     navigateToAppointmentVerificationScreen = {
-                        navController.navigate(AppointmentVerificationScreenDestination.route)
+                        navController.navigate("${AppointmentVerificationScreenDestination.route}/${it}")
                     },
                     onCrossClick = {
                         navController.popBackStack(
@@ -200,11 +203,14 @@ fun NavHost(
                 )
             }
             composable(
-                route = AppointmentVerificationScreenDestination.route
+                route = AppointmentVerificationScreenDestination.routeWithArgs,
+                arguments = listOf(navArgument(AppointmentVerificationScreenDestination.itemIdArg) {
+                    type = NavType.StringType
+                })
             ) {
                 AppointmentVerificationScreen(
                     navigateToAppointmentSplashScreen = {
-                        navController.navigate(AppointmentSplashScreenDestination.route)
+                        navController.navigate("${AppointmentSplashScreenDestination.route}/${it}")
                     },
                     onCrossClick = {
                         navController.popBackStack(
@@ -215,7 +221,10 @@ fun NavHost(
                 )
             }
             composable(
-                route = AppointmentSplashScreenDestination.route
+                route = AppointmentSplashScreenDestination.routeWithArgs,
+                arguments = listOf(navArgument(AppointmentVerificationScreenDestination.itemIdArg) {
+                    type = NavType.StringType
+                })
             ) {
                 AppointmentSplashScreen(
                     navigateToMyEvents = {

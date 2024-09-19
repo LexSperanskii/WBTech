@@ -32,7 +32,7 @@ internal object AppointmentNameSurnameScreenDestination : NavigationDestination 
 
 @Composable
 internal fun AppointmentNameSurnameScreen(
-    navigateToAppointmentPhoneNumberScreen: () -> Unit,
+    navigateToAppointmentPhoneNumberScreen: (eventId: String) -> Unit,
     onCrossClick: () -> Unit,
     viewModel: AppointmentNameSurnameScreenViewModel = koinViewModel(),
 ) {
@@ -51,7 +51,7 @@ internal fun AppointmentNameSurnameScreen(
             isButtonEnabled = appointmentNameSurnameScreenUiState.isButtonEnabled,
             onButtonClick = {
                 viewModel.onButtonClick()
-                navigateToAppointmentPhoneNumberScreen()
+                navigateToAppointmentPhoneNumberScreen(appointmentNameSurnameScreenUiState.event.id)
             },
             modifier = Modifier.padding(innerPadding)
         )

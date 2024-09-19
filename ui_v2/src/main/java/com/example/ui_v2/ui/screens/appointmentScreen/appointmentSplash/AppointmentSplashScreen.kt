@@ -29,6 +29,8 @@ import org.koin.androidx.compose.koinViewModel
 
 internal object AppointmentSplashScreenDestination : NavigationDestination {
     override val route = "appointment_splash_screen"
+    const val itemIdArg = "itemId"
+    val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 @Composable
