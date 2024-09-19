@@ -123,23 +123,37 @@ internal fun UserCommunitiesFixBlockCarousel(
             modifier = Modifier
                 .padding(contentPadding)
         )
-        LazyRow(
-            contentPadding = contentPadding,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            items(communitiesList) { community ->
-                CommunityCardForUser(
-                    community = community,
-                    onCommunityClick = { onCommunityClick(community) })
+        when (communitiesList.isEmpty()) {
+            true -> {
+                Text(
+                    text = stringResource(id = R.string.no_communities),
+                    color = DevMeetingAppTheme.colors.eventCardText,
+                    style = DevMeetingAppTheme.typography.subheading1,
+                    modifier = Modifier
+                        .padding(contentPadding)
+                )
+            }
+
+            else -> {
+                LazyRow(
+                    contentPadding = contentPadding,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    items(communitiesList) { community ->
+                        CommunityCardNoButton(
+                            community = community,
+                            onCommunityClick = { onCommunityClick(community) })
+                    }
+                }
             }
         }
     }
 }
 
 @Composable
-internal fun CommunityCardForUser(
+internal fun CommunityCardNoButton(
     community: CommunityModelUI,
     onCommunityClick: () -> Unit,
     modifier: Modifier = Modifier,

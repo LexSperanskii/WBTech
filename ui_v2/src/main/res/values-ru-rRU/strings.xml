@@ -106,6 +106,10 @@
     <string name="delete_profile_description">Не надо...... Мы крутые\nМы удалим профиль, но не сразу. У вас будет 30 дней чтобы зайти и обратно всё вернуть</string>
     <string name="delete_profile_delete">Удалить</string>
     <string name="delete_profile_no_need">Не надо</string>
+    <string name="city">Город</string>
+    <string name="about_yourself">Расскажи о себе</string>
+    <string name="no_events">Нет добавленных встреч</string>
+    <string name="no_communities">Нет добавленных сообществ</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Всего %d место. Если передумаете — отпишитесь</item>

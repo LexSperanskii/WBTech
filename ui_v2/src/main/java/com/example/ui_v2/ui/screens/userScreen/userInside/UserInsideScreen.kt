@@ -2,6 +2,7 @@ package com.example.ui_v2.ui.screens.userScreen.userInside
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
@@ -48,6 +49,7 @@ internal fun UserInsideScreen(
     Scaffold { innerPadding ->
         UserInsideScreenBody(
             client = userInsideScreenUiState.client,
+            listOfSocialMedia = userInsideScreenUiState.filteredSocialMediaList,
             onArrowClick = navigateBack,
             onEditClick = onEditClick,
             onNetworkIconClick = onNetworkIconClick,
@@ -62,6 +64,7 @@ internal fun UserInsideScreen(
 @Composable
 internal fun UserInsideScreenBody(
     client: ClientModelUI,
+    listOfSocialMedia: List<SocialMediaModelUI>,
     onArrowClick: () -> Unit,
     onEditClick: () -> Unit,
     onNetworkIconClick: (SocialMediaModelUI) -> Unit,
@@ -80,6 +83,7 @@ internal fun UserInsideScreenBody(
         item {
             UserDescriptionBlockInside(
                 user = client,
+                listOfSocialMedia = listOfSocialMedia,
                 onArrowClick = onArrowClick,
                 onEditClick = onEditClick,
                 onNetworkIconClick = onNetworkIconClick,
@@ -112,6 +116,7 @@ internal fun UserInsideScreenBody(
                 onButtonClick = onExitButtonClick,
                 contentColor = DevMeetingAppTheme.colors.eventCardText,
                 modifier = Modifier
+                    .fillMaxWidth()
             )
         }
     }

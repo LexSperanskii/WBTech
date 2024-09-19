@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -100,26 +101,9 @@ internal fun AppointmentSplashScreenBody(
                 buttonText = stringResource(id = R.string.events_user),
                 onButtonClick = onMyEventsButtonClick,
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(24.dp),
             )
-//            Button(
-//                onClick = onMyEventsButtonClick,
-//                enabled = true,
-//                shape = RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium),
-//                modifier = Modifier
-//                    .align(Alignment.CenterHorizontally)
-//                    .padding(24.dp),
-//                colors = ButtonDefaults.buttonColors(
-//                    contentColor = DevMeetingAppTheme.colors.buttonTextPurple,
-//                    containerColor = Color.Transparent
-//                ),
-//            ) {
-//                Text(
-//                    text = stringResource(id = R.string.events_user),
-//                    style = DevMeetingAppTheme.typography.bodyText1,
-//                    modifier = Modifier
-//                )
-//            }
             ButtonWithStatus(
                 notPressedText = stringResource(id = R.string.signed_up_button),
                 isButtonEnabled = true,

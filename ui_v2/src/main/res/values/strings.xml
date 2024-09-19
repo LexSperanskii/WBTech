@@ -105,6 +105,10 @@
     <string name="delete_profile_description">No need...... We are cool\nWe will delete the profile, but not right away. You will have 30 days to log in and return everything back</string>
     <string name="delete_profile_delete">Delete</string>
     <string name="delete_profile_no_need">No need</string>
+    <string name="city">City</string>
+    <string name="about_yourself">Tell about yourself</string>
+    <string name="no_events">No events</string>
+    <string name="no_communities">No communities</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Only %d place. If you change your mind - unsubscribe</item>

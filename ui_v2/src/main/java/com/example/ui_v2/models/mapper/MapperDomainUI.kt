@@ -265,7 +265,7 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
             }
 
             else -> {
-                R.drawable.icon_avatar_person
+                R.drawable.lable_default
             }
         }
     }

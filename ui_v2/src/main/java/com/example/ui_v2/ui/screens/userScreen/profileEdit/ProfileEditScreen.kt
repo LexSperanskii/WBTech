@@ -2,6 +2,7 @@ package com.example.ui_v2.ui.screens.userScreen.profileEdit
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
@@ -82,6 +83,9 @@ internal fun ProfileEditScreen(
             onSocialNetworkValueChange = { socialMediaID, value ->
                 viewModel.onSocialNetworkValueChange(socialMediaID = socialMediaID, value = value)
             },
+            onAddSocialNetworkClick = {
+                viewModel.onAddSocialNetworkClick()
+            },
             showMyCommunitiesChecked = profileEditScreenUiState.showMyCommunitiesChecked,
             onShowMyCommunitiesChange = {
                 viewModel.onShowMyCommunitiesChange(it)
@@ -97,6 +101,7 @@ internal fun ProfileEditScreen(
             onDeleteProfileButtonClick = {
                 navigateToDeleteProfile()
             },
+            isShowDeleteButton = profileEditScreenUiState.client.phoneNumber.number.isNotBlank(),
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -126,6 +131,7 @@ internal fun ProfileEditScreenBody(
     onTagChangeClick: () -> Unit,
     listOfSocialMedia: List<SocialMediaModelUI>,
     onSocialNetworkValueChange: (socialMediaID: String, value: String) -> Unit,
+    onAddSocialNetworkClick: () -> Unit,
     showMyCommunitiesChecked: Boolean,
     onShowMyCommunitiesChange: (Boolean) -> Unit,
     showMyEventsChecked: Boolean,
@@ -133,6 +139,7 @@ internal fun ProfileEditScreenBody(
     applyNotificationsChecked: Boolean,
     onApplyNotificationsChange: (Boolean) -> Unit,
     onDeleteProfileButtonClick: () -> Unit,
+    isShowDeleteButton: Boolean,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -180,6 +187,7 @@ internal fun ProfileEditScreenBody(
             UserSocialNetworkBlock(
                 listOfSocialMedia = listOfSocialMedia,
                 onSocialNetworkValueChange = onSocialNetworkValueChange,
+                onAddSocialNetworkClick = onAddSocialNetworkClick
             )
         }
         item {
@@ -192,13 +200,16 @@ internal fun ProfileEditScreenBody(
                 onApplyNotificationsChange = onApplyNotificationsChange
             )
         }
-        item {
-            TextButton(
-                buttonText = stringResource(id = R.string.delete_profile),
-                onButtonClick = onDeleteProfileButtonClick,
-                contentColor = DevMeetingAppTheme.colors.red,
-                modifier = Modifier
-            )
+        if (isShowDeleteButton) {
+            item {
+                TextButton(
+                    buttonText = stringResource(id = R.string.delete_profile),
+                    onButtonClick = onDeleteProfileButtonClick,
+                    contentColor = DevMeetingAppTheme.colors.red,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
         }
     }
 }

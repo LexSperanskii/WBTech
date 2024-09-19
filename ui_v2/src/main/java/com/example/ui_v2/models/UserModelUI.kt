@@ -1,6 +1,7 @@
 package com.example.ui_v2.models
 
 import androidx.annotation.DrawableRes
+import com.example.ui_v2.R
 
 internal data class UserModelUI(
     val id: String = "",
@@ -33,7 +34,7 @@ internal data class ClientModelUI(
 internal data class SocialMediaModelUI(
     val socialMediaId: String = "",
     @DrawableRes
-    val socialMediaIcon: Int = 0,
+    val socialMediaIcon: Int = R.drawable.lable_default,
     val socialMediaName: String = "",
     val userNickname: String = "",
 )

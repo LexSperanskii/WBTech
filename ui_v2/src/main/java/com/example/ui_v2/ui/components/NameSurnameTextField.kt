@@ -167,6 +167,7 @@ internal fun UserSocialNetworksTextField(
                     tint = DevMeetingAppTheme.colors.grayForCommunityCard,
                     modifier = Modifier
                         .size(32.dp)
+                        .padding(end = 6.dp)
                 )
                 when {
                     !focusState && value.isEmpty() -> {

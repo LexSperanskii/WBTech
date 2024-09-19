@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -19,13 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.example.ui_v2.R
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.SocialMediaModelUI
@@ -47,21 +41,11 @@ internal fun UserDescriptionBlockOutside(
     ) {
         Box(
             modifier = Modifier
-                .wrapContentSize()
                 .padding(bottom = 20.dp)
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(user.imageURL)
-                    .crossfade(true)
-                    .build(),
-                contentScale = ContentScale.Crop,
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_img),
-                contentDescription = stringResource(R.string.profile_icon),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
+            PersonAvatarForUserScreen(
+                size = 200.dp,
+                imageURL = user.imageURL
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -94,38 +78,44 @@ internal fun UserDescriptionBlockOutside(
                 )
             }
         }
-        Text(
-            text = user.nameSurname,
-            color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.customH3,
-            modifier = Modifier.padding(
-                start = DevMeetingAppTheme.dimensions.paddingMedium,
-                end = DevMeetingAppTheme.dimensions.paddingMedium,
-                bottom = 8.dp
+        if (user.nameSurname.isNotBlank()) {
+            Text(
+                text = user.nameSurname,
+                color = DevMeetingAppTheme.colors.black,
+                style = DevMeetingAppTheme.typography.customH3,
+                modifier = Modifier.padding(
+                    start = DevMeetingAppTheme.dimensions.paddingMedium,
+                    end = DevMeetingAppTheme.dimensions.paddingMedium,
+                    bottom = 8.dp
+                )
             )
-        )
-        Text(
-            text = user.city,
-            color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.metadata2,
-            modifier = Modifier
-                .padding(
-                    start = DevMeetingAppTheme.dimensions.paddingMedium,
-                    end = DevMeetingAppTheme.dimensions.paddingMedium,
-                    bottom = 2.dp
-                )
-        )
-        Text(
-            text = user.description,
-            color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.metadata1,
-            modifier = Modifier
-                .padding(
-                    start = DevMeetingAppTheme.dimensions.paddingMedium,
-                    end = DevMeetingAppTheme.dimensions.paddingMedium,
-                    bottom = 16.dp
-                )
-        )
+        }
+        if (user.city.isNotBlank()) {
+            Text(
+                text = user.city,
+                color = DevMeetingAppTheme.colors.black,
+                style = DevMeetingAppTheme.typography.metadata2,
+                modifier = Modifier
+                    .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                        bottom = 2.dp
+                    )
+            )
+        }
+        if (user.description.isNotBlank()) {
+            Text(
+                text = user.description,
+                color = DevMeetingAppTheme.colors.black,
+                style = DevMeetingAppTheme.typography.metadata1,
+                modifier = Modifier
+                    .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                        bottom = 16.dp
+                    )
+            )
+        }
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
@@ -164,6 +154,7 @@ internal fun UserDescriptionBlockOutside(
 @Composable
 internal fun UserDescriptionBlockInside(
     user: ClientModelUI,
+    listOfSocialMedia: List<SocialMediaModelUI>,
     onArrowClick: () -> Unit,
     onEditClick: () -> Unit,
     onNetworkIconClick: (SocialMediaModelUI) -> Unit,
@@ -174,21 +165,11 @@ internal fun UserDescriptionBlockInside(
     ) {
         Box(
             modifier = Modifier
-                .wrapContentSize()
                 .padding(bottom = 20.dp)
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(user.imageURL)
-                    .crossfade(true)
-                    .build(),
-                contentScale = ContentScale.Inside,
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_img),
-                contentDescription = stringResource(R.string.profile_icon),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
+            PersonAvatarForUserScreen(
+                size = 200.dp,
+                imageURL = user.imageURL
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -221,38 +202,44 @@ internal fun UserDescriptionBlockInside(
                 )
             }
         }
-        Text(
-            text = user.nameSurname,
-            color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.customH3,
-            modifier = Modifier.padding(
-                start = DevMeetingAppTheme.dimensions.paddingMedium,
-                end = DevMeetingAppTheme.dimensions.paddingMedium,
-                bottom = 8.dp
+        if (user.nameSurname.isNotBlank()) {
+            Text(
+                text = user.nameSurname,
+                color = DevMeetingAppTheme.colors.black,
+                style = DevMeetingAppTheme.typography.customH3,
+                modifier = Modifier.padding(
+                    start = DevMeetingAppTheme.dimensions.paddingMedium,
+                    end = DevMeetingAppTheme.dimensions.paddingMedium,
+                    bottom = if (user.nameSurname.isNotBlank()) 8.dp else 0.dp
+                )
             )
-        )
-        Text(
-            text = user.city,
-            color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.metadata2,
-            modifier = Modifier
-                .padding(
-                    start = DevMeetingAppTheme.dimensions.paddingMedium,
-                    end = DevMeetingAppTheme.dimensions.paddingMedium,
-                    bottom = 2.dp
-                )
-        )
-        Text(
-            text = user.description,
-            color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.metadata1,
-            modifier = Modifier
-                .padding(
-                    start = DevMeetingAppTheme.dimensions.paddingMedium,
-                    end = DevMeetingAppTheme.dimensions.paddingMedium,
-                    bottom = 16.dp
-                )
-        )
+        }
+        if (user.city.isNotBlank()) {
+            Text(
+                text = user.city,
+                color = DevMeetingAppTheme.colors.black,
+                style = DevMeetingAppTheme.typography.metadata2,
+                modifier = Modifier
+                    .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                        bottom = if (user.city.isNotBlank()) 2.dp else 0.dp
+                    )
+            )
+        }
+        if (user.description.isNotBlank()) {
+            Text(
+                text = user.description,
+                color = DevMeetingAppTheme.colors.black,
+                style = DevMeetingAppTheme.typography.metadata1,
+                modifier = Modifier
+                    .padding(
+                        start = DevMeetingAppTheme.dimensions.paddingMedium,
+                        end = DevMeetingAppTheme.dimensions.paddingMedium,
+                        bottom = 16.dp
+                    )
+            )
+        }
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
@@ -277,7 +264,7 @@ internal fun UserDescriptionBlockInside(
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         ) {
-            user.listOfSocialMedia.forEach { socialMedia ->
+            listOfSocialMedia.forEach { socialMedia ->
                 NetworkIcon(
                     networkIcon = socialMedia.socialMediaIcon,
                     onNetworkIconClick = { onNetworkIconClick(socialMedia) }

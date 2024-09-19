@@ -8,6 +8,7 @@ import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.interactors.client.IInteractorSaveClientSettings
 import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
+import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 
 internal data class ProfileEditScreenUiState(
@@ -36,6 +38,7 @@ internal data class ProfileEditScreenUiState(
     val showMyCommunitiesChecked: Boolean = true,
     val showMyEventsChecked: Boolean = true,
     val applyNotificationsChecked: Boolean = true,
+    val client: ClientModelUI = ClientModelUI(),
 )
 
 internal class ProfileEditScreenViewModel(
@@ -101,7 +104,7 @@ internal class ProfileEditScreenViewModel(
     }
 
     fun onSocialNetworkValueChange(socialMediaID: String, value: String) {
-        _uiState.update {
+        _uiState.update { it ->
             it.copy(
                 listOfSocialMedia = it.listOfSocialMedia.map { socialMedia ->
                     if (socialMedia.socialMediaId == socialMediaID) {
@@ -110,6 +113,16 @@ internal class ProfileEditScreenViewModel(
                         socialMedia
                     }
                 }
+            )
+        }
+    }
+
+    fun onAddSocialNetworkClick() {
+        _uiState.update {
+            it.copy(
+                listOfSocialMedia = it.listOfSocialMedia + SocialMediaModelUI(
+                    socialMediaId = UUID.randomUUID().toString()
+                )
             )
         }
     }
@@ -146,7 +159,8 @@ internal class ProfileEditScreenViewModel(
                 nameSurname = uiState.nameSurname,
                 city = uiState.city,
                 description = uiState.aboutUser,
-                listOfClientSocialMedia = uiState.listOfSocialMedia.map {
+                listOfClientSocialMedia = uiState.listOfSocialMedia.filter { it.userNickname.isNotBlank() }
+                    .map {
                     mapper.toSocialMediaModelDomain(
                         it
                     )
@@ -189,7 +203,8 @@ internal class ProfileEditScreenViewModel(
                     },
                     showMyCommunitiesChecked = client.isShowMyCommunities,
                     showMyEventsChecked = client.showMyEventsChecked,
-                    applyNotificationsChecked = client.applyNotificationsChecked
+                    applyNotificationsChecked = client.applyNotificationsChecked,
+                    client = mapper.toClientModelUI(client)
                 )
             }
         }.launchIn(viewModelScope)

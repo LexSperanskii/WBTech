@@ -71,6 +71,9 @@ fun NavHost(
             InterestsScreen(
                 navigateToLocationScreen = {
                     navController.navigate(LocationScreenDestination.route)
+                },
+                onTellLaterClick = {
+                    navController.navigate(LocationScreenDestination.route)
                 }
             )
         }
@@ -96,6 +99,9 @@ fun NavHost(
                 navigateToProfileScreen = {
                     navController.navigate(UserProfileDestination.route)
                 },
+                navigateToProfileEditScreen = {
+                    navController.navigate(ProfileEditScreenDestination.route)
+                }
             )
         }
         composable(
@@ -116,7 +122,9 @@ fun NavHost(
                 },
                 navigateBack = { navController.popBackStack() },
                 onShareClick = {},
-                onPitcherClick = {},
+                onPitcherClick = {
+                    navController.navigate("${UserOutsideScreenDestination.route}/${it}")
+                },
                 navigateToAppointmentScreen = {
                     navController.navigate("${AppointmentDestination.route}/${it}")
                 }
@@ -208,13 +216,11 @@ fun NavHost(
                 route = AppointmentSplashScreenDestination.route
             ) {
                 AppointmentSplashScreen(
-                    navigateToMyEvents = {},
+                    navigateToMyEvents = {
+                        navController.navigate(UserProfileDestination.route)
+                    },
                     navigateToFindOtherEvents = {
-                        navController.navigate(MainScreenDestination.route) {
-                            popUpTo(AppointmentDestination.route) {
-                                inclusive = true
-                            }
-                        }
+                        navController.navigate(MainScreenDestination.route)
                     }
                 )
             }
@@ -245,7 +251,9 @@ fun NavHost(
                 route = UserInsideScreenDestination.route
             ) {
                 UserInsideScreen(
-                    navigateBack = { navController.popBackStack() },
+                    navigateBack = {
+                        navController.navigate(MainScreenDestination.route)
+                    },
                     onEditClick = {
                         navController.navigate(ProfileEditScreenDestination.route)
                     },
@@ -254,10 +262,7 @@ fun NavHost(
                         navController.navigate("${EventScreenDestination.route}/${it}")
                     },
                     navigateOnExit = {
-                        navController.popBackStack(
-                            SplashScreenDestination.route,
-                            inclusive = true
-                        )
+
                     },
                     navigateToCommunity = {
                         navController.navigate("${CommunityScreenDestination.route}/${it}")

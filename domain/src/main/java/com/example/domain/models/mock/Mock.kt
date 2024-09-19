@@ -17,7 +17,20 @@ import com.example.domain.models.UserModelDomain
 
 class MockData {
 
-    private var client = ClientModelDomain()
+    private var client = ClientModelDomain(
+        listOfClientSocialMedia = listOf(
+            SocialMediaModelDomain(
+                socialMediaId = "0",
+                socialMediaName = "Хабр",
+                userNickname = ""
+            ),
+            SocialMediaModelDomain(
+                socialMediaId = "1",
+                socialMediaName = "Телеграм",
+                userNickname = ""
+            )
+        )
+    )
     private val clientPinCode = "5555"
     private val availableCountries = listOf(
         CountryModelDomain("0", "Россия", "+7"),
@@ -551,7 +564,20 @@ class MockData {
     }
 
     fun deleteClient() {
-        client = ClientModelDomain()
+        client = ClientModelDomain(
+            listOfClientSocialMedia = listOf(
+                SocialMediaModelDomain(
+                    socialMediaId = "0",
+                    socialMediaName = "Хабр",
+                    userNickname = ""
+                ),
+                SocialMediaModelDomain(
+                    socialMediaId = "1",
+                    socialMediaName = "Телеграм",
+                    userNickname = ""
+                )
+            )
+        )
     }
 
     fun saveClientChanges(

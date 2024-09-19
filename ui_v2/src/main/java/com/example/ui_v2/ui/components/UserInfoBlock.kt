@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.ui_v2.R
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 
@@ -49,12 +51,14 @@ internal fun UserInfoBlock(
             value = cityValue,
             isValid = isCityValid,
             onValueChange = onCityChange,
+            placeholder = stringResource(id = R.string.city),
             modifier = Modifier
         )
         NameSurnameTextField(
             value = aboutUserValue,
             isValid = isAboutUserValid,
             onValueChange = onAboutUserChange,
+            placeholder = stringResource(id = R.string.about_yourself),
             modifier = Modifier
         )
     }

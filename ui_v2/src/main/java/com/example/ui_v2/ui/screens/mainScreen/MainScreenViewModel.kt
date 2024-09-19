@@ -20,6 +20,7 @@ import com.example.domain.interactors.listOfSortedEvents.IInteractorGetListOfSor
 import com.example.domain.interactors.listOfSortedEvents.IInteractorLoadListOfSortedEvents
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
+import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.EventAdvertBlockModelUI
@@ -49,6 +50,7 @@ internal data class MainScreenUiState(
     val listOfTags: List<String> = listOf(),
     val listOfChosenTags: List<String> = listOf(),
     val listOfPeople: List<UserModelUI> = listOf(),
+    val client: ClientModelUI = ClientModelUI(),
 )
 
 internal class MainScreenViewModel(

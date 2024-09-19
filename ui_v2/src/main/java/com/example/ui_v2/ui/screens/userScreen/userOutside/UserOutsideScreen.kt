@@ -81,25 +81,29 @@ internal fun UserOutsideScreenBody(
                 modifier = Modifier
             )
         }
-        item {
-            EvensFixBlockCarousel(
-                blockText = stringResource(id = R.string.my_events),
-                blockEventsList = user.userEventsList,
-                onEventCardClick = onEventCardClick,
-                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                modifier = Modifier
-            )
+        if (user.userEventsList.isNotEmpty()) {
+            item {
+                EvensFixBlockCarousel(
+                    blockText = stringResource(id = R.string.my_events),
+                    blockEventsList = user.userEventsList,
+                    onEventCardClick = onEventCardClick,
+                    contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                    modifier = Modifier
+                )
+            }
         }
-        item {
-            UserCommunitiesFixBlockCarousel(
-                communitiesList = user.userCommunitiesList,
-                onCommunityClick = onCommunityClick,
-                contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                modifier = Modifier
-                    .padding(
-                        top = 40.dp
-                    )
-            )
+        if (user.userCommunitiesList.isNotEmpty()) {
+            item {
+                UserCommunitiesFixBlockCarousel(
+                    communitiesList = user.userCommunitiesList,
+                    onCommunityClick = onCommunityClick,
+                    contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                    modifier = Modifier
+                        .padding(
+                            top = 40.dp
+                        )
+                )
+            }
         }
     }
 }

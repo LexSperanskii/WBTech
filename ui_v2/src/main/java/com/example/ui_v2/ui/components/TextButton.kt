@@ -1,7 +1,6 @@
 package com.example.ui_v2.ui.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -23,10 +22,10 @@ internal fun TextButton(
     contentColor: Color = DevMeetingAppTheme.colors.buttonTextPurple,
     containerColor: Color = Color.Transparent,
     shape: Shape = RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium),
-) {
+
+    ) {
     Box(
         modifier = modifier
-            .fillMaxWidth()
     ) {
         Button(
             onClick = onButtonClick,

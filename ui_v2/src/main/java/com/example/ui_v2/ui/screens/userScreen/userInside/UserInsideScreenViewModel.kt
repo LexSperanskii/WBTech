@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.ui_v2.models.ClientModelUI
+import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +17,10 @@ import kotlinx.coroutines.flow.update
 
 internal data class UserInsideScreenUiState(
     val client: ClientModelUI = ClientModelUI(),
-)
+) {
+    val filteredSocialMediaList: List<SocialMediaModelUI>
+        get() = client.listOfSocialMedia.filter { it.userNickname.isNotBlank() }
+}
 
 internal class UserInsideScreenViewModel(
     private val mapper: IMapperDomainUI,
