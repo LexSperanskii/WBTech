@@ -8,9 +8,11 @@ interface IInteractorDeleteClient {
 
 internal class InteractorDeleteClientImpl(
     private val networkRepository: INetworkRepository,
+    private val loadClient: IInteractorLoadClient,
 ) : IInteractorDeleteClient {
 
     override suspend fun invoke() {
         networkRepository.deleteClient()
+        loadClient.invoke()
     }
 }

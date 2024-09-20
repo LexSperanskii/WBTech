@@ -152,7 +152,10 @@ val domainModule = module {
         )
     }
     single<IInteractorDeleteClient> {
-        InteractorDeleteClientImpl(networkRepository = get())
+        InteractorDeleteClientImpl(
+            networkRepository = get(),
+            loadClient = get()
+        )
     }
     single<IInteractorSaveClientSettings> {
         InteractorSaveClientSettingsImpl(
