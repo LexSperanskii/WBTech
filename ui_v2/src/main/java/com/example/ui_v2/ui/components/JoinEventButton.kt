@@ -40,13 +40,13 @@ internal fun JoinEventButton(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp)
+                .height(60.dp)
                 .offset(y = (-20).dp)
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
                             Color.Transparent,
-                            Color.Black.copy(alpha = 0.15f)
+                            Color.Black.copy(alpha = 0.25f)
                         )
                     )
                 )
