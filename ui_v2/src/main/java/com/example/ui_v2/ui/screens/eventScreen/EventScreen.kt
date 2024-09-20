@@ -1,13 +1,16 @@
 package com.example.ui_v2.ui.screens.eventScreen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -88,112 +91,114 @@ internal fun EventScreenBody(
     isJoinEventButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .padding(top = 12.dp)
-    ) {
-        BackShareBar(
-            barText = eventDescription.name,
-            onArrowClick = onArrowBackClick,
-            onShareClick = onShareClick,
-            modifier = Modifier.padding(horizontal = DevMeetingAppTheme.dimensions.paddingMedium)
-        )
-        LazyColumn(
-            contentPadding = PaddingValues(
-                top = 8.dp,
-                bottom = 28.dp
-            ),
+    Box(modifier = modifier) {
+        Column(
             modifier = Modifier
-                .weight(1f)
+                .fillMaxSize()
+                .padding(top = 12.dp)
         ) {
-            item {
-                EventDescriptionBlock(
-                    eventDescription = eventDescription,
-                    modifier = Modifier
-                        .padding(
-                            horizontal = DevMeetingAppTheme.dimensions.paddingMedium
-                        )
-                )
-            }
-            item {
-                Text(
-                    text = eventDescription.description,
-                    style = DevMeetingAppTheme.typography.metadata1,
-                    color = DevMeetingAppTheme.colors.black,
-                    modifier = Modifier
-                        .padding(
-                            start = DevMeetingAppTheme.dimensions.paddingMedium,
-                            end = DevMeetingAppTheme.dimensions.paddingMedium,
-                            top = 32.dp
-                        )
-                )
-            }
-            item {
-                PitcherBlock(
-                    pitcher = eventDescription.pitcher,
-                    onPitcherClick = onPitcherClick,
-                    modifier = Modifier
-                        .padding(
-                            start = DevMeetingAppTheme.dimensions.paddingMedium,
-                            end = DevMeetingAppTheme.dimensions.paddingMedium,
-                            top = 32.dp
-                        )
-                )
-            }
-            item {
-                MapBlock(
-                    address = stringResource(
-                        id = R.string.event_address,
-                        eventDescription.city,
-                        eventDescription.street,
-                        eventDescription.building
-                    ),
-                    metro = eventDescription.metroStation,
-                    modifier = Modifier
-                        .padding(
-                            start = DevMeetingAppTheme.dimensions.paddingMedium,
-                            end = DevMeetingAppTheme.dimensions.paddingMedium,
-                            top = 32.dp
-                        )
-                )
-            }
-            item {
-                OverlappingBlock(
-                    participantsList = eventDescription.listOfParticipants,
-                    onOverlappingRowClick = onParticipantsRowClick,
-                    modifier = Modifier
-                        .padding(
-                            start = DevMeetingAppTheme.dimensions.paddingMedium,
-                            end = DevMeetingAppTheme.dimensions.paddingMedium,
-                            top = 32.dp
-                        )
-                )
-            }
-            item {
-                OrganizerBlock(
-                    orgCommunity = eventDescription.organizer,
-                    isInMyCommunities = isInMyCommunities,
-                    onCommunityClick = onCommunityClick,
-                    onCommunityButtonClick = onCommunityButtonClick,
-                    modifier = Modifier
-                        .padding(
-                            start = DevMeetingAppTheme.dimensions.paddingMedium,
-                            end = DevMeetingAppTheme.dimensions.paddingMedium,
-                            top = 32.dp
-                        )
-                )
-            }
-            item {
-                EvensFixBlockCarousel(
-                    blockText = stringResource(id = R.string.other_community_meetups),
-                    blockEventsList = otherCommunityEventsList,
-                    onEventCardClick = onEventCardClick,
-                    contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
-                    modifier = Modifier
-                        .padding(
-                            top = 32.dp
-                        )
-                )
+            BackShareBar(
+                barText = eventDescription.name,
+                onArrowClick = onArrowBackClick,
+                onShareClick = onShareClick,
+                modifier = Modifier.padding(horizontal = DevMeetingAppTheme.dimensions.paddingMedium)
+            )
+            LazyColumn(
+                contentPadding = PaddingValues(
+                    top = 8.dp,
+                    bottom = 152.dp
+                ),
+                modifier = Modifier
+            ) {
+                item {
+                    EventDescriptionBlock(
+                        eventDescription = eventDescription,
+                        modifier = Modifier
+                            .padding(
+                                horizontal = DevMeetingAppTheme.dimensions.paddingMedium
+                            )
+                    )
+                }
+                item {
+                    Text(
+                        text = eventDescription.description,
+                        style = DevMeetingAppTheme.typography.metadata1,
+                        color = DevMeetingAppTheme.colors.black,
+                        modifier = Modifier
+                            .padding(
+                                start = DevMeetingAppTheme.dimensions.paddingMedium,
+                                end = DevMeetingAppTheme.dimensions.paddingMedium,
+                                top = 32.dp
+                            )
+                    )
+                }
+                item {
+                    PitcherBlock(
+                        pitcher = eventDescription.pitcher,
+                        onPitcherClick = onPitcherClick,
+                        modifier = Modifier
+                            .padding(
+                                start = DevMeetingAppTheme.dimensions.paddingMedium,
+                                end = DevMeetingAppTheme.dimensions.paddingMedium,
+                                top = 32.dp
+                            )
+                    )
+                }
+                item {
+                    MapBlock(
+                        address = stringResource(
+                            id = R.string.event_address,
+                            eventDescription.city,
+                            eventDescription.street,
+                            eventDescription.building
+                        ),
+                        metro = eventDescription.metroStation,
+                        modifier = Modifier
+                            .padding(
+                                start = DevMeetingAppTheme.dimensions.paddingMedium,
+                                end = DevMeetingAppTheme.dimensions.paddingMedium,
+                                top = 32.dp
+                            )
+                    )
+                }
+                item {
+                    OverlappingBlock(
+                        participantsList = eventDescription.listOfParticipants,
+                        onOverlappingRowClick = onParticipantsRowClick,
+                        modifier = Modifier
+                            .padding(
+                                start = DevMeetingAppTheme.dimensions.paddingMedium,
+                                end = DevMeetingAppTheme.dimensions.paddingMedium,
+                                top = 32.dp
+                            )
+                    )
+                }
+                item {
+                    OrganizerBlock(
+                        orgCommunity = eventDescription.organizer,
+                        isInMyCommunities = isInMyCommunities,
+                        onCommunityClick = onCommunityClick,
+                        onCommunityButtonClick = onCommunityButtonClick,
+                        modifier = Modifier
+                            .padding(
+                                start = DevMeetingAppTheme.dimensions.paddingMedium,
+                                end = DevMeetingAppTheme.dimensions.paddingMedium,
+                                top = 32.dp
+                            )
+                    )
+                }
+                item {
+                    EvensFixBlockCarousel(
+                        blockText = stringResource(id = R.string.other_community_meetups),
+                        blockEventsList = otherCommunityEventsList,
+                        onEventCardClick = onEventCardClick,
+                        contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
+                        modifier = Modifier
+                            .padding(
+                                top = 32.dp
+                            )
+                    )
+                }
             }
         }
         JoinEventButton(
@@ -202,6 +207,7 @@ internal fun EventScreenBody(
             buttonStatus = joinEventButtonStatus,
             isButtonEnabled = isJoinEventButtonEnabled,
             modifier = Modifier
+                .align(Alignment.BottomCenter)
         )
     }
 }
