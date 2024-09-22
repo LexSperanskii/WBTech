@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -37,7 +36,7 @@ internal object UserInsideScreenDestination : NavigationDestination {
 @Composable
 internal fun UserInsideScreen(
     navigateBack: () -> Unit,
-    onEditClick: () -> Unit,
+    onEditClick: (isClientRegistered: Boolean) -> Unit,
     onNetworkIconClick: (SocialMediaModelUI) -> Unit,
     navigateToEvent: (eventId: String) -> Unit,
     navigateToCommunity: (communityId: String) -> Unit,
@@ -47,18 +46,15 @@ internal fun UserInsideScreen(
     val userInsideScreenUiState by viewModel.getUserInsideScreenUiStateFlow()
         .collectAsStateWithLifecycle()
 
-    LaunchedEffect(key1 = userInsideScreenUiState.isNavigateToEditScreen) {
-        if (userInsideScreenUiState.isNavigateToEditScreen) {
-            onEditClick()
-        }
+    if (!userInsideScreenUiState.isClientRegistered) {
+        onEditClick(userInsideScreenUiState.isClientRegistered)
     }
-
     Scaffold { innerPadding ->
         UserInsideScreenBody(
             client = userInsideScreenUiState.client,
             listOfSocialMedia = userInsideScreenUiState.filteredSocialMediaList,
             onArrowClick = navigateBack,
-            onEditClick = onEditClick,
+            onEditClick = { onEditClick(userInsideScreenUiState.isClientRegistered) },
             onNetworkIconClick = onNetworkIconClick,
             onEventCardClick = { navigateToEvent(it.id) },
             onCommunityClick = { navigateToCommunity(it.id) },

@@ -292,8 +292,18 @@ fun NavHost(
                             }
                         }
                     },
-                    onEditClick = {
-                        navController.navigate(ProfileEditScreenDestination.route)
+                    onEditClick = { isClientRegistered ->
+                        navController.navigate(ProfileEditScreenDestination.route) {
+                            when (isClientRegistered) {
+                                true -> {}
+                                false -> {
+                                    popUpTo(UserProfileDestination.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
+
+                        }
                     },
                     onNetworkIconClick = {},
                     navigateToEvent = {

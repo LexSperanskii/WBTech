@@ -49,7 +49,7 @@
     <string name="placeholder_name_surname">Name and Surname</string>
     <!-- Те что были, но нужны -->
     <string name="date_address">%1$d %2$s · %3$s, %4$s</string>
-    <string name="safe">Safe</string>
+    <string name="save">Save</string>
     <!-- Новые -->
     <string name="interests">Interests</string>
     <string name="interests_description">Select your interests so we can recommend useful events</string>

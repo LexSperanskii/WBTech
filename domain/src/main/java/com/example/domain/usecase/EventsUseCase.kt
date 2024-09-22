@@ -2,6 +2,7 @@ package com.example.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 internal class EventsUseCase {
 
@@ -15,11 +16,7 @@ internal class EventsUseCase {
     private val streamCommunityId = MutableSharedFlow<String>(replay = 1)
     private var communityIdLastValue: String = ""
 
-    private val streamMyCommunitiesList = MutableSharedFlow<Unit>(replay = 1)
-
     private val streamListOfTags = MutableSharedFlow<Unit>(replay = 1)
-
-    private val streamMyChosenTagsList = MutableSharedFlow<Unit>(replay = 1)
 
     private val streamListOfPeople = MutableSharedFlow<Unit>(replay = 1)
 
@@ -33,12 +30,10 @@ internal class EventsUseCase {
 
     private val streamClient = MutableSharedFlow<Unit>(replay = 1)
 
-    private val streamClientPinCode = MutableSharedFlow<String>(replay = 1)
+    private val streamClientPinCode = MutableStateFlow("")
 
-    private val streamUserSearch = MutableSharedFlow<String>(replay = 1)
+    private val streamUserSearch = MutableStateFlow("")
     private var userSearchLastValue: String = ""
-
-    private val streamMyEventsList = MutableSharedFlow<Unit>(replay = 1)
 
 
     // Для EventDescription
@@ -83,13 +78,6 @@ internal class EventsUseCase {
     fun observeCommunityId(): Flow<String> = streamCommunityId
 
 
-    // Для MyCommunitiesList
-    fun loadMyCommunitiesList() {
-        streamMyCommunitiesList.tryEmit(Unit)
-    }
-
-    fun observeMyCommunitiesList(): Flow<Unit> = streamMyCommunitiesList
-
 
     // Для ListOfTags
     fun loadListOfTags() {
@@ -98,13 +86,6 @@ internal class EventsUseCase {
 
     fun observeListOfTags(): Flow<Unit> = streamListOfTags
 
-
-    // Для myChosenTagsList
-    fun loadMyChosenTagsList() {
-        streamMyChosenTagsList.tryEmit(Unit)
-    }
-
-    fun observeMyChosenTagsList(): Flow<Unit> = streamMyChosenTagsList
 
 
     // Для ListOfPeople
@@ -177,11 +158,4 @@ internal class EventsUseCase {
 
     fun observeUserSearch(): Flow<String> = streamUserSearch
 
-
-    // Для MyEventsList
-    fun loadMyEventsList() {
-        streamMyEventsList.tryEmit(Unit)
-    }
-
-    fun observeMyEventsList(): Flow<Unit> = streamMyEventsList
 }

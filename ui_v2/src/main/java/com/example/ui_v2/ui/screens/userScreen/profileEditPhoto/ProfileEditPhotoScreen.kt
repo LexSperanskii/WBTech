@@ -109,7 +109,7 @@ internal fun ProfileEditPhotoScreenBody(
                     .padding(bottom = DevMeetingAppTheme.dimensions.paddingMedium)
             )
             ButtonWithStatus(
-                notPressedText = stringResource(id = R.string.safe),
+                notPressedText = stringResource(id = R.string.save),
                 onClick = onButtonSaveClick,
                 buttonStatus = ButtonStatus.Active,
                 isButtonEnabled = isButtonSaveEnabled,

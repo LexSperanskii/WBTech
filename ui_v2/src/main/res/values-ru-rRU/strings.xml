@@ -50,7 +50,7 @@
     <string name="placeholder_name_surname">Имя и Фамилия</string>
     <!-- Те что были, но нужны -->
     <string name="date_address">%1$d %2$s · %3$s, %4$s</string>
-    <string name="safe">Сохранить</string>
+    <string name="save">Сохранить</string>
     <!-- Новые -->
     <string name="interests">Интересы</string>
     <string name="interests_description">Выберите интересы, чтобы мы рекомендовали полезные встречи</string>

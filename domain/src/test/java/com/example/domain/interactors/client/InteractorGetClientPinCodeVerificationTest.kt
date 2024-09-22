@@ -4,7 +4,6 @@ import com.example.domain.repositories.INetworkRepository
 import com.example.domain.usecase.EventsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -16,7 +15,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.kotlin.whenever
 
@@ -47,7 +45,7 @@ class InteractorGetClientPinCodeVerificationTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `invoke should return false before emitting pin`() = runTest {
+    fun `invoke should return pin verification from repository`() = runTest {
 
         whenever(useCase.observeClientPinCodeVerification()).thenReturn(flowOf(stubPin))
         whenever(networkRepository.setClientPinCode(stubPin)).thenReturn(flowOf(stubResponse))
@@ -57,23 +55,7 @@ class InteractorGetClientPinCodeVerificationTest {
         val result = systemUnderTest.invoke().first()
 
         verify(useCase).observeClientPinCodeVerification()
-        verify(networkRepository, never()).setClientPinCode(stubPin)
-        assertEquals(false, result)
+        verify(networkRepository).setClientPinCode(stubPin)
+        assertEquals(stubResponse, result)
     }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun `invoke should return boolean response from network repository after emitting pin`() =
-        runTest {
-
-            whenever(useCase.observeClientPinCodeVerification()).thenReturn(flowOf(stubPin))
-            whenever(networkRepository.setClientPinCode(stubPin)).thenReturn(flowOf(stubResponse))
-
-            systemUnderTest = InteractorGetClientPinCodeVerificationImpl(useCase, networkRepository)
-
-            val result = systemUnderTest.invoke().drop(1).first()
-
-            verify(networkRepository).setClientPinCode(stubPin)
-            assertEquals(stubResponse, result)
-        }
 }

@@ -5,7 +5,6 @@ import com.example.domain.repositories.INetworkRepository
 import com.example.domain.usecase.EventsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -17,7 +16,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.kotlin.whenever
 
@@ -77,8 +75,7 @@ class InteractorGetListOfSortedEventsTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `invoke should return empty list of Sorted Events from network repository before emitting search`() =
-        runTest {
+    fun `invoke should return list of sorted events from network repository`() = runTest {
 
             whenever(useCase.observeUserSearch()).thenReturn(flowOf(stubSearch))
             whenever(networkRepository.getListOfSortedEvents(stubSearch)).thenReturn(flowOf(stubData))
@@ -88,23 +85,7 @@ class InteractorGetListOfSortedEventsTest {
             val result = systemUnderTest.invoke().first()
 
             verify(useCase).observeUserSearch()
-            verify(networkRepository, never()).getListOfSortedEvents(stubSearch)
-            assertEquals(emptyList<EventModelDomain>(), result)
-        }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun `invoke should return list of Sorted Events from network repository after emitting search`() =
-        runTest {
-
-            whenever(useCase.observeUserSearch()).thenReturn(flowOf(stubSearch))
-            whenever(networkRepository.getListOfSortedEvents(stubSearch)).thenReturn(flowOf(stubData))
-
-            systemUnderTest = InteractorGetListOfSortedEventsImpl(useCase, networkRepository)
-
-            val result = systemUnderTest.invoke().drop(1).first()
-
-            verify(networkRepository).getListOfSortedEvents(stubSearch)
-            assertEquals(stubData, result)
+        verify(networkRepository).getListOfSortedEvents(stubSearch)
+        assertEquals(stubData, result)
         }
 }

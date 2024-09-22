@@ -112,7 +112,7 @@ internal fun InterestsScreenBody(
             }
         }
         ButtonWithStatus(
-            notPressedText = stringResource(id = R.string.safe),
+            notPressedText = stringResource(id = R.string.save),
             onClick = onButtonClick,
             buttonStatus = ButtonStatus.Active,
             isButtonEnabled = isButtonEnabled,
