@@ -9,6 +9,7 @@ import com.example.domain.models.EventAdvertBlockModelDomain
 import com.example.domain.models.EventDescriptionModelDomain
 import com.example.domain.models.EventModelDomain
 import com.example.domain.models.PhoneNumberModelDomain
+import com.example.domain.models.Response
 import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.models.UserModelDomain
 import com.example.domain.models.mock.MockData
@@ -85,23 +86,31 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
     }
 
 
-    override suspend fun setClientNotVerifiedName(nameSurname: String) {
-        mock.setClientNotVerifiedName(nameSurname)
+    override fun setClientNotVerifiedName(nameSurname: String): Flow<Response> {
+        return flow {
+            emit(mock.setClientNotVerifiedName(nameSurname))
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getClientNotVerifiedName(): String {
-        return mock.getClientNotVerifiedName()
+    override fun getClientNotVerifiedName(): Flow<String> {
+        return flow {
+            emit(mock.getClientNotVerifiedName())
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun setClientNotVerifiedPhoneNumber(
+    override fun setClientNotVerifiedPhoneNumber(
         countryCode: CountryModelDomain,
         number: String,
-    ) {
-        mock.setClientNotVerifiedPhoneNumber(countryCode, number)
+    ): Flow<Response> {
+        return flow {
+            emit(mock.setClientNotVerifiedPhoneNumber(countryCode, number))
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain {
-        return mock.getClientNotVerifiedPhoneNumber()
+    override fun getClientNotVerifiedPhoneNumber(): Flow<PhoneNumberModelDomain> {
+        return flow {
+            emit(mock.getClientNotVerifiedPhoneNumber())
+        }.flowOn(Dispatchers.IO)
     }
     override fun setClientPinCode(pinCode: String): Flow<Boolean> {
         return flow {
@@ -113,19 +122,28 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
             emit(mock.getClient())
         }.flowOn(Dispatchers.IO)
     }
-    override suspend fun setClientName(nameSurname: String) {
-        mock.setClientName(nameSurname)
+    override fun setClientName(nameSurname: String): Flow<Response> {
+        return flow {
+            emit(mock.setClientName(nameSurname))
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String) {
-        mock.setClientPhoneNumber(countryCode, number)
+    override fun setClientPhoneNumber(
+        countryCode: CountryModelDomain,
+        number: String,
+    ): Flow<Response> {
+        return flow {
+            emit(mock.setClientPhoneNumber(countryCode, number))
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun setClientAvatar(imageURL: String?) {
-        mock.setClientAvatar(imageURL)
+    override fun setClientAvatar(imageURL: String?): Flow<Response> {
+        return flow {
+            emit(mock.setClientAvatar(imageURL))
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun saveClientChanges(
+    override fun saveClientChanges(
         nameSurname: String,
         city: String,
         description: String,
@@ -133,43 +151,62 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         isShowMyCommunities: Boolean,
         showMyEventsChecked: Boolean,
         applyNotificationsChecked: Boolean,
-    ) {
-        mock.saveClientChanges(
-            nameSurname = nameSurname,
-            city = city,
-            description = description,
-            listOfClientSocialMedia = listOfClientSocialMedia,
-            isShowMyCommunities = isShowMyCommunities,
-            showMyEventsChecked = showMyEventsChecked,
-            applyNotificationsChecked = applyNotificationsChecked
-        )
-    }
-    override suspend fun deleteClient() {
-        return mock.deleteClient()
-    }
-
-    override suspend fun addToMyEvents(eventId: String) {
-        mock.addToMyEvents(eventId)
+    ): Flow<Response> {
+        return flow {
+            emit(
+                mock.saveClientChanges(
+                    nameSurname = nameSurname,
+                    city = city,
+                    description = description,
+                    listOfClientSocialMedia = listOfClientSocialMedia,
+                    isShowMyCommunities = isShowMyCommunities,
+                    showMyEventsChecked = showMyEventsChecked,
+                    applyNotificationsChecked = applyNotificationsChecked
+                )
+            )
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun removeFromMyEvents(eventId: String) {
-        mock.removeFromMyEvents(eventId)
+    override fun deleteClient(): Flow<Response> {
+        return flow {
+            emit(mock.deleteClient())
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun addToMyCommunities(communityId: String) {
-        mock.addToMyCommunities(communityId)
+    override fun addToMyEvents(eventId: String): Flow<Response> {
+        return flow {
+            emit(mock.addToMyEvents(eventId))
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun removeFromMyCommunities(communityId: String) {
-        mock.removeFromMyCommunities(communityId)
+    override fun removeFromMyEvents(eventId: String): Flow<Response> {
+        return flow {
+            emit(mock.removeFromMyEvents(eventId))
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun addToMyChosenTags(tag: String) {
-        mock.addToMyChosenTags(tag)
+    override fun addToMyCommunities(communityId: String): Flow<Response> {
+        return flow {
+            emit(mock.addToMyCommunities(communityId))
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun removeFromMyChosenTags(tag: String) {
-        mock.removeFromMyChosenTags(tag)
+    override fun removeFromMyCommunities(communityId: String): Flow<Response> {
+        return flow {
+            emit(mock.removeFromMyCommunities(communityId))
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun addToMyChosenTags(tag: String): Flow<Response> {
+        return flow {
+            emit(mock.addToMyChosenTags(tag))
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun removeFromMyChosenTags(tag: String): Flow<Response> {
+        return flow {
+            emit(mock.removeFromMyChosenTags(tag))
+        }.flowOn(Dispatchers.IO)
     }
 
 

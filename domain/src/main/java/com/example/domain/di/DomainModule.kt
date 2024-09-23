@@ -8,7 +8,6 @@ import com.example.domain.interactors.availableCountries.IInteractorGetAvailable
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
 import com.example.domain.interactors.availableCountries.InteractorGetAvailableCountriesListImpl
 import com.example.domain.interactors.availableCountries.InteractorLoadAvailableCountriesListImpl
-import com.example.domain.interactors.client.IInteractorDeleteClient
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorGetClientNotVerifiedName
 import com.example.domain.interactors.client.IInteractorGetClientNotVerifiedPhoneNumber
@@ -21,7 +20,6 @@ import com.example.domain.interactors.client.IInteractorSetClientName
 import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedName
 import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedPhoneNumber
 import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
-import com.example.domain.interactors.client.InteractorDeleteClientImpl
 import com.example.domain.interactors.client.InteractorGetClientImpl
 import com.example.domain.interactors.client.InteractorGetClientNotVerifiedNameImpl
 import com.example.domain.interactors.client.InteractorGetClientNotVerifiedPhoneNumberImpl
@@ -46,6 +44,8 @@ import com.example.domain.interactors.client.myEvents.IInteractorAddToMyEvents
 import com.example.domain.interactors.client.myEvents.IInteractorRemoveFromMyEvents
 import com.example.domain.interactors.client.myEvents.InteractorAddToMyEventsImpl
 import com.example.domain.interactors.client.myEvents.InteractorRemoveFromMyEventsImpl
+import com.example.domain.interactors.client.oldSuspend.deleteClient.IInteractorLoadDeleteClient
+import com.example.domain.interactors.client.oldSuspend.deleteClient.InteractorLoadDeleteClientImpl
 import com.example.domain.interactors.communitiesDescription.IInteractorGetCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.IInteractorLoadCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.InteractorGetCommunitiesDescriptionImpl
@@ -151,8 +151,8 @@ val domainModule = module {
             useCase = get()
         )
     }
-    single<IInteractorDeleteClient> {
-        InteractorDeleteClientImpl(
+    single<IInteractorLoadDeleteClient> {
+        InteractorLoadDeleteClientImpl(
             networkRepository = get(),
             loadClient = get()
         )

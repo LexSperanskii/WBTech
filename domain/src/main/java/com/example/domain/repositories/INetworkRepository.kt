@@ -9,6 +9,7 @@ import com.example.domain.models.EventAdvertBlockModelDomain
 import com.example.domain.models.EventDescriptionModelDomain
 import com.example.domain.models.EventModelDomain
 import com.example.domain.models.PhoneNumberModelDomain
+import com.example.domain.models.Response
 import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.models.UserModelDomain
 import kotlinx.coroutines.flow.Flow
@@ -30,16 +31,20 @@ interface INetworkRepository {
 
     fun getAvailableCountriesList(): Flow<List<CountryModelDomain>>
 
-    suspend fun setClientNotVerifiedName(nameSurname: String)
-    suspend fun getClientNotVerifiedName(): String
-    suspend fun setClientNotVerifiedPhoneNumber(countryCode: CountryModelDomain, number: String)
-    suspend fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain
+    fun setClientNotVerifiedName(nameSurname: String): Flow<Response>
+    fun getClientNotVerifiedName(): Flow<String>
+    fun setClientNotVerifiedPhoneNumber(
+        countryCode: CountryModelDomain,
+        number: String,
+    ): Flow<Response>
+
+    fun getClientNotVerifiedPhoneNumber(): Flow<PhoneNumberModelDomain>
     fun setClientPinCode(pinCode: String): Flow<Boolean>
     fun getClient(): Flow<ClientModelDomain>
-    suspend fun setClientName(nameSurname: String)
-    suspend fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String)
-    suspend fun setClientAvatar(imageURL: String?)
-    suspend fun saveClientChanges(
+    fun setClientName(nameSurname: String): Flow<Response>
+    fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String): Flow<Response>
+    fun setClientAvatar(imageURL: String?): Flow<Response>
+    fun saveClientChanges(
         nameSurname: String,
         city: String,
         description: String,
@@ -47,14 +52,15 @@ interface INetworkRepository {
         isShowMyCommunities: Boolean,
         showMyEventsChecked: Boolean,
         applyNotificationsChecked: Boolean,
-    )
-    suspend fun deleteClient()
-    suspend fun addToMyEvents(eventId: String)
-    suspend fun removeFromMyEvents(eventId: String)
-    suspend fun addToMyCommunities(communityId: String)
-    suspend fun removeFromMyCommunities(communityId: String)
-    suspend fun addToMyChosenTags(tag: String)
-    suspend fun removeFromMyChosenTags(tag: String)
+    ): Flow<Response>
+
+    fun deleteClient(): Flow<Response>
+    fun addToMyEvents(eventId: String): Flow<Response>
+    fun removeFromMyEvents(eventId: String): Flow<Response>
+    fun addToMyCommunities(communityId: String): Flow<Response>
+    fun removeFromMyCommunities(communityId: String): Flow<Response>
+    fun addToMyChosenTags(tag: String): Flow<Response>
+    fun removeFromMyChosenTags(tag: String): Flow<Response>
 
     suspend fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain
     suspend fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain

@@ -12,6 +12,7 @@ import com.example.domain.models.EventLocationModelDomain
 import com.example.domain.models.EventModelDomain
 import com.example.domain.models.MetroModelDomain
 import com.example.domain.models.PhoneNumberModelDomain
+import com.example.domain.models.Response
 import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.models.UserModelDomain
 
@@ -451,35 +452,41 @@ class MockData {
         listOfEvents = getListOfEvents().take(10)
     )
 
-    fun addToMyCommunities(communityId: String) {
+    fun addToMyCommunities(communityId: String): Response {
         val community = listOfRealCommunities.find { it.id == communityId }
         if (community != null) {
             client = client.copy(clientCommunitiesList = client.clientCommunitiesList + community)
         }
+        return Response("success", "")
     }
 
-    fun removeFromMyCommunities(communityId: String) {
+    fun removeFromMyCommunities(communityId: String): Response {
         client =
             client.copy(clientCommunitiesList = client.clientCommunitiesList.filter { it.id != communityId })
+        return Response("success", "")
     }
 
-    fun addToMyEvents(eventId: String) {
+    fun addToMyEvents(eventId: String): Response {
         val event = listOfRealEvents.find { it.id == eventId }
         if (event != null) {
             client = client.copy(clientEventsList = client.clientEventsList + event)
         }
+        return Response("success", "")
     }
 
-    fun removeFromMyEvents(eventId: String) {
+    fun removeFromMyEvents(eventId: String): Response {
         client = client.copy(clientEventsList = client.clientEventsList.filter { it.id != eventId })
+        return Response("success", "")
     }
 
-    fun addToMyChosenTags(tag: String) {
+    fun addToMyChosenTags(tag: String): Response {
         client = client.copy(listOfClientTags = client.listOfClientTags + tag)
+        return Response("success", "")
     }
 
-    fun removeFromMyChosenTags(tag: String) {
+    fun removeFromMyChosenTags(tag: String): Response {
         client = client.copy(listOfClientTags = client.listOfClientTags.filter { it != tag })
+        return Response("success", "")
     }
 
     fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain {
@@ -546,17 +553,19 @@ class MockData {
 
     fun getAvailableCountriesList(): List<CountryModelDomain> = availableCountries
 
-    fun setClientName(nameSurname: String) {
+    fun setClientName(nameSurname: String): Response {
         client = client.copy(nameSurname = nameSurname)
+        return Response("success", "")
     }
 
-    fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String) {
+    fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String): Response {
         client = client.copy(
             phoneNumber = client.phoneNumber.copy(
                 country = countryCode,
                 number = number
             )
         )
+        return Response("success", "")
     }
 
     fun setClientPinCode(pinCode: String): Boolean {
@@ -567,7 +576,7 @@ class MockData {
         return client
     }
 
-    fun deleteClient() {
+    fun deleteClient(): Response {
         client = ClientModelDomain(
             listOfClientSocialMedia = listOf(
                 SocialMediaModelDomain(
@@ -582,11 +591,14 @@ class MockData {
                 )
             )
         )
+        return Response("success", "")
     }
-    fun setClientAvatar(imageURL: String?) {
+
+    fun setClientAvatar(imageURL: String?): Response {
         client = client.copy(
             imageURL = imageURL
         )
+        return Response("success", "")
     }
     fun saveClientChanges(
         nameSurname: String,
@@ -596,7 +608,7 @@ class MockData {
         isShowMyCommunities: Boolean,
         showMyEventsChecked: Boolean,
         applyNotificationsChecked: Boolean,
-    ) {
+    ): Response {
         client = client.copy(
             nameSurname = nameSurname,
             city = city,
@@ -606,6 +618,7 @@ class MockData {
             showMyEventsChecked = showMyEventsChecked,
             applyNotificationsChecked = applyNotificationsChecked
         )
+        return Response("success", "")
     }
 
     fun getUser(id: String): UserModelDomain {
@@ -615,16 +628,18 @@ class MockData {
     private var clientNotVerifiedNameSurname: String = ""
     private var clientNotVerifiedPhoneNumber: PhoneNumberModelDomain = PhoneNumberModelDomain()
 
-    fun setClientNotVerifiedName(nameSurname: String) {
+    fun setClientNotVerifiedName(nameSurname: String): Response {
         clientNotVerifiedNameSurname = nameSurname
+        return Response("Success", "")
     }
 
     fun getClientNotVerifiedName(): String = clientNotVerifiedNameSurname
-    fun setClientNotVerifiedPhoneNumber(countryCode: CountryModelDomain, number: String) {
+    fun setClientNotVerifiedPhoneNumber(countryCode: CountryModelDomain, number: String): Response {
         clientNotVerifiedPhoneNumber = PhoneNumberModelDomain(
             country = countryCode,
             number = number
         )
+        return Response("Success", "")
     }
 
     fun getClientNotVerifiedPhoneNumber(): PhoneNumberModelDomain = clientNotVerifiedPhoneNumber

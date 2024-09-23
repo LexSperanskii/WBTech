@@ -1,5 +1,6 @@
 package com.example.domain.interactors.client
 
+import com.example.domain.interactors.client.oldSuspend.deleteClient.InteractorLoadDeleteClientImpl
 import com.example.domain.repositories.INetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,7 +18,7 @@ class InteractorDeleteClientTest {
 
     private lateinit var networkRepository: INetworkRepository
     private lateinit var interactorLoadClient: IInteractorLoadClient
-    private lateinit var systemUnderTest: InteractorDeleteClientImpl
+    private lateinit var systemUnderTest: InteractorLoadDeleteClientImpl
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
@@ -40,7 +41,7 @@ class InteractorDeleteClientTest {
     @Test
     fun `invoke should call deleteClient from repository and interactorLoadClient`() = runTest {
 
-        systemUnderTest = InteractorDeleteClientImpl(networkRepository, interactorLoadClient)
+        systemUnderTest = InteractorLoadDeleteClientImpl(networkRepository, interactorLoadClient)
 
         systemUnderTest.invoke()
 
