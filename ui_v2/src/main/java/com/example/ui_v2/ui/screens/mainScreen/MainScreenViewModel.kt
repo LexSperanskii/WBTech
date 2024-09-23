@@ -6,10 +6,10 @@ import com.example.domain.interactors.advertBlock.IInteractorGetCommunitiesAdver
 import com.example.domain.interactors.advertBlock.IInteractorGetEventsAdvertBlock
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.client.myChosenTags.IInteractorAddToMyChosenTags
-import com.example.domain.interactors.client.myChosenTags.IInteractorRemoveFromMyChosenTags
-import com.example.domain.interactors.client.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.client.myCommunities.IInteractorRemoveFromMyCommunities
+import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorLoadAddToMyChosenTags
+import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorLoadRemoveFromMyChosenTags
+import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadAddToMyCommunities
+import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadRemoveFromMyCommunities
 import com.example.domain.interactors.listOfCommunities.IInteractorGetListOfCommunities
 import com.example.domain.interactors.listOfCommunities.IInteractorLoadListOfCommunities
 import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
@@ -69,10 +69,10 @@ internal class MainScreenViewModel(
     private val getEventsAdvertBlock: IInteractorGetEventsAdvertBlock,
     private val loadClient: IInteractorLoadClient,
     private val getClient: IInteractorGetClient,
-    private val addToMyCommunities: IInteractorAddToMyCommunities,
-    private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
-    private val addToMyChosenTags: IInteractorAddToMyChosenTags,
-    private val removeFromMyChosenTags: IInteractorRemoveFromMyChosenTags,
+    private val addToMyCommunities: IInteractorLoadAddToMyCommunities,
+    private val removeFromMyCommunities: IInteractorLoadRemoveFromMyCommunities,
+    private val addToMyChosenTags: IInteractorLoadAddToMyChosenTags,
+    private val removeFromMyChosenTags: IInteractorLoadRemoveFromMyChosenTags,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MainScreenUiState())
@@ -115,29 +115,25 @@ internal class MainScreenViewModel(
     }
 
     fun onCommunityButtonClick(community: CommunityModelUI) {
-        viewModelScope.launch {
-            when (uiState.value.myCommunitiesList.any { it.id == community.id }) {
-                true -> {
-                    removeFromMyCommunities.invoke(community.id)
-                }
+        when (uiState.value.myCommunitiesList.any { it.id == community.id }) {
+            true -> {
+                removeFromMyCommunities.invoke(community.id)
+            }
 
-                false -> {
-                    addToMyCommunities.invoke(community.id)
-                }
+            false -> {
+                addToMyCommunities.invoke(community.id)
             }
         }
     }
 
     fun onTagClick(tag: String) {
-        viewModelScope.launch {
-            when (uiState.value.listOfChosenTags.contains(tag)) {
-                true -> {
-                    removeFromMyChosenTags.invoke(tag)
-                }
+        when (uiState.value.listOfChosenTags.contains(tag)) {
+            true -> {
+                removeFromMyChosenTags.invoke(tag)
+            }
 
-                false -> {
-                    addToMyChosenTags.invoke(tag)
-                }
+            false -> {
+                addToMyChosenTags.invoke(tag)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.example.domain.interactors.client
 
+import com.example.domain.interactors.client.oldSuspend.saveClientChanges.InteractorSaveClientSettingsImpl
 import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.repositories.INetworkRepository
 import kotlinx.coroutines.Dispatchers

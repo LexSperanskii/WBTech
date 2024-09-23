@@ -10,7 +10,7 @@ import com.example.domain.interactors.client.IInteractorGetClientPinCodeVerifica
 import com.example.domain.interactors.client.IInteractorLoadClientPinCodeVerification
 import com.example.domain.interactors.client.IInteractorSetClientName
 import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
-import com.example.domain.interactors.client.myEvents.IInteractorAddToMyEvents
+import com.example.domain.interactors.client.oldSuspend.myEvents.IInteractorLoadAddToMyEvents
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.ui_v2.models.EventDescriptionModelUI
@@ -52,7 +52,7 @@ internal class AppointmentVerificationScreenViewModel(
     private val getClientNotVerifiedName: IInteractorGetClientNotVerifiedName,
     private val setClientName: IInteractorSetClientName,
     private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
-    private val addToMyEvents: IInteractorAddToMyEvents,
+    private val addToMyEvents: IInteractorLoadAddToMyEvents,
 ) : ViewModel() {
 
     private val eventId: String = try {
@@ -129,8 +129,8 @@ internal class AppointmentVerificationScreenViewModel(
                 mapper.toCountryModelDomain(state.phoneNumber.country),
                 state.phoneNumber.number
             )
-            addToMyEvents.invoke(state.event.id)
         }
+        addToMyEvents.invoke(state.event.id)
     }
 
     private fun loadData() {

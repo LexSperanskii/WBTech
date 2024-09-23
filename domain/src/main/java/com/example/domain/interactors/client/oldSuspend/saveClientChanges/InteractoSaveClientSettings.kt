@@ -1,11 +1,17 @@
-package com.example.domain.interactors.client
+package com.example.domain.interactors.client.oldSuspend.saveClientChanges
 
+import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.models.Response
 import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.repositories.INetworkRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onEach
 
 
 interface IInteractorSaveClientSettings {
-    suspend fun invoke(
+    fun invoke(
         nameSurname: String,
         city: String,
         description: String,
@@ -13,7 +19,7 @@ interface IInteractorSaveClientSettings {
         isShowMyCommunities: Boolean,
         showMyEventsChecked: Boolean,
         applyNotificationsChecked: Boolean,
-    )
+    ): Flow<Response>
 }
 
 internal class InteractorSaveClientSettingsImpl(
@@ -21,7 +27,7 @@ internal class InteractorSaveClientSettingsImpl(
     private val loadClient: IInteractorLoadClient,
 ) : IInteractorSaveClientSettings {
 
-    override suspend fun invoke(
+    override fun invoke(
         nameSurname: String,
         city: String,
         description: String,
@@ -29,8 +35,8 @@ internal class InteractorSaveClientSettingsImpl(
         isShowMyCommunities: Boolean,
         showMyEventsChecked: Boolean,
         applyNotificationsChecked: Boolean,
-    ) {
-        networkRepository.saveClientChanges(
+    ): Flow<Response> {
+        return networkRepository.saveClientChanges(
             nameSurname = nameSurname,
             city = city,
             description = description,
@@ -38,7 +44,11 @@ internal class InteractorSaveClientSettingsImpl(
             isShowMyCommunities = isShowMyCommunities,
             showMyEventsChecked = showMyEventsChecked,
             applyNotificationsChecked = applyNotificationsChecked
-        )
-        loadClient.invoke()
+        ).onEach { response ->
+            if (response.status == "success") {
+                loadClient.invoke()
+            }
+        }.flowOn(Dispatchers.IO)
     }
+
 }

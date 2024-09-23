@@ -1,6 +1,7 @@
 package com.example.domain.interactors.client.myChosenTags
 
 import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.client.oldSuspend.myChosenTags.InteractorLoadRemoveFromMyChosenTagsImpl
 import com.example.domain.repositories.INetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,7 +19,7 @@ class InteractorRemoveFromMyChosenTagsTest {
 
     private lateinit var networkRepository: INetworkRepository
     private lateinit var interactorLoadClient: IInteractorLoadClient
-    private lateinit var systemUnderTest: InteractorRemoveFromMyChosenTagsImpl
+    private lateinit var systemUnderTest: InteractorLoadRemoveFromMyChosenTagsImpl
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
@@ -44,7 +45,7 @@ class InteractorRemoveFromMyChosenTagsTest {
         runTest {
 
             systemUnderTest =
-                InteractorRemoveFromMyChosenTagsImpl(networkRepository, interactorLoadClient)
+                InteractorLoadRemoveFromMyChosenTagsImpl(networkRepository, interactorLoadClient)
 
             systemUnderTest.invoke(stubTag)
 

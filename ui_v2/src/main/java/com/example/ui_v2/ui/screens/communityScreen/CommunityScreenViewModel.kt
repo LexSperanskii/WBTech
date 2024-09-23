@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.client.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.client.myCommunities.IInteractorRemoveFromMyCommunities
+import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadAddToMyCommunities
+import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadRemoveFromMyCommunities
 import com.example.domain.interactors.communitiesDescription.IInteractorGetCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.IInteractorLoadCommunitiesDescription
 import com.example.ui_v2.models.CommunityDescriptionModelUI
@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 
 internal data class CommunityScreenUiState(
@@ -48,8 +47,8 @@ internal class CommunityScreenViewModel(
     private val getCommunitiesDescription: IInteractorGetCommunitiesDescription,
     private val loadClient: IInteractorLoadClient,
     private val getClient: IInteractorGetClient,
-    private val addToMyCommunities: IInteractorAddToMyCommunities,
-    private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
+    private val addToMyCommunities: IInteractorLoadAddToMyCommunities,
+    private val removeFromMyCommunities: IInteractorLoadRemoveFromMyCommunities,
 ) : ViewModel() {
 
     private val communityId: String = try {
@@ -70,15 +69,13 @@ internal class CommunityScreenViewModel(
 
     fun onSubscribeButtonClick() {
         val state = uiState.value
-        viewModelScope.launch {
-            when (state.isInClientCommunities) {
-                true -> {
-                    removeFromMyCommunities.invoke(state.communityDescription.id)
-                }
+        when (state.isInClientCommunities) {
+            true -> {
+                removeFromMyCommunities.invoke(state.communityDescription.id)
+            }
 
-                false -> {
-                    addToMyCommunities.invoke(state.communityDescription.id)
-                }
+            false -> {
+                addToMyCommunities.invoke(state.communityDescription.id)
             }
         }
     }

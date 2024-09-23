@@ -6,8 +6,8 @@ import com.example.domain.interactors.availableCountries.IInteractorGetAvailable
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.client.IInteractorSaveClientSettings
 import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
+import com.example.domain.interactors.client.oldSuspend.saveClientChanges.IInteractorSaveClientSettings
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.SocialMediaModelUI
