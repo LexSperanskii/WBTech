@@ -1,29 +1,32 @@
-package com.example.domain.interactors.client
+package com.example.domain.interactors.oldSuspend
 
-import com.example.domain.interactors.oldSuspend.InteractorSetClientNotVerifiedPhoneNumberImpl
-import com.example.domain.models.CountryModelDomain
+import com.example.domain.models.Response
 import com.example.domain.repositories.INetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.mockito.kotlin.whenever
 
-class InteractorSetClientNotVerifiedPhoneNumberTest {
+class InteractorSetClientNotVerifiedNameTest {
 
     private lateinit var networkRepository: INetworkRepository
-    private lateinit var systemUnderTest: InteractorSetClientNotVerifiedPhoneNumberImpl
+    private lateinit var systemUnderTest: InteractorSetClientNotVerifiedNameImpl
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
-    private val stubCountryCode = CountryModelDomain("0", "0", "0")
-    private val stubNumber = "0"
+    private val stubData = "0"
+    private val stubReply = Response("success")
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
@@ -40,13 +43,20 @@ class InteractorSetClientNotVerifiedPhoneNumberTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `invoke should call setClientNotVerifiedPhoneNumber from repository and interactorLoadClient`() =
+    fun `invoke should call setClientNotVerifiedName from repository`() =
         runTest {
 
-            systemUnderTest = InteractorSetClientNotVerifiedPhoneNumberImpl(networkRepository)
+            whenever(networkRepository.setClientNotVerifiedName(stubData)).thenReturn(
+                flowOf(
+                    stubReply
+                )
+            )
 
-            systemUnderTest.invoke(stubCountryCode, stubNumber)
+            systemUnderTest = InteractorSetClientNotVerifiedNameImpl(networkRepository)
 
-            verify(networkRepository).setClientNotVerifiedPhoneNumber(stubCountryCode, stubNumber)
+            val result = systemUnderTest.invoke(stubData).first()
+
+            verify(networkRepository).setClientNotVerifiedName(stubData)
+            assertEquals(stubReply, result)
         }
 }

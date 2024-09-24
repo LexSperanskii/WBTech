@@ -1,37 +1,40 @@
-package com.example.domain.interactors.client
+package com.example.domain.interactors.oldSuspend
 
-import com.example.domain.interactors.oldSuspend.InteractorSetClientPhoneNumberImpl
 import com.example.domain.models.CountryModelDomain
+import com.example.domain.models.Response
 import com.example.domain.repositories.INetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.mockito.kotlin.whenever
 
-class InteractorSetClientPhoneNumberTest {
+class InteractorSetClientNotVerifiedPhoneNumberTest {
 
     private lateinit var networkRepository: INetworkRepository
-    private lateinit var loadClient: IInteractorLoadClient
-    private lateinit var systemUnderTest: InteractorSetClientPhoneNumberImpl
+    private lateinit var systemUnderTest: InteractorSetClientNotVerifiedPhoneNumberImpl
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
     private val stubCountryCode = CountryModelDomain("0", "0", "0")
     private val stubNumber = "0"
+    private val stubReply = Response("success")
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         networkRepository = mock()
-        loadClient = mock()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -42,14 +45,21 @@ class InteractorSetClientPhoneNumberTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `invoke should call setClientPhoneNumber from repository and interactorLoadClient`() =
+    fun `invoke should call setClientNotVerifiedPhoneNumber from repository`() =
         runTest {
 
-            systemUnderTest = InteractorSetClientPhoneNumberImpl(networkRepository, loadClient)
+            whenever(
+                networkRepository.setClientNotVerifiedPhoneNumber(
+                    stubCountryCode,
+                    stubNumber
+                )
+            ).thenReturn(flowOf(stubReply))
 
-            systemUnderTest.invoke(stubCountryCode, stubNumber)
+            systemUnderTest = InteractorSetClientNotVerifiedPhoneNumberImpl(networkRepository)
 
-            verify(networkRepository).setClientPhoneNumber(stubCountryCode, stubNumber)
-            verify(loadClient).invoke()
+            val result = systemUnderTest.invoke(stubCountryCode, stubNumber).first()
+
+            verify(networkRepository).setClientNotVerifiedPhoneNumber(stubCountryCode, stubNumber)
+            assertEquals(stubReply, result)
         }
 }

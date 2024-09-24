@@ -1,33 +1,41 @@
-package com.example.domain.interactors.advertBlock
+package com.example.domain.interactors.oldSuspend.myEvents
 
-import com.example.domain.interactors.oldSuspend.advertBlock.InteractorGetEventsAdvertBlockImpl
+import com.example.domain.models.Response
 import com.example.domain.repositories.INetworkRepository
+import com.example.domain.usecase.EventsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.mockito.kotlin.whenever
 
-class InteractorGetEventsAdvertBlockTest {
+class InteractorAddToMyEventsTest {
 
     private lateinit var networkRepository: INetworkRepository
-    private lateinit var systemUnderTest: InteractorGetEventsAdvertBlockImpl
+    private lateinit var useCase: EventsUseCase
+    private lateinit var systemUnderTest: InteractorAddToMyEventsImpl
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
     private val stubId = "0"
+    private val stubReply = Response("success")
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         networkRepository = mock()
+        useCase = mock()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -38,13 +46,16 @@ class InteractorGetEventsAdvertBlockTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `invoke should call getEventsAdvertBlock from repository`() = runTest {
+    fun `invoke should call addToMyEvents from repository and load client`() = runTest {
 
-        systemUnderTest = InteractorGetEventsAdvertBlockImpl(networkRepository)
+        whenever(networkRepository.addToMyEvents(stubId)).thenReturn(flowOf(stubReply))
 
-        systemUnderTest.invoke(stubId)
+        systemUnderTest = InteractorAddToMyEventsImpl(networkRepository, useCase)
 
-        verify(networkRepository).getEventsAdvertBlock(stubId)
+        val result = systemUnderTest.invoke(stubId).first()
+
+        verify(networkRepository).addToMyEvents(stubId)
+        verify(useCase).loadClient()
+        assertEquals(stubReply, result)
     }
-
 }
