@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.client.IInteractorSetClientAvatar
+import com.example.domain.interactors.oldSuspend.IInteractorSetClientAvatar
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
 import com.example.ui_v2.ui.utils.UiUtils.listOfIconsMOCK

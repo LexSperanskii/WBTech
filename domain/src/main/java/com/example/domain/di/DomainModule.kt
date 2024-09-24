@@ -1,65 +1,17 @@
 package com.example.domain.di
 
-import com.example.domain.interactors.advertBlock.IInteractorGetCommunitiesAdvertBlock
-import com.example.domain.interactors.advertBlock.IInteractorGetEventsAdvertBlock
-import com.example.domain.interactors.advertBlock.InteractorGetCommunitiesAdvertBlockImpl
-import com.example.domain.interactors.advertBlock.InteractorGetEventsAdvertBlockImpl
 import com.example.domain.interactors.availableCountries.IInteractorGetAvailableCountriesList
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
 import com.example.domain.interactors.availableCountries.InteractorGetAvailableCountriesListImpl
 import com.example.domain.interactors.availableCountries.InteractorLoadAvailableCountriesListImpl
 import com.example.domain.interactors.client.IInteractorGetClient
-import com.example.domain.interactors.client.IInteractorGetClientNotVerifiedName
-import com.example.domain.interactors.client.IInteractorGetClientNotVerifiedPhoneNumber
 import com.example.domain.interactors.client.IInteractorGetClientPinCodeVerification
 import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.interactors.client.IInteractorLoadClientPinCodeVerification
-import com.example.domain.interactors.client.IInteractorSetClientAvatar
-import com.example.domain.interactors.client.IInteractorSetClientName
-import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedName
-import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedPhoneNumber
-import com.example.domain.interactors.client.IInteractorSetClientPhoneNumber
 import com.example.domain.interactors.client.InteractorGetClientImpl
-import com.example.domain.interactors.client.InteractorGetClientNotVerifiedNameImpl
-import com.example.domain.interactors.client.InteractorGetClientNotVerifiedPhoneNumberImpl
 import com.example.domain.interactors.client.InteractorGetClientPinCodeVerificationImpl
 import com.example.domain.interactors.client.InteractorLoadClientImpl
 import com.example.domain.interactors.client.InteractorLoadClientPinCodeVerificationImpl
-import com.example.domain.interactors.client.InteractorSetClientAvatarImpl
-import com.example.domain.interactors.client.InteractorSetClientNameImpl
-import com.example.domain.interactors.client.InteractorSetClientNotVerifiedNameImpl
-import com.example.domain.interactors.client.InteractorSetClientNotVerifiedPhoneNumberImpl
-import com.example.domain.interactors.client.InteractorSetClientPhoneNumberImpl
-import com.example.domain.interactors.client.oldSuspend.deleteClient.IInteractorGetDeleteClient
-import com.example.domain.interactors.client.oldSuspend.deleteClient.IInteractorLoadDeleteClient
-import com.example.domain.interactors.client.oldSuspend.deleteClient.InteractorGetDeleteClientImpl
-import com.example.domain.interactors.client.oldSuspend.deleteClient.InteractorLoadDeleteClientImpl
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorGetAddToMyChosenTags
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorGetRemoveFromMyChosenTags
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorLoadAddToMyChosenTags
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorLoadRemoveFromMyChosenTags
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.InteractorGetAddToMyChosenTagsImpl
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.InteractorGetRemoveFromMyChosenTagsImpl
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.InteractorLoadAddToMyChosenTagsImpl
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.InteractorLoadRemoveFromMyChosenTagsImpl
-import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorGetAddToMyCommunities
-import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorGetRemoveFromMyCommunities
-import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadAddToMyCommunities
-import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadRemoveFromMyCommunities
-import com.example.domain.interactors.client.oldSuspend.myCommunities.InteractorGetAddToMyCommunitiesImpl
-import com.example.domain.interactors.client.oldSuspend.myCommunities.InteractorGetRemoveFromMyCommunitiesImpl
-import com.example.domain.interactors.client.oldSuspend.myCommunities.InteractorLoadAddToMyCommunitiesImpl
-import com.example.domain.interactors.client.oldSuspend.myCommunities.InteractorLoadRemoveFromMyCommunitiesImpl
-import com.example.domain.interactors.client.oldSuspend.myEvents.IInteractorGetAddToMyEvents
-import com.example.domain.interactors.client.oldSuspend.myEvents.IInteractorGetRemoveFromMyEvents
-import com.example.domain.interactors.client.oldSuspend.myEvents.IInteractorLoadAddToMyEvents
-import com.example.domain.interactors.client.oldSuspend.myEvents.IInteractorLoadRemoveFromMyEvents
-import com.example.domain.interactors.client.oldSuspend.myEvents.InteractorGetAddToMyEventsImpl
-import com.example.domain.interactors.client.oldSuspend.myEvents.InteractorGetRemoveFromMyEventsImpl
-import com.example.domain.interactors.client.oldSuspend.myEvents.InteractorLoadAddToMyEventsImpl
-import com.example.domain.interactors.client.oldSuspend.myEvents.InteractorLoadRemoveFromMyEventsImpl
-import com.example.domain.interactors.client.oldSuspend.saveClientChanges.IInteractorSaveClientSettings
-import com.example.domain.interactors.client.oldSuspend.saveClientChanges.InteractorSaveClientSettingsImpl
 import com.example.domain.interactors.communitiesDescription.IInteractorGetCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.IInteractorLoadCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.InteractorGetCommunitiesDescriptionImpl
@@ -92,18 +44,50 @@ import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
 import com.example.domain.interactors.listOfTags.InteractorGetListOfTagsImpl
 import com.example.domain.interactors.listOfTags.InteractorLoadListOfTagsImpl
+import com.example.domain.interactors.oldSuspend.IInteractorDeleteClient
+import com.example.domain.interactors.oldSuspend.IInteractorGetClientNotVerifiedName
+import com.example.domain.interactors.oldSuspend.IInteractorGetClientNotVerifiedPhoneNumber
+import com.example.domain.interactors.oldSuspend.IInteractorSaveClientSettings
+import com.example.domain.interactors.oldSuspend.IInteractorSetClientAvatar
+import com.example.domain.interactors.oldSuspend.IInteractorSetClientName
+import com.example.domain.interactors.oldSuspend.IInteractorSetClientNotVerifiedName
+import com.example.domain.interactors.oldSuspend.IInteractorSetClientNotVerifiedPhoneNumber
+import com.example.domain.interactors.oldSuspend.IInteractorSetClientPhoneNumber
+import com.example.domain.interactors.oldSuspend.InteractorDeleteClientImpl
+import com.example.domain.interactors.oldSuspend.InteractorGetClientNotVerifiedNameImpl
+import com.example.domain.interactors.oldSuspend.InteractorGetClientNotVerifiedPhoneNumberImpl
+import com.example.domain.interactors.oldSuspend.InteractorSaveClientSettingsImpl
+import com.example.domain.interactors.oldSuspend.InteractorSetClientAvatarImpl
+import com.example.domain.interactors.oldSuspend.InteractorSetClientNameImpl
+import com.example.domain.interactors.oldSuspend.InteractorSetClientNotVerifiedNameImpl
+import com.example.domain.interactors.oldSuspend.InteractorSetClientNotVerifiedPhoneNumberImpl
+import com.example.domain.interactors.oldSuspend.InteractorSetClientPhoneNumberImpl
+import com.example.domain.interactors.oldSuspend.advertBlock.IInteractorGetCommunitiesAdvertBlock
+import com.example.domain.interactors.oldSuspend.advertBlock.IInteractorGetEventsAdvertBlock
+import com.example.domain.interactors.oldSuspend.advertBlock.InteractorGetCommunitiesAdvertBlockImpl
+import com.example.domain.interactors.oldSuspend.advertBlock.InteractorGetEventsAdvertBlockImpl
+import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorAddToMyChosenTags
+import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorRemoveFromMyChosenTags
+import com.example.domain.interactors.oldSuspend.myChosenTags.InteractorAddToMyChosenTagsImpl
+import com.example.domain.interactors.oldSuspend.myChosenTags.InteractorRemoveFromMyChosenTagsImpl
+import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorRemoveFromMyCommunities
+import com.example.domain.interactors.oldSuspend.myCommunities.InteractorAddToMyCommunitiesImpl
+import com.example.domain.interactors.oldSuspend.myCommunities.InteractorRemoveFromMyCommunitiesImpl
+import com.example.domain.interactors.oldSuspend.myEvents.IInteractorAddToMyEvents
+import com.example.domain.interactors.oldSuspend.myEvents.IInteractorRemoveFromMyEvents
+import com.example.domain.interactors.oldSuspend.myEvents.InteractorAddToMyEventsImpl
+import com.example.domain.interactors.oldSuspend.myEvents.InteractorRemoveFromMyEventsImpl
 import com.example.domain.interactors.user.IInteractorGetUser
 import com.example.domain.interactors.user.IInteractorLoadUser
 import com.example.domain.interactors.user.InteractorGetUserImpl
 import com.example.domain.interactors.user.InteractorLoadUserImpl
 import com.example.domain.usecase.EventsUseCase
-import com.example.domain.usecase.EventsUseCaseForOldSuspend
 import org.koin.dsl.module
 
 val domainModule = module {
 
     single<EventsUseCase> { EventsUseCase() }
-    single<EventsUseCaseForOldSuspend> { EventsUseCaseForOldSuspend() }
 
 
     single<IInteractorGetCommunitiesAdvertBlock> {
@@ -138,24 +122,7 @@ val domainModule = module {
             useCase = get()
         )
     }
-    single<IInteractorSetClientName> {
-        InteractorSetClientNameImpl(
-            networkRepository = get(),
-            loadClient = get()
-        )
-    }
-    single<IInteractorSetClientPhoneNumber> {
-        InteractorSetClientPhoneNumberImpl(
-            networkRepository = get(),
-            loadClient = get()
-        )
-    }
-    single<IInteractorSetClientAvatar> {
-        InteractorSetClientAvatarImpl(
-            networkRepository = get(),
-            loadClient = get()
-        )
-    }
+
     single<IInteractorGetClientPinCodeVerification> {
         InteractorGetClientPinCodeVerificationImpl(
             useCase = get(),
@@ -168,12 +135,7 @@ val domainModule = module {
         )
     }
 
-    single<IInteractorSaveClientSettings> {
-        InteractorSaveClientSettingsImpl(
-            networkRepository = get(),
-            loadClient = get()
-        )
-    }
+
     single<IInteractorSetClientNotVerifiedName> {
         InteractorSetClientNotVerifiedNameImpl(networkRepository = get())
     }
@@ -305,93 +267,72 @@ val domainModule = module {
     }
 
 
-    single<IInteractorLoadDeleteClient> {
-        InteractorLoadDeleteClientImpl(
-            useCase = get()
-        )
-    }
-    single<IInteractorGetDeleteClient> {
-        InteractorGetDeleteClientImpl(
-            useCase = get(),
-            networkRepository = get(),
-            loadClient = get()
-        )
-    }
 
-    single<IInteractorLoadAddToMyEvents> {
-        InteractorLoadAddToMyEventsImpl(
-            useCase = get()
-        )
-    }
-    single<IInteractorGetAddToMyEvents> {
-        InteractorGetAddToMyEventsImpl(
-            useCase = get(),
-            networkRepository = get(),
-            loadClient = get()
-        )
-    }
 
-    single<IInteractorLoadRemoveFromMyEvents> {
-        InteractorLoadRemoveFromMyEventsImpl(
+    single<IInteractorSaveClientSettings> {
+        InteractorSaveClientSettingsImpl(
+            networkRepository = get(),
             useCase = get()
         )
     }
-    single<IInteractorGetRemoveFromMyEvents> {
-        InteractorGetRemoveFromMyEventsImpl(
+    single<IInteractorDeleteClient> {
+        InteractorDeleteClientImpl(
             useCase = get(),
-            networkRepository = get(),
-            loadClient = get()
+            networkRepository = get()
         )
     }
-
-    single<IInteractorLoadAddToMyCommunities> {
-        InteractorLoadAddToMyCommunitiesImpl(
+    single<IInteractorAddToMyEvents> {
+        InteractorAddToMyEventsImpl(
+            useCase = get(),
+            networkRepository = get()
+        )
+    }
+    single<IInteractorRemoveFromMyEvents> {
+        InteractorRemoveFromMyEventsImpl(
+            useCase = get(),
+            networkRepository = get()
+        )
+    }
+    single<IInteractorAddToMyCommunities> {
+        InteractorAddToMyCommunitiesImpl(
+            useCase = get(),
+            networkRepository = get()
+        )
+    }
+    single<IInteractorRemoveFromMyCommunities> {
+        InteractorRemoveFromMyCommunitiesImpl(
+            useCase = get(),
+            networkRepository = get()
+        )
+    }
+    single<IInteractorAddToMyChosenTags> {
+        InteractorAddToMyChosenTagsImpl(
+            useCase = get(),
+            networkRepository = get()
+        )
+    }
+    single<IInteractorRemoveFromMyChosenTags> {
+        InteractorRemoveFromMyChosenTagsImpl(
+            useCase = get(),
+            networkRepository = get()
+        )
+    }
+    single<IInteractorSetClientName> {
+        InteractorSetClientNameImpl(
+            networkRepository = get(),
             useCase = get()
         )
     }
-    single<IInteractorGetAddToMyCommunities> {
-        InteractorGetAddToMyCommunitiesImpl(
-            useCase = get(),
+    single<IInteractorSetClientPhoneNumber> {
+        InteractorSetClientPhoneNumberImpl(
             networkRepository = get(),
-            loadClient = get()
-        )
-    }
-
-    single<IInteractorLoadRemoveFromMyCommunities> {
-        InteractorLoadRemoveFromMyCommunitiesImpl(
             useCase = get()
         )
     }
-    single<IInteractorGetRemoveFromMyCommunities> {
-        InteractorGetRemoveFromMyCommunitiesImpl(
-            useCase = get(),
+    single<IInteractorSetClientAvatar> {
+        InteractorSetClientAvatarImpl(
             networkRepository = get(),
-            loadClient = get()
-        )
-    }
-
-    single<IInteractorLoadAddToMyChosenTags> {
-        InteractorLoadAddToMyChosenTagsImpl(
             useCase = get()
-        )
-    }
-    single<IInteractorGetAddToMyChosenTags> {
-        InteractorGetAddToMyChosenTagsImpl(
-            useCase = get(),
-            networkRepository = get(),
-            loadClient = get()
-        )
-    }
-    single<IInteractorLoadRemoveFromMyChosenTags> {
-        InteractorLoadRemoveFromMyChosenTagsImpl(
-            useCase = get()
-        )
-    }
-    single<IInteractorGetRemoveFromMyChosenTags> {
-        InteractorGetRemoveFromMyChosenTagsImpl(
-            useCase = get(),
-            networkRepository = get(),
-            loadClient = get()
         )
     }
 }

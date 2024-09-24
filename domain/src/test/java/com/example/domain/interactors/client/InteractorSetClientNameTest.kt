@@ -1,5 +1,6 @@
 package com.example.domain.interactors.client
 
+import com.example.domain.interactors.oldSuspend.InteractorSetClientNameImpl
 import com.example.domain.repositories.INetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

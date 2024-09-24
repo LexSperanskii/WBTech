@@ -1,11 +1,12 @@
-package com.example.domain.interactors.client.oldSuspend.saveClientChanges
+package com.example.domain.interactors.oldSuspend
 
-import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.models.Response
 import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.repositories.INetworkRepository
+import com.example.domain.usecase.EventsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
 
@@ -24,7 +25,7 @@ interface IInteractorSaveClientSettings {
 
 internal class InteractorSaveClientSettingsImpl(
     private val networkRepository: INetworkRepository,
-    private val loadClient: IInteractorLoadClient,
+    private val useCase: EventsUseCase,
 ) : IInteractorSaveClientSettings {
 
     override fun invoke(
@@ -35,20 +36,21 @@ internal class InteractorSaveClientSettingsImpl(
         isShowMyCommunities: Boolean,
         showMyEventsChecked: Boolean,
         applyNotificationsChecked: Boolean,
-    ): Flow<Response> {
-        return networkRepository.saveClientChanges(
-            nameSurname = nameSurname,
-            city = city,
-            description = description,
-            listOfClientSocialMedia = listOfClientSocialMedia,
-            isShowMyCommunities = isShowMyCommunities,
-            showMyEventsChecked = showMyEventsChecked,
-            applyNotificationsChecked = applyNotificationsChecked
-        ).onEach { response ->
-            if (response.status == "success") {
-                loadClient.invoke()
-            }
-        }.flowOn(Dispatchers.IO)
-    }
+    ): Flow<Response> = networkRepository.saveClientChanges(
+        nameSurname = nameSurname,
+        city = city,
+        description = description,
+        listOfClientSocialMedia = listOfClientSocialMedia,
+        isShowMyCommunities = isShowMyCommunities,
+        showMyEventsChecked = showMyEventsChecked,
+        applyNotificationsChecked = applyNotificationsChecked
+    ).onEach { response ->
+        if (response.status == "success") {
+            useCase.loadClient()
+        }
+    }.catch { exception ->
+        // TODO сделать обработку ошибок
+        emit(Response("error", exception.message ?: ""))
+    }.flowOn(Dispatchers.IO)
 
 }

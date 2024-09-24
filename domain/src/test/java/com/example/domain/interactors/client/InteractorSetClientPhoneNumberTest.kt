@@ -1,5 +1,6 @@
 package com.example.domain.interactors.client
 
+import com.example.domain.interactors.oldSuspend.InteractorSetClientPhoneNumberImpl
 import com.example.domain.models.CountryModelDomain
 import com.example.domain.repositories.INetworkRepository
 import kotlinx.coroutines.Dispatchers

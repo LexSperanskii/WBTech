@@ -2,8 +2,6 @@ package com.example.ui_v2.ui.screens.mainScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.advertBlock.IInteractorGetCommunitiesAdvertBlock
-import com.example.domain.interactors.advertBlock.IInteractorGetEventsAdvertBlock
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
 import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorLoadAddToMyChosenTags
@@ -20,6 +18,8 @@ import com.example.domain.interactors.listOfSortedEvents.IInteractorGetListOfSor
 import com.example.domain.interactors.listOfSortedEvents.IInteractorLoadListOfSortedEvents
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
+import com.example.domain.interactors.oldSuspend.advertBlock.IInteractorGetCommunitiesAdvertBlock
+import com.example.domain.interactors.oldSuspend.advertBlock.IInteractorGetEventsAdvertBlock
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI

@@ -3,9 +3,9 @@ package com.example.ui_v2.ui.screens.appointmentScreen.nameSurname
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.client.IInteractorSetClientNotVerifiedName
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
+import com.example.domain.interactors.oldSuspend.IInteractorSetClientNotVerifiedName
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,5 +1,6 @@
 package com.example.domain.interactors.advertBlock
 
+import com.example.domain.interactors.oldSuspend.advertBlock.InteractorGetEventsAdvertBlockImpl
 import com.example.domain.repositories.INetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

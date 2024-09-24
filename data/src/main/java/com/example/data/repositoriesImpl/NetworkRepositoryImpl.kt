@@ -210,10 +210,15 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
     }
 
 
-    override suspend fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain {
-        return mock.getCommunitiesAdvertBlock(blockId)
+    override suspend fun getCommunitiesAdvertBlock(blockId: String): Flow<CommunitiesAdvertBlockModelDomain> {
+        return flow {
+            emit(mock.getCommunitiesAdvertBlock(blockId))
+        }.flowOn(Dispatchers.IO)
     }
-    override suspend fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain {
-        return mock.getEventsAdvertBlock(blockId)
+
+    override suspend fun getEventsAdvertBlock(blockId: String): Flow<EventAdvertBlockModelDomain> {
+        return flow {
+            emit(mock.getEventsAdvertBlock(blockId))
+        }.flowOn(Dispatchers.IO)
     }
 }

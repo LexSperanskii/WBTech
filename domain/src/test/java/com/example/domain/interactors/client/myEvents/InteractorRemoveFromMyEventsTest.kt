@@ -1,7 +1,7 @@
 package com.example.domain.interactors.client.myEvents
 
 import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.client.oldSuspend.myEvents.InteractorRemoveFromMyEventsImpl
+import com.example.domain.interactors.oldSuspend.myEvents.InteractorRemoveFromMyEventsImpl
 import com.example.domain.repositories.INetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
