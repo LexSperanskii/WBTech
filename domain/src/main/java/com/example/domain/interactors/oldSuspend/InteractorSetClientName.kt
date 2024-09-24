@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.onEach
 
 
 interface IInteractorSetClientName {
-    suspend fun invoke(nameSurname: String): Flow<Response>
+    fun invoke(nameSurname: String): Flow<Response>
 }
 
 internal class InteractorSetClientNameImpl(
@@ -19,7 +19,7 @@ internal class InteractorSetClientNameImpl(
     private val useCase: EventsUseCase,
 ) : IInteractorSetClientName {
 
-    override suspend fun invoke(nameSurname: String) = networkRepository.setClientName(nameSurname)
+    override fun invoke(nameSurname: String) = networkRepository.setClientName(nameSurname)
         .onEach { response ->
             if (response.status == "success") {
                 useCase.loadClient()

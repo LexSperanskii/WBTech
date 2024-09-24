@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.flowOn
 
 
 interface IInteractorGetCommunitiesAdvertBlock {
-    suspend fun invoke(blockId: String): Flow<CommunitiesAdvertBlockModelDomain>
+    fun invoke(blockId: String): Flow<CommunitiesAdvertBlockModelDomain>
 }
 
 internal class InteractorGetCommunitiesAdvertBlockImpl(
     private val networkRepository: INetworkRepository,
 ) : IInteractorGetCommunitiesAdvertBlock {
 
-    override suspend fun invoke(blockId: String): Flow<CommunitiesAdvertBlockModelDomain> =
+    override fun invoke(blockId: String): Flow<CommunitiesAdvertBlockModelDomain> =
         networkRepository.getCommunitiesAdvertBlock(blockId)
             .catch { exception ->
                 // TODO сделать обработку ошибок

@@ -78,12 +78,10 @@ internal class AppointmentPhoneNumberScreenViewModel(
 
     fun onButtonClick() {
         val state = uiState.value
-        viewModelScope.launch {
-            setClientNotVerifiedPhoneNumber.invoke(
-                mapper.toCountryModelDomain(state.countryCode),
-                state.number
-            )
-        }
+        setClientNotVerifiedPhoneNumber.invoke(
+            mapper.toCountryModelDomain(state.countryCode),
+            state.number
+        ).launchIn(viewModelScope)
     }
 
     private fun loadData() {

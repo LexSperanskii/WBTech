@@ -4,10 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorLoadAddToMyChosenTags
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorLoadRemoveFromMyChosenTags
-import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadAddToMyCommunities
-import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadRemoveFromMyCommunities
 import com.example.domain.interactors.listOfCommunities.IInteractorGetListOfCommunities
 import com.example.domain.interactors.listOfCommunities.IInteractorLoadListOfCommunities
 import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
@@ -20,6 +16,10 @@ import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
 import com.example.domain.interactors.oldSuspend.advertBlock.IInteractorGetCommunitiesAdvertBlock
 import com.example.domain.interactors.oldSuspend.advertBlock.IInteractorGetEventsAdvertBlock
+import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorAddToMyChosenTags
+import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorRemoveFromMyChosenTags
+import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorRemoveFromMyCommunities
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
@@ -31,9 +31,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 internal data class MainScreenUiState(
     val isShowSortedScreen: Boolean = false,
@@ -69,10 +69,10 @@ internal class MainScreenViewModel(
     private val getEventsAdvertBlock: IInteractorGetEventsAdvertBlock,
     private val loadClient: IInteractorLoadClient,
     private val getClient: IInteractorGetClient,
-    private val addToMyCommunities: IInteractorLoadAddToMyCommunities,
-    private val removeFromMyCommunities: IInteractorLoadRemoveFromMyCommunities,
-    private val addToMyChosenTags: IInteractorLoadAddToMyChosenTags,
-    private val removeFromMyChosenTags: IInteractorLoadRemoveFromMyChosenTags,
+    private val addToMyCommunities: IInteractorAddToMyCommunities,
+    private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
+    private val addToMyChosenTags: IInteractorAddToMyChosenTags,
+    private val removeFromMyChosenTags: IInteractorRemoveFromMyChosenTags,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MainScreenUiState())
@@ -81,7 +81,6 @@ internal class MainScreenViewModel(
     init {
         loadData()
         getDataForMainScreenUiState()
-        getAdvertBlocks()
     }
 
     fun getMainScreenUiStateFlow(): StateFlow<MainScreenUiState> = uiState
@@ -117,11 +116,11 @@ internal class MainScreenViewModel(
     fun onCommunityButtonClick(community: CommunityModelUI) {
         when (uiState.value.myCommunitiesList.any { it.id == community.id }) {
             true -> {
-                removeFromMyCommunities.invoke(community.id)
+                removeFromMyCommunities.invoke(community.id).launchIn(viewModelScope)
             }
 
             false -> {
-                addToMyCommunities.invoke(community.id)
+                addToMyCommunities.invoke(community.id).launchIn(viewModelScope)
             }
         }
     }
@@ -129,11 +128,11 @@ internal class MainScreenViewModel(
     fun onTagClick(tag: String) {
         when (uiState.value.listOfChosenTags.contains(tag)) {
             true -> {
-                removeFromMyChosenTags.invoke(tag)
+                removeFromMyChosenTags.invoke(tag).launchIn(viewModelScope)
             }
 
             false -> {
-                addToMyChosenTags.invoke(tag)
+                addToMyChosenTags.invoke(tag).launchIn(viewModelScope)
             }
         }
     }
@@ -187,29 +186,19 @@ internal class MainScreenViewModel(
                     sortedEventsList = combinedEventsAndCommunities.sortedEventsList,
                     listOfChosenTags = combinedEventsAndCommunities.listOfChosenTags,
                     listOfPeople = combinedPeopleAndTags.listOfPeople,
-                    listOfTags = combinedPeopleAndTags.listOfTags
+                    listOfTags = combinedPeopleAndTags.listOfTags,
+                    //TODO переделать или убрать получение рекламных блоков
+                    communitiesAdvertBlock1 = mapper.toCommunitiesAdvertBlockModelUI(
+                        getCommunitiesAdvertBlock.invoke("0").first()
+                    ),
+                    communitiesAdvertBlock2 = mapper.toCommunitiesAdvertBlockModelUI(
+                        getCommunitiesAdvertBlock.invoke("1").first()
+                    ),
+                    eventsAdvertBlock = mapper.toEventAdvertBlockModelUI(
+                        getEventsAdvertBlock.invoke("0").first()
+                    )
                 )
             }
         }.launchIn(viewModelScope)
-    }
-
-    private fun getAdvertBlocks() {
-        viewModelScope.launch {
-            _uiState.update {
-                it.copy(
-                    communitiesAdvertBlock1 = mapper.toCommunitiesAdvertBlockModelUI(
-                        getCommunitiesAdvertBlock.invoke("0")
-                    ),
-                    communitiesAdvertBlock2 = mapper.toCommunitiesAdvertBlockModelUI(
-                        getCommunitiesAdvertBlock.invoke("1")
-                    ),
-                    eventsAdvertBlock = mapper.toEventAdvertBlockModelUI(
-                        getEventsAdvertBlock.invoke(
-                            "0"
-                        )
-                    ),
-                )
-            }
-        }
     }
 }

@@ -58,7 +58,7 @@ internal fun AppointmentVerificationScreen(
             onPinCodeChange = {
                 viewModel.onPinCodeChange(it)
             },
-            phoneNumber = appointmentVerificationScreenUiState.phoneNumber,
+            phoneNumber = appointmentVerificationScreenUiState.clientPhoneNumber,
             countdown = appointmentVerificationScreenUiState.countdown,
             isCountdownEnabled = appointmentVerificationScreenUiState.isCountdownEnabled,
             onCountdownClick = {

@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import java.util.UUID
 
 
@@ -158,26 +157,24 @@ internal class ProfileEditScreenViewModel(
 
     fun safeNewSettings() {
         val uiState = uiState.value
-        viewModelScope.launch {
-            saveClientSettings.invoke(
-                nameSurname = uiState.nameSurname,
-                city = uiState.city,
-                description = uiState.aboutUser,
-                listOfClientSocialMedia = uiState.listOfSocialMedia.filter { it.userNickname.isNotBlank() }
-                    .map {
+        saveClientSettings.invoke(
+            nameSurname = uiState.nameSurname,
+            city = uiState.city,
+            description = uiState.aboutUser,
+            listOfClientSocialMedia = uiState.listOfSocialMedia.filter { it.userNickname.isNotBlank() }
+                .map {
                     mapper.toSocialMediaModelDomain(
                         it
                     )
                 },
-                isShowMyCommunities = uiState.showMyCommunitiesChecked,
-                showMyEventsChecked = uiState.showMyEventsChecked,
-                applyNotificationsChecked = uiState.applyNotificationsChecked
-            )
-            setClientPhoneNumber.invoke(
-                mapper.toCountryModelDomain(uiState.countryCode),
-                uiState.number
-            )
-        }
+            isShowMyCommunities = uiState.showMyCommunitiesChecked,
+            showMyEventsChecked = uiState.showMyEventsChecked,
+            applyNotificationsChecked = uiState.applyNotificationsChecked
+        ).launchIn(viewModelScope)
+        setClientPhoneNumber.invoke(
+            mapper.toCountryModelDomain(uiState.countryCode),
+            uiState.number
+        ).launchIn(viewModelScope)
     }
 
     private fun loadData() {

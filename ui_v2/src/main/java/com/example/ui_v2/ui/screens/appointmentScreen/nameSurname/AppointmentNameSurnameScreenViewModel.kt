@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 internal data class AppointmentNameSurnameScreenUiState(
     val event: EventDescriptionModelUI = EventDescriptionModelUI(),
@@ -61,9 +60,7 @@ internal class AppointmentNameSurnameScreenViewModel(
 
     fun onButtonClick() {
         val nameSurname = uiState.value.nameSurnameValue
-        viewModelScope.launch {
-            setClientNotVerifiedName.invoke(nameSurname)
-        }
+        setClientNotVerifiedName.invoke(nameSurname).launchIn(viewModelScope)
     }
 
     private fun loadData() {

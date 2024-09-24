@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
 
 interface IInteractorAddToMyCommunities {
-    fun invoke(сommunityId: String): Flow<Response>
+    fun invoke(communityId: String): Flow<Response>
 }
 
 internal class InteractorAddToMyCommunitiesImpl(

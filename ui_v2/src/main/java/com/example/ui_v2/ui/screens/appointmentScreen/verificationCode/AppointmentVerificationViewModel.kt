@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.IInteractorGetClientPinCodeVerification
 import com.example.domain.interactors.client.IInteractorLoadClientPinCodeVerification
-import com.example.domain.interactors.client.oldSuspend.myEvents.IInteractorLoadAddToMyEvents
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.domain.interactors.oldSuspend.IInteractorGetClientNotVerifiedName
 import com.example.domain.interactors.oldSuspend.IInteractorGetClientNotVerifiedPhoneNumber
 import com.example.domain.interactors.oldSuspend.IInteractorSetClientName
 import com.example.domain.interactors.oldSuspend.IInteractorSetClientPhoneNumber
+import com.example.domain.interactors.oldSuspend.myEvents.IInteractorAddToMyEvents
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
@@ -33,7 +33,8 @@ internal data class AppointmentVerificationScreenUiState(
     val pinCode: String = "",
     val isPinCodeValid: Boolean = false,
     val isPinCodeFieldStateValid: Boolean = true,
-    val phoneNumber: PhoneNumberModelUI = PhoneNumberModelUI(),
+    val clientPhoneNumber: PhoneNumberModelUI = PhoneNumberModelUI(),
+    val clientNameSurname: String = "",
     val countdown: Int = 10,
     val isCountdownEnabled: Boolean = false,
 ) {
@@ -52,7 +53,7 @@ internal class AppointmentVerificationScreenViewModel(
     private val getClientNotVerifiedName: IInteractorGetClientNotVerifiedName,
     private val setClientName: IInteractorSetClientName,
     private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
-    private val addToMyEvents: IInteractorLoadAddToMyEvents,
+    private val addToMyEvents: IInteractorAddToMyEvents,
 ) : ViewModel() {
 
     private val eventId: String = try {
@@ -67,7 +68,6 @@ internal class AppointmentVerificationScreenViewModel(
     init {
         loadData()
         getDataAppointmentVerificationScreenUiState()
-        initClientPhoneNumber()
         startCountdown()
     }
 
@@ -122,15 +122,12 @@ internal class AppointmentVerificationScreenViewModel(
 
     fun setVerifiedClientNameAndPhoneNumber() {
         val state = uiState.value
-        viewModelScope.launch {
-            val clientName = getClientNotVerifiedName.invoke()
-            setClientName.invoke(clientName)
-            setClientPhoneNumber.invoke(
-                mapper.toCountryModelDomain(state.phoneNumber.country),
-                state.phoneNumber.number
-            )
-        }
-        addToMyEvents.invoke(state.event.id)
+        setClientName.invoke(state.clientNameSurname).launchIn(viewModelScope)
+        setClientPhoneNumber.invoke(
+            mapper.toCountryModelDomain(state.clientPhoneNumber.country),
+            state.clientPhoneNumber.number
+        ).launchIn(viewModelScope)
+        addToMyEvents.invoke(state.event.id).launchIn(viewModelScope)
     }
 
     private fun loadData() {
@@ -140,24 +137,19 @@ internal class AppointmentVerificationScreenViewModel(
     private fun getDataAppointmentVerificationScreenUiState() {
         combine(
             getEventDescription.invoke(),
-            getClientPinCodeVerification.invoke()
-        ) { eventDescription, pinCodeVerification ->
+            getClientPinCodeVerification.invoke(),
+            getClientNotVerifiedPhoneNumber.invoke(),
+            getClientNotVerifiedName.invoke()
+        ) { eventDescription, pinCodeVerification, clientNotVerifiedPhoneNumber, clientNotVerifiedName ->
             _uiState.update {
                 it.copy(
                     event = mapper.toEventDescriptionModelUI(eventDescription),
-                    isPinCodeValid = pinCodeVerification
+                    isPinCodeValid = pinCodeVerification,
+                    clientPhoneNumber = mapper.toPhoneNumberModelUI(clientNotVerifiedPhoneNumber),
+                    clientNameSurname = clientNotVerifiedName
                 )
             }
         }.launchIn(viewModelScope)
     }
 
-    private fun initClientPhoneNumber() {
-        viewModelScope.launch {
-            _uiState.update {
-                it.copy(
-                    phoneNumber = mapper.toPhoneNumberModelUI(getClientNotVerifiedPhoneNumber.invoke())
-                )
-            }
-        }
-    }
 }

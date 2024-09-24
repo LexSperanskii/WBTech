@@ -14,6 +14,7 @@ interface IInteractorAddToMyChosenTags {
     fun invoke(tag: String): Flow<Response>
 }
 
+
 internal class InteractorAddToMyChosenTagsImpl(
     private val networkRepository: INetworkRepository,
     private val useCase: EventsUseCase,

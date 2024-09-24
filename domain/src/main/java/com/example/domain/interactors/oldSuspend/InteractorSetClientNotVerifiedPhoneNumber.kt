@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.flowOn
 
 
 interface IInteractorSetClientNotVerifiedPhoneNumber {
-    suspend fun invoke(countryCode: CountryModelDomain, number: String): Flow<Response>
+    fun invoke(countryCode: CountryModelDomain, number: String): Flow<Response>
 }
 
 internal class InteractorSetClientNotVerifiedPhoneNumberImpl(
     private val networkRepository: INetworkRepository,
 ) : IInteractorSetClientNotVerifiedPhoneNumber {
 
-    override suspend fun invoke(countryCode: CountryModelDomain, number: String) =
+    override fun invoke(countryCode: CountryModelDomain, number: String) =
         networkRepository.setClientNotVerifiedPhoneNumber(countryCode, number)
             .catch { exception ->
                 // TODO сделать обработку ошибок

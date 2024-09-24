@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
 
 interface IInteractorRemoveFromMyCommunities {
-    fun invoke(сommunityId: String): Flow<Response>
+    fun invoke(communityId: String): Flow<Response>
 }
 
 internal class InteractorRemoveFromMyCommunitiesImpl(

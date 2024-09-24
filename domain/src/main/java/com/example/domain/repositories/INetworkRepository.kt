@@ -62,6 +62,6 @@ interface INetworkRepository {
     fun addToMyChosenTags(tag: String): Flow<Response>
     fun removeFromMyChosenTags(tag: String): Flow<Response>
 
-    suspend fun getCommunitiesAdvertBlock(blockId: String): Flow<CommunitiesAdvertBlockModelDomain>
-    suspend fun getEventsAdvertBlock(blockId: String): Flow<EventAdvertBlockModelDomain>
+    fun getCommunitiesAdvertBlock(blockId: String): Flow<CommunitiesAdvertBlockModelDomain>
+    fun getEventsAdvertBlock(blockId: String): Flow<EventAdvertBlockModelDomain>
 }

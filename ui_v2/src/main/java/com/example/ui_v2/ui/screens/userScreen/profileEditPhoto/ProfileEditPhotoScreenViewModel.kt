@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 
 internal data class ProfileEditPhotoScreenUiState(
@@ -49,9 +48,7 @@ internal class ProfileEditPhotoScreenViewModel(
     }
 
     fun onButtonSaveClick() {
-        viewModelScope.launch {
-            setClientAvatar.invoke(uiState.value.client.imageURL)
-        }
+        setClientAvatar.invoke(uiState.value.client.imageURL).launchIn(viewModelScope)
     }
 
     private fun loadData() {

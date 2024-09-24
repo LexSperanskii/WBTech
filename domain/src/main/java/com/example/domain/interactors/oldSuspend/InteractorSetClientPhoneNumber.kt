@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.onEach
 
 
 interface IInteractorSetClientPhoneNumber {
-    suspend fun invoke(countryCode: CountryModelDomain, number: String): Flow<Response>
+    fun invoke(countryCode: CountryModelDomain, number: String): Flow<Response>
 }
 
 internal class InteractorSetClientPhoneNumberImpl(
@@ -20,7 +20,7 @@ internal class InteractorSetClientPhoneNumberImpl(
     private val useCase: EventsUseCase,
 ) : IInteractorSetClientPhoneNumber {
 
-    override suspend fun invoke(countryCode: CountryModelDomain, number: String) =
+    override fun invoke(countryCode: CountryModelDomain, number: String) =
         networkRepository.setClientPhoneNumber(countryCode, number)
             .onEach { response ->
                 if (response.status == "success") {

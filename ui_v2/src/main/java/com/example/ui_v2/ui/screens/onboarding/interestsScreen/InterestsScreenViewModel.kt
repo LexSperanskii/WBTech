@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorLoadAddToMyChosenTags
-import com.example.domain.interactors.client.oldSuspend.myChosenTags.IInteractorLoadRemoveFromMyChosenTags
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
+import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorAddToMyChosenTags
+import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorRemoveFromMyChosenTags
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,8 +28,8 @@ internal class InterestsScreenViewModel(
     private val getListOfTags: IInteractorGetListOfTags,
     private val loadClient: IInteractorLoadClient,
     private val getClient: IInteractorGetClient,
-    private val addToMyChosenTags: IInteractorLoadAddToMyChosenTags,
-    private val removeFromMyChosenTags: IInteractorLoadRemoveFromMyChosenTags,
+    private val addToMyChosenTags: IInteractorAddToMyChosenTags,
+    private val removeFromMyChosenTags: IInteractorRemoveFromMyChosenTags,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(InterestsScreenUiState())
@@ -45,11 +45,11 @@ internal class InterestsScreenViewModel(
     fun onTagClick(tag: String) {
         when (uiState.value.listOfChosenTags.contains(tag)) {
             true -> {
-                removeFromMyChosenTags.invoke(tag)
+                removeFromMyChosenTags.invoke(tag).launchIn(viewModelScope)
             }
 
             false -> {
-                addToMyChosenTags.invoke(tag)
+                addToMyChosenTags.invoke(tag).launchIn(viewModelScope)
             }
         }
     }

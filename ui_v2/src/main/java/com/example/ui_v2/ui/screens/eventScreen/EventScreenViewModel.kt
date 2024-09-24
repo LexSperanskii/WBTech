@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.IInteractorGetClient
 import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadAddToMyCommunities
-import com.example.domain.interactors.client.oldSuspend.myCommunities.IInteractorLoadRemoveFromMyCommunities
-import com.example.domain.interactors.client.oldSuspend.myEvents.IInteractorLoadAddToMyEvents
-import com.example.domain.interactors.client.oldSuspend.myEvents.IInteractorLoadRemoveFromMyEvents
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
 import com.example.domain.interactors.listOfEvents.IInteractorLoadListOfEvents
+import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorRemoveFromMyCommunities
+import com.example.domain.interactors.oldSuspend.myEvents.IInteractorAddToMyEvents
+import com.example.domain.interactors.oldSuspend.myEvents.IInteractorRemoveFromMyEvents
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.EventModelUI
@@ -58,10 +58,10 @@ internal class EventScreenViewModel(
     private val getListOfEvents: IInteractorGetListOfEvents,
     private val loadClient: IInteractorLoadClient,
     private val getClient: IInteractorGetClient,
-    private val addToMyEvents: IInteractorLoadAddToMyEvents,
-    private val removeFromMyEvents: IInteractorLoadRemoveFromMyEvents,
-    private val addToMyCommunities: IInteractorLoadAddToMyCommunities,
-    private val removeFromMyCommunities: IInteractorLoadRemoveFromMyCommunities,
+    private val addToMyEvents: IInteractorAddToMyEvents,
+    private val removeFromMyEvents: IInteractorRemoveFromMyEvents,
+    private val addToMyCommunities: IInteractorAddToMyCommunities,
+    private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
 ) : ViewModel() {
 
     private val eventId: String = try {
@@ -85,10 +85,12 @@ internal class EventScreenViewModel(
         when (state.isInMyCommunities) {
             true -> {
                 removeFromMyCommunities.invoke(state.eventDescription.organizer.id)
+                    .launchIn(viewModelScope)
             }
 
             false -> {
                 addToMyCommunities.invoke(state.eventDescription.organizer.id)
+                    .launchIn(viewModelScope)
             }
         }
     }
@@ -100,10 +102,11 @@ internal class EventScreenViewModel(
                 when (state.isInMyEvents) {
                     true -> {
                         removeFromMyEvents.invoke(state.eventDescription.id)
+                            .launchIn(viewModelScope)
                     }
 
                     false -> {
-                        addToMyEvents.invoke(state.eventDescription.id)
+                        addToMyEvents.invoke(state.eventDescription.id).launchIn(viewModelScope)
                     }
                 }
             }

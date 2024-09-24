@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.flowOn
 
 
 interface IInteractorSetClientNotVerifiedName {
-    suspend fun invoke(nameSurname: String): Flow<Response>
+    fun invoke(nameSurname: String): Flow<Response>
 }
 
 internal class InteractorSetClientNotVerifiedNameImpl(
     private val networkRepository: INetworkRepository,
 ) : IInteractorSetClientNotVerifiedName {
 
-    override suspend fun invoke(nameSurname: String) =
+    override fun invoke(nameSurname: String) =
         networkRepository.setClientNotVerifiedName(nameSurname)
             .catch { exception ->
                 // TODO сделать обработку ошибок
