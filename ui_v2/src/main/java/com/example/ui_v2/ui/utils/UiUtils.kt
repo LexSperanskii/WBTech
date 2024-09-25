@@ -8,6 +8,13 @@ internal enum class ButtonStatus {
     Pressed
 }
 
+enum class DataStoreKey {
+    Name,
+    Number,
+    City,
+    About
+}
+
 internal object UiUtils {
     const val PHONE_NUMBER_LENGTH = 10
     const val PIN_CODE_LENGTH = 4

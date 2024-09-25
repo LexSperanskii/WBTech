@@ -1,8 +1,8 @@
 package com.example.data.di
 
-import com.example.data.dataStore.IUserPreferences
-import com.example.data.dataStore.UserPreferencesImpl
+import com.example.data.repositoriesImpl.DataStoreRepositoryImpl
 import com.example.data.repositoriesImpl.NetworkRepositoryImpl
+import com.example.domain.repositories.IDataStoreRepository
 import com.example.domain.repositories.INetworkRepository
 import org.koin.dsl.module
 
@@ -14,8 +14,8 @@ val dataModule = module {
         )
     }
 
-    single<IUserPreferences> {
-        UserPreferencesImpl(
+    single<IDataStoreRepository> {
+        DataStoreRepositoryImpl(
             context = get()
         )
     }
