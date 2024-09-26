@@ -1,5 +1,6 @@
 package com.example.domain.interactors.oldSuspend
 
+import com.example.domain.models.PhoneNumberModelDomain
 import com.example.domain.models.Response
 import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.repositories.INetworkRepository
@@ -29,9 +30,12 @@ class InteractorSaveClientSettingsTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
 
+    private val stubavatar = "0"
     private val stubNameSurname = "0"
+    private val phoneNumber = PhoneNumberModelDomain()
     private val stubCity = "0"
     private val stubDescription = "0"
+    private val listOfClientTags: List<String> = listOf()
     private val stubListOfClientSocialMedia: List<SocialMediaModelDomain> = listOf()
     private val stubIsShowMyCommunities = false
     private val stubShowMyEventsChecked = false
@@ -59,9 +63,12 @@ class InteractorSaveClientSettingsTest {
 
             whenever(
                 networkRepository.saveClientChanges(
+                    stubavatar,
                     stubNameSurname,
+                    phoneNumber,
                     stubCity,
                     stubDescription,
+                    listOfClientTags,
                     stubListOfClientSocialMedia,
                     stubIsShowMyCommunities,
                     stubShowMyEventsChecked,
@@ -72,9 +79,12 @@ class InteractorSaveClientSettingsTest {
             systemUnderTest = InteractorSaveClientSettingsImpl(networkRepository, useCase)
 
             val result = systemUnderTest.invoke(
+                stubavatar,
                 stubNameSurname,
+                phoneNumber,
                 stubCity,
                 stubDescription,
+                listOfClientTags,
                 stubListOfClientSocialMedia,
                 stubIsShowMyCommunities,
                 stubShowMyEventsChecked,
@@ -82,9 +92,12 @@ class InteractorSaveClientSettingsTest {
             ).first()
 
             verify(networkRepository).saveClientChanges(
+                stubavatar,
                 stubNameSurname,
+                phoneNumber,
                 stubCity,
                 stubDescription,
+                listOfClientTags,
                 stubListOfClientSocialMedia,
                 stubIsShowMyCommunities,
                 stubShowMyEventsChecked,
