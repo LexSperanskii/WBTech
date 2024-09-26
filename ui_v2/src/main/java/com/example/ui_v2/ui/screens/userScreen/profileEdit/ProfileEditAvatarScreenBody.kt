@@ -1,4 +1,4 @@
-package com.example.ui_v2.ui.screens.userScreen.profileEditPhoto
+package com.example.ui_v2.ui.screens.userScreen.profileEdit
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,57 +9,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
-import com.example.ui_v2.models.ClientModelUI
-import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.ButtonWithStatus
 import com.example.ui_v2.ui.components.PersonAvatarForUserScreen
 import com.example.ui_v2.ui.components.TextButton
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import com.example.ui_v2.ui.utils.ButtonStatus
-import org.koin.androidx.compose.koinViewModel
-
-
-internal object ProfileEditPhotoScreenDestination : NavigationDestination {
-    override val route = "delete_edit_photo_screen"
-}
 
 @Composable
-internal fun ProfileEditPhotoScreen(
-    navigateBack: () -> Unit,
-    viewModel: ProfileEditPhotoScreenViewModel = koinViewModel(),
-) {
-
-    val profileEditPhotoScreenUiState by viewModel.getProfileEditPhotoScreenUiStateFlow()
-        .collectAsStateWithLifecycle()
-
-    Scaffold { innerPadding ->
-        ProfileEditPhotoScreenBody(
-            client = profileEditPhotoScreenUiState.client,
-            onCrossClick = navigateBack,
-            onChangePhotoClick = { viewModel.onChangePhotoClick() },
-            isButtonSaveEnabled = profileEditPhotoScreenUiState.isButtonSaveEnabled,
-            onButtonSaveClick = {
-                viewModel.onButtonSaveClick()
-                navigateBack()
-            },
-            modifier = Modifier.padding(innerPadding)
-        )
-    }
-}
-
-@Composable
-internal fun ProfileEditPhotoScreenBody(
-    client: ClientModelUI,
+internal fun ProfileEditAvatarScreenBody(
+    avatarURL: String?,
     onCrossClick: () -> Unit,
     onChangePhotoClick: () -> Unit,
     isButtonSaveEnabled: Boolean,
@@ -86,7 +51,7 @@ internal fun ProfileEditPhotoScreenBody(
                 }
         )
         PersonAvatarForUserScreen(
-            imageURL = client.imageURL,
+            imageURL = avatarURL,
             modifier = Modifier
                 .padding(top = 140.dp)
         )

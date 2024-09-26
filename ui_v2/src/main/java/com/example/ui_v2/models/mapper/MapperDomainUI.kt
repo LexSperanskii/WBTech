@@ -41,6 +41,7 @@ internal interface IMapperDomainUI {
     fun toEventAdvertBlockModelUI(eventAdvertBlockModelDomain: EventAdvertBlockModelDomain): EventAdvertBlockModelUI
     fun toMetroModelUI(metroModelDomain: MetroModelDomain): MetroModelUI
     fun toPhoneNumberModelUI(phoneNumberModelDomain: PhoneNumberModelDomain): PhoneNumberModelUI
+    fun toPhoneNumberModelDomain(phoneNumberModelUI: PhoneNumberModelUI): PhoneNumberModelDomain
     fun toUserModelUI(userModelDomain: UserModelDomain): UserModelUI
     fun toClientModelUI(clientModelDomain: ClientModelDomain): ClientModelUI
     fun toSocialMediaModelUI(socialMediaModelDomain: SocialMediaModelDomain): SocialMediaModelUI
@@ -167,6 +168,12 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
         PhoneNumberModelUI(
             country = toCountryModelUI(phoneNumberModelDomain.country),
             number = phoneNumberModelDomain.number
+        )
+
+    override fun toPhoneNumberModelDomain(phoneNumberModelUI: PhoneNumberModelUI): PhoneNumberModelDomain =
+        PhoneNumberModelDomain(
+            country = toCountryModelDomain(phoneNumberModelUI.country),
+            number = phoneNumberModelUI.number
         )
 
     override fun toUserModelUI(userModelDomain: UserModelDomain): UserModelUI =

@@ -41,10 +41,6 @@ import com.example.ui_v2.ui.screens.userScreen.deleteProfile.DeleteProfileScreen
 import com.example.ui_v2.ui.screens.userScreen.deleteProfile.DeleteProfileScreenDestination
 import com.example.ui_v2.ui.screens.userScreen.profileEdit.ProfileEditScreen
 import com.example.ui_v2.ui.screens.userScreen.profileEdit.ProfileEditScreenDestination
-import com.example.ui_v2.ui.screens.userScreen.profileEditPhoto.ProfileEditPhotoScreen
-import com.example.ui_v2.ui.screens.userScreen.profileEditPhoto.ProfileEditPhotoScreenDestination
-import com.example.ui_v2.ui.screens.userScreen.profileInterests.ProfileInterestsScreen
-import com.example.ui_v2.ui.screens.userScreen.profileInterests.ProfileInterestsScreenDestination
 import com.example.ui_v2.ui.screens.userScreen.userInside.UserInsideScreen
 import com.example.ui_v2.ui.screens.userScreen.userInside.UserInsideScreenDestination
 import com.example.ui_v2.ui.screens.userScreen.userInside.UserProfileDestination
@@ -329,9 +325,6 @@ fun NavHost(
             ) {
                 ProfileEditScreen(
                     navigateBack = { navController.popBackStack() },
-                    onChangePhotoClick = {
-                        navController.navigate(ProfileEditPhotoScreenDestination.route)
-                    },
                     navigateToUserInsideScreen = {
                         navController.navigate(UserProfileDestination.route) {
                             popUpTo(UserProfileDestination.route)
@@ -339,24 +332,7 @@ fun NavHost(
                     },
                     navigateToDeleteProfile = {
                         navController.navigate(DeleteProfileScreenDestination.route)
-                    },
-                    navigateToInterestsScreen = {
-                        navController.navigate(ProfileInterestsScreenDestination.route)
                     }
-                )
-            }
-            composable(
-                route = ProfileInterestsScreenDestination.route
-            ) {
-                ProfileInterestsScreen(
-                    navigateBack = { navController.popBackStack() }
-                )
-            }
-            composable(
-                route = ProfileEditPhotoScreenDestination.route
-            ) {
-                ProfileEditPhotoScreen(
-                    navigateBack = { navController.popBackStack() }
                 )
             }
             composable(

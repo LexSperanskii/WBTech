@@ -45,9 +45,12 @@ interface INetworkRepository {
     fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String): Flow<Response>
     fun setClientAvatar(imageURL: String?): Flow<Response>
     fun saveClientChanges(
+        avatar: String?,
         nameSurname: String,
+        phoneNumber: PhoneNumberModelDomain,
         city: String,
         description: String,
+        listOfClientTags: List<String>,
         listOfClientSocialMedia: List<SocialMediaModelDomain>,
         isShowMyCommunities: Boolean,
         showMyEventsChecked: Boolean,

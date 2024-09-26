@@ -601,19 +601,25 @@ class MockData {
         return Response("success", "")
     }
     fun saveClientChanges(
+        avatar: String?,
         nameSurname: String,
+        phoneNumber: PhoneNumberModelDomain,
         city: String,
         description: String,
+        listOfClientTags: List<String>,
         listOfClientSocialMedia: List<SocialMediaModelDomain>,
         isShowMyCommunities: Boolean,
         showMyEventsChecked: Boolean,
         applyNotificationsChecked: Boolean,
     ): Response {
         client = client.copy(
+            imageURL = avatar,
             nameSurname = nameSurname,
+            phoneNumber = phoneNumber,
             city = city,
             description = description,
             listOfClientSocialMedia = listOfClientSocialMedia,
+            listOfClientTags = listOfClientTags,
             isShowMyCommunities = isShowMyCommunities,
             showMyEventsChecked = showMyEventsChecked,
             applyNotificationsChecked = applyNotificationsChecked

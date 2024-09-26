@@ -1,6 +1,5 @@
 package com.example.ui_v2.ui.screens.userScreen.profileEdit
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,95 +33,123 @@ internal object ProfileEditScreenDestination : NavigationDestination {
 @Composable
 internal fun ProfileEditScreen(
     navigateBack: () -> Unit,
-    onChangePhotoClick: () -> Unit,
     navigateToUserInsideScreen: () -> Unit,
-    navigateToInterestsScreen: () -> Unit,
     navigateToDeleteProfile: () -> Unit,
     viewModel: ProfileEditScreenViewModel = koinViewModel(),
 ) {
-    BackHandler(enabled = true) {
-        viewModel.deleteDataStore()
-        navigateBack()
-    }
 
     val profileEditScreenUiState by viewModel.getProfileEditScreenUiStateFlow()
         .collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
-        ProfileEditScreenBody(
-            avatarURL = profileEditScreenUiState.avatarURL,
-            onCrossClick = {
-                navigateBack()
-                viewModel.deleteDataStore()
-            },
-            isCanSave = profileEditScreenUiState.isNumberValid &&
-                    profileEditScreenUiState.isNameSurnameValid &&
-                    profileEditScreenUiState.isCountryCodeValid,
-            onDoneClick = {
-                viewModel.saveNewSettings()
-                viewModel.deleteDataStore()
-                navigateToUserInsideScreen()
-            },
-            onChangePhotoClick = {
-                viewModel.saveInDataStore()
-                onChangePhotoClick()
-            },
-            nameSurnameValue = profileEditScreenUiState.nameSurname,
-            isNameSurnameValid = profileEditScreenUiState.isNameSurnameValid,
-            onNameSurnameChange = {
-                viewModel.onNameSurnameChange(it)
-            },
-            number = profileEditScreenUiState.number,
-            onNumberChange = {
-                viewModel.onNumberChange(it)
-            },
-            isNumberValid = profileEditScreenUiState.isNumberValid,
-            isCountryCodeValid = profileEditScreenUiState.isCountryCodeValid,
-            countryCode = profileEditScreenUiState.countryCode,
-            onCountryCodeChange = {
-                viewModel.onCountryCodeChange(it)
-            },
-            listOfCountriesCodes = profileEditScreenUiState.listOfCountriesCodes,
-            cityValue = profileEditScreenUiState.city,
-            isCityValid = profileEditScreenUiState.isCityValid,
-            onCityChange = {
-                viewModel.onCityChange(it)
-            },
-            aboutUserValue = profileEditScreenUiState.aboutUser,
-            isAboutUserValid = profileEditScreenUiState.isAboutUserValid,
-            onAboutUserChange = {
-                viewModel.onAboutUserChange(it)
-            },
-            listOfUserTags = profileEditScreenUiState.listOfUserTags,
-            onTagChangeClick = {
-                viewModel.saveInDataStore()
-                navigateToInterestsScreen()
-            },
-            listOfSocialMedia = profileEditScreenUiState.listOfSocialMedia,
-            onSocialNetworkValueChange = { socialMediaID, value ->
-                viewModel.onSocialNetworkValueChange(socialMediaID = socialMediaID, value = value)
-            },
-            onAddSocialNetworkClick = {
-                viewModel.onAddSocialNetworkClick()
-            },
-            showMyCommunitiesChecked = profileEditScreenUiState.showMyCommunitiesChecked,
-            onShowMyCommunitiesChange = {
-                viewModel.onShowMyCommunitiesChange(it)
-            },
-            showMyEventsChecked = profileEditScreenUiState.showMyEventsChecked,
-            onShowMyEventsChange = {
-                viewModel.onShowMyEventsChange(it)
-            },
-            applyNotificationsChecked = profileEditScreenUiState.applyNotificationsChecked,
-            onApplyNotificationsChange = {
-                viewModel.onApplyNotificationsChange(it)
-            },
-            onDeleteProfileButtonClick = {
-                navigateToDeleteProfile()
-            },
-            isShowDeleteButton = profileEditScreenUiState.client.phoneNumber.number.isNotBlank(),
-            modifier = Modifier.padding(innerPadding)
-        )
+        when (profileEditScreenUiState.currentScreen) {
+            SCREENS.MAIN_EDIT -> {
+                ProfileEditScreenBody(
+                    avatarURL = profileEditScreenUiState.avatarURL,
+                    onCrossClick = {
+                        navigateBack()
+                    },
+                    isCanSave = profileEditScreenUiState.isNumberValid &&
+                            profileEditScreenUiState.isNameSurnameValid &&
+                            profileEditScreenUiState.isCountryCodeValid,
+                    onDoneClick = {
+                        viewModel.saveNewSettings()
+                        navigateToUserInsideScreen()
+                    },
+                    onChangePhotoClick = {
+                        viewModel.showAvatarScreen()
+                    },
+                    nameSurnameValue = profileEditScreenUiState.nameSurname,
+                    isNameSurnameValid = profileEditScreenUiState.isNameSurnameValid,
+                    onNameSurnameChange = {
+                        viewModel.onNameSurnameChange(it)
+                    },
+                    number = profileEditScreenUiState.number,
+                    onNumberChange = {
+                        viewModel.onNumberChange(it)
+                    },
+                    isNumberValid = profileEditScreenUiState.isNumberValid,
+                    isCountryCodeValid = profileEditScreenUiState.isCountryCodeValid,
+                    countryCode = profileEditScreenUiState.countryCode,
+                    onCountryCodeChange = {
+                        viewModel.onCountryCodeChange(it)
+                    },
+                    listOfCountriesCodes = profileEditScreenUiState.listOfCountriesCodes,
+                    cityValue = profileEditScreenUiState.city,
+                    isCityValid = profileEditScreenUiState.isCityValid,
+                    onCityChange = {
+                        viewModel.onCityChange(it)
+                    },
+                    aboutUserValue = profileEditScreenUiState.aboutUser,
+                    isAboutUserValid = profileEditScreenUiState.isAboutUserValid,
+                    onAboutUserChange = {
+                        viewModel.onAboutUserChange(it)
+                    },
+                    listOfUserTags = profileEditScreenUiState.listOfUserTags,
+                    onTagChangeClick = {
+                        viewModel.showInterestsScreen()
+                    },
+                    listOfSocialMedia = profileEditScreenUiState.listOfSocialMedia,
+                    onSocialNetworkValueChange = { socialMediaID, value ->
+                        viewModel.onSocialNetworkValueChange(
+                            socialMediaID = socialMediaID,
+                            value = value
+                        )
+                    },
+                    onAddSocialNetworkClick = {
+                        viewModel.onAddSocialNetworkClick()
+                    },
+                    showMyCommunitiesChecked = profileEditScreenUiState.showMyCommunitiesChecked,
+                    onShowMyCommunitiesChange = {
+                        viewModel.onShowMyCommunitiesChange(it)
+                    },
+                    showMyEventsChecked = profileEditScreenUiState.showMyEventsChecked,
+                    onShowMyEventsChange = {
+                        viewModel.onShowMyEventsChange(it)
+                    },
+                    applyNotificationsChecked = profileEditScreenUiState.applyNotificationsChecked,
+                    onApplyNotificationsChange = {
+                        viewModel.onApplyNotificationsChange(it)
+                    },
+                    onDeleteProfileButtonClick = {
+                        navigateToDeleteProfile()
+                    },
+                    isShowDeleteButton = profileEditScreenUiState.client.phoneNumber.number.isNotBlank(),
+                    modifier = Modifier.padding(innerPadding)
+                )
+            }
+
+            SCREENS.EDIT_AVATAR -> {
+                ProfileEditAvatarScreenBody(
+                    avatarURL = profileEditScreenUiState.avatarURL,
+                    onCrossClick = {
+                        viewModel.dumpAvatar()
+                        viewModel.showMainEditScreen()
+                    },
+                    onChangePhotoClick = { viewModel.onChangePhotoClick() },
+                    isButtonSaveEnabled = profileEditScreenUiState.isButtonSaveForAvatarScreenEnabled,
+                    onButtonSaveClick = {
+                        viewModel.showMainEditScreen()
+                    },
+                    modifier = Modifier.padding(innerPadding)
+                )
+            }
+
+            SCREENS.EDIT_INTERESTS -> {
+                ProfileInterestsScreenBody(
+                    listOfTags = profileEditScreenUiState.listOfTags,
+                    listOfChosenTags = profileEditScreenUiState.listOfUserTags,
+                    onTagClick = {
+                        viewModel.onTagClick(it)
+                    },
+                    isButtonEnabled = profileEditScreenUiState.isButtonForInterestsScreenEnabled,
+                    onButtonClick = {
+                        viewModel.showMainEditScreen()
+                    },
+                    modifier = Modifier.padding(innerPadding)
+                )
+            }
+        }
     }
 }
 

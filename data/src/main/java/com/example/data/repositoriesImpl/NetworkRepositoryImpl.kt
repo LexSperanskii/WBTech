@@ -144,9 +144,12 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
     }
 
     override fun saveClientChanges(
+        avatar: String?,
         nameSurname: String,
+        phoneNumber: PhoneNumberModelDomain,
         city: String,
         description: String,
+        listOfClientTags: List<String>,
         listOfClientSocialMedia: List<SocialMediaModelDomain>,
         isShowMyCommunities: Boolean,
         showMyEventsChecked: Boolean,
@@ -155,9 +158,12 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         return flow {
             emit(
                 mock.saveClientChanges(
+                    avatar = avatar,
                     nameSurname = nameSurname,
+                    phoneNumber = phoneNumber,
                     city = city,
                     description = description,
+                    listOfClientTags = listOfClientTags,
                     listOfClientSocialMedia = listOfClientSocialMedia,
                     isShowMyCommunities = isShowMyCommunities,
                     showMyEventsChecked = showMyEventsChecked,

@@ -16,12 +16,6 @@ import com.example.domain.interactors.communitiesDescription.IInteractorGetCommu
 import com.example.domain.interactors.communitiesDescription.IInteractorLoadCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.InteractorGetCommunitiesDescriptionImpl
 import com.example.domain.interactors.communitiesDescription.InteractorLoadCommunitiesDescriptionImpl
-import com.example.domain.interactors.dataStore.IInteractorClearDataStore
-import com.example.domain.interactors.dataStore.IInteractorGetDataStore
-import com.example.domain.interactors.dataStore.IInteractorSetDataStore
-import com.example.domain.interactors.dataStore.InteractorClearDataStoreImpl
-import com.example.domain.interactors.dataStore.InteractorGetDataStoreImpl
-import com.example.domain.interactors.dataStore.InteractorSetDataStoreImpl
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.domain.interactors.eventDescription.InteractorGetEventDescriptionImpl
@@ -342,20 +336,4 @@ val domainModule = module {
         )
     }
 
-
-    single<IInteractorGetDataStore> {
-        InteractorGetDataStoreImpl(
-            datastoreRepository = get()
-        )
-    }
-    single<IInteractorSetDataStore> {
-        InteractorSetDataStoreImpl(
-            datastoreRepository = get()
-        )
-    }
-    single<IInteractorClearDataStore> {
-        InteractorClearDataStoreImpl(
-            datastoreRepository = get()
-        )
-    }
 }
