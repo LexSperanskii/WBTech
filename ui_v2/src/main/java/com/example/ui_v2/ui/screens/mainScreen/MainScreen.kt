@@ -69,8 +69,7 @@ internal fun MainScreen(
             infiniteEventsList = mainScreenUiState.infiniteEventsList,
             sortedEventsList = mainScreenUiState.sortedEventsList,
             allCommunitiesList = mainScreenUiState.allCommunitiesList,
-            communitiesAdvertBlock1 = mainScreenUiState.communitiesAdvertBlock1,
-            communitiesAdvertBlock2 = mainScreenUiState.communitiesAdvertBlock2,
+            communitiesAdvertBlock = mainScreenUiState.communitiesAdvertBlock,
             eventsAdvertBlock = mainScreenUiState.eventsAdvertBlock,
             listOfTags = mainScreenUiState.listOfTags,
             listOfChosenTags = mainScreenUiState.listOfChosenTags,
@@ -101,9 +100,8 @@ internal fun MainScreenBody(
     infiniteEventsList: List<EventModelUI>,
     sortedEventsList: List<EventModelUI>,
     allCommunitiesList: List<CommunityModelUI>,
-    communitiesAdvertBlock1: CommunitiesAdvertBlockModelUI,
-    communitiesAdvertBlock2: CommunitiesAdvertBlockModelUI,
-    eventsAdvertBlock: EventAdvertBlockModelUI,
+    communitiesAdvertBlock: List<CommunitiesAdvertBlockModelUI>,
+    eventsAdvertBlock: List<EventAdvertBlockModelUI>,
     listOfTags: List<String>,
     listOfChosenTags: List<String>,
     onTagClick: (String) -> Unit,
@@ -179,7 +177,7 @@ internal fun MainScreenBody(
                 }
                 item {
                     EvensAdvertBlockCarousel(
-                        eventsAdvert = eventsAdvertBlock,
+                        eventsAdvert = eventsAdvertBlock.getOrNull(0) ?: EventAdvertBlockModelUI(),
                         onEventCardClick = onEventCardClick,
                         contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
@@ -216,7 +214,8 @@ internal fun MainScreenBody(
                 }
                 item {
                     CommunitiesAdvertBlockCarousel(
-                        communitiesAdvert = communitiesAdvertBlock1,
+                        communitiesAdvert = communitiesAdvertBlock.getOrNull(0)
+                            ?: CommunitiesAdvertBlockModelUI(),
                         myCommunitiesList = myCommunitiesList,
                         onCommunityButtonClick = onCommunityButtonClick,
                         onCommunityClick = onCommunityClick,
@@ -281,7 +280,8 @@ internal fun MainScreenBody(
 
                         8 -> {
                             CommunitiesAdvertBlockCarousel(
-                                communitiesAdvert = communitiesAdvertBlock2,
+                                communitiesAdvert = communitiesAdvertBlock.drop(1).randomOrNull()
+                                    ?: CommunitiesAdvertBlockModelUI(),
                                 myCommunitiesList = myCommunitiesList,
                                 onCommunityButtonClick = onCommunityButtonClick,
                                 onCommunityClick = onCommunityClick,

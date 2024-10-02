@@ -4,18 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.availableCountries.IInteractorGetAvailableCountriesList
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
-import com.example.domain.interactors.client.IInteractorGetClient
-import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.dataStore.IInteractorClearDataStore
-import com.example.domain.interactors.dataStore.IInteractorGetDataStore
-import com.example.domain.interactors.dataStore.IInteractorSetDataStore
-import com.example.domain.interactors.oldSuspend.IInteractorSaveClientSettings
-import com.example.domain.interactors.oldSuspend.IInteractorSetClientPhoneNumber
+import com.example.domain.interactors.client.getClient.IInteractorGetClient
+import com.example.domain.interactors.client.getClient.IInteractorLoadClient
+import com.example.domain.interactors.client.saveClientSettings.IInteractorSaveClientSettings
+import com.example.domain.interactors.client.setClientPhoneNumber.IInteractorSetClientPhoneNumber
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CountryModelUI
+import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
-import com.example.ui_v2.ui.utils.DataStoreKey
 import com.example.ui_v2.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +20,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import java.util.UUID
 
 
@@ -60,9 +56,6 @@ internal class ProfileEditScreenViewModel(
     private val getAvailableCountriesList: IInteractorGetAvailableCountriesList,
     private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
     private val saveClientSettings: IInteractorSaveClientSettings,
-    private val setDataStore: IInteractorSetDataStore,
-    private val getDataStore: IInteractorGetDataStore,
-    private val clearDataStore: IInteractorClearDataStore,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileEditScreenUiState())
@@ -166,39 +159,23 @@ internal class ProfileEditScreenViewModel(
     fun saveNewSettings() {
         val uiState = uiState.value
         saveClientSettings.invoke(
-            nameSurname = uiState.nameSurname,
-            city = uiState.city,
-            description = uiState.aboutUser,
-            listOfClientSocialMedia = uiState.listOfSocialMedia.filter { it.userNickname.isNotBlank() }
-                .map {
-                    mapper.toSocialMediaModelDomain(
-                        it
-                    )
-                },
-            isShowMyCommunities = uiState.showMyCommunitiesChecked,
-            showMyEventsChecked = uiState.showMyEventsChecked,
-            applyNotificationsChecked = uiState.applyNotificationsChecked
-        ).launchIn(viewModelScope)
-        setClientPhoneNumber.invoke(
-            mapper.toCountryModelDomain(uiState.countryCode),
-            uiState.number
-        ).launchIn(viewModelScope)
-    }
-
-    fun saveInDataStore() {
-        val uiState = uiState.value
-        viewModelScope.launch {
-            setDataStore.invoke(DataStoreKey.Name.name, uiState.nameSurname)
-            setDataStore.invoke(DataStoreKey.Number.name, uiState.number)
-            setDataStore.invoke(DataStoreKey.City.name, uiState.city)
-            setDataStore.invoke(DataStoreKey.About.name, uiState.aboutUser)
-        }
-    }
-
-    fun deleteDataStore() {
-        viewModelScope.launch {
-            clearDataStore.invoke()
-        }
+            mapper.toClientModelDomain(
+                ClientModelUI(
+                    imageURL = uiState.avatarURL,
+                    nameSurname = uiState.nameSurname,
+                    phoneNumber = PhoneNumberModelUI(
+                        uiState.countryCode,
+                        uiState.number
+                    ),
+                    city = uiState.city,
+                    description = uiState.aboutUser,
+                    listOfSocialMedia = uiState.listOfSocialMedia.filter { it.userNickname.isNotBlank() },
+                    isShowMyCommunities = uiState.showMyCommunitiesChecked,
+                    showMyEventsChecked = uiState.showMyEventsChecked,
+                    applyNotificationsChecked = uiState.applyNotificationsChecked
+                )
+            )
+        )
     }
 
     private fun loadData() {
@@ -207,93 +184,29 @@ internal class ProfileEditScreenViewModel(
     }
 
     private fun getDataUserOutsideScreenUiState() {
-        val clientCountriesFlow = combine(
+        combine(
             getClient.invoke(),
             getAvailableCountriesList.invoke()
         ) { client, availableCountriesList ->
-            ProfileEditScreenUiState().copy(
-                avatarURL = client.imageURL,
-                nameSurname = client.nameSurname,
-                number = client.phoneNumber.number,
-                countryCode = mapper.toCountryModelUI(client.phoneNumber.country),
-                listOfCountriesCodes = availableCountriesList.map { mapper.toCountryModelUI(it) },
-                city = client.city,
-                aboutUser = client.description,
-                listOfUserTags = client.listOfClientTags,
-                listOfSocialMedia = client.listOfClientSocialMedia.map {
-                    mapper.toSocialMediaModelUI(
-                        it
-                    )
-                },
-                showMyCommunitiesChecked = client.isShowMyCommunities,
-                showMyEventsChecked = client.showMyEventsChecked,
-                applyNotificationsChecked = client.applyNotificationsChecked,
-                client = mapper.toClientModelUI(client)
-            )
-        }
-
-        val dataStoreFlow = combine(
-            getDataStore.invoke(DataStoreKey.Name.name),
-            getDataStore.invoke(DataStoreKey.Number.name),
-            getDataStore.invoke(DataStoreKey.City.name),
-            getDataStore.invoke(DataStoreKey.About.name),
-        ) { dsName, dsNumber, dsCity, dsAbout ->
-            ProfileEditScreenUiState().copy(
-                nameSurname = dsName,
-                number = dsNumber,
-                city = dsCity,
-                aboutUser = dsAbout
-            )
-        }
-
-        clientCountriesFlow.combine(dataStoreFlow) { clientCountries, dataStore ->
             _uiState.update {
                 it.copy(
-                    avatarURL = clientCountries.avatarURL,
-                    nameSurname = when (dataStore.nameSurname.isBlank()) {
-                        true -> {
-                            clientCountries.nameSurname
-                        }
-
-                        else -> {
-                            dataStore.nameSurname
-                        }
+                    avatarURL = client.imageURL,
+                    nameSurname = client.nameSurname,
+                    number = client.phoneNumber.number,
+                    countryCode = mapper.toCountryModelUI(client.phoneNumber.country),
+                    listOfCountriesCodes = availableCountriesList.map { mapper.toCountryModelUI(it) },
+                    city = client.city,
+                    aboutUser = client.description,
+                    listOfUserTags = client.listOfClientTags,
+                    listOfSocialMedia = client.listOfClientSocialMedia.map {
+                        mapper.toSocialMediaModelUI(
+                            it
+                        )
                     },
-                    number = when (dataStore.number.isBlank()) {
-                        true -> {
-                            clientCountries.number
-                        }
-
-                        else -> {
-                            dataStore.number
-                        }
-                    },
-                    countryCode = clientCountries.countryCode,
-                    listOfCountriesCodes = clientCountries.listOfCountriesCodes,
-                    city = when (dataStore.city.isBlank()) {
-                        true -> {
-                            clientCountries.city
-                        }
-
-                        else -> {
-                            dataStore.city
-                        }
-                    },
-                    aboutUser = when (dataStore.aboutUser.isBlank()) {
-                        true -> {
-                            clientCountries.aboutUser
-                        }
-
-                        else -> {
-                            dataStore.aboutUser
-                        }
-                    },
-                    listOfUserTags = clientCountries.listOfUserTags,
-                    listOfSocialMedia = clientCountries.listOfSocialMedia,
-                    showMyCommunitiesChecked = clientCountries.showMyCommunitiesChecked,
-                    showMyEventsChecked = clientCountries.showMyEventsChecked,
-                    applyNotificationsChecked = clientCountries.applyNotificationsChecked,
-                    client = clientCountries.client
+                    showMyCommunitiesChecked = client.isShowMyCommunities,
+                    showMyEventsChecked = client.showMyEventsChecked,
+                    applyNotificationsChecked = client.applyNotificationsChecked,
+                    client = mapper.toClientModelUI(client)
                 )
             }
         }.launchIn(viewModelScope)

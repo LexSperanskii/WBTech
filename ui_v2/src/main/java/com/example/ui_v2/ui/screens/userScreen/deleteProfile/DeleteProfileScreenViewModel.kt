@@ -1,12 +1,10 @@
 package com.example.ui_v2.ui.screens.userScreen.deleteProfile
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.oldSuspend.IInteractorDeleteClient
+import com.example.domain.interactors.client.deleteClient.IInteractorDeleteClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
 
 
 internal data class DeleteProfileScreenUiState(
@@ -23,6 +21,6 @@ internal class DeleteProfileScreenViewModel(
     fun getDeleteProfileScreenUiStateFlow(): StateFlow<DeleteProfileScreenUiState> = uiState
 
     fun onDeleteClick() {
-        deleteClient.invoke().launchIn(viewModelScope)
+        deleteClient.invoke()
     }
 }

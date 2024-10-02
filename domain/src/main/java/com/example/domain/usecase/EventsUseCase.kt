@@ -28,13 +28,11 @@ internal class EventsUseCase {
 
     private val streamAvailableCountriesList = MutableSharedFlow<Unit>(replay = 1)
 
-    private val streamClient = MutableSharedFlow<Unit>(replay = 1)
-
-    private val streamClientPinCode = MutableStateFlow("")
-
     private val streamUserSearch = MutableStateFlow("")
     private var userSearchLastValue: String = ""
 
+    private val streamCommunitiesAdvertBlock = MutableSharedFlow<Unit>(replay = 1)
+    private val streamEventsAdvertBlock = MutableSharedFlow<Unit>(replay = 1)
 
     // Для EventDescription
     fun loadNewEventById(eventId: String) {
@@ -130,22 +128,6 @@ internal class EventsUseCase {
     fun observeAvailableCountriesList(): Flow<Unit> = streamAvailableCountriesList
 
 
-    //Для Client
-    fun loadClient() {
-        streamClient.tryEmit(Unit)
-    }
-
-    fun observeClient(): Flow<Unit> = streamClient
-
-
-    //Для ClientPinCodeVerification
-    fun loadClientPinCodeVerification(pinCode: String) {
-        streamClientPinCode.tryEmit(pinCode)
-    }
-
-    fun observeClientPinCodeVerification(): Flow<String> = streamClientPinCode
-
-
     // Для ListOfSortedEvents
     fun loadListOfSortedEvents(search: String) {
         userSearchLastValue = search
@@ -158,4 +140,19 @@ internal class EventsUseCase {
 
     fun observeUserSearch(): Flow<String> = streamUserSearch
 
+
+    // Для CommunitiesAdvertBlock
+    fun loadCommunitiesAdvertBlock() {
+        streamCommunitiesAdvertBlock.tryEmit(Unit)
+    }
+
+    fun observeCommunitiesAdvertBlock(): Flow<Unit> = streamCommunitiesAdvertBlock
+
+
+    // Для EventsAdvertBlock
+    fun loadEventsAdvertBlock() {
+        streamEventsAdvertBlock.tryEmit(Unit)
+    }
+
+    fun observeEventsAdvertBlock(): Flow<Unit> = streamEventsAdvertBlock
 }

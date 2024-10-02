@@ -2,12 +2,12 @@ package com.example.ui_v2.ui.screens.userScreen.profileInterests
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.client.IInteractorGetClient
-import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.client.getClient.IInteractorGetClient
+import com.example.domain.interactors.client.getClient.IInteractorLoadClient
+import com.example.domain.interactors.client.myChosenTags.addToMyChosenTags.IInteractorAddToMyChosenTags
+import com.example.domain.interactors.client.myChosenTags.removeFromMyChosenTags.IInteractorRemoveFromMyChosenTags
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
-import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorAddToMyChosenTags
-import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorRemoveFromMyChosenTags
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -45,11 +45,11 @@ internal class ProfileInterestsScreenViewModel(
     fun onTagClick(tag: String) {
         when (uiState.value.listOfChosenTags.contains(tag)) {
             true -> {
-                removeFromMyChosenTags.invoke(tag).launchIn(viewModelScope)
+                removeFromMyChosenTags.invoke(tag)
             }
 
             false -> {
-                addToMyChosenTags.invoke(tag).launchIn(viewModelScope)
+                addToMyChosenTags.invoke(tag)
             }
         }
     }

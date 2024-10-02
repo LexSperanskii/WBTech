@@ -2,9 +2,9 @@ package com.example.ui_v2.ui.screens.userScreen.profileEditPhoto
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.client.IInteractorGetClient
-import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.oldSuspend.IInteractorSetClientAvatar
+import com.example.domain.interactors.client.getClient.IInteractorGetClient
+import com.example.domain.interactors.client.getClient.IInteractorLoadClient
+import com.example.domain.interactors.client.setClientAvatar.IInteractorSetClientAvatar
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
 import com.example.ui_v2.ui.utils.UiUtils.listOfIconsMOCK
@@ -48,7 +48,7 @@ internal class ProfileEditPhotoScreenViewModel(
     }
 
     fun onButtonSaveClick() {
-        setClientAvatar.invoke(uiState.value.client.imageURL).launchIn(viewModelScope)
+        setClientAvatar.invoke(uiState.value.client.imageURL)
     }
 
     private fun loadData() {

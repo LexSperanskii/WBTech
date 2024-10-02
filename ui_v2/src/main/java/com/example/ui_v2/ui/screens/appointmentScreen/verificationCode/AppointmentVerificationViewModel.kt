@@ -4,15 +4,17 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.client.IInteractorGetClientPinCodeVerification
-import com.example.domain.interactors.client.IInteractorLoadClientPinCodeVerification
+import com.example.domain.interactors.client.getClientNotVerifiedName.IInteractorGetClientNotVerifiedName
+import com.example.domain.interactors.client.getClientNotVerifiedName.IInteractorLoadClientNotVerifiedName
+import com.example.domain.interactors.client.getClientNotVerifiedPhoneNumber.IInteractorGetClientNotVerifiedPhoneNumber
+import com.example.domain.interactors.client.getClientNotVerifiedPhoneNumber.IInteractorLoadtClientNotVerifiedPhoneNumber
+import com.example.domain.interactors.client.myEvents.addToMyEvents.IInteractorAddToMyEvents
+import com.example.domain.interactors.client.pinCode.IInteractorGetClientPinCodeVerification
+import com.example.domain.interactors.client.pinCode.IInteractorLoadClientPinCodeVerification
+import com.example.domain.interactors.client.setClientName.IInteractorSetClientName
+import com.example.domain.interactors.client.setClientPhoneNumber.IInteractorSetClientPhoneNumber
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
-import com.example.domain.interactors.oldSuspend.IInteractorGetClientNotVerifiedName
-import com.example.domain.interactors.oldSuspend.IInteractorGetClientNotVerifiedPhoneNumber
-import com.example.domain.interactors.oldSuspend.IInteractorSetClientName
-import com.example.domain.interactors.oldSuspend.IInteractorSetClientPhoneNumber
-import com.example.domain.interactors.oldSuspend.myEvents.IInteractorAddToMyEvents
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
@@ -49,7 +51,9 @@ internal class AppointmentVerificationScreenViewModel(
     private val getEventDescription: IInteractorGetEventDescription,
     private val loadClientPinCodeVerification: IInteractorLoadClientPinCodeVerification,
     private val getClientPinCodeVerification: IInteractorGetClientPinCodeVerification,
+    private val loadClientNotVerifiedPhoneNumber: IInteractorLoadtClientNotVerifiedPhoneNumber,
     private val getClientNotVerifiedPhoneNumber: IInteractorGetClientNotVerifiedPhoneNumber,
+    private val loadClientNotVerifiedName: IInteractorLoadClientNotVerifiedName,
     private val getClientNotVerifiedName: IInteractorGetClientNotVerifiedName,
     private val setClientName: IInteractorSetClientName,
     private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
@@ -122,16 +126,17 @@ internal class AppointmentVerificationScreenViewModel(
 
     fun setVerifiedClientNameAndPhoneNumber() {
         val state = uiState.value
-        setClientName.invoke(state.clientNameSurname).launchIn(viewModelScope)
+        setClientName.invoke(state.clientNameSurname)
         setClientPhoneNumber.invoke(
-            mapper.toCountryModelDomain(state.clientPhoneNumber.country),
-            state.clientPhoneNumber.number
-        ).launchIn(viewModelScope)
-        addToMyEvents.invoke(state.event.id).launchIn(viewModelScope)
+            mapper.toPhoneNumberModelDomain(state.clientPhoneNumber)
+        )
+        addToMyEvents.invoke(state.event.id)
     }
 
     private fun loadData() {
         loadEventDescription.invoke(eventId)
+        loadClientNotVerifiedName.invoke()
+        loadClientNotVerifiedPhoneNumber.invoke()
     }
 
     private fun getDataAppointmentVerificationScreenUiState() {
