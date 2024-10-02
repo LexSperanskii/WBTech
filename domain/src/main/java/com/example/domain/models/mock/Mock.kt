@@ -590,8 +590,17 @@ class MockData {
         return Response("success", "")
     }
     fun saveClientChanges(newClient: ClientModelDomain): Response {
-        client = newClient
-
+        client = client.copy(
+            imageURL = newClient.imageURL,
+            nameSurname = newClient.nameSurname,
+            phoneNumber = newClient.phoneNumber,
+            city = newClient.city,
+            description = newClient.description,
+            listOfClientSocialMedia = newClient.listOfClientSocialMedia,
+            isShowMyCommunities = newClient.isShowMyCommunities,
+            showMyEventsChecked = newClient.showMyEventsChecked,
+            applyNotificationsChecked = newClient.applyNotificationsChecked,
+        )
         return Response("success", "")
     }
 
