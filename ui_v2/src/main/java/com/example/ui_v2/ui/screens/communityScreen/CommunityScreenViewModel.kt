@@ -3,12 +3,12 @@ package com.example.ui_v2.ui.screens.communityScreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.client.IInteractorGetClient
-import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.client.getClient.IInteractorGetClient
+import com.example.domain.interactors.client.getClient.IInteractorLoadClient
+import com.example.domain.interactors.client.myCommunities.addToMyCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.client.myCommunities.removeFromMyCommunities.IInteractorRemoveFromMyCommunities
 import com.example.domain.interactors.communitiesDescription.IInteractorGetCommunitiesDescription
 import com.example.domain.interactors.communitiesDescription.IInteractorLoadCommunitiesDescription
-import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorRemoveFromMyCommunities
 import com.example.ui_v2.models.CommunityDescriptionModelUI
 import com.example.ui_v2.models.CommunityModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
@@ -72,11 +72,10 @@ internal class CommunityScreenViewModel(
         when (state.isInClientCommunities) {
             true -> {
                 removeFromMyCommunities.invoke(state.communityDescription.id)
-                    .launchIn(viewModelScope)
             }
 
             false -> {
-                addToMyCommunities.invoke(state.communityDescription.id).launchIn(viewModelScope)
+                addToMyCommunities.invoke(state.communityDescription.id)
             }
         }
     }

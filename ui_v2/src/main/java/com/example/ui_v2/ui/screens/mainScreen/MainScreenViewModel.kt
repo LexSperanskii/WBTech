@@ -2,8 +2,16 @@ package com.example.ui_v2.ui.screens.mainScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.client.IInteractorGetClient
-import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.advertBlock.communitiesAdvertBlock.IInteractorGetCommunitiesAdvertBlock
+import com.example.domain.interactors.advertBlock.communitiesAdvertBlock.IInteractorLoadCommunitiesAdvertBlock
+import com.example.domain.interactors.advertBlock.eventsAdvertBlock.IInteractorGetEventsAdvertBlock
+import com.example.domain.interactors.advertBlock.eventsAdvertBlock.IInteractorLoadEventsAdvertBlock
+import com.example.domain.interactors.client.getClient.IInteractorGetClient
+import com.example.domain.interactors.client.getClient.IInteractorLoadClient
+import com.example.domain.interactors.client.myChosenTags.addToMyChosenTags.IInteractorAddToMyChosenTags
+import com.example.domain.interactors.client.myChosenTags.removeFromMyChosenTags.IInteractorRemoveFromMyChosenTags
+import com.example.domain.interactors.client.myCommunities.addToMyCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.client.myCommunities.removeFromMyCommunities.IInteractorRemoveFromMyCommunities
 import com.example.domain.interactors.listOfCommunities.IInteractorGetListOfCommunities
 import com.example.domain.interactors.listOfCommunities.IInteractorLoadListOfCommunities
 import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
@@ -14,12 +22,6 @@ import com.example.domain.interactors.listOfSortedEvents.IInteractorGetListOfSor
 import com.example.domain.interactors.listOfSortedEvents.IInteractorLoadListOfSortedEvents
 import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
 import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
-import com.example.domain.interactors.oldSuspend.advertBlock.IInteractorGetCommunitiesAdvertBlock
-import com.example.domain.interactors.oldSuspend.advertBlock.IInteractorGetEventsAdvertBlock
-import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorAddToMyChosenTags
-import com.example.domain.interactors.oldSuspend.myChosenTags.IInteractorRemoveFromMyChosenTags
-import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorRemoveFromMyCommunities
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityModelUI
@@ -31,7 +33,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 
@@ -44,9 +45,8 @@ internal data class MainScreenUiState(
     val infiniteEventsList: List<EventModelUI> = listOf(),
     val sortedEventsList: List<EventModelUI> = listOf(),
     val allCommunitiesList: List<CommunityModelUI> = listOf(),
-    val communitiesAdvertBlock1: CommunitiesAdvertBlockModelUI = CommunitiesAdvertBlockModelUI(),
-    val communitiesAdvertBlock2: CommunitiesAdvertBlockModelUI = CommunitiesAdvertBlockModelUI(),
-    val eventsAdvertBlock: EventAdvertBlockModelUI = EventAdvertBlockModelUI(),
+    val communitiesAdvertBlock: List<CommunitiesAdvertBlockModelUI> = listOf(),
+    val eventsAdvertBlock: List<EventAdvertBlockModelUI> = listOf(),
     val listOfTags: List<String> = listOf(),
     val listOfChosenTags: List<String> = listOf(),
     val listOfPeople: List<UserModelUI> = listOf(),
@@ -65,7 +65,9 @@ internal class MainScreenViewModel(
     private val getListOfTags: IInteractorGetListOfTags,
     private val loadListOfPeople: IInteractorLoadListOfPeople,
     private val getListOfPeople: IInteractorGetListOfPeople,
+    private val loadCommunitiesAdvertBlock: IInteractorLoadCommunitiesAdvertBlock,
     private val getCommunitiesAdvertBlock: IInteractorGetCommunitiesAdvertBlock,
+    private val loadEventsAdvertBlock: IInteractorLoadEventsAdvertBlock,
     private val getEventsAdvertBlock: IInteractorGetEventsAdvertBlock,
     private val loadClient: IInteractorLoadClient,
     private val getClient: IInteractorGetClient,
@@ -116,11 +118,11 @@ internal class MainScreenViewModel(
     fun onCommunityButtonClick(community: CommunityModelUI) {
         when (uiState.value.myCommunitiesList.any { it.id == community.id }) {
             true -> {
-                removeFromMyCommunities.invoke(community.id).launchIn(viewModelScope)
+                removeFromMyCommunities.invoke(community.id)
             }
 
             false -> {
-                addToMyCommunities.invoke(community.id).launchIn(viewModelScope)
+                addToMyCommunities.invoke(community.id)
             }
         }
     }
@@ -128,11 +130,11 @@ internal class MainScreenViewModel(
     fun onTagClick(tag: String) {
         when (uiState.value.listOfChosenTags.contains(tag)) {
             true -> {
-                removeFromMyChosenTags.invoke(tag).launchIn(viewModelScope)
+                removeFromMyChosenTags.invoke(tag)
             }
 
             false -> {
-                addToMyChosenTags.invoke(tag).launchIn(viewModelScope)
+                addToMyChosenTags.invoke(tag)
             }
         }
     }
@@ -143,6 +145,8 @@ internal class MainScreenViewModel(
         loadListOfTags.invoke()
         loadListOfPeople.invoke()
         loadClient.invoke()
+        loadCommunitiesAdvertBlock.invoke()
+        loadEventsAdvertBlock.invoke()
     }
 
     private fun getDataForMainScreenUiState() {
@@ -163,19 +167,27 @@ internal class MainScreenViewModel(
                 listOfChosenTags = client.listOfClientTags
             )
         }
-        val combinedPeopleAndTagsFlow = combine(
+        val combinedPeopleTagsAdvertFlow = combine(
             getListOfPeople.invoke(),
             getListOfTags.invoke(),
-        ) { listOfPeople, listOfTags ->
+            getEventsAdvertBlock.invoke(),
+            getCommunitiesAdvertBlock.invoke()
+        ) { listOfPeople, listOfTags, eventsAdvertBlock, communitiesAdvertBlock ->
             MainScreenUiState().copy(
                 listOfPeople = listOfPeople.map { mapper.toUserModelUI(it) },
-                listOfTags = listOfTags
+                listOfTags = listOfTags,
+                communitiesAdvertBlock = communitiesAdvertBlock.map {
+                    mapper.toCommunitiesAdvertBlockModelUI(
+                        it
+                    )
+                },
+                eventsAdvertBlock = eventsAdvertBlock.map { mapper.toEventAdvertBlockModelUI(it) }
             )
         }
 
         combinedEventsAndCommunitiesFlow.combine(
-            combinedPeopleAndTagsFlow,
-        ) { combinedEventsAndCommunities, combinedPeopleAndTags ->
+            combinedPeopleTagsAdvertFlow,
+        ) { combinedEventsAndCommunities, combinedPeopleTagsAdvert ->
             _uiState.update { it ->
                 it.copy(
                     myCommunitiesList = combinedEventsAndCommunities.myCommunitiesList,
@@ -185,18 +197,10 @@ internal class MainScreenViewModel(
                     allCommunitiesList = combinedEventsAndCommunities.allCommunitiesList,
                     sortedEventsList = combinedEventsAndCommunities.sortedEventsList,
                     listOfChosenTags = combinedEventsAndCommunities.listOfChosenTags,
-                    listOfPeople = combinedPeopleAndTags.listOfPeople,
-                    listOfTags = combinedPeopleAndTags.listOfTags,
-                    //TODO переделать или убрать получение рекламных блоков
-                    communitiesAdvertBlock1 = mapper.toCommunitiesAdvertBlockModelUI(
-                        getCommunitiesAdvertBlock.invoke("0").first()
-                    ),
-                    communitiesAdvertBlock2 = mapper.toCommunitiesAdvertBlockModelUI(
-                        getCommunitiesAdvertBlock.invoke("1").first()
-                    ),
-                    eventsAdvertBlock = mapper.toEventAdvertBlockModelUI(
-                        getEventsAdvertBlock.invoke("0").first()
-                    )
+                    listOfPeople = combinedPeopleTagsAdvert.listOfPeople,
+                    listOfTags = combinedPeopleTagsAdvert.listOfTags,
+                    communitiesAdvertBlock = combinedPeopleTagsAdvert.communitiesAdvertBlock,
+                    eventsAdvertBlock = combinedPeopleTagsAdvert.eventsAdvertBlock
                 )
             }
         }.launchIn(viewModelScope)

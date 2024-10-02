@@ -15,7 +15,6 @@ class DeveloperMeetingsApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         startKoin{
             androidLogger(Level.DEBUG)
             androidContext(this@DeveloperMeetingsApplication)

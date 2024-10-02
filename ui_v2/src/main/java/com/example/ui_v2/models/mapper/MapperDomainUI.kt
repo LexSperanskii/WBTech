@@ -32,18 +32,21 @@ import com.example.ui_v2.models.UserModelUI
 internal interface IMapperDomainUI {
     fun toCommunityDescriptionModelUI(communityDescriptionModelDomain: CommunityDescriptionModelDomain): CommunityDescriptionModelUI
     fun toCommunityModelUI(communityModelDomain: CommunityModelDomain): CommunityModelUI
+    fun toCommunityModelDomain(communityModelUI: CommunityModelUI): CommunityModelDomain
     fun toCommunitiesAdvertBlockModelUI(communitiesAdvertBlockModelDomain: CommunitiesAdvertBlockModelDomain): CommunitiesAdvertBlockModelUI
     fun toCountryModelUI(countryModelDomain: CountryModelDomain): CountryModelUI
     fun toCountryModelDomain(countryModelUI: CountryModelUI): CountryModelDomain
     fun toEventDescriptionModelUI(eventDescriptionModelDomain: EventDescriptionModelDomain): EventDescriptionModelUI
     fun toEventLocationModelUI(eventLocationModelDomain: EventLocationModelDomain): EventLocationModelUI
     fun toEventModelUI(eventModelDomain: EventModelDomain): EventModelUI
+    fun toEventModelDomain(eventModelUI: EventModelUI): EventModelDomain
     fun toEventAdvertBlockModelUI(eventAdvertBlockModelDomain: EventAdvertBlockModelDomain): EventAdvertBlockModelUI
     fun toMetroModelUI(metroModelDomain: MetroModelDomain): MetroModelUI
     fun toPhoneNumberModelUI(phoneNumberModelDomain: PhoneNumberModelDomain): PhoneNumberModelUI
     fun toPhoneNumberModelDomain(phoneNumberModelUI: PhoneNumberModelUI): PhoneNumberModelDomain
     fun toUserModelUI(userModelDomain: UserModelDomain): UserModelUI
     fun toClientModelUI(clientModelDomain: ClientModelDomain): ClientModelUI
+    fun toClientModelDomain(clientModelUI: ClientModelUI): ClientModelDomain
     fun toSocialMediaModelUI(socialMediaModelDomain: SocialMediaModelDomain): SocialMediaModelUI
     fun toSocialMediaModelDomain(socialMediaModelUI: SocialMediaModelUI): SocialMediaModelDomain
 }
@@ -76,6 +79,14 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
             name = communityModelDomain.name,
             description = communityModelDomain.description,
             imageURL = communityModelDomain.imageURL,
+        )
+
+    override fun toCommunityModelDomain(communityModelUI: CommunityModelUI): CommunityModelDomain =
+        CommunityModelDomain(
+            id = communityModelUI.id,
+            name = communityModelUI.name,
+            description = communityModelUI.description,
+            imageURL = communityModelUI.imageURL,
         )
 
     override fun toCommunitiesAdvertBlockModelUI(communitiesAdvertBlockModelDomain: CommunitiesAdvertBlockModelDomain): CommunitiesAdvertBlockModelUI =
@@ -151,6 +162,21 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
             listOfTags = eventModelDomain.listOfTags
         )
 
+    override fun toEventModelDomain(eventModelUI: EventModelUI): EventModelDomain =
+        EventModelDomain(
+            id = eventModelUI.id,
+            name = eventModelUI.name,
+            time = eventModelUI.time,
+            day = eventModelUI.day,
+            month = eventModelUI.month,
+            year = eventModelUI.year,
+            city = eventModelUI.city,
+            street = eventModelUI.street,
+            building = eventModelUI.building,
+            imageURL = eventModelUI.imageURL,
+            listOfTags = eventModelUI.listOfTags
+        )
+
     override fun toEventAdvertBlockModelUI(eventAdvertBlockModelDomain: EventAdvertBlockModelDomain): EventAdvertBlockModelUI =
         EventAdvertBlockModelUI(
             id = eventAdvertBlockModelDomain.id,
@@ -216,6 +242,31 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
             isShowMyCommunities = clientModelDomain.isShowMyCommunities,
             showMyEventsChecked = clientModelDomain.showMyEventsChecked,
             applyNotificationsChecked = clientModelDomain.applyNotificationsChecked
+        )
+
+    override fun toClientModelDomain(clientModelUI: ClientModelUI): ClientModelDomain =
+        ClientModelDomain(
+            id = clientModelUI.id,
+            imageURL = clientModelUI.imageURL,
+            nameSurname = clientModelUI.nameSurname,
+            phoneNumber = toPhoneNumberModelDomain(clientModelUI.phoneNumber),
+            city = clientModelUI.city,
+            description = clientModelUI.description,
+            listOfClientTags = clientModelUI.listOfTags,
+            listOfClientSocialMedia = clientModelUI.listOfSocialMedia.map {
+                toSocialMediaModelDomain(
+                    it
+                )
+            },
+            clientEventsList = clientModelUI.clientEventsList.map { toEventModelDomain(it) },
+            clientCommunitiesList = clientModelUI.clientCommunitiesList.map {
+                toCommunityModelDomain(
+                    it
+                )
+            },
+            isShowMyCommunities = clientModelUI.isShowMyCommunities,
+            showMyEventsChecked = clientModelUI.showMyEventsChecked,
+            applyNotificationsChecked = clientModelUI.applyNotificationsChecked
         )
 
     override fun toSocialMediaModelUI(socialMediaModelDomain: SocialMediaModelDomain): SocialMediaModelUI =

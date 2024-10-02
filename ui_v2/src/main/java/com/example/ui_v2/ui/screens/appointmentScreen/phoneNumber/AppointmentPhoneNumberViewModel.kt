@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.availableCountries.IInteractorGetAvailableCountriesList
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
+import com.example.domain.interactors.client.setClientNotVerifiedPhoneNumber.IInteractorSetClientNotVerifiedPhoneNumber
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
-import com.example.domain.interactors.oldSuspend.IInteractorSetClientNotVerifiedPhoneNumber
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
+import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
 import com.example.ui_v2.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -79,9 +80,13 @@ internal class AppointmentPhoneNumberScreenViewModel(
     fun onButtonClick() {
         val state = uiState.value
         setClientNotVerifiedPhoneNumber.invoke(
-            mapper.toCountryModelDomain(state.countryCode),
-            state.number
-        ).launchIn(viewModelScope)
+            mapper.toPhoneNumberModelDomain(
+                PhoneNumberModelUI(
+                    state.countryCode,
+                    state.number
+                )
+            )
+        )
     }
 
     private fun loadData() {

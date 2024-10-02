@@ -3,16 +3,16 @@ package com.example.ui_v2.ui.screens.eventScreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.client.IInteractorGetClient
-import com.example.domain.interactors.client.IInteractorLoadClient
+import com.example.domain.interactors.client.getClient.IInteractorGetClient
+import com.example.domain.interactors.client.getClient.IInteractorLoadClient
+import com.example.domain.interactors.client.myCommunities.addToMyCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.client.myCommunities.removeFromMyCommunities.IInteractorRemoveFromMyCommunities
+import com.example.domain.interactors.client.myEvents.addToMyEvents.IInteractorAddToMyEvents
+import com.example.domain.interactors.client.myEvents.removeFromMyEvents.IInteractorRemoveFromMyEvents
 import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
 import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
 import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
 import com.example.domain.interactors.listOfEvents.IInteractorLoadListOfEvents
-import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorAddToMyCommunities
-import com.example.domain.interactors.oldSuspend.myCommunities.IInteractorRemoveFromMyCommunities
-import com.example.domain.interactors.oldSuspend.myEvents.IInteractorAddToMyEvents
-import com.example.domain.interactors.oldSuspend.myEvents.IInteractorRemoveFromMyEvents
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.EventModelUI
@@ -85,12 +85,10 @@ internal class EventScreenViewModel(
         when (state.isInMyCommunities) {
             true -> {
                 removeFromMyCommunities.invoke(state.eventDescription.organizer.id)
-                    .launchIn(viewModelScope)
             }
 
             false -> {
                 addToMyCommunities.invoke(state.eventDescription.organizer.id)
-                    .launchIn(viewModelScope)
             }
         }
     }
@@ -102,11 +100,10 @@ internal class EventScreenViewModel(
                 when (state.isInMyEvents) {
                     true -> {
                         removeFromMyEvents.invoke(state.eventDescription.id)
-                            .launchIn(viewModelScope)
                     }
 
                     false -> {
-                        addToMyEvents.invoke(state.eventDescription.id).launchIn(viewModelScope)
+                        addToMyEvents.invoke(state.eventDescription.id)
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package com.example.data.repositoriesImpl
 
-import com.example.domain.models.ClientModelDomain
 import com.example.domain.models.CommunitiesAdvertBlockModelDomain
 import com.example.domain.models.CommunityDescriptionModelDomain
 import com.example.domain.models.CommunityModelDomain
@@ -8,9 +7,6 @@ import com.example.domain.models.CountryModelDomain
 import com.example.domain.models.EventAdvertBlockModelDomain
 import com.example.domain.models.EventDescriptionModelDomain
 import com.example.domain.models.EventModelDomain
-import com.example.domain.models.PhoneNumberModelDomain
-import com.example.domain.models.Response
-import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.models.UserModelDomain
 import com.example.domain.models.mock.MockData
 import com.example.domain.repositories.INetworkRepository
@@ -77,8 +73,6 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
         }.flowOn(Dispatchers.IO)
     }
 
-
-
     override fun getAvailableCountriesList(): Flow<List<CountryModelDomain>> {
         return flow {
             emit(mock.getAvailableCountriesList())
@@ -86,145 +80,15 @@ internal class NetworkRepositoryImpl(private val mock: MockData) : INetworkRepos
     }
 
 
-    override fun setClientNotVerifiedName(nameSurname: String): Flow<Response> {
+    override fun getCommunitiesAdvertBlock(): Flow<List<CommunitiesAdvertBlockModelDomain>> {
         return flow {
-            emit(mock.setClientNotVerifiedName(nameSurname))
+            emit(mock.getCommunitiesAdvertBlock())
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getClientNotVerifiedName(): Flow<String> {
+    override fun getEventsAdvertBlock(): Flow<List<EventAdvertBlockModelDomain>> {
         return flow {
-            emit(mock.getClientNotVerifiedName())
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun setClientNotVerifiedPhoneNumber(
-        countryCode: CountryModelDomain,
-        number: String,
-    ): Flow<Response> {
-        return flow {
-            emit(mock.setClientNotVerifiedPhoneNumber(countryCode, number))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun getClientNotVerifiedPhoneNumber(): Flow<PhoneNumberModelDomain> {
-        return flow {
-            emit(mock.getClientNotVerifiedPhoneNumber())
-        }.flowOn(Dispatchers.IO)
-    }
-    override fun setClientPinCode(pinCode: String): Flow<Boolean> {
-        return flow {
-            emit(mock.setClientPinCode(pinCode))
-        }.flowOn(Dispatchers.IO)
-    }
-    override fun getClient(): Flow<ClientModelDomain> {
-        return flow {
-            emit(mock.getClient())
-        }.flowOn(Dispatchers.IO)
-    }
-    override fun setClientName(nameSurname: String): Flow<Response> {
-        return flow {
-            emit(mock.setClientName(nameSurname))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun setClientPhoneNumber(
-        countryCode: CountryModelDomain,
-        number: String,
-    ): Flow<Response> {
-        return flow {
-            emit(mock.setClientPhoneNumber(countryCode, number))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun setClientAvatar(imageURL: String?): Flow<Response> {
-        return flow {
-            emit(mock.setClientAvatar(imageURL))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun saveClientChanges(
-        avatar: String?,
-        nameSurname: String,
-        phoneNumber: PhoneNumberModelDomain,
-        city: String,
-        description: String,
-        listOfClientTags: List<String>,
-        listOfClientSocialMedia: List<SocialMediaModelDomain>,
-        isShowMyCommunities: Boolean,
-        showMyEventsChecked: Boolean,
-        applyNotificationsChecked: Boolean,
-    ): Flow<Response> {
-        return flow {
-            emit(
-                mock.saveClientChanges(
-                    avatar = avatar,
-                    nameSurname = nameSurname,
-                    phoneNumber = phoneNumber,
-                    city = city,
-                    description = description,
-                    listOfClientTags = listOfClientTags,
-                    listOfClientSocialMedia = listOfClientSocialMedia,
-                    isShowMyCommunities = isShowMyCommunities,
-                    showMyEventsChecked = showMyEventsChecked,
-                    applyNotificationsChecked = applyNotificationsChecked
-                )
-            )
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun deleteClient(): Flow<Response> {
-        return flow {
-            emit(mock.deleteClient())
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun addToMyEvents(eventId: String): Flow<Response> {
-        return flow {
-            emit(mock.addToMyEvents(eventId))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun removeFromMyEvents(eventId: String): Flow<Response> {
-        return flow {
-            emit(mock.removeFromMyEvents(eventId))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun addToMyCommunities(communityId: String): Flow<Response> {
-        return flow {
-            emit(mock.addToMyCommunities(communityId))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun removeFromMyCommunities(communityId: String): Flow<Response> {
-        return flow {
-            emit(mock.removeFromMyCommunities(communityId))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun addToMyChosenTags(tag: String): Flow<Response> {
-        return flow {
-            emit(mock.addToMyChosenTags(tag))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun removeFromMyChosenTags(tag: String): Flow<Response> {
-        return flow {
-            emit(mock.removeFromMyChosenTags(tag))
-        }.flowOn(Dispatchers.IO)
-    }
-
-
-    override fun getCommunitiesAdvertBlock(blockId: String): Flow<CommunitiesAdvertBlockModelDomain> {
-        return flow {
-            emit(mock.getCommunitiesAdvertBlock(blockId))
-        }.flowOn(Dispatchers.IO)
-    }
-
-    override fun getEventsAdvertBlock(blockId: String): Flow<EventAdvertBlockModelDomain> {
-        return flow {
-            emit(mock.getEventsAdvertBlock(blockId))
+            emit(mock.getEventsAdvertBlock())
         }.flowOn(Dispatchers.IO)
     }
 }

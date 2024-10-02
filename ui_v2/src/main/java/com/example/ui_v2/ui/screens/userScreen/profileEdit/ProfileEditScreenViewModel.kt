@@ -4,18 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.availableCountries.IInteractorGetAvailableCountriesList
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
-import com.example.domain.interactors.client.IInteractorGetClient
-import com.example.domain.interactors.client.IInteractorLoadClient
-import com.example.domain.interactors.listOfTags.IInteractorGetListOfTags
-import com.example.domain.interactors.listOfTags.IInteractorLoadListOfTags
-import com.example.domain.interactors.oldSuspend.IInteractorSaveClientSettings
+import com.example.domain.interactors.client.getClient.IInteractorGetClient
+import com.example.domain.interactors.client.getClient.IInteractorLoadClient
+import com.example.domain.interactors.client.saveClientSettings.IInteractorSaveClientSettings
+import com.example.domain.interactors.client.setClientPhoneNumber.IInteractorSetClientPhoneNumber
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
 import com.example.ui_v2.models.SocialMediaModelUI
 import com.example.ui_v2.models.mapper.IMapperDomainUI
 import com.example.ui_v2.ui.utils.UiUtils.PHONE_NUMBER_LENGTH
-import com.example.ui_v2.ui.utils.UiUtils.listOfIconsMOCK
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,11 +22,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import java.util.UUID
 
-enum class SCREENS {
-    MAIN_EDIT,
-    EDIT_AVATAR,
-    EDIT_INTERESTS
-}
 
 internal data class ProfileEditScreenUiState(
     val avatarURL: String? = "",
@@ -46,9 +39,6 @@ internal data class ProfileEditScreenUiState(
     val showMyEventsChecked: Boolean = true,
     val applyNotificationsChecked: Boolean = true,
     val client: ClientModelUI = ClientModelUI(),
-    val currentScreen: SCREENS = SCREENS.MAIN_EDIT,
-    val isButtonSaveForAvatarScreenEnabled: Boolean = true,
-    val listOfTags: List<String> = listOf(),
 ) {
     val isNumberValid: Boolean
         get() = number.length == PHONE_NUMBER_LENGTH
@@ -56,8 +46,6 @@ internal data class ProfileEditScreenUiState(
         get() = countryCode.code.isNotBlank()
     val isNameSurnameValid: Boolean
         get() = nameSurname.isNotBlank() && nameSurname.length > 1
-    val isButtonForInterestsScreenEnabled: Boolean
-        get() = listOfUserTags.isNotEmpty()
 }
 
 internal class ProfileEditScreenViewModel(
@@ -66,8 +54,7 @@ internal class ProfileEditScreenViewModel(
     private val getClient: IInteractorGetClient,
     private val loadAvailableCountriesList: IInteractorLoadAvailableCountriesList,
     private val getAvailableCountriesList: IInteractorGetAvailableCountriesList,
-    private val loadListOfTags: IInteractorLoadListOfTags,
-    private val getListOfTags: IInteractorGetListOfTags,
+    private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
     private val saveClientSettings: IInteractorSaveClientSettings,
 ) : ViewModel() {
 
@@ -80,31 +67,6 @@ internal class ProfileEditScreenViewModel(
     }
 
     fun getProfileEditScreenUiStateFlow(): StateFlow<ProfileEditScreenUiState> = uiState
-
-
-    fun showAvatarScreen() {
-        _uiState.update {
-            it.copy(
-                currentScreen = SCREENS.EDIT_AVATAR
-            )
-        }
-    }
-
-    fun showInterestsScreen() {
-        _uiState.update {
-            it.copy(
-                currentScreen = SCREENS.EDIT_INTERESTS
-            )
-        }
-    }
-
-    fun showMainEditScreen() {
-        _uiState.update {
-            it.copy(
-                currentScreen = SCREENS.MAIN_EDIT
-            )
-        }
-    }
 
     fun onNameSurnameChange(nameSurname: String) {
         _uiState.update {
@@ -194,82 +156,38 @@ internal class ProfileEditScreenViewModel(
         }
     }
 
-    fun onChangePhotoClick() {
-        //TODO: исправить этот мок и удалить из utils
-        _uiState.update {
-            it.copy(
-                avatarURL = listOfIconsMOCK.random()
-            )
-        }
-    }
-
-    fun dumpAvatar() {
-        _uiState.update {
-            it.copy(
-                avatarURL = ""
-            )
-        }
-    }
-
-    fun onTagClick(tag: String) {
-        when (uiState.value.listOfUserTags.contains(tag)) {
-            true -> {
-                _uiState.update {
-                    it.copy(
-                        listOfUserTags = it.listOfUserTags - tag
-                    )
-                }
-            }
-
-            false -> {
-                _uiState.update {
-                    it.copy(
-                        listOfUserTags = it.listOfUserTags + tag
-                    )
-                }
-            }
-        }
-    }
-
     fun saveNewSettings() {
         val uiState = uiState.value
         saveClientSettings.invoke(
-            avatar = uiState.avatarURL,
-            nameSurname = uiState.nameSurname,
-            phoneNumber = mapper.toPhoneNumberModelDomain(
-                PhoneNumberModelUI(
-                    uiState.countryCode,
-                    uiState.number
+            mapper.toClientModelDomain(
+                ClientModelUI(
+                    imageURL = uiState.avatarURL,
+                    nameSurname = uiState.nameSurname,
+                    phoneNumber = PhoneNumberModelUI(
+                        uiState.countryCode,
+                        uiState.number
+                    ),
+                    city = uiState.city,
+                    description = uiState.aboutUser,
+                    listOfSocialMedia = uiState.listOfSocialMedia.filter { it.userNickname.isNotBlank() },
+                    isShowMyCommunities = uiState.showMyCommunitiesChecked,
+                    showMyEventsChecked = uiState.showMyEventsChecked,
+                    applyNotificationsChecked = uiState.applyNotificationsChecked
                 )
-            ),
-            city = uiState.city,
-            description = uiState.aboutUser,
-            listOfClientTags = uiState.listOfUserTags,
-            listOfClientSocialMedia = uiState.listOfSocialMedia.filter { it.userNickname.isNotBlank() }
-                .map {
-                    mapper.toSocialMediaModelDomain(
-                        it
-                    )
-                },
-            isShowMyCommunities = uiState.showMyCommunitiesChecked,
-            showMyEventsChecked = uiState.showMyEventsChecked,
-            applyNotificationsChecked = uiState.applyNotificationsChecked
-        ).launchIn(viewModelScope)
+            )
+        )
     }
-
 
     private fun loadData() {
         loadClient.invoke()
         loadAvailableCountriesList.invoke()
-        loadListOfTags.invoke()
     }
 
     private fun getDataUserOutsideScreenUiState() {
         combine(
             getClient.invoke(),
-            getAvailableCountriesList.invoke(),
-            getListOfTags.invoke()
-        ) { client, availableCountriesList, listOfTags ->
+            getAvailableCountriesList.invoke()
+        ) { client, availableCountriesList ->
             _uiState.update {
                 it.copy(
                     avatarURL = client.imageURL,
@@ -288,8 +206,7 @@ internal class ProfileEditScreenViewModel(
                     showMyCommunitiesChecked = client.isShowMyCommunities,
                     showMyEventsChecked = client.showMyEventsChecked,
                     applyNotificationsChecked = client.applyNotificationsChecked,
-                    client = mapper.toClientModelUI(client),
-                    listOfTags = listOfTags
+                    client = mapper.toClientModelUI(client)
                 )
             }
         }.launchIn(viewModelScope)

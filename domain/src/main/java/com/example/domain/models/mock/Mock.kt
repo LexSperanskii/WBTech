@@ -436,20 +436,24 @@ class MockData {
         )
     }
 
-    private val communitiesAdvertBlock1 = CommunitiesAdvertBlockModelDomain(
-        id = "0",
-        nameOfBlock = "Сообщества для тестировщиков",
-        listOfCommunities = getListOfCommunities().take(5)
+    private val communitiesAdvertBlock: List<CommunitiesAdvertBlockModelDomain> = listOf(
+        CommunitiesAdvertBlockModelDomain(
+            id = "0",
+            nameOfBlock = "Сообщества для тестировщиков",
+            listOfCommunities = getListOfCommunities().take(5)
+        ),
+        CommunitiesAdvertBlockModelDomain(
+            id = "1",
+            nameOfBlock = "Популярные сообщества в IT",
+            listOfCommunities = getListOfCommunities().take(12)
+        )
     )
-    private val communitiesAdvertBlock2 = CommunitiesAdvertBlockModelDomain(
-        id = "1",
-        nameOfBlock = "Популярные сообщества в IT",
-        listOfCommunities = getListOfCommunities().take(12)
-    )
-    private val eventsAdvertBlock = EventAdvertBlockModelDomain(
-        id = "0",
-        nameOfBlock = "Встречи для разработчиков",
-        listOfEvents = getListOfEvents().take(10)
+    private val eventsAdvertBlock = listOf(
+        EventAdvertBlockModelDomain(
+            id = "0",
+            nameOfBlock = "Встречи для разработчиков",
+            listOfEvents = getListOfEvents().take(10)
+        )
     )
 
     fun addToMyCommunities(communityId: String): Response {
@@ -489,20 +493,10 @@ class MockData {
         return Response("success", "")
     }
 
-    fun getCommunitiesAdvertBlock(blockId: String): CommunitiesAdvertBlockModelDomain {
-        return when (blockId) {
-            "0" -> communitiesAdvertBlock1
-            "1" -> communitiesAdvertBlock2
-            else -> communitiesAdvertBlock1
-        }
-    }
+    fun getCommunitiesAdvertBlock(): List<CommunitiesAdvertBlockModelDomain> =
+        communitiesAdvertBlock
 
-    fun getEventsAdvertBlock(blockId: String): EventAdvertBlockModelDomain {
-        return when (blockId) {
-            "0" -> eventsAdvertBlock
-            else -> eventsAdvertBlock
-        }
-    }
+    fun getEventsAdvertBlock(): List<EventAdvertBlockModelDomain> = eventsAdvertBlock
 
     fun getListOfCommunities(): List<CommunityModelDomain> = listOfRealCommunities
 
@@ -558,13 +552,8 @@ class MockData {
         return Response("success", "")
     }
 
-    fun setClientPhoneNumber(countryCode: CountryModelDomain, number: String): Response {
-        client = client.copy(
-            phoneNumber = client.phoneNumber.copy(
-                country = countryCode,
-                number = number
-            )
-        )
+    fun setClientPhoneNumber(phoneNumber: PhoneNumberModelDomain): Response {
+        client = client.copy(phoneNumber = phoneNumber)
         return Response("success", "")
     }
 
@@ -600,30 +589,9 @@ class MockData {
         )
         return Response("success", "")
     }
-    fun saveClientChanges(
-        avatar: String?,
-        nameSurname: String,
-        phoneNumber: PhoneNumberModelDomain,
-        city: String,
-        description: String,
-        listOfClientTags: List<String>,
-        listOfClientSocialMedia: List<SocialMediaModelDomain>,
-        isShowMyCommunities: Boolean,
-        showMyEventsChecked: Boolean,
-        applyNotificationsChecked: Boolean,
-    ): Response {
-        client = client.copy(
-            imageURL = avatar,
-            nameSurname = nameSurname,
-            phoneNumber = phoneNumber,
-            city = city,
-            description = description,
-            listOfClientSocialMedia = listOfClientSocialMedia,
-            listOfClientTags = listOfClientTags,
-            isShowMyCommunities = isShowMyCommunities,
-            showMyEventsChecked = showMyEventsChecked,
-            applyNotificationsChecked = applyNotificationsChecked
-        )
+    fun saveClientChanges(newClient: ClientModelDomain): Response {
+        client = newClient
+
         return Response("success", "")
     }
 
@@ -640,11 +608,8 @@ class MockData {
     }
 
     fun getClientNotVerifiedName(): String = clientNotVerifiedNameSurname
-    fun setClientNotVerifiedPhoneNumber(countryCode: CountryModelDomain, number: String): Response {
-        clientNotVerifiedPhoneNumber = PhoneNumberModelDomain(
-            country = countryCode,
-            number = number
-        )
+    fun setClientNotVerifiedPhoneNumber(phoneNumber: PhoneNumberModelDomain): Response {
+        clientNotVerifiedPhoneNumber = phoneNumber
         return Response("Success", "")
     }
 
