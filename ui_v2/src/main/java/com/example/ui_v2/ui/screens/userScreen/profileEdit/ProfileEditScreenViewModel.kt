@@ -2,13 +2,13 @@ package com.example.ui_v2.ui.screens.userScreen.profileEdit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.interactors.ClientCash.IInteractorGetClientCash
+import com.example.domain.interactors.ClientCash.IInteractorSaveClientCash
 import com.example.domain.interactors.availableCountries.IInteractorGetAvailableCountriesList
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
 import com.example.domain.interactors.client.getClient.IInteractorGetClient
 import com.example.domain.interactors.client.getClient.IInteractorLoadClient
 import com.example.domain.interactors.client.saveClientSettings.IInteractorSaveClientSettings
-import com.example.domain.interactors.interestsAvatarCash.avatar.IInteractorGetClientCash
-import com.example.domain.interactors.interestsAvatarCash.avatar.IInteractorSaveClientCash
 import com.example.domain.repositories.ClientCash
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CountryModelUI
@@ -40,7 +40,7 @@ internal data class ProfileEditScreenUiState(
     val showMyCommunitiesChecked: Boolean = true,
     val showMyEventsChecked: Boolean = true,
     val applyNotificationsChecked: Boolean = true,
-//    val client: ClientModelUI = ClientModelUI(),
+    val client: ClientModelUI = ClientModelUI(),
     val clientCash: ClientCash = ClientCash(),
 ) {
     val isNumberValid: Boolean
@@ -83,83 +83,125 @@ internal class ProfileEditScreenViewModel(
     }
 
     fun onNumberChange(number: String) {
-        _uiState.update {
-            it.copy(
-                number = number
-            )
-        }
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(cash.copy(phoneNumber = cash.phoneNumber.copy(number = number)))
+//        _uiState.update {
+//            it.copy(
+//                number = number
+//            )
+//        }
     }
 
     fun onCountryCodeChange(countryCode: CountryModelUI) {
-        _uiState.update {
-            it.copy(
-                countryCode = countryCode
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(
+            cash.copy(
+                phoneNumber = cash.phoneNumber.copy(
+                    country = mapper.toCountryModelDomain(
+                        countryCode
+                    )
+                )
             )
-        }
+        )
+//        _uiState.update {
+//            it.copy(
+//                countryCode = countryCode
+//            )
+//        }
     }
 
     fun onCityChange(city: String) {
-        _uiState.update {
-            it.copy(
-                city = city
-            )
-        }
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(cash.copy(city = city))
+//        _uiState.update {
+//            it.copy(
+//                city = city
+//            )
+//        }
     }
 
     fun onAboutUserChange(aboutUser: String) {
-        _uiState.update {
-            it.copy(
-                aboutUser = aboutUser
-            )
-        }
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(cash.copy(description = aboutUser))
+//        _uiState.update {
+//            it.copy(
+//                aboutUser = aboutUser
+//            )
+//        }
     }
 
     fun onSocialNetworkValueChange(socialMediaID: String, value: String) {
-        _uiState.update { it ->
-            it.copy(
-                listOfSocialMedia = it.listOfSocialMedia.map { socialMedia ->
-                    if (socialMedia.socialMediaId == socialMediaID) {
-                        socialMedia.copy(userNickname = value)
-                    } else {
-                        socialMedia
-                    }
-                }
-            )
-        }
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(cash.copy(listOfClientSocialMedia = cash.listOfClientSocialMedia.map { socialMedia ->
+            if (socialMedia.socialMediaId == socialMediaID) {
+                socialMedia.copy(userNickname = value)
+            } else {
+                socialMedia
+            }
+        }))
+//        _uiState.update { it ->
+//            it.copy(
+//                listOfSocialMedia = it.listOfSocialMedia.map { socialMedia ->
+//                    if (socialMedia.socialMediaId == socialMediaID) {
+//                        socialMedia.copy(userNickname = value)
+//                    } else {
+//                        socialMedia
+//                    }
+//                }
+//            )
+//        }
     }
 
     fun onAddSocialNetworkClick() {
-        _uiState.update {
-            it.copy(
-                listOfSocialMedia = it.listOfSocialMedia + SocialMediaModelUI(
-                    socialMediaId = UUID.randomUUID().toString()
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(
+            cash.copy(
+                listOfClientSocialMedia = cash.listOfClientSocialMedia + mapper.toSocialMediaModelDomain(
+                    SocialMediaModelUI(
+                        socialMediaId = UUID.randomUUID().toString()
+                    )
                 )
             )
-        }
+        )
+
+//        _uiState.update {
+//            it.copy(
+//                listOfSocialMedia = it.listOfSocialMedia + SocialMediaModelUI(
+//                    socialMediaId = UUID.randomUUID().toString()
+//                )
+//            )
+//        }
     }
 
     fun onShowMyCommunitiesChange(toggle: Boolean) {
-        _uiState.update {
-            it.copy(
-                showMyCommunitiesChecked = toggle
-            )
-        }
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(cash.copy(isShowMyCommunities = toggle))
+
+//        _uiState.update {
+//            it.copy(
+//                showMyCommunitiesChecked = toggle
+//            )
+//        }
     }
 
     fun onShowMyEventsChange(toggle: Boolean) {
-        _uiState.update {
-            it.copy(
-                showMyEventsChecked = toggle
-            )
-        }
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(cash.copy(showMyEventsChecked = toggle))
+//        _uiState.update {
+//            it.copy(
+//                showMyEventsChecked = toggle
+//            )
+//        }
     }
 
     fun onApplyNotificationsChange(toggle: Boolean) {
-        _uiState.update {
-            it.copy(
-                applyNotificationsChecked = toggle
-            )
-        }
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(cash.copy(applyNotificationsChecked = toggle))
+//        _uiState.update {
+//            it.copy(
+//                applyNotificationsChecked = toggle
+//            )
+//        }
     }
 
     fun saveNewSettings() {
@@ -190,7 +232,7 @@ internal class ProfileEditScreenViewModel(
     }
 
     private fun getDataUserOutsideScreenUiState() {
-        val clientCash = combine(
+        val combineClientCashFlow = combine(
             getClientCash.invoke(),
             getClient.invoke()
         ) { clientCash, client ->
@@ -208,31 +250,36 @@ internal class ProfileEditScreenViewModel(
             )
         }
         combine(
-            clientCash,
-            getAvailableCountriesList.invoke()
-        ) { cash, availableCountriesList ->
+            combineClientCashFlow,
+            getAvailableCountriesList.invoke(),
+            getClientCash.invoke(),
+            getClient.invoke()
+        ) { combineClientCash, availableCountriesList, clientCash, client ->
             _uiState.update {
                 it.copy(
-                    avatarURL = cash.imageURL,
-                    nameSurname = cash.nameSurname,
-                    number = cash.phoneNumber.number,
-                    countryCode = mapper.toCountryModelUI(cash.phoneNumber.country),
+                    avatarURL = combineClientCash.imageURL,
+                    nameSurname = combineClientCash.nameSurname,
+                    number = combineClientCash.phoneNumber.number,
+                    countryCode = mapper.toCountryModelUI(combineClientCash.phoneNumber.country),
                     listOfCountriesCodes = availableCountriesList.map { mapper.toCountryModelUI(it) },
-                    city = cash.city,
-                    aboutUser = cash.description,
-                    listOfUserTags = cash.listOfClientTags,
-                    listOfSocialMedia = cash.listOfClientSocialMedia.map {
+                    city = combineClientCash.city,
+                    aboutUser = combineClientCash.description,
+                    listOfUserTags = combineClientCash.listOfClientTags,
+                    listOfSocialMedia = combineClientCash.listOfClientSocialMedia.map {
                         mapper.toSocialMediaModelUI(
                             it
                         )
                     },
-                    showMyCommunitiesChecked = cash.isShowMyCommunities,
-                    showMyEventsChecked = cash.showMyEventsChecked,
-                    applyNotificationsChecked = cash.applyNotificationsChecked,
-                    clientCash = cash
+                    showMyCommunitiesChecked = combineClientCash.isShowMyCommunities,
+                    showMyEventsChecked = combineClientCash.showMyEventsChecked,
+                    applyNotificationsChecked = combineClientCash.applyNotificationsChecked,
+                    clientCash = clientCash,
+                    client = mapper.toClientModelUI(client)
                 )
             }
         }.launchIn(viewModelScope)
+
+
 //        combine(
 //            getClient.invoke(),
 //            getAvailableCountriesList.invoke()

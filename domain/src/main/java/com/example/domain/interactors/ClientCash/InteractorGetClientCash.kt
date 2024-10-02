@@ -1,4 +1,4 @@
-package com.example.domain.interactors.interestsAvatarCash.avatar
+package com.example.domain.interactors.ClientCash
 
 import com.example.domain.repositories.ClientCash
 import com.example.domain.repositories.IClientCash

@@ -110,7 +110,7 @@ internal fun ProfileEditScreen(
             onDeleteProfileButtonClick = {
                 navigateToDeleteProfile()
             },
-            isShowDeleteButton = profileEditScreenUiState.clientCash.phoneNumber.number.isNotBlank(),
+            isShowDeleteButton = profileEditScreenUiState.client.phoneNumber.number.isNotBlank(),
             modifier = Modifier.padding(innerPadding)
         )
     }
