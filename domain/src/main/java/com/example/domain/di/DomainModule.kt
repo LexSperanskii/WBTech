@@ -6,6 +6,7 @@ val domainModule = module {
     includes(
         networkModule,
         networkClientModule,
-        useCaseModule
+        useCaseModule,
+        interestsAvatarCashModule
     )
 }

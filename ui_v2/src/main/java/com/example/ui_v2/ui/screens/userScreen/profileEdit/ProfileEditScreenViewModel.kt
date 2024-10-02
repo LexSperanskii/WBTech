@@ -7,7 +7,9 @@ import com.example.domain.interactors.availableCountries.IInteractorLoadAvailabl
 import com.example.domain.interactors.client.getClient.IInteractorGetClient
 import com.example.domain.interactors.client.getClient.IInteractorLoadClient
 import com.example.domain.interactors.client.saveClientSettings.IInteractorSaveClientSettings
-import com.example.domain.interactors.client.setClientPhoneNumber.IInteractorSetClientPhoneNumber
+import com.example.domain.interactors.interestsAvatarCash.avatar.IInteractorGetClientCash
+import com.example.domain.interactors.interestsAvatarCash.avatar.IInteractorSaveClientCash
+import com.example.domain.repositories.ClientCash
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CountryModelUI
 import com.example.ui_v2.models.PhoneNumberModelUI
@@ -38,7 +40,8 @@ internal data class ProfileEditScreenUiState(
     val showMyCommunitiesChecked: Boolean = true,
     val showMyEventsChecked: Boolean = true,
     val applyNotificationsChecked: Boolean = true,
-    val client: ClientModelUI = ClientModelUI(),
+//    val client: ClientModelUI = ClientModelUI(),
+    val clientCash: ClientCash = ClientCash(),
 ) {
     val isNumberValid: Boolean
         get() = number.length == PHONE_NUMBER_LENGTH
@@ -54,8 +57,9 @@ internal class ProfileEditScreenViewModel(
     private val getClient: IInteractorGetClient,
     private val loadAvailableCountriesList: IInteractorLoadAvailableCountriesList,
     private val getAvailableCountriesList: IInteractorGetAvailableCountriesList,
-    private val setClientPhoneNumber: IInteractorSetClientPhoneNumber,
     private val saveClientSettings: IInteractorSaveClientSettings,
+    private val getClientCash: IInteractorGetClientCash,
+    private val saveClientCash: IInteractorSaveClientCash,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileEditScreenUiState())
@@ -69,11 +73,13 @@ internal class ProfileEditScreenViewModel(
     fun getProfileEditScreenUiStateFlow(): StateFlow<ProfileEditScreenUiState> = uiState
 
     fun onNameSurnameChange(nameSurname: String) {
-        _uiState.update {
-            it.copy(
-                nameSurname = nameSurname
-            )
-        }
+        val cash = uiState.value.clientCash
+        saveClientCash.invoke(cash.copy(nameSurname = nameSurname))
+//        _uiState.update {
+//            it.copy(
+//                nameSurname = nameSurname
+//            )
+//        }
     }
 
     fun onNumberChange(number: String) {
@@ -184,32 +190,75 @@ internal class ProfileEditScreenViewModel(
     }
 
     private fun getDataUserOutsideScreenUiState() {
+        val clientCash = combine(
+            getClientCash.invoke(),
+            getClient.invoke()
+        ) { clientCash, client ->
+            clientCash.copy(
+                imageURL = client.imageURL,
+                nameSurname = client.nameSurname,
+                phoneNumber = client.phoneNumber,
+                city = client.city,
+                description = client.description,
+                listOfClientTags = client.listOfClientTags,
+                listOfClientSocialMedia = client.listOfClientSocialMedia,
+                isShowMyCommunities = client.isShowMyCommunities,
+                showMyEventsChecked = client.showMyEventsChecked,
+                applyNotificationsChecked = client.applyNotificationsChecked
+            )
+        }
         combine(
-            getClient.invoke(),
+            clientCash,
             getAvailableCountriesList.invoke()
-        ) { client, availableCountriesList ->
+        ) { cash, availableCountriesList ->
             _uiState.update {
                 it.copy(
-                    avatarURL = client.imageURL,
-                    nameSurname = client.nameSurname,
-                    number = client.phoneNumber.number,
-                    countryCode = mapper.toCountryModelUI(client.phoneNumber.country),
+                    avatarURL = cash.imageURL,
+                    nameSurname = cash.nameSurname,
+                    number = cash.phoneNumber.number,
+                    countryCode = mapper.toCountryModelUI(cash.phoneNumber.country),
                     listOfCountriesCodes = availableCountriesList.map { mapper.toCountryModelUI(it) },
-                    city = client.city,
-                    aboutUser = client.description,
-                    listOfUserTags = client.listOfClientTags,
-                    listOfSocialMedia = client.listOfClientSocialMedia.map {
+                    city = cash.city,
+                    aboutUser = cash.description,
+                    listOfUserTags = cash.listOfClientTags,
+                    listOfSocialMedia = cash.listOfClientSocialMedia.map {
                         mapper.toSocialMediaModelUI(
                             it
                         )
                     },
-                    showMyCommunitiesChecked = client.isShowMyCommunities,
-                    showMyEventsChecked = client.showMyEventsChecked,
-                    applyNotificationsChecked = client.applyNotificationsChecked,
-                    client = mapper.toClientModelUI(client)
+                    showMyCommunitiesChecked = cash.isShowMyCommunities,
+                    showMyEventsChecked = cash.showMyEventsChecked,
+                    applyNotificationsChecked = cash.applyNotificationsChecked,
+                    clientCash = cash
                 )
             }
         }.launchIn(viewModelScope)
+//        combine(
+//            getClient.invoke(),
+//            getAvailableCountriesList.invoke()
+//        ) { client, availableCountriesList ->
+//            _uiState.update {
+//                it.copy(
+//                    avatarURL = client.imageURL,
+//                    nameSurname = client.nameSurname,
+//                    number = client.phoneNumber.number,
+//                    countryCode = mapper.toCountryModelUI(client.phoneNumber.country),
+//                    listOfCountriesCodes = availableCountriesList.map { mapper.toCountryModelUI(it) },
+//                    city = client.city,
+//                    aboutUser = client.description,
+//                    listOfUserTags = client.listOfClientTags,
+//                    listOfSocialMedia = client.listOfClientSocialMedia.map {
+//                        mapper.toSocialMediaModelUI(
+//                            it
+//                        )
+//                    },
+//                    showMyCommunitiesChecked = client.isShowMyCommunities,
+//                    showMyEventsChecked = client.showMyEventsChecked,
+//                    applyNotificationsChecked = client.applyNotificationsChecked,
+//                    client = mapper.toClientModelUI(client)
+//                )
+//            }
+//        }.launchIn(viewModelScope)
     }
 
 }

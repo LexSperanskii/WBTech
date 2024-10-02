@@ -5,8 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.interactors.client.getClient.IInteractorGetClient
 import com.example.domain.interactors.client.getClient.IInteractorLoadClient
 import com.example.domain.interactors.client.setClientAvatar.IInteractorSetClientAvatar
-import com.example.ui_v2.models.ClientModelUI
-import com.example.ui_v2.models.mapper.IMapperDomainUI
 import com.example.ui_v2.ui.utils.UiUtils.listOfIconsMOCK
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,12 +15,11 @@ import kotlinx.coroutines.flow.update
 
 
 internal data class ProfileEditPhotoScreenUiState(
-    val client: ClientModelUI = ClientModelUI(),
+    val avatar: String? = null,
     val isButtonSaveEnabled: Boolean = true,
 )
 
 internal class ProfileEditPhotoScreenViewModel(
-    private val mapper: IMapperDomainUI,
     private val loadClient: IInteractorLoadClient,
     private val getClient: IInteractorGetClient,
     private val setClientAvatar: IInteractorSetClientAvatar,
@@ -42,13 +39,13 @@ internal class ProfileEditPhotoScreenViewModel(
         //TODO: исправить этот мок и удалить из utils
         _uiState.update {
             it.copy(
-                client = it.client.copy(imageURL = listOfIconsMOCK.random())
+                avatar = listOfIconsMOCK.random()
             )
         }
     }
 
     fun onButtonSaveClick() {
-        setClientAvatar.invoke(uiState.value.client.imageURL)
+        setClientAvatar.invoke(uiState.value.avatar)
     }
 
     private fun loadData() {
@@ -59,7 +56,7 @@ internal class ProfileEditPhotoScreenViewModel(
         getClient.invoke().onEach { client ->
             _uiState.update {
                 it.copy(
-                    client = mapper.toClientModelUI(client)
+                    avatar = client.imageURL
                 )
             }
         }.launchIn(viewModelScope)

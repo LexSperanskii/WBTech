@@ -19,7 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui_v2.R
-import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.ButtonWithStatus
 import com.example.ui_v2.ui.components.PersonAvatarForUserScreen
@@ -44,7 +43,7 @@ internal fun ProfileEditPhotoScreen(
 
     Scaffold { innerPadding ->
         ProfileEditPhotoScreenBody(
-            client = profileEditPhotoScreenUiState.client,
+            avatar = profileEditPhotoScreenUiState.avatar,
             onCrossClick = navigateBack,
             onChangePhotoClick = { viewModel.onChangePhotoClick() },
             isButtonSaveEnabled = profileEditPhotoScreenUiState.isButtonSaveEnabled,
@@ -59,7 +58,7 @@ internal fun ProfileEditPhotoScreen(
 
 @Composable
 internal fun ProfileEditPhotoScreenBody(
-    client: ClientModelUI,
+    avatar: String?,
     onCrossClick: () -> Unit,
     onChangePhotoClick: () -> Unit,
     isButtonSaveEnabled: Boolean,
@@ -86,7 +85,7 @@ internal fun ProfileEditPhotoScreenBody(
                 }
         )
         PersonAvatarForUserScreen(
-            imageURL = client.imageURL,
+            imageURL = avatar,
             modifier = Modifier
                 .padding(top = 140.dp)
         )
