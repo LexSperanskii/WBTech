@@ -190,7 +190,6 @@ internal class ProfileEditScreenViewModel(
         saveClientCash.invoke(
             mapper.toClientCashModelDomain(
                 ClientCashModelUI(
-                    imageURL = uiState.avatarURL,
                     nameSurname = uiState.nameSurname,
                     phoneNumber = PhoneNumberModelUI(
                         uiState.countryCode,
@@ -198,7 +197,6 @@ internal class ProfileEditScreenViewModel(
                     ),
                     city = uiState.city,
                     description = uiState.aboutUser,
-                    listOfClientTags = uiState.listOfUserTags,
                     listOfClientSocialMedia = uiState.listOfSocialMedia,
                     isShowMyCommunities = uiState.showMyCommunitiesChecked,
                     showMyEventsChecked = uiState.showMyEventsChecked,

@@ -290,12 +290,10 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
 
     override fun toClientCashModelUI(clientCashModelDomain: ClientCashModelDomain): ClientCashModelUI =
         ClientCashModelUI(
-            imageURL = clientCashModelDomain.imageURL,
             nameSurname = clientCashModelDomain.nameSurname,
             phoneNumber = toPhoneNumberModelUI(clientCashModelDomain.phoneNumber),
             city = clientCashModelDomain.city,
             description = clientCashModelDomain.description,
-            listOfClientTags = clientCashModelDomain.listOfClientTags,
             listOfClientSocialMedia = clientCashModelDomain.listOfClientSocialMedia.map {
                 toSocialMediaModelUI(
                     it
@@ -308,12 +306,10 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
 
     override fun toClientCashModelDomain(clientCashModelUI: ClientCashModelUI): ClientCashModelDomain =
         ClientCashModelDomain(
-            imageURL = clientCashModelUI.imageURL,
             nameSurname = clientCashModelUI.nameSurname,
             phoneNumber = toPhoneNumberModelDomain(clientCashModelUI.phoneNumber),
             city = clientCashModelUI.city,
             description = clientCashModelUI.description,
-            listOfClientTags = clientCashModelUI.listOfClientTags,
             listOfClientSocialMedia = clientCashModelUI.listOfClientSocialMedia.map {
                 toSocialMediaModelDomain(
                     it
