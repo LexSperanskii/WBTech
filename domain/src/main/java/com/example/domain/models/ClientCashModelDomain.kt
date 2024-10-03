@@ -9,7 +9,7 @@ data class ClientCashModelDomain(
     val description: String = "",
     val listOfClientTags: List<String> = listOf(),
     val listOfClientSocialMedia: List<SocialMediaModelDomain> = listOf(),
-    val isShowMyCommunities: Boolean = true,
-    val showMyEventsChecked: Boolean = true,
-    val applyNotificationsChecked: Boolean = true,
+    val isShowMyCommunities: Boolean? = null,
+    val showMyEventsChecked: Boolean? = null,
+    val applyNotificationsChecked: Boolean? = null,
 )

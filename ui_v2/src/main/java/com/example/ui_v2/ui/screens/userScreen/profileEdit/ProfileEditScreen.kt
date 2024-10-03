@@ -1,5 +1,6 @@
 package com.example.ui_v2.ui.screens.userScreen.profileEdit
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,6 +40,10 @@ internal fun ProfileEditScreen(
     navigateToDeleteProfile: () -> Unit,
     viewModel: ProfileEditScreenViewModel = koinViewModel(),
 ) {
+    BackHandler {
+        viewModel.clearCash()
+        navigateBack()
+    }
 
     val profileEditScreenUiState by viewModel.getProfileEditScreenUiStateFlow()
         .collectAsStateWithLifecycle()
@@ -47,6 +52,7 @@ internal fun ProfileEditScreen(
         ProfileEditScreenBody(
             avatarURL = profileEditScreenUiState.avatarURL,
             onCrossClick = {
+                viewModel.clearCash()
                 navigateBack()
             },
             isCanSave = profileEditScreenUiState.isNumberValid &&
@@ -54,6 +60,7 @@ internal fun ProfileEditScreen(
                     profileEditScreenUiState.isCountryCodeValid,
             onDoneClick = {
                 viewModel.saveNewSettings()
+                viewModel.clearCash()
                 navigateToUserInsideScreen()
             },
             onChangePhotoClick = {
