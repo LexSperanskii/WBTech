@@ -591,7 +591,6 @@ class MockData {
     }
     fun saveClientChanges(newClient: ClientModelDomain): Response {
         client = client.copy(
-            imageURL = newClient.imageURL,
             nameSurname = newClient.nameSurname,
             phoneNumber = newClient.phoneNumber,
             city = newClient.city,

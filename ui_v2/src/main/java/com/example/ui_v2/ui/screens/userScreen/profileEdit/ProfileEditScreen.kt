@@ -34,6 +34,7 @@ internal object ProfileEditScreenDestination : NavigationDestination {
 internal fun ProfileEditScreen(
     navigateBack: () -> Unit,
     onChangePhotoClick: () -> Unit,
+    navigateToUserInsideScreen: () -> Unit,
     navigateToInterestsScreen: () -> Unit,
     navigateToDeleteProfile: () -> Unit,
     viewModel: ProfileEditScreenViewModel = koinViewModel(),
@@ -53,7 +54,7 @@ internal fun ProfileEditScreen(
                     profileEditScreenUiState.isCountryCodeValid,
             onDoneClick = {
                 viewModel.saveNewSettings()
-                navigateBack()
+                navigateToUserInsideScreen()
             },
             onChangePhotoClick = {
                 onChangePhotoClick()

@@ -332,6 +332,11 @@ fun NavHost(
                     onChangePhotoClick = {
                         navController.navigate(ProfileEditPhotoScreenDestination.route)
                     },
+                    navigateToUserInsideScreen = {
+                        navController.navigate(UserProfileDestination.route) {
+                            popUpTo(UserProfileDestination.route)
+                        }
+                    },
                     navigateToDeleteProfile = {
                         navController.navigate(DeleteProfileScreenDestination.route)
                     },

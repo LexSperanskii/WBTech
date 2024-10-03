@@ -189,10 +189,12 @@ internal class ProfileEditScreenViewModel(
             getClient.invoke()
         ) { clientCash, client ->
             clientCash.copy(
+                imageURL = client.imageURL,
                 nameSurname = client.nameSurname,
                 phoneNumber = client.phoneNumber,
                 city = client.city,
                 description = client.description,
+                listOfClientTags = clientCash.listOfClientTags,
                 listOfClientSocialMedia = client.listOfClientSocialMedia,
                 isShowMyCommunities = client.isShowMyCommunities,
                 showMyEventsChecked = client.showMyEventsChecked,
