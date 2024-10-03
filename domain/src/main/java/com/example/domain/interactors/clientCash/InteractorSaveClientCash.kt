@@ -1,4 +1,4 @@
-package com.example.domain.interactors.ClientCash
+package com.example.domain.interactors.clientCash
 
 import com.example.domain.models.ClientCashModelDomain
 import com.example.domain.repositories.IClientCash

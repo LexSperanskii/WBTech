@@ -2,13 +2,13 @@ package com.example.ui_v2.ui.screens.userScreen.profileEdit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.interactors.ClientCash.IInteractorGetClientCash
-import com.example.domain.interactors.ClientCash.IInteractorSaveClientCash
 import com.example.domain.interactors.availableCountries.IInteractorGetAvailableCountriesList
 import com.example.domain.interactors.availableCountries.IInteractorLoadAvailableCountriesList
 import com.example.domain.interactors.client.getClient.IInteractorGetClient
 import com.example.domain.interactors.client.getClient.IInteractorLoadClient
 import com.example.domain.interactors.client.saveClientSettings.IInteractorSaveClientSettings
+import com.example.domain.interactors.clientCash.IInteractorGetClientCash
+import com.example.domain.interactors.clientCash.IInteractorSaveClientCash
 import com.example.ui_v2.models.ClientCashModelUI
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CountryModelUI
