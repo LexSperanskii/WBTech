@@ -7,6 +7,6 @@ val domainModule = module {
         networkModule,
         networkClientModule,
         useCaseModule,
-        interestsAvatarCashModule
+        clientCashModule
     )
 }

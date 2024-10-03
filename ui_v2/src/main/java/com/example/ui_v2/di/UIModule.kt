@@ -40,7 +40,7 @@ val uiModule = module {
     viewModelOf(::UserOutsideScreenViewModel)
     viewModelOf(::UserInsideScreenViewModel)
     viewModelOf(::ProfileEditScreenViewModel)
+    viewModelOf(::ProfileInterestsScreenViewModel)
     viewModelOf(::DeleteProfileScreenViewModel)
     viewModelOf(::ProfileEditPhotoScreenViewModel)
-    viewModelOf(::ProfileInterestsScreenViewModel)
 }
