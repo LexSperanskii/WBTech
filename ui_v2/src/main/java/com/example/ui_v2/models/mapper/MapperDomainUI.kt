@@ -1,6 +1,7 @@
 package com.example.ui_v2.models.mapper
 
 import androidx.compose.ui.graphics.Color
+import com.example.domain.models.ClientCashModelDomain
 import com.example.domain.models.ClientModelDomain
 import com.example.domain.models.CommunitiesAdvertBlockModelDomain
 import com.example.domain.models.CommunityDescriptionModelDomain
@@ -15,6 +16,7 @@ import com.example.domain.models.PhoneNumberModelDomain
 import com.example.domain.models.SocialMediaModelDomain
 import com.example.domain.models.UserModelDomain
 import com.example.ui_v2.R
+import com.example.ui_v2.models.ClientCashModelUI
 import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.CommunitiesAdvertBlockModelUI
 import com.example.ui_v2.models.CommunityDescriptionModelUI
@@ -49,6 +51,8 @@ internal interface IMapperDomainUI {
     fun toClientModelDomain(clientModelUI: ClientModelUI): ClientModelDomain
     fun toSocialMediaModelUI(socialMediaModelDomain: SocialMediaModelDomain): SocialMediaModelUI
     fun toSocialMediaModelDomain(socialMediaModelUI: SocialMediaModelUI): SocialMediaModelDomain
+    fun toClientCashModelUI(clientCashModelDomain: ClientCashModelDomain): ClientCashModelUI
+    fun toClientCashModelDomain(clientCashModelUI: ClientCashModelUI): ClientCashModelDomain
 }
 
 internal class MapperDomainUIImpl : IMapperDomainUI {
@@ -282,6 +286,42 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
             socialMediaId = socialMediaModelUI.socialMediaId,
             socialMediaName = socialMediaModelUI.socialMediaName,
             userNickname = socialMediaModelUI.userNickname
+        )
+
+    override fun toClientCashModelUI(clientCashModelDomain: ClientCashModelDomain): ClientCashModelUI =
+        ClientCashModelUI(
+            imageURL = clientCashModelDomain.imageURL,
+            nameSurname = clientCashModelDomain.nameSurname,
+            phoneNumber = toPhoneNumberModelUI(clientCashModelDomain.phoneNumber),
+            city = clientCashModelDomain.city,
+            description = clientCashModelDomain.description,
+            listOfClientTags = clientCashModelDomain.listOfClientTags,
+            listOfClientSocialMedia = clientCashModelDomain.listOfClientSocialMedia.map {
+                toSocialMediaModelUI(
+                    it
+                )
+            },
+            isShowMyCommunities = clientCashModelDomain.isShowMyCommunities,
+            showMyEventsChecked = clientCashModelDomain.showMyEventsChecked,
+            applyNotificationsChecked = clientCashModelDomain.applyNotificationsChecked
+        )
+
+    override fun toClientCashModelDomain(clientCashModelUI: ClientCashModelUI): ClientCashModelDomain =
+        ClientCashModelDomain(
+            imageURL = clientCashModelUI.imageURL,
+            nameSurname = clientCashModelUI.nameSurname,
+            phoneNumber = toPhoneNumberModelDomain(clientCashModelUI.phoneNumber),
+            city = clientCashModelUI.city,
+            description = clientCashModelUI.description,
+            listOfClientTags = clientCashModelUI.listOfClientTags,
+            listOfClientSocialMedia = clientCashModelUI.listOfClientSocialMedia.map {
+                toSocialMediaModelDomain(
+                    it
+                )
+            },
+            isShowMyCommunities = clientCashModelUI.isShowMyCommunities,
+            showMyEventsChecked = clientCashModelUI.showMyEventsChecked,
+            applyNotificationsChecked = clientCashModelUI.applyNotificationsChecked
         )
 
     private fun correctFlagById(countryModelDomain: CountryModelDomain): Int {

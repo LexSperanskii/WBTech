@@ -1,18 +1,18 @@
 package com.example.domain.interactors.ClientCash
 
-import com.example.domain.repositories.ClientCash
+import com.example.domain.models.ClientCashModelDomain
 import com.example.domain.repositories.IClientCash
 
 
 interface IInteractorSaveClientCash {
-    fun invoke(client: ClientCash)
+    fun invoke(client: ClientCashModelDomain)
 }
 
 internal class InteractorSaveClientCashImpl(
     private val cashRepository: IClientCash,
 ) : IInteractorSaveClientCash {
 
-    override fun invoke(client: ClientCash) {
+    override fun invoke(client: ClientCashModelDomain) {
         cashRepository.saveClient(client)
     }
 

@@ -44,7 +44,7 @@ internal fun ProfileEditScreen(
 
     Scaffold { innerPadding ->
         ProfileEditScreenBody(
-            avatarURL = profileEditScreenUiState.avatarURL,
+            avatarURL = profileEditScreenUiState.client.imageURL,
             onCrossClick = {
                 navigateBack()
             },
@@ -58,52 +58,52 @@ internal fun ProfileEditScreen(
             onChangePhotoClick = {
                 onChangePhotoClick()
             },
-            nameSurnameValue = profileEditScreenUiState.nameSurname,
+            nameSurnameValue = profileEditScreenUiState.clientCash.nameSurname,
             isNameSurnameValid = profileEditScreenUiState.isNameSurnameValid,
             onNameSurnameChange = {
                 viewModel.onNameSurnameChange(it)
             },
-            number = profileEditScreenUiState.number,
+            number = profileEditScreenUiState.clientCash.phoneNumber.number,
             onNumberChange = {
                 viewModel.onNumberChange(it)
             },
             isNumberValid = profileEditScreenUiState.isNumberValid,
             isCountryCodeValid = profileEditScreenUiState.isCountryCodeValid,
-            countryCode = profileEditScreenUiState.countryCode,
+            countryCode = profileEditScreenUiState.clientCash.phoneNumber.country,
             onCountryCodeChange = {
                 viewModel.onCountryCodeChange(it)
             },
             listOfCountriesCodes = profileEditScreenUiState.listOfCountriesCodes,
-            cityValue = profileEditScreenUiState.city,
+            cityValue = profileEditScreenUiState.clientCash.city,
             isCityValid = profileEditScreenUiState.isCityValid,
             onCityChange = {
                 viewModel.onCityChange(it)
             },
-            aboutUserValue = profileEditScreenUiState.aboutUser,
+            aboutUserValue = profileEditScreenUiState.clientCash.description,
             isAboutUserValid = profileEditScreenUiState.isAboutUserValid,
             onAboutUserChange = {
                 viewModel.onAboutUserChange(it)
             },
-            listOfUserTags = profileEditScreenUiState.listOfUserTags,
+            listOfUserTags = profileEditScreenUiState.client.listOfTags,
             onTagChangeClick = {
                 navigateToInterestsScreen()
             },
-            listOfSocialMedia = profileEditScreenUiState.listOfSocialMedia,
+            listOfSocialMedia = profileEditScreenUiState.clientCash.listOfClientSocialMedia,
             onSocialNetworkValueChange = { socialMediaID, value ->
                 viewModel.onSocialNetworkValueChange(socialMediaID = socialMediaID, value = value)
             },
             onAddSocialNetworkClick = {
                 viewModel.onAddSocialNetworkClick()
             },
-            showMyCommunitiesChecked = profileEditScreenUiState.showMyCommunitiesChecked,
+            showMyCommunitiesChecked = profileEditScreenUiState.clientCash.isShowMyCommunities,
             onShowMyCommunitiesChange = {
                 viewModel.onShowMyCommunitiesChange(it)
             },
-            showMyEventsChecked = profileEditScreenUiState.showMyEventsChecked,
+            showMyEventsChecked = profileEditScreenUiState.clientCash.showMyEventsChecked,
             onShowMyEventsChange = {
                 viewModel.onShowMyEventsChange(it)
             },
-            applyNotificationsChecked = profileEditScreenUiState.applyNotificationsChecked,
+            applyNotificationsChecked = profileEditScreenUiState.clientCash.applyNotificationsChecked,
             onApplyNotificationsChange = {
                 viewModel.onApplyNotificationsChange(it)
             },
