@@ -118,6 +118,7 @@ internal fun ProfileEditScreen(
                 viewModel.onApplyNotificationsChange(it)
             },
             onDeleteProfileButtonClick = {
+                viewModel.clearCash()
                 navigateToDeleteProfile()
             },
             isShowDeleteButton = profileEditScreenUiState.client.phoneNumber.number.isNotBlank(),
