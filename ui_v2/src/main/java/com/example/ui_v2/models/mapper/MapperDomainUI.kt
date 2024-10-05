@@ -244,8 +244,8 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
                 )
             },
             isShowMyCommunities = clientModelDomain.isShowMyCommunities,
-            showMyEventsChecked = clientModelDomain.showMyEventsChecked,
-            applyNotificationsChecked = clientModelDomain.applyNotificationsChecked
+            isShowMyEvents = clientModelDomain.isShowMyEvents,
+            isApplyNotifications = clientModelDomain.isApplyNotifications
         )
 
     override fun toClientModelDomain(clientModelUI: ClientModelUI): ClientModelDomain =
@@ -269,8 +269,8 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
                 )
             },
             isShowMyCommunities = clientModelUI.isShowMyCommunities,
-            showMyEventsChecked = clientModelUI.showMyEventsChecked,
-            applyNotificationsChecked = clientModelUI.applyNotificationsChecked
+            isShowMyEvents = clientModelUI.isShowMyEvents,
+            isApplyNotifications = clientModelUI.isApplyNotifications
         )
 
     override fun toSocialMediaModelUI(socialMediaModelDomain: SocialMediaModelDomain): SocialMediaModelUI =
@@ -290,34 +290,38 @@ internal class MapperDomainUIImpl : IMapperDomainUI {
 
     override fun toClientCashModelUI(clientCashModelDomain: ClientCashModelDomain): ClientCashModelUI =
         ClientCashModelUI(
+            imageURL = clientCashModelDomain.imageURL,
             nameSurname = clientCashModelDomain.nameSurname,
             phoneNumber = toPhoneNumberModelUI(clientCashModelDomain.phoneNumber),
             city = clientCashModelDomain.city,
             description = clientCashModelDomain.description,
+            listOfClientTags = clientCashModelDomain.listOfClientTags,
             listOfClientSocialMedia = clientCashModelDomain.listOfClientSocialMedia.map {
                 toSocialMediaModelUI(
                     it
                 )
             },
             isShowMyCommunities = clientCashModelDomain.isShowMyCommunities,
-            showMyEventsChecked = clientCashModelDomain.showMyEventsChecked,
-            applyNotificationsChecked = clientCashModelDomain.applyNotificationsChecked
+            isShowMyEvents = clientCashModelDomain.isShowMyEvents,
+            isApplyNotifications = clientCashModelDomain.isApplyNotifications
         )
 
     override fun toClientCashModelDomain(clientCashModelUI: ClientCashModelUI): ClientCashModelDomain =
         ClientCashModelDomain(
+            imageURL = clientCashModelUI.imageURL,
             nameSurname = clientCashModelUI.nameSurname,
             phoneNumber = toPhoneNumberModelDomain(clientCashModelUI.phoneNumber),
             city = clientCashModelUI.city,
             description = clientCashModelUI.description,
+            listOfClientTags = clientCashModelUI.listOfClientTags,
             listOfClientSocialMedia = clientCashModelUI.listOfClientSocialMedia.map {
                 toSocialMediaModelDomain(
                     it
                 )
             },
             isShowMyCommunities = clientCashModelUI.isShowMyCommunities,
-            showMyEventsChecked = clientCashModelUI.showMyEventsChecked,
-            applyNotificationsChecked = clientCashModelUI.applyNotificationsChecked
+            isShowMyEvents = clientCashModelUI.isShowMyEvents,
+            isApplyNotifications = clientCashModelUI.isApplyNotifications
         )
 
     private fun correctFlagById(countryModelDomain: CountryModelDomain): Int {

@@ -1,6 +1,5 @@
 package com.example.ui_v2.ui.screens.userScreen.profileEdit
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,19 +39,14 @@ internal fun ProfileEditScreen(
     navigateToDeleteProfile: () -> Unit,
     viewModel: ProfileEditScreenViewModel = koinViewModel(),
 ) {
-    BackHandler {
-        viewModel.clearCash()
-        navigateBack()
-    }
 
     val profileEditScreenUiState by viewModel.getProfileEditScreenUiStateFlow()
         .collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
         ProfileEditScreenBody(
-            avatarURL = profileEditScreenUiState.avatarURL,
+            avatarURL = profileEditScreenUiState.clientCash.imageURL,
             onCrossClick = {
-                viewModel.clearCash()
                 navigateBack()
             },
             isCanSave = profileEditScreenUiState.isNumberValid &&
@@ -60,68 +54,64 @@ internal fun ProfileEditScreen(
                     profileEditScreenUiState.isCountryCodeValid,
             onDoneClick = {
                 viewModel.saveNewSettings()
-                viewModel.clearCash()
                 navigateToUserInsideScreen()
             },
             onChangePhotoClick = {
-                viewModel.saveCash()
                 onChangePhotoClick()
             },
-            nameSurnameValue = profileEditScreenUiState.nameSurname,
+            nameSurnameValue = profileEditScreenUiState.clientCash.nameSurname,
             isNameSurnameValid = profileEditScreenUiState.isNameSurnameValid,
             onNameSurnameChange = {
                 viewModel.onNameSurnameChange(it)
             },
-            number = profileEditScreenUiState.number,
+            number = profileEditScreenUiState.clientCash.phoneNumber.number,
             onNumberChange = {
                 viewModel.onNumberChange(it)
             },
             isNumberValid = profileEditScreenUiState.isNumberValid,
             isCountryCodeValid = profileEditScreenUiState.isCountryCodeValid,
-            countryCode = profileEditScreenUiState.countryCode,
+            countryCode = profileEditScreenUiState.clientCash.phoneNumber.country,
             onCountryCodeChange = {
                 viewModel.onCountryCodeChange(it)
             },
             listOfCountriesCodes = profileEditScreenUiState.listOfCountriesCodes,
-            cityValue = profileEditScreenUiState.city,
+            cityValue = profileEditScreenUiState.clientCash.city,
             isCityValid = profileEditScreenUiState.isCityValid,
             onCityChange = {
                 viewModel.onCityChange(it)
             },
-            aboutUserValue = profileEditScreenUiState.aboutUser,
-            isAboutUserValid = profileEditScreenUiState.isAboutUserValid,
-            onAboutUserChange = {
-                viewModel.onAboutUserChange(it)
+            descriptionValue = profileEditScreenUiState.clientCash.description,
+            isDescriptionValid = profileEditScreenUiState.isDescriptionValid,
+            onDescriptionChange = {
+                viewModel.onDescriptionChange(it)
             },
-            listOfUserTags = profileEditScreenUiState.listOfUserTags,
+            listOfUserTags = profileEditScreenUiState.clientCash.listOfClientTags,
             onTagChangeClick = {
-                viewModel.saveCash()
                 navigateToInterestsScreen()
             },
-            listOfSocialMedia = profileEditScreenUiState.listOfSocialMedia,
+            listOfSocialMedia = profileEditScreenUiState.clientCash.listOfClientSocialMedia,
             onSocialNetworkValueChange = { socialMediaID, value ->
                 viewModel.onSocialNetworkValueChange(socialMediaID = socialMediaID, value = value)
             },
             onAddSocialNetworkClick = {
                 viewModel.onAddSocialNetworkClick()
             },
-            showMyCommunitiesChecked = profileEditScreenUiState.showMyCommunitiesChecked,
+            showMyCommunitiesChecked = profileEditScreenUiState.clientCash.isShowMyCommunities,
             onShowMyCommunitiesChange = {
                 viewModel.onShowMyCommunitiesChange(it)
             },
-            showMyEventsChecked = profileEditScreenUiState.showMyEventsChecked,
+            showMyEventsChecked = profileEditScreenUiState.clientCash.isShowMyEvents,
             onShowMyEventsChange = {
                 viewModel.onShowMyEventsChange(it)
             },
-            applyNotificationsChecked = profileEditScreenUiState.applyNotificationsChecked,
+            applyNotificationsChecked = profileEditScreenUiState.clientCash.isApplyNotifications,
             onApplyNotificationsChange = {
                 viewModel.onApplyNotificationsChange(it)
             },
             onDeleteProfileButtonClick = {
-                viewModel.clearCash()
                 navigateToDeleteProfile()
             },
-            isShowDeleteButton = profileEditScreenUiState.client.phoneNumber.number.isNotBlank(),
+            isShowDeleteButton = profileEditScreenUiState.isClientExist,
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -147,9 +137,9 @@ internal fun ProfileEditScreenBody(
     cityValue: String,
     isCityValid: Boolean,
     onCityChange: (String) -> Unit,
-    aboutUserValue: String,
-    isAboutUserValid: Boolean,
-    onAboutUserChange: (String) -> Unit,
+    descriptionValue: String,
+    isDescriptionValid: Boolean,
+    onDescriptionChange: (String) -> Unit,
     listOfUserTags: List<String>,
     onTagChangeClick: () -> Unit,
     listOfSocialMedia: List<SocialMediaModelUI>,
@@ -196,9 +186,9 @@ internal fun ProfileEditScreenBody(
                 cityValue = cityValue,
                 isCityValid = isCityValid,
                 onCityChange = onCityChange,
-                aboutUserValue = aboutUserValue,
-                isAboutUserValid = isAboutUserValid,
-                onAboutUserChange = onAboutUserChange,
+                aboutUserValue = descriptionValue,
+                isAboutUserValid = isDescriptionValid,
+                onAboutUserChange = onDescriptionChange,
                 modifier = Modifier
             )
         }

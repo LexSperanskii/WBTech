@@ -597,8 +597,8 @@ class MockData {
             description = newClient.description,
             listOfClientSocialMedia = newClient.listOfClientSocialMedia,
             isShowMyCommunities = newClient.isShowMyCommunities,
-            showMyEventsChecked = newClient.showMyEventsChecked,
-            applyNotificationsChecked = newClient.applyNotificationsChecked,
+            isShowMyEvents = newClient.isShowMyEvents,
+            isApplyNotifications = newClient.isApplyNotifications,
         )
         return Response("success", "")
     }

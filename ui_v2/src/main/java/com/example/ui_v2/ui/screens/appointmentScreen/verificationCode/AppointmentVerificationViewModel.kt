@@ -35,8 +35,8 @@ internal data class AppointmentVerificationScreenUiState(
     val pinCode: String = "",
     val isPinCodeValid: Boolean = false,
     val isPinCodeFieldStateValid: Boolean = true,
-    val clientPhoneNumber: PhoneNumberModelUI = PhoneNumberModelUI(),
-    val clientNameSurname: String = "",
+    val clientNotVerifiedPhoneNumber: PhoneNumberModelUI = PhoneNumberModelUI(),
+    val clientNotVerifiedNameSurname: String = "",
     val countdown: Int = 10,
     val isCountdownEnabled: Boolean = false,
 ) {
@@ -126,9 +126,9 @@ internal class AppointmentVerificationScreenViewModel(
 
     fun setVerifiedClientNameAndPhoneNumber() {
         val state = uiState.value
-        setClientName.invoke(state.clientNameSurname)
+        setClientName.invoke(state.clientNotVerifiedNameSurname)
         setClientPhoneNumber.invoke(
-            mapper.toPhoneNumberModelDomain(state.clientPhoneNumber)
+            mapper.toPhoneNumberModelDomain(state.clientNotVerifiedPhoneNumber)
         )
         addToMyEvents.invoke(state.event.id)
     }
@@ -150,8 +150,10 @@ internal class AppointmentVerificationScreenViewModel(
                 it.copy(
                     event = mapper.toEventDescriptionModelUI(eventDescription),
                     isPinCodeValid = pinCodeVerification,
-                    clientPhoneNumber = mapper.toPhoneNumberModelUI(clientNotVerifiedPhoneNumber),
-                    clientNameSurname = clientNotVerifiedName
+                    clientNotVerifiedPhoneNumber = mapper.toPhoneNumberModelUI(
+                        clientNotVerifiedPhoneNumber
+                    ),
+                    clientNotVerifiedNameSurname = clientNotVerifiedName
                 )
             }
         }.launchIn(viewModelScope)

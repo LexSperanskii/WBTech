@@ -24,8 +24,8 @@ data class ClientModelDomain(
     val clientEventsList: List<EventModelDomain> = listOf(),
     val clientCommunitiesList: List<CommunityModelDomain> = listOf(),
     val isShowMyCommunities: Boolean = true,
-    val showMyEventsChecked: Boolean = true,
-    val applyNotificationsChecked: Boolean = true,
+    val isShowMyEvents: Boolean = true,
+    val isApplyNotifications: Boolean = true,
 )
 
 data class SocialMediaModelDomain(

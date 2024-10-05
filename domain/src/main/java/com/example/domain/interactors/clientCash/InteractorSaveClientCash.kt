@@ -9,11 +9,11 @@ interface IInteractorSaveClientCash {
 }
 
 internal class InteractorSaveClientCashImpl(
-    private val cashRepository: IClientCash,
+    private val clientCashRepository: IClientCash,
 ) : IInteractorSaveClientCash {
 
     override fun invoke(client: ClientCashModelDomain) {
-        cashRepository.saveClient(client)
+        clientCashRepository.saveClient(client)
     }
 
 }

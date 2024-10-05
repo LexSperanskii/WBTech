@@ -27,8 +27,8 @@ internal data class ClientModelUI(
     val clientEventsList: List<EventModelUI> = listOf(),
     val clientCommunitiesList: List<CommunityModelUI> = listOf(),
     val isShowMyCommunities: Boolean = true,
-    val showMyEventsChecked: Boolean = true,
-    val applyNotificationsChecked: Boolean = true,
+    val isShowMyEvents: Boolean = true,
+    val isApplyNotifications: Boolean = true,
 )
 
 internal data class SocialMediaModelUI(

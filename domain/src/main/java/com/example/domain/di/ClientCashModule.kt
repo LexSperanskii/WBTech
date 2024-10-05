@@ -10,12 +10,14 @@ val clientCashModule = module {
 
     single<IInteractorGetClientCash> {
         InteractorGetClientCashImpl(
-            cashRepository = get()
+            clientCashRepository = get(),
+            useCase = get(),
+            networkRepository = get()
         )
     }
     single<IInteractorSaveClientCash> {
         InteractorSaveClientCashImpl(
-            cashRepository = get()
+            clientCashRepository = get()
         )
     }
 

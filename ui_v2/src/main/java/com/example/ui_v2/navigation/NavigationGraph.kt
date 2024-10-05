@@ -363,14 +363,12 @@ fun NavHost(
                 route = DeleteProfileScreenDestination.route
             ) {
                 DeleteProfileScreen(
-                    navigateBack = {
-                        navController.navigate(UserProfileDestination.route) {
-                            popUpTo(UserProfileDestination.route)
-                        }
-                    },
+                    navigateBack = { navController.popBackStack() },
                     navigateOnDeleteClick = {
                         navController.navigate(OnboardingDestination.route) {
-                            popUpTo(0)
+                            popUpTo(MainScreenDestination.route) {
+                                inclusive = true
+                            }
                         }
                     },
                     navigateOnNoNeedClick = {
@@ -379,11 +377,6 @@ fun NavHost(
                         }
                     }
                 )
-                BackHandler {
-                    navController.navigate(UserProfileDestination.route) {
-                        popUpTo(UserProfileDestination.route)
-                    }
-                }
             }
         }
     }

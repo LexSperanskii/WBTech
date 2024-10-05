@@ -18,10 +18,11 @@ import kotlinx.coroutines.flow.update
 internal data class AppointmentNameSurnameScreenUiState(
     val event: EventDescriptionModelUI = EventDescriptionModelUI(),
     val nameSurnameValue: String = "",
-    val isNameSurnameValid: Boolean = true,
 ) {
+    val isNameSurnameValid: Boolean
+        get() = nameSurnameValue.isNotBlank() && nameSurnameValue.length > 1
     val isButtonEnabled: Boolean
-        get() = nameSurnameValue.isNotBlank() && isNameSurnameValid
+        get() = isNameSurnameValid
 }
 
 internal class AppointmentNameSurnameScreenViewModel(
@@ -53,7 +54,6 @@ internal class AppointmentNameSurnameScreenViewModel(
         _uiState.update {
             it.copy(
                 nameSurnameValue = inputValue,
-                isNameSurnameValid = inputValue.isNotBlank() && inputValue.length > 1
             )
         }
     }
