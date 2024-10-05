@@ -366,9 +366,7 @@ fun NavHost(
                     navigateBack = { navController.popBackStack() },
                     navigateOnDeleteClick = {
                         navController.navigate(OnboardingDestination.route) {
-                            popUpTo(MainScreenDestination.route) {
-                                inclusive = true
-                            }
+                            popUpTo(0)
                         }
                     },
                     navigateOnNoNeedClick = {
