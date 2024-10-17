@@ -3,10 +3,10 @@ package com.example.ui_v1.ui.events.eventDetailScreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.events.Uiv1AddUserAsParticipantUseCase
-import com.example.domain.usecases.events.Uiv1GetEventDetailsUseCase
-import com.example.domain.usecases.events.Uiv1RemoveUserAsParticipantUseCase
-import com.example.domain.usecases.user.Uiv1GetUserUseCase
+import com.example.domain.usecase.events.Uiv1AddUserAsParticipantUseCase
+import com.example.domain.usecase.events.Uiv1GetEventDetailsUseCase
+import com.example.domain.usecase.events.Uiv1RemoveUserAsParticipantUseCase
+import com.example.domain.usecase.user.Uiv1GetUserUseCase
 import com.example.ui_v1.models.UIv1EventDetailModelUI
 import com.example.ui_v1.models.UIv1RegisteredPersonModelUI
 import com.example.ui_v1.models.mapper.UIv1IMapperDomainUI

@@ -1,29 +1,108 @@
 package com.example.ui_v2.ui.screens.communityScreen
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.domain.interactors.client.getClient.IInteractorGetClient
+import com.example.domain.interactors.client.getClient.IInteractorLoadClient
+import com.example.domain.interactors.client.myCommunities.addToMyCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.client.myCommunities.removeFromMyCommunities.IInteractorRemoveFromMyCommunities
+import com.example.domain.interactors.communitiesDescription.IInteractorGetCommunitiesDescription
+import com.example.domain.interactors.communitiesDescription.IInteractorLoadCommunitiesDescription
+import com.example.ui_v2.models.CommunityDescriptionModelUI
+import com.example.ui_v2.models.CommunityModelUI
+import com.example.ui_v2.models.mapper.IMapperDomainUI
+import com.example.ui_v2.ui.utils.ButtonStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 
 
 internal data class CommunityScreenUiState(
-    val data: String = "",
-)
+    val communityDescription: CommunityDescriptionModelUI = CommunityDescriptionModelUI(),
+    val clientCommunitiesList: List<CommunityModelUI> = listOf(),
+    val isSubscribeButtonEnabled: Boolean = true,
+) {
+    val isInClientCommunities: Boolean
+        get() = clientCommunitiesList.any { it.id == communityDescription.id }
+    val buttonStatus: ButtonStatus
+        get() = when (isInClientCommunities) {
+            true -> {
+                ButtonStatus.Pressed
+            }
 
-internal class CommunityScreenViewModel : ViewModel() {
+            false -> {
+                ButtonStatus.Active
+            }
+        }
+}
+
+internal class CommunityScreenViewModel(
+    savedStateHandle: SavedStateHandle,
+    private val mapper: IMapperDomainUI,
+    private val loadCommunitiesDescription: IInteractorLoadCommunitiesDescription,
+    private val getCommunitiesDescription: IInteractorGetCommunitiesDescription,
+    private val loadClient: IInteractorLoadClient,
+    private val getClient: IInteractorGetClient,
+    private val addToMyCommunities: IInteractorAddToMyCommunities,
+    private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
+) : ViewModel() {
+
+    private val communityId: String = try {
+        checkNotNull(savedStateHandle[CommunityScreenDestination.itemIdArg])
+    } catch (e: IllegalStateException) {
+        throw IllegalArgumentException("Missing ID", e)
+    }
 
     private val _uiState = MutableStateFlow(CommunityScreenUiState())
     private val uiState: StateFlow<CommunityScreenUiState> = _uiState.asStateFlow()
 
     init {
-        _uiState.update {
-            it.copy(
-                data = ""
-            )
-        }
+        loadData()
+        getDataForCommunityScreenUiState()
     }
 
     fun getCommunityScreenUiStateFlow(): StateFlow<CommunityScreenUiState> = uiState
+
+    fun onSubscribeButtonClick() {
+        val state = uiState.value
+        when (state.isInClientCommunities) {
+            true -> {
+                removeFromMyCommunities.invoke(state.communityDescription.id)
+            }
+
+            false -> {
+                addToMyCommunities.invoke(state.communityDescription.id)
+            }
+        }
+    }
+
+    private fun loadData() {
+        loadCommunitiesDescription.invoke(communityId)
+        loadClient.invoke()
+    }
+
+    private fun getDataForCommunityScreenUiState() {
+        combine(
+            getCommunitiesDescription.invoke(),
+            getClient.invoke()
+        ) { communitiesDescription, client ->
+            _uiState.update { it ->
+                it.copy(
+                    communityDescription = mapper.toCommunityDescriptionModelUI(
+                        communitiesDescription
+                    ),
+                    clientCommunitiesList = client.clientCommunitiesList.map {
+                        mapper.toCommunityModelUI(
+                            it
+                        )
+                    }
+                )
+            }
+        }.launchIn(viewModelScope)
+    }
 
 }

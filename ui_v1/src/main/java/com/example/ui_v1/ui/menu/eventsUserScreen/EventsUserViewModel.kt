@@ -2,8 +2,8 @@ package com.example.ui_v1.ui.menu.eventsUserScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.events.Uiv1GetMyEventsListUseCase
-import com.example.domain.usecases.events.Uiv1GetMyEventsPastListUseCase
+import com.example.domain.usecase.events.Uiv1GetMyEventsListUseCase
+import com.example.domain.usecase.events.Uiv1GetMyEventsPastListUseCase
 import com.example.ui_v1.models.UIv1EventModelUI
 import com.example.ui_v1.models.mapper.UIv1IMapperDomainUI
 import kotlinx.coroutines.flow.MutableStateFlow

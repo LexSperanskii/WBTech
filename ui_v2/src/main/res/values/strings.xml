@@ -49,7 +49,7 @@
     <string name="placeholder_name_surname">Name and Surname</string>
     <!-- Те что были, но нужны -->
     <string name="date_address">%1$d %2$s · %3$s, %4$s</string>
-    <string name="safe">Safe</string>
+    <string name="save">Save</string>
     <!-- Новые -->
     <string name="interests">Interests</string>
     <string name="interests_description">Select your interests so we can recommend useful events</string>
@@ -71,11 +71,48 @@
     <string name="pitcher">Pitcher</string>
     <string name="no_spare_place">There are no more places left</string>
     <string name="event_address">%1$s, %2$s, %3$s</string>
+    <string name="go_to_the_meeting">They will go to the meeting</string>
+    <string name="subscribers">Subscribers</string>
+    <string name="meetups">Meetups</string>
+    <string name="past_meetups">Past meetups</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="subscribed">You are subscribed</string>
+    <string name="community_button_text">We will invite you to community meetings and recommend similar ones</string>
+    <string name="appointment_title">Login\nand appointment</string>
+    <string name="proceed">Continue</string>
+    <string name="get_code">Get code</string>
+    <string name="pin_code_placeholder">0000</string>
+    <string name="pin_code_number">We sent the code to %s</string>
+    <string name="pin_code_countdown">Get a new code in %d</string>
+    <string name="get_new_pin_code">Get a new code</string>
+    <string name="submit_confirm">Submit and confirm the entry</string>
+    <string name="incorrect_pin">Incorrect code</string>
+    <string name="signed_up">You have signed up for a meeting</string>
+    <string name="signed_up_info">%1$s\n%2$d %3$s at %4$s\n%5$s, %6$s</string>
+    <string name="signed_up_button">Find other meetings</string>
+    <string name="appointment_header_date_address">%1$s · %2$d %3$s · %4$s, %5$s</string>
+    <string name="you_go">You will go</string>
+    <string name="my_communities">My Communities</string>
+    <string name="exit">Exit</string>
+    <string name="delete_profile">Delete profile</string>
+    <string name="change_photo">Change photo</string>
+    <string name="change">+ Change</string>
+    <string name="social_networks">Social Networks</string>
+    <string name="show_my_communities">Show my communities</string>
+    <string name="show_my_events">Show my events</string>
+    <string name="apply_notifications">Turn on notifications</string>
+    <string name="delete_profile_header">Are you sure you want to delete the profile?</string>
+    <string name="delete_profile_description">No need...... We are cool\nWe will delete the profile, but not right away. You will have 30 days to log in and return everything back</string>
+    <string name="delete_profile_delete">Delete</string>
+    <string name="delete_profile_no_need">No need</string>
+    <string name="city">City</string>
+    <string name="about_yourself">Tell about yourself</string>
+    <string name="no_events">No events</string>
+    <string name="no_communities">No communities</string>
+    <string name="choose_another_photo">Choose another photo</string>
 
     <plurals name="event_people_count">
-        <item quantity="zero">No seats available</item>
         <item quantity="one">Only %d place. If you change your mind - unsubscribe</item>
-        <item quantity="many">Only %d places. If you change your mind - unsubscribe</item>
-        <item quantity="other">If you change your mind - unsubscribe</item>
+        <item quantity="other">Only %d places. If you change your mind - unsubscribe</item>
     </plurals>
 </resources>

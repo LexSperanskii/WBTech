@@ -198,86 +198,86 @@ internal fun DeveloperScreen() {
     val listOfPeople = listOf(
         UserModelUI(
             id = "0",
-            name = "Маша",
-            tag = "Разработка",
+            nameSurname = "Маша",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "1",
-            name = "Коля",
-            tag = "Менеджмент",
+            nameSurname = "Коля",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "2",
-            name = "Миша",
-            tag = "Тестирование",
+            nameSurname = "Миша",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "3",
-            name = "Женя",
-            tag = "Разработка",
+            nameSurname = "Женя",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "4",
-            name = "Даша",
-            tag = "Менеджмент",
+            nameSurname = "Даша",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "5",
-            name = "Витя",
-            tag = "Тестирование",
+            nameSurname = "Витя",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "6",
-            name = "Саша",
-            tag = "Разработка",
+            nameSurname = "Саша",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "7",
-            name = "Сережа",
-            tag = "Менеджмент",
+            nameSurname = "Сережа",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "8",
-            name = "Федя",
-            tag = "Тестирование",
+            nameSurname = "Федя",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ), UserModelUI(
             id = "9",
-            name = "Валя",
-            tag = "Разработка",
+            nameSurname = "Валя",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         )
     )
     val listOfPeople2 = listOf(
         UserModelUI(
             id = "0",
-            name = "Маша",
-            tag = "Разработка",
+            nameSurname = "Маша",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "1",
-            name = "Коля",
-            tag = "Менеджмент",
+            nameSurname = "Коля",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         ),
         UserModelUI(
             id = "2",
-            name = "Миша",
-            tag = "Тестирование",
+            nameSurname = "Миша",
+            listOfTags = listOf("Разработка"),
             imageURL = "https://i.pinimg.com/564x/01/01/a5/0101a59c68793d844cc2d23e3cd26274.jpg"
         )
     )
     val availableCountries = listOf(
-        CountryModelUI("Россия", "+7", R.drawable.flag_ru),
-        CountryModelUI("Казахстан", "+7", R.drawable.flag_kz),
-        CountryModelUI("Белоруссия", "+375", R.drawable.flag_by),
-        CountryModelUI("Киргизия", "+996", R.drawable.flag_kg),
-        CountryModelUI("Азербайджан", "+994", R.drawable.flag_az)
+        CountryModelUI("0", "Россия", "+7", R.drawable.flag_ru),
+        CountryModelUI("1", "Казахстан", "+7", R.drawable.flag_kz),
+        CountryModelUI("2", "Белоруссия", "+375", R.drawable.flag_by),
+        CountryModelUI("3", "Киргизия", "+996", R.drawable.flag_kg),
+        CountryModelUI("4", "Азербайджан", "+994", R.drawable.flag_az)
     )
     var countryCode2 by remember { mutableStateOf(availableCountries[0]) }
     var phoneNumber by remember { mutableStateOf("") }
@@ -301,8 +301,8 @@ internal fun DeveloperScreen() {
                 PitcherBlock(
                     pitcher = UserModelUI(
                         id = "0",
-                        name = "Павел Хориков",
-                        tag = "HR",
+                        nameSurname = "Павел Хориков",
+                        listOfTags = listOf("HR"),
                         description = "Ведущий специалист по подбору персонала в одной из крупнейших IT-компаний в ЕС.",
                         imageURL = "https://i.pinimg.com/564x/25/b9/d5/25b9d5877b216b9edd7fbdd93955d968.jpg"
                     ),
@@ -437,13 +437,7 @@ internal fun DeveloperScreen() {
             }
             item {
                 NetworkIcon(
-                    networkIcon = R.drawable.label_instagram,
-                    onNetworkIconClick = {}
-                )
-            }
-            item {
-                NetworkIcon(
-                    networkIcon = R.drawable.label_random_social_network,
+                    networkIcon = R.drawable.label_xabr,
                     onNetworkIconClick = {}
                 )
             }

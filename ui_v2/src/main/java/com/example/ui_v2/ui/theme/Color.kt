@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 internal data class DevMeetingsAppColorScheme(
     val white: Color,
     val black: Color,
+    val red: Color,
     val purple: Color,
     val darkPurple: Color,
     val lightGray: Color,
@@ -25,12 +26,15 @@ internal data class DevMeetingsAppColorScheme(
     val buttonTextPurple: Color,
     val toggleColor: Color,
     val eventCardText: Color,
+    val incorrectPin: Color,
+    val goToEventGreen: Color,
 )
 
 internal val LocalColorScheme = staticCompositionLocalOf {
     DevMeetingsAppColorScheme(
         white = Color.Unspecified,
         black = Color.Unspecified,
+        red = Color.Unspecified,
         purple = Color.Unspecified,
         darkPurple = Color.Unspecified,
         lightGray = Color.Unspecified,
@@ -49,6 +53,8 @@ internal val LocalColorScheme = staticCompositionLocalOf {
         disabledButtonTextGray = Color.Unspecified,
         buttonTextPurple = Color.Unspecified,
         toggleColor = Color.Unspecified,
-        eventCardText = Color.Unspecified
+        eventCardText = Color.Unspecified,
+        incorrectPin = Color.Unspecified,
+        goToEventGreen = Color.Unspecified,
     )
 }

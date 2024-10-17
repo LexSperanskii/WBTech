@@ -2,90 +2,137 @@ package com.example.ui_v2.ui.screens.eventScreen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.ui_v2.models.CommunityModelUI
+import androidx.lifecycle.viewModelScope
+import com.example.domain.interactors.client.getClient.IInteractorGetClient
+import com.example.domain.interactors.client.getClient.IInteractorLoadClient
+import com.example.domain.interactors.client.myCommunities.addToMyCommunities.IInteractorAddToMyCommunities
+import com.example.domain.interactors.client.myCommunities.removeFromMyCommunities.IInteractorRemoveFromMyCommunities
+import com.example.domain.interactors.client.myEvents.addToMyEvents.IInteractorAddToMyEvents
+import com.example.domain.interactors.client.myEvents.removeFromMyEvents.IInteractorRemoveFromMyEvents
+import com.example.domain.interactors.eventDescription.IInteractorGetEventDescription
+import com.example.domain.interactors.eventDescription.IInteractorLoadEventDescription
+import com.example.domain.interactors.listOfEvents.IInteractorGetListOfEvents
+import com.example.domain.interactors.listOfEvents.IInteractorLoadListOfEvents
+import com.example.ui_v2.models.ClientModelUI
 import com.example.ui_v2.models.EventDescriptionModelUI
 import com.example.ui_v2.models.EventModelUI
+import com.example.ui_v2.models.mapper.IMapperDomainUI
 import com.example.ui_v2.ui.utils.ButtonStatus
-import com.example.ui_v2.ui.utils.NewUIMockData
-import com.example.ui_v2.ui.utils.UiUtils.DEFAULT_ID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 
 
 internal data class EventScreenUiState(
     val eventDescription: EventDescriptionModelUI = EventDescriptionModelUI(),
-    val myCommunitiesList: List<CommunityModelUI> = listOf(),
-    val otherCommunityEventsList: List<EventModelUI> = listOf(),
-    val buttonStatus: ButtonStatus = ButtonStatus.Active,
+    val communityOtherEventsList: List<EventModelUI> = listOf(),
+    val client: ClientModelUI = ClientModelUI(),
 ) {
     val isInMyCommunities: Boolean
-        get() = myCommunitiesList.any { it.id == eventDescription.organizer.id }
+        get() = client.clientCommunitiesList.any { it.id == eventDescription.organizer.id }
+    val isInMyEvents: Boolean
+        get() = client.clientEventsList.any { it.id == eventDescription.id }
+    val buttonStatus: ButtonStatus
+        get() = when (isInMyEvents) {
+            true -> {
+                ButtonStatus.Pressed
+            }
+
+            false -> {
+                ButtonStatus.Active
+            }
+        }
     val isJoinEventButtonEnabled: Boolean
         get() = eventDescription.availableCapacity > 0
 }
 
 internal class EventScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    private val mock: NewUIMockData,
+    private val mapper: IMapperDomainUI,
+    private val loadEventDescription: IInteractorLoadEventDescription,
+    private val getEventDescription: IInteractorGetEventDescription,
+    private val loadListOfEvents: IInteractorLoadListOfEvents,
+    private val getListOfEvents: IInteractorGetListOfEvents,
+    private val loadClient: IInteractorLoadClient,
+    private val getClient: IInteractorGetClient,
+    private val addToMyEvents: IInteractorAddToMyEvents,
+    private val removeFromMyEvents: IInteractorRemoveFromMyEvents,
+    private val addToMyCommunities: IInteractorAddToMyCommunities,
+    private val removeFromMyCommunities: IInteractorRemoveFromMyCommunities,
 ) : ViewModel() {
 
     private val eventId: String = try {
         checkNotNull(savedStateHandle[EventScreenDestination.itemIdArg])
     } catch (e: IllegalStateException) {
-        // TODO: do state with error
-        DEFAULT_ID
+        throw IllegalArgumentException("Missing ID", e)
     }
 
     private val _uiState = MutableStateFlow(EventScreenUiState())
     private val uiState: StateFlow<EventScreenUiState> = _uiState.asStateFlow()
 
     init {
-        _uiState.update {
-            it.copy(
-                eventDescription = mock.getEventDescription(eventId),
-                myCommunitiesList = mock.getMyCommunitiesList(),
-                otherCommunityEventsList = mock.getListOfEvents().take(10),
-            )
-        }
+        loadData()
+        getDataEventScreenUiState()
     }
 
     fun getEventScreenUiStateFlow(): StateFlow<EventScreenUiState> = uiState
 
     fun onCommunityButtonClick() {
-        _uiState.update { state ->
-            state.copy(
-                myCommunitiesList = when (state.myCommunitiesList.any { it.id == state.eventDescription.organizer.id }) {
-                    true -> {
-                        mock.removeFromMyCommunities(state.eventDescription.organizer)
-                        state.myCommunitiesList.toMutableList()
-                            .apply { remove(state.eventDescription.organizer) }
-                    }
+        val state = uiState.value
+        when (state.isInMyCommunities) {
+            true -> {
+                removeFromMyCommunities.invoke(state.eventDescription.organizer.id)
+            }
 
-                    else -> {
-                        mock.addToMyCommunities(state.eventDescription.organizer)
-                        state.myCommunitiesList.toMutableList()
-                            .apply { add(state.eventDescription.organizer) }
-                    }
-                }
-            )
+            false -> {
+                addToMyCommunities.invoke(state.eventDescription.organizer.id)
+            }
         }
     }
 
-    fun onJoinEventButtonClick() {
-        _uiState.update { state ->
-            state.copy(
-                buttonStatus = when (state.buttonStatus) {
-                    ButtonStatus.Active -> {
-                        ButtonStatus.Pressed
+    fun onJoinEventButtonClick(navigateToAppointmentScreen: (String) -> Unit) {
+        val state = uiState.value
+        when (state.client.phoneNumber.number.isNotBlank()) {
+            true -> {
+                when (state.isInMyEvents) {
+                    true -> {
+                        removeFromMyEvents.invoke(state.eventDescription.id)
                     }
 
-                    else -> {
-                        ButtonStatus.Active
+                    false -> {
+                        addToMyEvents.invoke(state.eventDescription.id)
                     }
                 }
-            )
+            }
+
+            false -> {
+                navigateToAppointmentScreen(state.eventDescription.id)
+            }
         }
+    }
+
+    private fun loadData() {
+        loadEventDescription.invoke(eventId)
+        loadListOfEvents.invoke()
+        loadClient.invoke()
+    }
+
+    private fun getDataEventScreenUiState() {
+        combine(
+            getEventDescription.invoke(),
+            getListOfEvents.invoke(),
+            getClient.invoke()
+        ) { eventDescription, listOfEvents, client ->
+            _uiState.update { it ->
+                it.copy(
+                    eventDescription = mapper.toEventDescriptionModelUI(eventDescription),
+                    communityOtherEventsList = listOfEvents.map { mapper.toEventModelUI(it) },
+                    client = mapper.toClientModelUI(client)
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 }

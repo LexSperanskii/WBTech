@@ -3,7 +3,7 @@ package com.example.ui_v1.ui.communities.communityDetailScreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.communities.Uiv1GetCommunityDetailUseCase
+import com.example.domain.usecase.communities.Uiv1GetCommunityDetailUseCase
 import com.example.ui_v1.models.UIv1CommunityDetailModelUI
 import com.example.ui_v1.models.mapper.UIv1IMapperDomainUI
 import com.example.ui_v1.utils.UIv1UiUtils.DEFAULT_ID

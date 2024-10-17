@@ -2,8 +2,8 @@ package com.example.ui_v1.ui.registration.authenticationScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.user.Uiv1GetAvailableCountriesListUseCase
-import com.example.domain.usecases.user.Uiv1SetUserPhoneNumberUseCase
+import com.example.domain.usecase.user.Uiv1GetAvailableCountriesListUseCase
+import com.example.domain.usecase.user.Uiv1SetUserPhoneNumberUseCase
 import com.example.ui_v1.models.UIv1CountryModelUI
 import com.example.ui_v1.models.mapper.UIv1IMapperDomainUI
 import com.example.ui_v1.utils.UIv1UiUtils.PHONE_NUMBER_LENGTH

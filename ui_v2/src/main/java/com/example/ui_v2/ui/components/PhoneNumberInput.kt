@@ -42,6 +42,8 @@ internal fun PhoneNumberInput(
     listOfCountriesCodes: List<CountryModelUI>,
     modifier: Modifier = Modifier,
     placeholder: String = "000 000-00-00",
+    isNumberValid: Boolean = true,
+    isCountryCodeValid: Boolean = true,
 ) {
     val focusManager = LocalFocusManager.current
     var focusState by remember { mutableStateOf(false) }
@@ -53,6 +55,7 @@ internal fun PhoneNumberInput(
     ) {
         CountryCodeDropDownMenu(
             country = countryCode,
+            isCountryCodeValid = isCountryCodeValid,
             listOfCountries = listOfCountriesCodes,
             onDropdownMenuItemClick = { onCountryCodeChange(it) }
         )
@@ -61,7 +64,17 @@ internal fun PhoneNumberInput(
                 .weight(1f)
                 .heightIn(56.dp)
                 .clip(RoundedCornerShape(DevMeetingAppTheme.dimensions.cornerShapeMedium))
-                .background(color = DevMeetingAppTheme.colors.disabledButtonGray)
+                .background(
+                    brush = when (isNumberValid) {
+                        true -> {
+                            DevMeetingAppTheme.brush.textFieldGradientNormal
+                        }
+
+                        else -> {
+                            DevMeetingAppTheme.brush.textFieldGradientError
+                        }
+                    }
+                )
                 .onFocusChanged { focusState = it.isFocused }
                 .padding(start = 16.dp),
             value = number,

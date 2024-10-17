@@ -16,6 +16,7 @@ internal fun OverlappingBlock(
     participantsList: List<UserModelUI>,
     onOverlappingRowClick: () -> Unit,
     modifier: Modifier = Modifier,
+    blockText: String = stringResource(id = R.string.participants),
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(DevMeetingAppTheme.dimensions.paddingMedium),
@@ -23,7 +24,7 @@ internal fun OverlappingBlock(
             .fillMaxWidth()
     ) {
         Text(
-            text = stringResource(id = R.string.participants),
+            text = blockText,
             style = DevMeetingAppTheme.typography.customH2,
             color = DevMeetingAppTheme.colors.black,
             modifier = Modifier

@@ -50,7 +50,7 @@
     <string name="placeholder_name_surname">Имя и Фамилия</string>
     <!-- Те что были, но нужны -->
     <string name="date_address">%1$d %2$s · %3$s, %4$s</string>
-    <string name="safe">Сохранить</string>
+    <string name="save">Сохранить</string>
     <!-- Новые -->
     <string name="interests">Интересы</string>
     <string name="interests_description">Выберите интересы, чтобы мы рекомендовали полезные встречи</string>
@@ -72,6 +72,45 @@
     <string name="pitcher">Ведущий</string>
     <string name="no_spare_place">Мест уже не осталось</string>
     <string name="event_address">%1$s, %2$s, %3$s</string>
+    <string name="go_to_the_meeting">Пойдут на встречу</string>
+    <string name="subscribers">Подписаны</string>
+    <string name="meetups">Встречи</string>
+    <string name="past_meetups">Прошлые встречи</string>
+    <string name="subscribe">Подписаться</string>
+    <string name="subscribed">Вы подписаны</string>
+    <string name="community_button_text">Будем приглашать на встречи сообщества и рекомендовать похожие</string>
+    <string name="appointment_title">Вход\nи запись\nна встречу</string>
+    <string name="proceed">Продолжить</string>
+    <string name="get_code">Получить код</string>
+    <string name="pin_code_placeholder">0000</string>
+    <string name="pin_code_number">Мы отправили код на %s</string>
+    <string name="pin_code_countdown">Получить новый код через %d</string>
+    <string name="get_new_pin_code">Получить новый код</string>
+    <string name="submit_confirm">Отправить и подтвердить запись</string>
+    <string name="incorrect_pin">Неправильный код</string>
+    <string name="signed_up">Вы записались на встречу</string>
+    <string name="signed_up_info">%1$s\n%2$d %3$s в %4$s\n%5$s, %6$s</string>
+    <string name="signed_up_button">Найти другие встречи</string>
+    <string name="appointment_header_date_address">%1$s · %2$d %3$s · %4$s, %5$s</string>
+    <string name="you_go">Вы пойдете</string>
+    <string name="my_communities">Мои Сообщества</string>
+    <string name="exit">Выйти</string>
+    <string name="delete_profile">Удалить профиль</string>
+    <string name="change_photo">Изменить фото</string>
+    <string name="change">+ Изменить</string>
+    <string name="social_networks">Социальные сети</string>
+    <string name="show_my_communities">Показывать мои сообщества</string>
+    <string name="show_my_events">Показывать мои встерчи</string>
+    <string name="apply_notifications">Включить уведомления</string>
+    <string name="delete_profile_header">Точно\nудалить\nпрофиль?</string>
+    <string name="delete_profile_description">Не надо...... Мы крутые\nМы удалим профиль, но не сразу. У вас будет 30 дней чтобы зайти и обратно всё вернуть</string>
+    <string name="delete_profile_delete">Удалить</string>
+    <string name="delete_profile_no_need">Не надо</string>
+    <string name="city">Город</string>
+    <string name="about_yourself">Расскажи о себе</string>
+    <string name="no_events">Нет добавленных встреч</string>
+    <string name="no_communities">Нет добавленных сообществ</string>
+    <string name="choose_another_photo">Выбрать другое фото</string>
 
     <plurals name="event_people_count">
         <item quantity="one">Всего %d место. Если передумаете — отпишитесь</item>

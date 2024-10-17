@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.sp
 private val ColorScheme = DevMeetingsAppColorScheme(
     white = Color(0xFFFFFFFF),
     black = Color(0xFF000000),
+    red = Color(0xFFFF0000),
     purple = Color(0xFF9A41FE),
     darkPurple = Color(0xFF660EC8),
     lightGray = Color(0xFFEDEDED),
@@ -32,7 +33,9 @@ private val ColorScheme = DevMeetingsAppColorScheme(
     disabledButtonTextGray = Color(0xFF9797AF),
     buttonTextPurple = Color(0xFF9A10F0),
     toggleColor = Color(0xFFEFEFEF),
-    eventCardText = Color(0xFF76778E)
+    eventCardText = Color(0xFF76778E),
+    incorrectPin = Color(0xFFFF5C93),
+    goToEventGreen = Color(0xFF00BF59),
 )
 
 private val BrushScheme = DevMeetingsAppBrushScheme(
@@ -126,6 +129,18 @@ private val typography = DevMeetingsAppTypography(
         fontWeight = FontWeight.SemiBold,
         lineHeight = 26.sp,
         fontSize = 24.sp
+    ),
+    customH3 = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 44.sp,
+        fontSize = 49.sp
+    ),
+    customH4 = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.Medium,
+        lineHeight = 24.sp,
+        fontSize = 20.sp
     ),
 )
 private val dimensions = DevMeetingsAppDimensions(

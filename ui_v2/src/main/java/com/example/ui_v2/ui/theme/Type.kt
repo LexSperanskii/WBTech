@@ -14,6 +14,8 @@ internal data class DevMeetingsAppTypography(
     val metadata2: TextStyle,
     val customH1: TextStyle,
     val customH2: TextStyle,
+    val customH3: TextStyle,
+    val customH4: TextStyle,
 )
 
 internal val LocalTypography = staticCompositionLocalOf {
@@ -28,5 +30,7 @@ internal val LocalTypography = staticCompositionLocalOf {
         metadata2 = TextStyle.Default,
         customH1 = TextStyle.Default,
         customH2 = TextStyle.Default,
+        customH3 = TextStyle.Default,
+        customH4 = TextStyle.Default,
     )
 }

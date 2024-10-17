@@ -10,7 +10,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.example.ui_v2.R
 import com.example.ui_v2.models.EventAdvertBlockModelUI
 import com.example.ui_v2.models.EventModelUI
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
@@ -31,7 +34,8 @@ internal fun EvensCarousel(
         items(eventsList) { event ->
             EventCard(
                 event = event,
-                onEventCardClick = { onEventCardClick(event) }
+                onEventCardClick = { onEventCardClick(event) },
+                modifier = Modifier
             )
         }
     }
@@ -65,7 +69,8 @@ internal fun EvensAdvertBlockCarousel(
                 EventCard(
                     event = event,
                     onEventCardClick = { onEventCardClick(event) },
-                    eventCardWidth = 212.dp
+                    eventCardWidth = 212.dp,
+                    modifier = Modifier
                 )
             }
         }
@@ -79,6 +84,7 @@ internal fun EvensFixBlockCarousel(
     onEventCardClick: (EventModelUI) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
+    style: TextStyle = DevMeetingAppTheme.typography.customH2,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -87,22 +93,37 @@ internal fun EvensFixBlockCarousel(
         Text(
             text = blockText,
             color = DevMeetingAppTheme.colors.black,
-            style = DevMeetingAppTheme.typography.customH2,
+            style = style,
             modifier = Modifier
                 .padding(contentPadding)
         )
-        LazyRow(
-            contentPadding = contentPadding,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            items(blockEventsList) { event ->
-                EventCard(
-                    event = event,
-                    onEventCardClick = { onEventCardClick(event) },
-                    eventCardWidth = 212.dp
+        when (blockEventsList.isEmpty()) {
+            true -> {
+                Text(
+                    text = stringResource(id = R.string.no_events),
+                    color = DevMeetingAppTheme.colors.eventCardText,
+                    style = DevMeetingAppTheme.typography.subheading1,
+                    modifier = Modifier
+                        .padding(contentPadding)
                 )
+            }
+
+            else -> {
+                LazyRow(
+                    contentPadding = contentPadding,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    items(blockEventsList) { event ->
+                        EventCard(
+                            event = event,
+                            onEventCardClick = { onEventCardClick(event) },
+                            eventCardWidth = 212.dp,
+                            modifier = Modifier
+                        )
+                    }
+                }
             }
         }
     }

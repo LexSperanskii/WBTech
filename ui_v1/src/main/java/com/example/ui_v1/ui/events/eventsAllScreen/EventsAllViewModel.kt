@@ -2,8 +2,8 @@ package com.example.ui_v1.ui.events.eventsAllScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.events.Uiv1GetAllEventsActiveUseCase
-import com.example.domain.usecases.events.Uiv1GetAllEventsUseCase
+import com.example.domain.usecase.events.Uiv1GetAllEventsActiveUseCase
+import com.example.domain.usecase.events.Uiv1GetAllEventsUseCase
 import com.example.ui_v1.models.UIv1EventModelUI
 import com.example.ui_v1.models.mapper.UIv1IMapperDomainUI
 import com.example.ui_v1.utils.UIv1UiUtils.EMPTY_STRING

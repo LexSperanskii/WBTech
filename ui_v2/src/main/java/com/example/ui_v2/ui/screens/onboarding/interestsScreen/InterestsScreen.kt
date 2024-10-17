@@ -1,7 +1,5 @@
 package com.example.ui_v2.ui.screens.onboarding.interestsScreen
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -13,7 +11,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,9 +20,14 @@ import com.example.ui_v2.R
 import com.example.ui_v2.navigation.NavigationDestination
 import com.example.ui_v2.ui.components.ButtonWithStatus
 import com.example.ui_v2.ui.components.TagBig
+import com.example.ui_v2.ui.components.TextButton
 import com.example.ui_v2.ui.theme.DevMeetingAppTheme
 import com.example.ui_v2.ui.utils.ButtonStatus
 import org.koin.androidx.compose.koinViewModel
+
+internal object OnboardingDestination : NavigationDestination {
+    override val route = "onboarding"
+}
 
 internal object InterestsScreenDestination : NavigationDestination {
     override val route = "interests_screen"
@@ -34,6 +36,7 @@ internal object InterestsScreenDestination : NavigationDestination {
 @Composable
 internal fun InterestsScreen(
     navigateToLocationScreen: () -> Unit,
+    onTellLaterClick: () -> Unit,
     viewModel: InterestsScreenViewModel = koinViewModel(),
 ) {
     val interestsScreenUiState by viewModel.getInterestsScreenUiStateFlow()
@@ -50,8 +53,7 @@ internal fun InterestsScreen(
             onButtonClick = {
                 navigateToLocationScreen()
             },
-            buttonStatus = interestsScreenUiState.buttonStatus,
-            onTellLaterClick = { /*TODO*/ },
+            onTellLaterClick = onTellLaterClick,
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -65,11 +67,9 @@ internal fun InterestsScreenBody(
     onTagClick: (String) -> Unit,
     isButtonEnabled: Boolean,
     onButtonClick: () -> Unit,
-    buttonStatus: ButtonStatus,
     onTellLaterClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
     Column(
         modifier = modifier.padding(
             start = 16.dp,
@@ -112,28 +112,23 @@ internal fun InterestsScreenBody(
             }
         }
         ButtonWithStatus(
-            notPressedText = stringResource(id = R.string.safe),
-            pressedText = stringResource(id = R.string.safe),
+            notPressedText = stringResource(id = R.string.save),
             onClick = onButtonClick,
-            buttonStatus = buttonStatus,
+            buttonStatus = ButtonStatus.Active,
             isButtonEnabled = isButtonEnabled,
             modifier = Modifier
                 .padding(
                     top = 24.dp,
-                    bottom = 16.dp
+                    bottom = 8.dp
                 )
         )
-        Text(
-            text = stringResource(id = R.string.interests_button_tell_later),
-            color = DevMeetingAppTheme.colors.eventCardText,
+        TextButton(
+            buttonText = stringResource(id = R.string.interests_button_tell_later),
+            contentColor = DevMeetingAppTheme.colors.eventCardText,
             style = DevMeetingAppTheme.typography.bodyText1,
+            onButtonClick = onTellLaterClick,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .clickable(
-                    interactionSource = interactionSource,
-                    indication = null,
-                    onClick = onTellLaterClick
-                )
         )
     }
 }

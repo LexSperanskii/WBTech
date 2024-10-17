@@ -2,9 +2,9 @@ package com.example.ui_v1.ui.registration.verificationScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.user.Uiv1GetPinCodeVerificationUseCase
-import com.example.domain.usecases.user.Uiv1GetUserPhoneNumberUseCase
-import com.example.domain.usecases.user.Uiv1SetUserPinCodeUseCase
+import com.example.domain.usecase.user.Uiv1GetPinCodeVerificationUseCase
+import com.example.domain.usecase.user.Uiv1GetUserPhoneNumberUseCase
+import com.example.domain.usecase.user.Uiv1SetUserPinCodeUseCase
 import com.example.ui_v1.models.UIv1PhoneNumberModelUI
 import com.example.ui_v1.models.mapper.UIv1IMapperDomainUI
 import com.example.ui_v1.utils.UIv1UiUtils.EMPTY_STRING

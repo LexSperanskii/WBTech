@@ -1,5 +1,7 @@
 package com.example.ui_v2.ui.screens.mainScreen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -41,7 +43,7 @@ internal object MainScreenDestination : NavigationDestination {
 
 @Composable
 internal fun MainScreen(
-    navigateToOtherUserScreen: (userId: String) -> Unit,
+    navigateToUserScreen: (userId: String) -> Unit,
     navigateToCommunityScreen: (communityId: String) -> Unit,
     navigateToEventScreen: (eventId: String) -> Unit,
     navigateToBannerScreen: () -> Unit,
@@ -62,25 +64,25 @@ internal fun MainScreen(
             onCommunityButtonClick = { viewModel.onCommunityButtonClick(it) },
             onCommunityClick = { navigateToCommunityScreen(it.id) },
             myCommunitiesList = mainScreenUiState.myCommunitiesList,
-            primaryEventsList = mainScreenUiState.primaryEventsList,
+            primaryEventsList = mainScreenUiState.relatedEventsList,
             upcomingEventsList = mainScreenUiState.upcomingEventsList,
             infiniteEventsList = mainScreenUiState.infiniteEventsList,
             sortedEventsList = mainScreenUiState.sortedEventsList,
             allCommunitiesList = mainScreenUiState.allCommunitiesList,
-            communitiesAdvertBlock1 = mainScreenUiState.communitiesAdvertBlock1,
-            communitiesAdvertBlock2 = mainScreenUiState.communitiesAdvertBlock2,
+            communitiesAdvertBlock = mainScreenUiState.communitiesAdvertBlock,
             eventsAdvertBlock = mainScreenUiState.eventsAdvertBlock,
             listOfTags = mainScreenUiState.listOfTags,
             listOfChosenTags = mainScreenUiState.listOfChosenTags,
             onTagClick = { viewModel.onTagClick(it) },
             onBannerTagClick = navigateToBannerScreen,
             listOfPeople = mainScreenUiState.listOfPeople,
-            onPersonCardClick = { navigateToOtherUserScreen(it.id) },
+            onPersonCardClick = { navigateToUserScreen(it.id) },
             modifier = Modifier.padding(innerPadding)
         )
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun MainScreenBody(
     isShowSortedScreen: Boolean,
@@ -98,9 +100,8 @@ internal fun MainScreenBody(
     infiniteEventsList: List<EventModelUI>,
     sortedEventsList: List<EventModelUI>,
     allCommunitiesList: List<CommunityModelUI>,
-    communitiesAdvertBlock1: CommunitiesAdvertBlockModelUI,
-    communitiesAdvertBlock2: CommunitiesAdvertBlockModelUI,
-    eventsAdvertBlock: EventAdvertBlockModelUI,
+    communitiesAdvertBlock: List<CommunitiesAdvertBlockModelUI>,
+    eventsAdvertBlock: List<EventAdvertBlockModelUI>,
     listOfTags: List<String>,
     listOfChosenTags: List<String>,
     onTagClick: (String) -> Unit,
@@ -113,7 +114,7 @@ internal fun MainScreenBody(
         contentPadding = PaddingValues(vertical = 12.dp),
         modifier = modifier
     ) {
-        item {
+        stickyHeader {
             SearchFieldBar(
                 searchField = searchField,
                 onSearchFieldChange = onSearchFieldChange,
@@ -122,6 +123,8 @@ internal fun MainScreenBody(
                 onCancelClick = onCancelClick,
                 isShowProfile = !isShowSortedScreen,
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .background(DevMeetingAppTheme.colors.white)
                     .padding(
                         horizontal = DevMeetingAppTheme.dimensions.paddingMedium
                     )
@@ -174,7 +177,7 @@ internal fun MainScreenBody(
                 }
                 item {
                     EvensAdvertBlockCarousel(
-                        eventsAdvert = eventsAdvertBlock,
+                        eventsAdvert = eventsAdvertBlock.getOrNull(0) ?: EventAdvertBlockModelUI(),
                         onEventCardClick = onEventCardClick,
                         contentPadding = PaddingValues(horizontal = DevMeetingAppTheme.dimensions.paddingMedium),
                         modifier = Modifier
@@ -211,7 +214,8 @@ internal fun MainScreenBody(
                 }
                 item {
                     CommunitiesAdvertBlockCarousel(
-                        communitiesAdvert = communitiesAdvertBlock1,
+                        communitiesAdvert = communitiesAdvertBlock.getOrNull(0)
+                            ?: CommunitiesAdvertBlockModelUI(),
                         myCommunitiesList = myCommunitiesList,
                         onCommunityButtonClick = onCommunityButtonClick,
                         onCommunityClick = onCommunityClick,
@@ -276,7 +280,8 @@ internal fun MainScreenBody(
 
                         8 -> {
                             CommunitiesAdvertBlockCarousel(
-                                communitiesAdvert = communitiesAdvertBlock2,
+                                communitiesAdvert = communitiesAdvertBlock.drop(1).randomOrNull()
+                                    ?: CommunitiesAdvertBlockModelUI(),
                                 myCommunitiesList = myCommunitiesList,
                                 onCommunityButtonClick = onCommunityButtonClick,
                                 onCommunityClick = onCommunityClick,
