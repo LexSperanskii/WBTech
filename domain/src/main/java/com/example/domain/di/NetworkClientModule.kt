@@ -78,6 +78,7 @@ val networkClientModule = module {
             networkRepository = get()
         )
     }
+
     single<IInteractorLoadClient> {
         InteractorLoadClientImpl(
             useCase = get()
