@@ -24,7 +24,7 @@ internal class InteractorRemoveFromMyCommunitiesResponseImpl(
     @OptIn(ExperimentalCoroutinesApi::class)
     private val removeFromMyCommunities =
         useCase.observeRemoveFromMyCommunities().flatMapLatest { communityId ->
-            networkRepository.removeFromMyChosenTags(communityId)
+            networkRepository.removeFromMyCommunities(communityId)
         }
 
     init {
